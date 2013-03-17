@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+   <!-- <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
+
+    <security:http auto-config="false" use-expressions="true">
+        <security:intercept-url method="GET" pattern="/MoneyTracker/**" access="isAnonymous()"/>
+        <security:intercept-url method="GET" pattern="/MoneyTracker/user/**" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url method="POST" pattern="/MoneyTracker/user/**" access="isAnonymous()"/>
+        &lt;!&ndash;<security:intercept-url pattern="/pages/admin/**" access="hasRole('ROLE_ADMIN')"/>&ndash;&gt;
+        &lt;!&ndash;<security:intercept-url pattern="/pages/user/CreateUser.jsp" access="isAnonymous()"/>&ndash;&gt;
+        &lt;!&ndash;<security:intercept-url pattern="/pages/user/**" access="hasRole('ROLE_USER')"/>&ndash;&gt;
+        &lt;!&ndash;<security:intercept-url pattern="/pages/logon.jsp" access="isAnonymous()"/>&ndash;&gt;
+        &lt;!&ndash;<security:intercept-url pattern="/pages/**" access="hasRole('ROLE_USER')"/>&ndash;&gt;
+        &lt;!&ndash;<security:form-login&ndash;&gt;
+                &lt;!&ndash;login-page="/pages/logon.jsp"&ndash;&gt;
+                &lt;!&ndash;default-target-url="/pages/welcome.jsp"&ndash;&gt;
+                &lt;!&ndash;authentication-failure-url="/pages/login-failed.jsp"/>&ndash;&gt;
+        &lt;!&ndash;<security:form-login/>&ndash;&gt;
+        &lt;!&ndash;<security:logout&ndash;&gt;
+                &lt;!&ndash;invalidate-session="true"&ndash;&gt;
+                &lt;!&ndash;logout-success-url="/pages/logon.jsp"&ndash;&gt;
+                &lt;!&ndash;logout-url="/pages/logout.jsp"/>&ndash;&gt;
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="moneyUserDetailsService">
+            <security:password-encoder hash="md5">
+            </security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>-->
+
+</beans>

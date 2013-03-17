@@ -7,6 +7,7 @@
         </encoder>
     </appender>
     <logger name="org.springframework.data.rest" level="ERROR"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
     <root level="ERROR">
         <appender-ref ref="console"/>
     </root>

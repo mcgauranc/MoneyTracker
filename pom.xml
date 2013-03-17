@@ -30,6 +30,11 @@
             <url>http://repo.springsource.org/libs-snapshot</url>
         </repository>
         <repository>
+            <id>spring-release</id>
+            <name>spring-release</name>
+            <url>http://repo.springsource.org/libs-release</url>
+        </repository>
+        <repository>
             <id>maven</id>
             <name>maven</name>
             <url>http://download.java.net/maven/2/</url>
@@ -86,6 +91,13 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--SPRING SECURITY-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>3.1.2.RELEASE</version>
         </dependency>
 
         <!-- SPRING DATA REST -->
