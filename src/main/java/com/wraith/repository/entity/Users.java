@@ -6,6 +6,8 @@ import org.springframework.data.rest.repository.annotation.RestResource;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: rowan.massey
@@ -33,15 +35,15 @@ public class Users extends BaseEntity implements Serializable {
     private String password;
     @Column(name = "user_firstName")
     private String firstName;
-//    @NotNull(message = "User last name cannot be null.")
+    //    @NotNull(message = "User last name cannot be null.")
     @Column(name = "user_lastName")
     private String lastName;
     @Column(name = "user_dateofbirth")
     private Date dateOfBirth;
     @Column(name = "user_enabled", nullable = false)
     private int enabled;
-//    private Address address;
-//    private Set<Groups> groups = new HashSet<>();
+    private Address address;
+    private Set<Groups> groups = new HashSet<>();
 
     public Users() {
 
@@ -112,34 +114,24 @@ public class Users extends BaseEntity implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_address_id")
-//    public Address getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_address_id")
+    public Address getAddress() {
+        return address;
+    }
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "authorities_user_id")
-//    public Set<Authorities> getAuthorities() {
-//        return authorities;
-//    }
-//
-//    public void setAuthorities(Set<Authorities> authorities) {
-//        this.authorities = authorities;
-//    }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "User_Groups", joinColumns = {@JoinColumn(name = "user_groups_user_id", referencedColumnName = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "user_groups_group_id", referencedColumnName = "group_id")})
-//    public Set<Groups> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(Set<Groups> groups) {
-//        this.groups = groups;
-//    }
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "User_Groups", joinColumns = {@JoinColumn(name = "user_groups_user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_groups_group_id", referencedColumnName = "group_id")})
+    public Set<Groups> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Groups> groups) {
+        this.groups = groups;
+    }
 }

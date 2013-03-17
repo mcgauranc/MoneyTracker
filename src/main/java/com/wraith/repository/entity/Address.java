@@ -29,7 +29,7 @@ public class Address extends BaseEntity implements Serializable {
         this.address1 = address1;
     }
 
-    @Column(name = "address_address2", nullable = false)
+    @Column(name = "address_address2")
     public String getAddress2() {
         return address2;
     }
@@ -38,7 +38,7 @@ public class Address extends BaseEntity implements Serializable {
         this.address2 = address2;
     }
 
-    @Column(name = "address_address3", nullable = false)
+    @Column(name = "address_address3")
     public String getAddress3() {
         return address3;
     }
@@ -47,7 +47,7 @@ public class Address extends BaseEntity implements Serializable {
         this.address3 = address3;
     }
 
-    @Column(name = "address_address4", nullable = false)
+    @Column(name = "address_address4")
     public String getAddress4() {
         return address4;
     }
@@ -56,7 +56,7 @@ public class Address extends BaseEntity implements Serializable {
         this.address4 = address4;
     }
 
-    @Column(name = "address_county", nullable = false)
+    @Column(name = "address_county")
     public String getCounty() {
         return county;
     }
