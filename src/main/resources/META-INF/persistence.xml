@@ -1,0 +1,50 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <!--<persistence-unit name="moneyTrakManagerHSQL">-->
+        <!--<class>com.wraith.repository.User</class>-->
+        <!--<class>com.wraith.repository.entity.Account</class>-->
+        <!--<class>com.wraith.repository.entity.AccountType</class>-->
+        <!--<class>com.wraith.repository.entity.Authorities</class>-->
+        <!--<class>com.wraith.repository.entity.Currency</class>-->
+        <!--<class>com.wraith.repository.entity.Groups</class>-->
+        <!--<class>com.wraith.repository.entity.Payee</class>-->
+        <!--<class>com.wraith.repository.entity.Transaction</class>-->
+        <!--<class>com.wraith.repository.entity.Address</class>-->
+        <!--<class>com.wraith.repository.entity.Country</class>-->
+        <!--<class>com.wraith.repository.entity.Category</class>-->
+        <!--<properties>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>-->
+            <!--<property name="hibernate.connection.url" value="jdbc:hsqldb:mem:spring"/>-->
+            <!--<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>-->
+            <!--<property name="hibernate.connection.username" value="sa"/>-->
+            <!--<property name="hibernate.connection.password" value=""/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+        <!--</properties>-->
+    <!--</persistence-unit>-->
+
+    <persistence-unit name="moneyTrakManagerMSSQL">
+        <class>com.wraith.repository.entity.Users</class>
+        <class>com.wraith.repository.entity.Account</class>
+        <class>com.wraith.repository.entity.AccountType</class>
+        <class>com.wraith.repository.entity.Authorities</class>
+        <class>com.wraith.repository.entity.Currency</class>
+        <class>com.wraith.repository.entity.Groups</class>
+        <class>com.wraith.repository.entity.Payee</class>
+        <class>com.wraith.repository.entity.Transaction</class>
+        <class>com.wraith.repository.entity.Address</class>
+        <class>com.wraith.repository.entity.Country</class>
+        <class>com.wraith.repository.entity.Category</class>
+        <!--<properties>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>-->
+            <!--<property name="hibernate.connection.url" value="jdbc:jtds:sqlserver://localhost:1433/MoneyTrak;instance=sqlexpress"/>-->
+            <!--<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver"/>-->
+            <!--<property name="hibernate.connection.username" value="sa"/>-->
+            <!--<property name="hibernate.connection.password" value="Passw0rd"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+        <!--</properties>-->
+    </persistence-unit>
+
+</persistence>
