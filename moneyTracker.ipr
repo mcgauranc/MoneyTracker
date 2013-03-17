@@ -6,9 +6,7 @@
   <component name="ArtifactManager">
     <artifact type="war" name="moneyTracker:war">
       <output-path>$PROJECT_DIR$/target</output-path>
-      <root id="archive" name="moneyTracker-1.0.0.BUILD-SNAPSHOT.war">
-        <element id="artifact" artifact-name="moneyTracker:war exploded" />
-      </root>
+      <root id="archive" name="moneyTracker-1.0.0.BUILD-SNAPSHOT.war" />
     </artifact>
     <artifact type="exploded-war" name="moneyTracker:war exploded">
       <output-path>$PROJECT_DIR$/target/moneyTracker-1.0.0.BUILD-SNAPSHOT</output-path>
@@ -406,7 +404,7 @@
     </configuration>
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
