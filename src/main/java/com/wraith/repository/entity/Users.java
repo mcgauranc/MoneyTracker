@@ -22,25 +22,12 @@ import java.util.Set;
 }
 )
 public class Users extends BaseEntity implements Serializable {
-
-    @Version
-    @Column(name = "user_version")
     private long version;
-    @NaturalId
-    @Column(name = "user_userName")
     private String userName;
-    @RestResource(exported = false)
-//    @NotNull(message = "Password cannot be null")
-    @Column(name = "user_password")
     private String password;
-    @Column(name = "user_firstName")
     private String firstName;
-    //    @NotNull(message = "User last name cannot be null.")
-    @Column(name = "user_lastName")
     private String lastName;
-    @Column(name = "user_dateofbirth")
     private Date dateOfBirth;
-    @Column(name = "user_enabled", nullable = false)
     private int enabled;
     private Address address;
     private Set<Groups> groups = new HashSet<>();
@@ -57,6 +44,8 @@ public class Users extends BaseEntity implements Serializable {
         this.password = password;
     }
 
+    @Version
+    @Column(name = "user_version")
     public long getVersion() {
         return version;
     }
@@ -66,6 +55,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
 
+    @Column(name = "user_firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -74,6 +64,8 @@ public class Users extends BaseEntity implements Serializable {
         this.firstName = firstName;
     }
 
+    //    @NotNull(message = "User last name cannot be null.")
+    @Column(name = "user_lastName")
     public String getLastName() {
         return lastName;
     }
@@ -82,6 +74,8 @@ public class Users extends BaseEntity implements Serializable {
         this.lastName = lastName;
     }
 
+    @NaturalId
+    @Column(name = "user_userName")
     public String getUserName() {
         return userName;
     }
@@ -90,6 +84,9 @@ public class Users extends BaseEntity implements Serializable {
         this.userName = userName;
     }
 
+    @RestResource(exported = false)
+//    @NotNull(message = "Password cannot be null")
+    @Column(name = "user_password")
     public String getPassword() {
         return password;
     }
@@ -98,6 +95,7 @@ public class Users extends BaseEntity implements Serializable {
         this.password = password;
     }
 
+    @Column(name = "user_enabled", nullable = false)
     public int getEnabled() {
         return enabled;
     }
@@ -106,6 +104,7 @@ public class Users extends BaseEntity implements Serializable {
         this.enabled = enabled;
     }
 
+    @Column(name = "user_dateofbirth")
     public Date getDateOfBirth() {
         return dateOfBirth;
     }

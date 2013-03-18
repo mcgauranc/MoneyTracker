@@ -3,16 +3,17 @@ package com.wraith.repository;
 import com.wraith.repository.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Named("entityLoader")
+@Component("entityLoader")
 public class EntityLoader {
 
     private final Logger logger = LoggerFactory.getLogger(EntityLoader.class);
@@ -21,6 +22,8 @@ public class EntityLoader {
     private UsersRepository usersRepository;
     @Inject
     private GroupsRepository groupsRepository;
+    @Inject
+    private Encoding encoding;
 
     @PostConstruct
     private void defaultDataLoader() {
@@ -45,7 +48,7 @@ public class EntityLoader {
             Set<Groups> adminGroups = new HashSet<>();
             adminGroups.add(adminGroup);
 
-            createUser("Rowan", "Massey", "rowan.massey", "Pass0rd", adminGroups, country);
+            createUser("Rowan", "Massey", "rowan.massey", "Passw0rd", adminGroups, country);
         }
 
     }
@@ -133,7 +136,11 @@ public class EntityLoader {
         defaultUser.setLastName(lastName);
         defaultUser.setDateOfBirth(Calendar.getInstance().getTime());
         defaultUser.setEnabled(1);
-        defaultUser.setPassword(password);
+        try {
+            defaultUser.setPassword(encoding.encodePassword(password, defaultUser.getUserName()));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         defaultUser.setAddress(getDefaultAddress(country));
         defaultUser.setGroups(groups);
         return usersRepository.save(defaultUser);

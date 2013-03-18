@@ -27,6 +27,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.wraith.repository")
 @EnableAsync
 @EnableJpaRepositories(basePackages = "com.wraith.repository")
+//@PropertySource({ "classpath:db.properties" } )
 @EnableTransactionManagement
 public class ApplicationConfig {
 

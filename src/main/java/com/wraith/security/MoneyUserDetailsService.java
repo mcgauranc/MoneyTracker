@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import javax.inject.Named;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -23,7 +22,6 @@ import java.util.Set;
  * Date: 12/08/12
  * Time: 21:44
  */
-@Named("moneyUserDetailsService")
 public class MoneyUserDetailsService extends JdbcDaoSupport implements UserDetailsService {
 
     @Override

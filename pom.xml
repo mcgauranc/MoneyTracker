@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.1.RELEASE</spring.version>
+        <spring.security>3.1.3.RELEASE</spring.security>
         <spring.data.rest>1.1.0.M1</spring.data.rest>
         <slf4j.version>1.7.2</slf4j.version>
         <jackson.version>2.1.4</jackson.version>
@@ -97,7 +98,17 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${spring.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security}</version>
         </dependency>
 
         <!-- SPRING DATA REST -->
