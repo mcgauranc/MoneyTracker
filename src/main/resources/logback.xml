@@ -6,8 +6,10 @@
             </pattern>
         </encoder>
     </appender>
+    <logger name="org.springframework" level="ERROR"/>
     <logger name="org.springframework.data.rest" level="ERROR"/>
-    <logger name="org.springframework.security" level="DEBUG"/>
+    <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="com.wraith" level="ERROR"/>
     <root level="ERROR">
         <appender-ref ref="console"/>
     </root>

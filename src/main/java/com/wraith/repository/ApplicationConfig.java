@@ -1,8 +1,7 @@
 package com.wraith.repository;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.wraith.repository.handler.UserEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,18 +30,10 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     @Bean
     public RepositoryRestConfiguration restConfiguration() {
         return new RepositoryRestConfiguration();
     }
-
-//    @Bean
-//    public DataSource dataSource() {
-//        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-//        return builder.setType(EmbeddedDatabaseType.HSQL).build();
-//    }
 
     @Bean
     public DataSource dataSource() {
@@ -59,7 +50,7 @@ public class ApplicationConfig {
         try {
             dataSource.setDriverClass("net.sourceforge.jtds.jdbc.Driver");
         } catch (PropertyVetoException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         dataSource.setUser("sa");
         dataSource.setPassword("Passw0rd");
@@ -70,7 +61,6 @@ public class ApplicationConfig {
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        vendorAdapter.setDatabase(Database.HSQL);
         vendorAdapter.setDatabase(Database.SQL_SERVER);
 
         Properties properties = new Properties();
@@ -99,4 +89,8 @@ public class ApplicationConfig {
         return txManager;
     }
 
+    @Bean(name = "userEventHandler")
+    UserEventHandler userEventHandler() {
+        return new UserEventHandler();
+    }
 }

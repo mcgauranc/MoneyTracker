@@ -38,10 +38,11 @@ public class Users extends BaseEntity implements Serializable {
 
     public Users(String firstName, String lastName, String userName, String password) {
         super();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setUserName(userName);
+        this.setPassword(password);
+        this.setEnabled(1);
     }
 
     @Version
@@ -132,5 +133,10 @@ public class Users extends BaseEntity implements Serializable {
 
     public void setGroups(Set<Groups> groups) {
         this.groups = groups;
+    }
+
+    @Transient
+    public String getUserFullName() {
+        return this.getFirstName().concat(" ").concat(getLastName());
     }
 }
