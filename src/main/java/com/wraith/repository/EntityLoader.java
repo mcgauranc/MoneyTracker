@@ -16,7 +16,7 @@ import java.util.Set;
 @Component("entityLoader")
 public class EntityLoader {
 
-    private final Logger logger = LoggerFactory.getLogger(EntityLoader.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
     private UsersRepository usersRepository;
@@ -28,7 +28,7 @@ public class EntityLoader {
     @PostConstruct
     private void defaultDataLoader() {
 
-        if (!userExists("rowan.massey")) {
+        if (!userExists("Administrator")) {
 
             Country country = getDefaultCountry();
 
@@ -48,7 +48,7 @@ public class EntityLoader {
             Set<Groups> adminGroups = new HashSet<>();
             adminGroups.add(adminGroup);
 
-            createUser("Rowan", "Massey", "rowan.massey", "Passw0rd", adminGroups, country);
+            createUser("Admin", "User", "Administrator", "Passw0rd", adminGroups, country);
         }
 
     }
@@ -84,11 +84,11 @@ public class EntityLoader {
      */
     private Address getDefaultAddress(Country country) {
         Address defaultAddress = new Address();
-        defaultAddress.setAddress1("44 Stratton Walk");
-        defaultAddress.setAddress2("Adamstown Square");
-        defaultAddress.setAddress3("Lucan");
-        defaultAddress.setCity("Dublin");
-        defaultAddress.setCounty("Dublin");
+        defaultAddress.setAddress1("Default Address 1");
+        defaultAddress.setAddress2("Default Address 2");
+        defaultAddress.setAddress3("Default Address 3");
+        defaultAddress.setCity("Default City");
+        defaultAddress.setCounty("Default County");
         defaultAddress.setCountry(country);
         return defaultAddress;
     }
@@ -139,7 +139,7 @@ public class EntityLoader {
         try {
             defaultUser.setPassword(encoding.encodePassword(password, defaultUser.getUserName()));
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error("Error encoding password for default user.", e);
         }
         defaultUser.setAddress(getDefaultAddress(country));
         defaultUser.setGroups(groups);
