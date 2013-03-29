@@ -35,6 +35,25 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
+    @Value("${db.minPoolSize}")
+    private Integer minPoolSize;
+    @Value("${db.maxPoolSize}")
+    private Integer maxPoolSize;
+    @Value("${db.maxStatementsPerConnection}")
+    private Integer maxStatementsPerConnection;
+    @Value("${db.maxStatements}")
+    private Integer maxStatements;
+    @Value("${db.connectionTestQuery}")
+    private String connectionTestQuery;
+    @Value("${db.acquireRetryAttempts}")
+    private Integer acquireRetryAttempts;
+    @Value("${db.acquireRetryDelay}")
+    private Integer acquireRetryDelay;
+    @Value("${db.idleConnectionTestPeriod}")
+    private Integer idleConnectionTestPeriod;
+    @Value("${db.testConnectionOnCheckin}")
+    private Boolean testConnectionOnCheckin;
+
     @Value("${db.url}")
     private String jdbcUrl;
     @Value("${db.driver}")
@@ -43,6 +62,8 @@ public class ApplicationConfig {
     private String userName;
     @Value("${db.password}")
     private String password;
+    @Value("${hibernate.hbm2ddl}")
+    private String hbm2ddl;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
@@ -63,13 +84,13 @@ public class ApplicationConfig {
     public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
-        dataSource.setMinPoolSize(5);
-        dataSource.setMaxPoolSize(20);
-        dataSource.setMaxStatementsPerConnection(0);
-        dataSource.setMaxStatements(0);
-        dataSource.setAcquireRetryAttempts(3);
-        dataSource.setAcquireRetryDelay(250);
-        dataSource.setIdleConnectionTestPeriod(10);
+        dataSource.setMinPoolSize(minPoolSize);
+        dataSource.setMaxPoolSize(maxPoolSize);
+        dataSource.setMaxStatementsPerConnection(maxStatementsPerConnection);
+        dataSource.setMaxStatements(maxStatements);
+        dataSource.setAcquireRetryAttempts(acquireRetryAttempts);
+        dataSource.setAcquireRetryDelay(acquireRetryDelay);
+        dataSource.setIdleConnectionTestPeriod(idleConnectionTestPeriod);
         dataSource.setJdbcUrl(jdbcUrl);
         try {
             dataSource.setDriverClass(driver);
@@ -88,7 +109,7 @@ public class ApplicationConfig {
         vendorAdapter.setDatabase(Database.SQL_SERVER);
 
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
