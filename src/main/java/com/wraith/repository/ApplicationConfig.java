@@ -2,9 +2,14 @@ package com.wraith.repository;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.wraith.repository.handler.UserEventHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.config.RepositoryRestConfiguration;
 import org.springframework.orm.jpa.JpaDialect;
@@ -26,9 +31,28 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.wraith.repository")
 @EnableAsync
 @EnableJpaRepositories(basePackages = "com.wraith.repository")
-//@PropertySource({ "classpath:db.properties" } )
+@PropertySource({"classpath:db.properties"})
 @EnableTransactionManagement
 public class ApplicationConfig {
+
+    @Value("${db.url}")
+    private String jdbcUrl;
+    @Value("${db.driver}")
+    private String driver;
+    @Value("${db.username}")
+    private String userName;
+    @Value("${db.password}")
+    private String password;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer properties() {
+        PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        Resource[] resources = new ClassPathResource[]
+                {new ClassPathResource("db.properties")};
+        placeholderConfigurer.setLocations(resources);
+        placeholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+        return placeholderConfigurer;
+    }
 
     @Bean
     public RepositoryRestConfiguration restConfiguration() {
@@ -46,14 +70,14 @@ public class ApplicationConfig {
         dataSource.setAcquireRetryAttempts(3);
         dataSource.setAcquireRetryDelay(250);
         dataSource.setIdleConnectionTestPeriod(10);
-        dataSource.setJdbcUrl("jdbc:jtds:sqlserver://localhost:1433/MoneyTrak;instance=sqlexpress");
+        dataSource.setJdbcUrl(jdbcUrl);
         try {
-            dataSource.setDriverClass("net.sourceforge.jtds.jdbc.Driver");
+            dataSource.setDriverClass(driver);
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        dataSource.setUser("sa");
-        dataSource.setPassword("Passw0rd");
+        dataSource.setUser(userName);
+        dataSource.setPassword(password);
 
         return dataSource;
     }

@@ -6,8 +6,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.Log4jConfigListener;
 
-import javax.servlet.*;
-import java.util.EnumSet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 public class RestExporterWebInitializer implements WebApplicationInitializer {
 
@@ -20,8 +21,8 @@ public class RestExporterWebInitializer implements WebApplicationInitializer {
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
         servletContext.addListener(new Log4jConfigListener());
-        FilterRegistration.Dynamic filter = servletContext.addFilter("springSecurityFilterChain", "org.springframework.web.filter.DelegatingFilterProxy");
-        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+//        FilterRegistration.Dynamic filter = servletContext.addFilter("springSecurityFilterChain", "org.springframework.web.filter.DelegatingFilterProxy");
+//        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 
         AnnotationConfigWebApplicationContext webCtx = new AnnotationConfigWebApplicationContext();
         DispatcherServlet dispatcherServlet = new DispatcherServlet(webCtx);
