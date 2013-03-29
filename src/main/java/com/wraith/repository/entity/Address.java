@@ -9,7 +9,8 @@ import java.io.Serializable;
  * Time: 15:33
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "address_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "address_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "address_version"))})
 public class Address extends BaseEntity implements Serializable {
 
     private String address1;

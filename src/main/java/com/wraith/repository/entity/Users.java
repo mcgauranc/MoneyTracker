@@ -1,6 +1,9 @@
 package com.wraith.repository.entity;
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
@@ -15,15 +18,16 @@ import java.util.Set;
  * Time: 23:23
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "user_id")),
-        @AttributeOverride(name = "version", column = @Column(name = "user_version")),
-        @AttributeOverride(name = "createdDate", column = @Column(name = "user_created_date")),
-        @AttributeOverride(name = "updatedDate", column = @Column(name = "user_updated_date"))
+@Audited
+@AuditTable(value = "Users_Audit")
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "users_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "users_version"))
 }
 )
 public class Users extends BaseEntity implements Serializable {
-    private long version;
+
     private String userName;
+    @RestResource(exported = false)
     private String password;
     private String firstName;
     private String lastName;
@@ -45,18 +49,7 @@ public class Users extends BaseEntity implements Serializable {
         this.setEnabled(1);
     }
 
-    @Version
-    @Column(name = "user_version")
-    public long getVersion() {
-        return version;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
-    }
-
-
-    @Column(name = "user_firstName")
+    @Column(name = "users_firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -66,7 +59,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     //    @NotNull(message = "User last name cannot be null.")
-    @Column(name = "user_lastName")
+    @Column(name = "users_lastName")
     public String getLastName() {
         return lastName;
     }
@@ -76,7 +69,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     @NaturalId
-    @Column(name = "user_userName")
+    @Column(name = "users_userName")
     public String getUserName() {
         return userName;
     }
@@ -85,9 +78,7 @@ public class Users extends BaseEntity implements Serializable {
         this.userName = userName;
     }
 
-    @RestResource(exported = false)
-//    @NotNull(message = "Password cannot be null")
-    @Column(name = "user_password")
+    @Column(name = "users_password")
     public String getPassword() {
         return password;
     }
@@ -96,7 +87,7 @@ public class Users extends BaseEntity implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "user_enabled", nullable = false)
+    @Column(name = "users_enabled", nullable = false)
     public int getEnabled() {
         return enabled;
     }
@@ -105,7 +96,7 @@ public class Users extends BaseEntity implements Serializable {
         this.enabled = enabled;
     }
 
-    @Column(name = "user_dateofbirth")
+    @Column(name = "users_dateofbirth")
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -114,8 +105,9 @@ public class Users extends BaseEntity implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @NotAudited
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_address_id")
+    @JoinColumn(name = "users_address_id")
     public Address getAddress() {
         return address;
     }
@@ -124,9 +116,10 @@ public class Users extends BaseEntity implements Serializable {
         this.address = address;
     }
 
+    @NotAudited
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "User_Groups", joinColumns = {@JoinColumn(name = "user_groups_user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_groups_group_id", referencedColumnName = "group_id")})
+    @JoinTable(name = "Users_Groups", joinColumns = {@JoinColumn(name = "users_groups_user_id", referencedColumnName = "users_id")},
+            inverseJoinColumns = {@JoinColumn(name = "users_groups_group_id", referencedColumnName = "group_id")})
     public Set<Groups> getGroups() {
         return groups;
     }

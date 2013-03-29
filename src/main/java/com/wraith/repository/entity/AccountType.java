@@ -1,6 +1,9 @@
 package com.wraith.repository.entity;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -9,7 +12,8 @@ import java.io.Serializable;
  * Time: 22:11
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "acctype_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "acctype_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "acctype_version"))})
 public class AccountType extends BaseEntity implements Serializable {
     private String name;
 

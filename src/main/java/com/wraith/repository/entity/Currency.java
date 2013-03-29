@@ -15,7 +15,8 @@ import java.io.Serializable;
  * Time: 21:36
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "currency_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "currency_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "currency_version"))})
 public class Currency extends BaseEntity implements Serializable {
 
     private String name;

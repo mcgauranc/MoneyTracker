@@ -61,6 +61,7 @@
             <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
             <element id="library" level="project" name="Maven: org.javassist:javassist:3.15.0-GA" />
             <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" />
+            <element id="library" level="project" name="Maven: org.hibernate:hibernate-envers:4.1.6.Final" />
             <element id="library" level="project" name="Maven: joda-time:joda-time:2.1" />
             <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.core:3.0.0.GA" />
             <element id="library" level="project" name="Maven: org.joda:joda-money:0.6" />
@@ -740,6 +741,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-entitymanager/4.1.6.Final/hibernate-entitymanager-4.1.6.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.hibernate:hibernate-envers:4.1.6.Final">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-envers/4.1.6.Final/hibernate-envers-4.1.6.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-envers/4.1.6.Final/hibernate-envers-4.1.6.Final-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-envers/4.1.6.Final/hibernate-envers-4.1.6.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.jadira.usertype:usertype.core:3.0.0.GA">

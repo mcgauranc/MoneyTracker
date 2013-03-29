@@ -1,5 +1,9 @@
 package com.wraith.repository.entity;
 
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,8 +14,11 @@ import java.util.Date;
  * Time: 22:00
  */
 @Entity
+@Audited
+@AuditTable(value = "Undertaking_Audit")
 @Table(name = "Undertaking")
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "undertaking_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "undertaking_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "undertaking_version"))})
 public class Transaction extends BaseEntity implements Serializable {
 
     public enum TransactionType {
@@ -31,6 +38,7 @@ public class Transaction extends BaseEntity implements Serializable {
     private int quantity;
     private String notes;
 
+    @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "undertaking_payee_id")
     public Payee getPayee() {
@@ -41,6 +49,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.payee = payee;
     }
 
+    @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "undertaking_currency_id")
     public Currency getCurrency() {
@@ -51,6 +60,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.currency = currency;
     }
 
+    @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "undertaking_category_id")
     public Category getCategory() {

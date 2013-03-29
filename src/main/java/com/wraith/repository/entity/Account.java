@@ -1,6 +1,9 @@
 package com.wraith.repository.entity;
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +14,10 @@ import java.io.Serializable;
  * Time: 21:25
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "account_id"))})
+@Audited
+@AuditTable(value = "Account_Audit")
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "account_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "account_version"))})
 public class Account extends BaseEntity implements Serializable {
 
     private String name;
@@ -29,6 +35,7 @@ public class Account extends BaseEntity implements Serializable {
         this.name = name;
     }
 
+    @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_type_id")
     public AccountType getType() {
@@ -48,6 +55,7 @@ public class Account extends BaseEntity implements Serializable {
         this.balance = balance;
     }
 
+    @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_currency_id")
     public Currency getCurrency() {

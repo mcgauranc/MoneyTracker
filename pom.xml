@@ -17,6 +17,7 @@
         <slf4j.version>1.7.2</slf4j.version>
         <jackson.version>2.1.4</jackson.version>
         <logback.version>1.0.9</logback.version>
+        <hibernate.version>4.1.6.Final</hibernate.version>
         <targetJdk>1.7</targetJdk>
     </properties>
 
@@ -172,7 +173,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.1.6.Final</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
 
         <!-- JODA -->

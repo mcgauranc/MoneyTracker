@@ -12,13 +12,11 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
  * Time: 20:07
  */
 @Configuration
-//@Import(RepositoryRestMvcConfiguration.class)
 public class ApplicationRestConfig extends RepositoryRestMvcConfiguration {
 
     @Override
     protected void configureJacksonObjectMapper(ObjectMapper objectMapper) {
         objectMapper.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
         objectMapper.setDateFormat(new ISO8601DateFormat());
-
     }
 }

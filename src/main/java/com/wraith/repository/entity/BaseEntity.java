@@ -2,7 +2,6 @@ package com.wraith.repository.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * User: rowan.massey
@@ -12,9 +11,8 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseEntity implements Cloneable, Serializable {
 
-    private int id;
-    private Date createdDate;
-    private Date updatedDate;
+    protected int id;
+    protected long version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,19 +24,12 @@ public class BaseEntity implements Cloneable, Serializable {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    @Version
+    public long getVersion() {
+        return version;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

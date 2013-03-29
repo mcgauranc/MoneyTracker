@@ -12,7 +12,8 @@ import java.io.Serializable;
  * Time: 14:05
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "category_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "category_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "category_version"))})
 public class Category extends BaseEntity implements Serializable {
 
     private Category parentCategory;

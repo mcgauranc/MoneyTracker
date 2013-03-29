@@ -11,7 +11,8 @@ import java.util.Set;
  * Time: 20:53
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "group_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "group_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "group_version"))})
 public class Groups extends BaseEntity implements Serializable {
 
     private String name;

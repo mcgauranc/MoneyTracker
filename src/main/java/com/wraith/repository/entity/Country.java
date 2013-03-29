@@ -15,7 +15,8 @@ import java.io.Serializable;
  * Time: 15:35
  */
 @Entity
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "country_id"))})
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "country_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "country_version"))})
 public class Country extends BaseEntity implements Serializable {
 
     private String name;
