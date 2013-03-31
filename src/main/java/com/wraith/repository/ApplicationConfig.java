@@ -15,7 +15,6 @@ import org.springframework.data.rest.config.RepositoryRestConfiguration;
 import org.springframework.orm.jpa.JpaDialect;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -53,6 +52,8 @@ public class ApplicationConfig {
     private Integer idleConnectionTestPeriod;
     @Value("${db.testConnectionOnCheckin}")
     private Boolean testConnectionOnCheckin;
+    @Value("${db.dialect}")
+    private String dialect;
 
     @Value("${db.url}")
     private String jdbcUrl;
@@ -106,7 +107,8 @@ public class ApplicationConfig {
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.SQL_SERVER);
+        //vendorAdapter.setDatabase(Database.SQL_SERVER);
+        vendorAdapter.setDatabasePlatform(dialect);
 
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
