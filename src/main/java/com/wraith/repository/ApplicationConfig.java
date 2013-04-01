@@ -107,7 +107,6 @@ public class ApplicationConfig {
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        //vendorAdapter.setDatabase(Database.SQL_SERVER);
         vendorAdapter.setDatabasePlatform(dialect);
 
         Properties properties = new Properties();

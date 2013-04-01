@@ -15,14 +15,14 @@ import java.util.List;
  * Time: 22:01
  */
 @RestResource(rel = "user", path = "user")
-public interface UsersRepository extends PagingAndSortingRepository<Users, Integer> {
+public interface UsersRepository extends PagingAndSortingRepository<Users, Long> {
 
-    @RestResource(path = "username", rel = "username")
+    @RestResource
     public List<Users> findByUserName(@Param("username") String username);
 
-    @RestResource(rel = "enabled")
+    @RestResource
     public Page<Users> findByEnabledIsTrue(Pageable pageable);
 
-    @RestResource(rel = "disabled")
+    @RestResource
     public Page<Users> findByEnabledIsFalse(Pageable pageable);
 }

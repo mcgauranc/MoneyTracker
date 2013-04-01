@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 17/03/13
  * Time: 15:40
  */
-public interface AuthoritiesRepository extends CrudRepository<Authorities, Integer> {
+public interface AuthoritiesRepository extends CrudRepository<Authorities, Long> {
 }

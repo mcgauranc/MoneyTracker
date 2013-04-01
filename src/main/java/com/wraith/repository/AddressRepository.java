@@ -10,5 +10,5 @@ import org.springframework.data.rest.repository.annotation.RestResource;
  * Time: 16:36
  */
 @RestResource(path = "Address")
-public interface AddressRepository extends CrudRepository<Address, Integer> {
+public interface AddressRepository extends CrudRepository<Address, Long> {
 }

@@ -10,5 +10,5 @@ import org.springframework.data.rest.repository.annotation.RestResource;
  * Time: 16:33
  */
 @RestResource(path = "Groups")
-public interface GroupsRepository extends CrudRepository<Groups, Integer> {
+public interface GroupsRepository extends CrudRepository<Groups, Long> {
 }

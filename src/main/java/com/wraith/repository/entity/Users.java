@@ -1,10 +1,10 @@
 package com.wraith.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +27,7 @@ import java.util.Set;
 public class Users extends BaseEntity implements Serializable {
 
     private String userName;
-    @RestResource(exported = false)
+    //    @RestResource(exported = false)
     private String password;
     private String firstName;
     private String lastName;
@@ -38,15 +38,6 @@ public class Users extends BaseEntity implements Serializable {
 
     public Users() {
 
-    }
-
-    public Users(String firstName, String lastName, String userName, String password) {
-        super();
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setUserName(userName);
-        this.setPassword(password);
-        this.setEnabled(1);
     }
 
     @Column(name = "users_firstName")
@@ -128,6 +119,7 @@ public class Users extends BaseEntity implements Serializable {
         this.groups = groups;
     }
 
+    @JsonIgnore
     @Transient
     public String getUserFullName() {
         return this.getFirstName().concat(" ").concat(getLastName());

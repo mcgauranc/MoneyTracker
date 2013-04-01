@@ -11,16 +11,16 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity implements Cloneable, Serializable {
 
-    protected int id;
+    protected long id;
     protected long version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

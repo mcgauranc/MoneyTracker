@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 24/02/13
  * Time: 13:28
  */
-public interface PayeeRepository extends CrudRepository<Payee, Integer> {
+public interface PayeeRepository extends CrudRepository<Payee, Long> {
 
 }
