@@ -1,6 +1,6 @@
 package com.wraith.repository.entity.audit;
 
-import com.wraith.repository.listner.MoneyRevisionListener;
+import com.wraith.repository.listener.MoneyRevisionListener;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 

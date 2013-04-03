@@ -2,6 +2,8 @@ package com.wraith.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
@@ -54,6 +56,26 @@ public class BaseIntegrationTests {
      */
     protected String getResourceURI(String uri) {
         return StringUtils.remove(uri, LOCALHOST);
+    }
+
+    /**
+     * This method retrieves a specific JSONObject from the given array, based on provided parameters.
+     *
+     * @param key   The key to search for within the array of objects.
+     * @param value The value for the given key.
+     * @param array The array containing the given key and value.
+     * @return The JSONObject which contains the provided key and value.
+     */
+    protected JSONObject getJsonObjectFromArray(String key, String value, JSONArray array) {
+        for (Object object : array) {
+            JSONObject jsonObject = (JSONObject) object;
+            if (jsonObject.containsKey(key)) {
+                if (jsonObject.get(key).toString().equalsIgnoreCase(value)) {
+                    return jsonObject;
+                }
+            }
+        }
+        return null;
     }
 
     /**

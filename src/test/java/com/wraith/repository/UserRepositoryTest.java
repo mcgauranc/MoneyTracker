@@ -2,6 +2,7 @@ package com.wraith.repository;
 
 import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -97,6 +98,65 @@ public class UserRepositoryTest extends BaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
+    @Test
+    public void testCreatedUserPasswordEncoding() throws Exception {
+        Users user = getNewUser("jim.massey", "Passw0rd", "Jim", "Massey");
+        byte[] userBytes = mapper.writeValueAsBytes(user);
+
+        //Insert new user record.
+        MockHttpServletResponse postResponse = performPostRequest("/user/", userBytes);
+        Assert.assertNotNull(postResponse);
+        String resourceRequest = getResourceURI(postResponse.getHeader("Location"));
+
+        //Retrieve created user from the database.
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        Object object = parser.parse(content);
+
+        //Encode the password for the created user
+        Encoding encoding = new Encoding();
+        String password = encoding.encodePassword("Passw0rd", "jim.massey");
+
+        //Ensure that the password retrieved from the database, and the one encoded match.
+        JSONObject jsonObject = (JSONObject) object;
+        Assert.assertEquals((String) jsonObject.get("password"), password);
+    }
+
+    @Test
+    public void testCreatedUserAssignedToUserGroup() throws Exception {
+        Users user = getNewUser("scott.fell", "Passw0rd", "Scott", "Fell");
+        byte[] userBytes = mapper.writeValueAsBytes(user);
+
+        //Insert new user record.
+        MockHttpServletResponse postResponse = performPostRequest("/user/", userBytes);
+        Assert.assertNotNull(postResponse);
+        String resourceRequest = getResourceURI(postResponse.getHeader("Location"));
+
+        //Retrieve created user from the database.
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        Object object = parser.parse(content);
+
+        //Get the groups link for the returned payload.
+        JSONObject jsonObject = (JSONObject) object;
+        JSONArray links = (JSONArray) jsonObject.get("links");
+        JSONObject groups = getJsonObjectFromArray("rel", "user.users.groups", links);
+
+        //Retrieve the groups link, and perform a request to get the information from the database.
+        String groupsLink = getResourceURI(groups.get("href").toString());
+        MockHttpServletResponse getGroupResponse = performGetRequest(groupsLink);
+        String groupsContent = getGroupResponse.getContentAsString();
+        Object groupObject = parser.parse(groupsContent);
+
+        //Ensure that the response contains the name users.
+        JSONObject jsonGroupObject = (JSONObject) groupObject;
+        JSONObject groupContent = getJsonObjectFromArray("name", "Users", (JSONArray) jsonGroupObject.get("content"));
+
+        Assert.assertNotNull(groupContent);
+    }
+
+    //TODO: Test custom searches.
+
     /**
      * This method creates a new user object.
      *
@@ -116,6 +176,4 @@ public class UserRepositoryTest extends BaseIntegrationTests {
 
         return user;
     }
-
-    //TODO: Need to test the password encoding, defaulting of new user to the user role, as well as custom searches.
 }

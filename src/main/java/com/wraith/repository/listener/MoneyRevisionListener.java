@@ -1,4 +1,4 @@
-package com.wraith.repository.listner;
+package com.wraith.repository.listener;
 
 import com.wraith.repository.entity.audit.Revision;
 import org.slf4j.Logger;

@@ -18,6 +18,9 @@ public class Groups extends BaseEntity implements Serializable {
     private String name;
     private Set<Authorities> authorities = new HashSet<>();
 
+    public Groups() {
+    }
+
     @Column(name = "group_name", nullable = false)
     public String getName() {
         return name;
