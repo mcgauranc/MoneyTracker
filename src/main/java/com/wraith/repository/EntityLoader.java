@@ -35,13 +35,16 @@ public class EntityLoader {
             Authorities adminAuthority = getAuthority("ROLE_ADMIN");
             Authorities userAuthority = getAuthority("ROLE_USER");
 
+            //Set the authorities for the administrator group.
             Set<Authorities> adminAuthorities = new HashSet<>();
             adminAuthorities.add(adminAuthority);
             adminAuthorities.add(userAuthority);
 
+            //Set the authorities for the user group.
             Set<Authorities> userAuthorities = new HashSet<>();
             userAuthorities.add(userAuthority);
 
+            //Create all the groups that the application supports.
             Groups adminGroup = createGroup("Administrators", adminAuthorities);
             createGroup("Users", userAuthorities);
 

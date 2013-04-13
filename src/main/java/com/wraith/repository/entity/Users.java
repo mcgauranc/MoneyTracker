@@ -27,7 +27,6 @@ import java.util.Set;
 public class Users extends BaseEntity implements Serializable {
 
     private String userName;
-    //    @RestResource(exported = false)
     private String password;
     private String firstName;
     private String lastName;
@@ -49,7 +48,6 @@ public class Users extends BaseEntity implements Serializable {
         this.firstName = firstName;
     }
 
-    //    @NotNull(message = "User last name cannot be null.")
     @Column(name = "users_lastName")
     public String getLastName() {
         return lastName;
@@ -108,9 +106,9 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "Users_Groups", joinColumns = {@JoinColumn(name = "users_groups_user_id", referencedColumnName = "users_id")},
-            inverseJoinColumns = {@JoinColumn(name = "users_groups_group_id", referencedColumnName = "group_id")})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "Users_Groups", joinColumns = {@JoinColumn(name = "users_groups_user_id", referencedColumnName = "users_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "users_groups_group_id", referencedColumnName = "group_id", nullable = false)})
     public Set<Groups> getGroups() {
         return groups;
     }

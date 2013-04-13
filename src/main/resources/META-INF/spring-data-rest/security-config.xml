@@ -13,27 +13,12 @@
                    entry-point-ref="digestEntryPoint">
         <!--USER-->
         <security:intercept-url method="GET" pattern="/user/**" access="(hasRole('ROLE_USER'))"/>
-        <security:intercept-url method="PUT" pattern="/user/**" access="(hasRole('ROLE_USER'))"/>
-        <security:intercept-url method="POST" pattern="/user/**" access="isAnonymous()"/>
-        <security:intercept-url method="DELETE" pattern="/user/**" access="(hasRole('ROLE_USER'))"/>
-
-        <!--&lt;!&ndash;AUTHORITIES&ndash;&gt;-->
-        <!--<security:intercept-url method="GET" pattern="/authorities/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="PUT" pattern="/authorities/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="POST" pattern="/authorities/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="DELETE" pattern="/authorities/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-
-        <!--&lt;!&ndash;GROUPS&ndash;&gt;-->
-        <!--<security:intercept-url method="GET" pattern="/groups/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="PUT" pattern="/groups/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="POST" pattern="/groups/**" access="(hasRole('ROLE_ADMIN'))"/>-->
-        <!--<security:intercept-url method="DELETE" pattern="/groups/**" access="(hasRole('ROLE_ADMIN'))"/>-->
 
         <security:http-basic entry-point-ref="basicEntryPoint"/>
         <security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER"/>
     </security:http>
 
-    <security:authentication-manager>
+    <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="moneyUserDetailsService">
             <security:password-encoder hash="md5">
                 <security:salt-source user-property="username"/>

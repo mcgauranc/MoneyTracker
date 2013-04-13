@@ -1,5 +1,6 @@
 package com.wraith.repository.handler;
 
+import com.wraith.exception.MoneyException;
 import com.wraith.repository.Encoding;
 import com.wraith.repository.GroupsRepository;
 import com.wraith.repository.entity.Groups;
@@ -7,8 +8,8 @@ import com.wraith.repository.entity.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.repository.annotation.HandleBeforeCreate;
-import org.springframework.data.rest.repository.annotation.RepositoryEventHandler;
+import org.springframework.data.rest.repository.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -34,32 +35,41 @@ public class UserEventHandler {
         logger.debug(String.format("In before create for user '%s'", user.getUserFullName()));
 
         user.setEnabled(1);
-        setCreatedUserPassword(user);
-        setCreatedUserGroup(user);
+        user.setGroups(getUserRoleGroup());
+        user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));
+    }
+
+    @HandleAfterCreate
+    public void afterUserCreate(Users user) {
+        logger.debug(String.format("In after create for user '%s'", user.getUserFullName()));
+    }
+
+    @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")
+    @HandleBeforeSave
+    public void beforeUserUpdate(Users user) {
+        //Don't need to add anything to this method, the @PreAuthorize does the job.
+    }
+
+    @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")
+    @HandleBeforeDelete
+    public void beforeUserDelete(Users user) {
+        //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     /**
      * This method encodes the user's password
      *
-     * @param user The user object containing the user's password.
+     * @param userName The userName of the created user.
+     * @param password The original password of the create user.
      */
-    private void setCreatedUserPassword(Users user) {
-        logger.debug(String.format("Encoding password for user '%s'", user.getUserFullName()));
+    private String getCreatedUserPassword(String userName, String password) {
+        logger.debug(String.format("Encoding password for user '%s'", userName));
         try {
-            user.setPassword(encoding.encodePassword(user.getPassword(), user.getUserName()));
+            return encoding.encodePassword(password, userName);
         } catch (NoSuchAlgorithmException e) {
             logger.error(String.format("Error encoding user password. Error was '%s'", e.getMessage()), e);
+            throw new MoneyException(String.format("There was an error encoding the user password for user '%s'", userName));
         }
-    }
-
-    /**
-     * This method gets the "Users" group, and assigns it to the newly created user.
-     *
-     * @param user The user object to which the group needs to be added to.
-     */
-    private void setCreatedUserGroup(Users user) {
-        Set<Groups> groups = getUserRoleGroup();
-        user.setGroups(groups);
     }
 
     /**
@@ -68,8 +78,9 @@ public class UserEventHandler {
      * @return A set, containing the found users group.
      */
     private Set<Groups> getUserRoleGroup() {
-        Set<Groups> userGroup = new HashSet<>();
-        userGroup.add(groupsRepository.findByName("Users").get(0));
-        return userGroup;
+        Set<Groups> userGroups = new HashSet<>();
+        Groups userGroup = groupsRepository.findByName("Users").get(0);
+        userGroups.add(userGroup);
+        return userGroups;
     }
 }

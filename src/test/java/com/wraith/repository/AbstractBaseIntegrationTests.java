@@ -9,15 +9,24 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -28,12 +37,15 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = {ApplicationConfig.class, ApplicationRestConfig.class, RestExporterWebInitializer.class})
-public class BaseIntegrationTests {
-
-    private final String LOCALHOST = "http://localhost";
+public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
 
     protected ObjectMapper mapper;
     protected JSONParser parser;
+
+    @Inject
+    @Qualifier(value = "authenticationManager")
+    protected AuthenticationManager authenticationManager;
+    protected Authentication admin;
 
     @Autowired
     protected RequestMappingHandlerAdapter handlerAdapter;
@@ -43,8 +55,18 @@ public class BaseIntegrationTests {
 
     @Before
     public void setUp() {
+        admin = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("Administrator", "Passw0rd"));
         mapper = new ObjectMapper();
         parser = new JSONParser();
+    }
+
+    protected void authenticate(String userName, String password) {
+        authenticate(userName, password, null);
+    }
+
+    protected void authenticate(String userName, String password, Collection<GrantedAuthority> authorities) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password, authorities));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
     }
 
     /**
@@ -55,6 +77,7 @@ public class BaseIntegrationTests {
      * @return A resource uri. e.g. /user/1
      */
     protected String getResourceURI(String uri) {
+        String LOCALHOST = "http://localhost";
         return StringUtils.remove(uri, LOCALHOST);
     }
 
@@ -175,5 +198,4 @@ public class BaseIntegrationTests {
         Assert.assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value());
         return response;
     }
-
 }
