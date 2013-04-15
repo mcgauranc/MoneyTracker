@@ -8,7 +8,10 @@ import com.wraith.repository.entity.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.repository.annotation.*;
+import org.springframework.data.rest.repository.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.repository.annotation.HandleBeforeDelete;
+import org.springframework.data.rest.repository.annotation.HandleBeforeSave;
+import org.springframework.data.rest.repository.annotation.RepositoryEventHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.NoSuchAlgorithmException;
@@ -37,11 +40,6 @@ public class UserEventHandler {
         user.setEnabled(1);
         user.setGroups(getUserRoleGroup());
         user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));
-    }
-
-    @HandleAfterCreate
-    public void afterUserCreate(Users user) {
-        logger.debug(String.format("In after create for user '%s'", user.getUserFullName()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")

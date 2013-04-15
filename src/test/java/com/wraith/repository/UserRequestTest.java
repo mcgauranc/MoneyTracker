@@ -4,6 +4,7 @@ import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -171,6 +172,8 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
+    //This test is now irrelevant as the password field is now, not returned.
+    @Ignore
     @Test
     public void testCreatedUserPasswordEncoding() throws Exception {
         String resourceRequest = createNewUser("eleventh.person", "Passw0rd", "Eleventh", "Person");
@@ -239,6 +242,17 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) seventhUserContent.get("userName"), "fourteenth.person");
     }
 
+
+    @Test
+    public void testUserPasswordIsNotReturned() throws Exception {
+        String resourceRequest = createNewUser("fifteenth.person", "Passw0rd", "Fifteenth", "Person");
+
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject jsonObject = (JSONObject) parser.parse(content);
+        Assert.assertNull(jsonObject.get("password"));
+    }
+
     /**
      * This method creates a new user object.
      *
@@ -279,3 +293,4 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         return getResourceURI(postResponse.getHeader("Location"));
     }
 }
+
