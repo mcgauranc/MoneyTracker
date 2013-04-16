@@ -4,7 +4,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.util.Log4jConfigListener;
 
 import javax.servlet.*;
 import java.util.EnumSet;
@@ -19,7 +18,6 @@ public class RestExporterWebInitializer implements WebApplicationInitializer {
         rootContext.register(ApplicationConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
-        servletContext.addListener(new Log4jConfigListener());
         FilterRegistration.Dynamic filter = servletContext.addFilter("springSecurityFilterChain", "org.springframework.web.filter.DelegatingFilterProxy");
         filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 

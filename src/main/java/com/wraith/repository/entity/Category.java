@@ -1,6 +1,7 @@
 package com.wraith.repository.entity;
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * Time: 14:05
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "category_id")),
         @AttributeOverride(name = "version", column = @Column(name = "category_version"))})
 public class Category extends BaseEntity implements Serializable {

@@ -1,6 +1,8 @@
 package com.wraith.repository.entity;
 
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.AttributeOverride;
@@ -15,6 +17,7 @@ import java.io.Serializable;
  * Time: 15:35
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "country_id")),
         @AttributeOverride(name = "version", column = @Column(name = "country_version"))})
 public class Country extends BaseEntity implements Serializable {

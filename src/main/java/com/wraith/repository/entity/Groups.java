@@ -1,5 +1,7 @@
 package com.wraith.repository.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -11,6 +13,7 @@ import java.util.Set;
  * Time: 20:53
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "group_id")),
         @AttributeOverride(name = "version", column = @Column(name = "group_version"))})
 public class Groups extends BaseEntity implements Serializable {

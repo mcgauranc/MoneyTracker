@@ -1,16 +1,67 @@
-<configuration>
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+
+    <property name="directory" value="logs"/>
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>
-                %-5p [%t]: %c - %m%n
-            </pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="org.springframework" level="DEBUG"/>
-    <logger name="org.springframework.data.rest" level="DEBUG"/>
-    <logger name="org.springframework.security" level="DEBUG"/>
-    <logger name="com.wraith" level="DEBUG"/>
+
+    <appender name="moneyTracker" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${directory}/moneyTracker.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${directory}/moneyTracker-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="spring" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${directory}/spring.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${directory}/spring-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="hibernate" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${directory}/hibernate.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${directory}/hibernate-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="DEBUG" additivity="false">
+        <appender-ref ref="spring"/>
+    </logger>
+    <logger name="org.springframework.data.rest" level="DEBUG" additivity="false">
+        <appender-ref ref="spring"/>
+    </logger>
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="spring"/>
+    </logger>
+    <logger name="org.hibernate" level="DEBUG" additivity="false">
+        <appender-ref ref="hibernate"/>
+    </logger>
+    <logger name="org.hibernate.cache" level="DEBUG" additivity="false">
+        <appender-ref ref="hibernate"/>
+    </logger>
+    <logger name="com.wraith" level="DEBUG" additivity="false">
+        <appender-ref ref="moneyTracker"/>
+    </logger>
+
     <root level="ERROR">
-        <appender-ref ref="console"/>
+        <appender-ref ref="moneyTracker"/>
     </root>
+
 </configuration>

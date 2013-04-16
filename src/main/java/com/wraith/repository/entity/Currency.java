@@ -1,6 +1,8 @@
 package com.wraith.repository.entity;
 
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.AttributeOverride;
@@ -15,6 +17,7 @@ import java.io.Serializable;
  * Time: 21:36
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "currency_id")),
         @AttributeOverride(name = "version", column = @Column(name = "currency_version"))})
 public class Currency extends BaseEntity implements Serializable {

@@ -1,5 +1,7 @@
 package com.wraith.repository.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,6 +11,7 @@ import java.io.Serializable;
  * Time: 15:33
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "address_id")),
         @AttributeOverride(name = "version", column = @Column(name = "address_version"))})
 public class Address extends BaseEntity implements Serializable {

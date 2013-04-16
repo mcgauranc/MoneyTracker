@@ -1,5 +1,7 @@
 package com.wraith.repository.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
@@ -14,6 +16,7 @@ import java.io.Serializable;
  * Time: 21:25
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 @AuditTable(value = "Account_Audit")
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "account_id")),

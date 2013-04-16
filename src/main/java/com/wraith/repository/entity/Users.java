@@ -1,6 +1,8 @@
 package com.wraith.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
@@ -18,12 +20,11 @@ import java.util.Set;
  * Time: 23:23
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Audited
 @AuditTable(value = "Users_Audit")
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "users_id")),
-        @AttributeOverride(name = "version", column = @Column(name = "users_version"))
-}
-)
+        @AttributeOverride(name = "version", column = @Column(name = "users_version"))})
 public class Users extends BaseEntity implements Serializable {
 
     private String userName;

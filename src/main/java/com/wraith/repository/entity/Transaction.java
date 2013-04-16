@@ -1,5 +1,6 @@
 package com.wraith.repository.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -14,6 +15,7 @@ import java.util.Date;
  * Time: 22:00
  */
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Audited
 @AuditTable(value = "Undertaking_Audit")
 @Table(name = "Undertaking")

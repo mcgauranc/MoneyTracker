@@ -63,8 +63,19 @@ public class ApplicationConfig {
     private String userName;
     @Value("${db.password}")
     private String password;
+
     @Value("${hibernate.hbm2ddl}")
     private String hbm2ddl;
+    @Value("${hibernate.cache.factory_class}")
+    private String cacheFactoryClass;
+    @Value("${hibernate.use_second_level_cache}")
+    private String useSecondLevelCache;
+    @Value("${hibernate.cache.use_query_cache}")
+    private String useQueryCache;
+    @Value("${hibernate.generate_statistics}")
+    private String generateStatistics;
+    @Value("${hibernate.show_sql}")
+    private String showSql;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
@@ -111,6 +122,11 @@ public class ApplicationConfig {
 
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
+        properties.setProperty("hibernate.cache.region.factory_class", cacheFactoryClass);
+        properties.setProperty("hibernate.cache.use_second_level_cache", useSecondLevelCache);
+        properties.setProperty("hibernate.cache.use_query_cache", useQueryCache);
+        properties.setProperty("hibernate.generate_statistics", generateStatistics);
+        properties.setProperty("show_sql", showSql);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);

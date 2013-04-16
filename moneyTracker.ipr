@@ -59,6 +59,8 @@
             <element id="library" level="project" name="Maven: org.javassist:javassist:3.15.0-GA" />
             <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-envers:4.1.6.Final" />
+            <element id="library" level="project" name="Maven: org.hibernate:hibernate-ehcache:4.1.6.Final" />
+            <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.4.3" />
             <element id="library" level="project" name="Maven: joda-time:joda-time:2.1" />
             <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.core:3.0.0.GA" />
             <element id="library" level="project" name="Maven: org.joda:joda-money:0.6" />
@@ -70,7 +72,6 @@
             <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Maven: com.jayway.jsonpath:json-path:0.8.1" />
             <element id="library" level="project" name="Maven: net.minidev:json-smart:1.1.1" />
-            <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.9" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.9" />
           </element>
@@ -619,17 +620,6 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.10/junit-dep-4.10-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: log4j:log4j:1.2.17">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: net.minidev:json-smart:1.1.1">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/net/minidev/json-smart/1.1.1/json-smart-1.1.1.jar!/" />
@@ -639,6 +629,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/net/minidev/json-smart/1.1.1/json-smart-1.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: net.sf.ehcache:ehcache-core:2.4.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.4.3/ehcache-core-2.4.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.4.3/ehcache-core-2.4.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.4.3/ehcache-core-2.4.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.sourceforge.jtds:jtds:1.2">
@@ -727,6 +728,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.1.6.Final/hibernate-core-4.1.6.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.hibernate:hibernate-ehcache:4.1.6.Final">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-ehcache/4.1.6.Final/hibernate-ehcache-4.1.6.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-ehcache/4.1.6.Final/hibernate-ehcache-4.1.6.Final-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-ehcache/4.1.6.Final/hibernate-ehcache-4.1.6.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate:hibernate-entitymanager:4.1.6.Final">

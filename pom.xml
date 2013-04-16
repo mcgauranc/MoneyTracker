@@ -42,7 +42,6 @@
             <url>http://download.java.net/maven/2/</url>
         </repository>
     </repositories>
-
     <dependencies>
 
         <!-- SPRING -->
@@ -162,6 +161,11 @@
             <artifactId>hibernate-envers</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
         <!-- JODA -->
         <dependency>
@@ -227,11 +231,6 @@
         </dependency>
 
         <!-- LOGGING -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
