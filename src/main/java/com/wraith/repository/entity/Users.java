@@ -35,6 +35,8 @@ public class Users extends BaseEntity implements Serializable {
     private int enabled;
     private Address address;
     private Set<Groups> groups = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
     public Users() {
 
@@ -116,6 +118,28 @@ public class Users extends BaseEntity implements Serializable {
 
     public void setGroups(Set<Groups> groups) {
         this.groups = groups;
+    }
+
+    @NotAudited
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "user")
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    @NotAudited
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "Users_Account", joinColumns = {@JoinColumn(name = "users_account_user_id", referencedColumnName = "users_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "users_account_account_id", referencedColumnName = "account_id", nullable = false)})
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
 
     @JsonIgnore

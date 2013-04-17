@@ -20,18 +20,7 @@ import java.io.Serializable;
         @AttributeOverride(name = "version", column = @Column(name = "authorities_version"))})
 public class Authorities extends BaseEntity implements Serializable {
 
-    //    private User user;
     private String authority;
-
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-//    @JoinColumn(name = "authorities_user_id", referencedColumnName = "user_id")
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 
     @Column(name = "authorities_authority", nullable = false)
     public String getAuthority() {
