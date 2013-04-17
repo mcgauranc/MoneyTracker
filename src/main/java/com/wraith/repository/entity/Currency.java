@@ -23,6 +23,16 @@ import java.io.Serializable;
 public class Currency extends BaseEntity implements Serializable {
 
     private String name;
+    private String iso;
+
+    @Column(name = "currency_iso", nullable = false)
+    public String getIso() {
+        return iso;
+    }
+
+    public void setIso(String iso) {
+        this.iso = iso;
+    }
 
     @NaturalId
     @Column(name = "currency_name", nullable = false)

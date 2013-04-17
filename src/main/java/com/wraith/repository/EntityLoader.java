@@ -1,6 +1,8 @@
 package com.wraith.repository;
 
-import com.wraith.repository.entity.*;
+import com.wraith.repository.entity.Authorities;
+import com.wraith.repository.entity.Groups;
+import com.wraith.repository.entity.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,7 +12,6 @@ import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component("entityLoader")
@@ -28,10 +29,7 @@ public class EntityLoader {
     @PostConstruct
     private void defaultDataLoader() {
 
-        if (!userExists("Administrator")) {
-
-            Country country = getDefaultCountry();
-
+        if (!usersExist()) {
             Authorities adminAuthority = getAuthority("ROLE_ADMIN");
             Authorities userAuthority = getAuthority("ROLE_USER");
 
@@ -51,49 +49,22 @@ public class EntityLoader {
             Set<Groups> adminGroups = new HashSet<>();
             adminGroups.add(adminGroup);
 
-            createUser("Admin", "User", "Administrator", "Passw0rd", adminGroups, country);
+            createUser("Admin", "User", "Administrator", "Passw0rd", adminGroups);
         }
-
     }
 
     /**
      * This method checks to see if there are any users on the database, before adding any of the demo data.
      *
-     * @param userName The name of the user for which we're looking for.
      * @return True if there are no users on the database.
      */
-    private Boolean userExists(String userName) {
-        List<Users> users = usersRepository.findByUserName(userName);
-        return users.size() > 0;
-    }
-
-    /**
-     * This method returns a default country.
-     *
-     * @return An instance of a country.
-     */
-    private Country getDefaultCountry() {
-        Country country = new Country();
-        country.setIso("IRE");
-        country.setName("Republic Of Ireland");
-        return country;
-    }
-
-    /**
-     * This method creates a new default address for a give country.
-     *
-     * @param country The country object that you wish to associate with address.
-     * @return An instance of the address, for the given country.
-     */
-    private Address getDefaultAddress(Country country) {
-        Address defaultAddress = new Address();
-        defaultAddress.setAddress1("Default Address 1");
-        defaultAddress.setAddress2("Default Address 2");
-        defaultAddress.setAddress3("Default Address 3");
-        defaultAddress.setCity("Default City");
-        defaultAddress.setCounty("Default County");
-        defaultAddress.setCountry(country);
-        return defaultAddress;
+    private Boolean usersExist() {
+        Boolean result = false;
+        for (Users user : usersRepository.findAll()) {
+            result = !user.getUserName().isEmpty();
+            break;
+        }
+        return result;
     }
 
     /**
@@ -132,7 +103,7 @@ public class EntityLoader {
      * @param groups    The group that the user is associated with.
      * @return An instance of the newly created user.
      */
-    private Users createUser(String firstName, String lastName, String userName, String password, Set<Groups> groups, Country country) {
+    private Users createUser(String firstName, String lastName, String userName, String password, Set<Groups> groups) {
         Users defaultUser = new Users();
         defaultUser.setUserName(userName);
         defaultUser.setFirstName(firstName);
@@ -144,7 +115,6 @@ public class EntityLoader {
         } catch (NoSuchAlgorithmException e) {
             logger.error("Error encoding password for default user.", e);
         }
-        defaultUser.setAddress(getDefaultAddress(country));
         defaultUser.setGroups(groups);
         return usersRepository.save(defaultUser);
     }
