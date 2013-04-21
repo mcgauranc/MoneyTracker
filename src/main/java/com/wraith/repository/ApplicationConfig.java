@@ -1,6 +1,7 @@
 package com.wraith.repository;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.wraith.repository.handler.AccountEventHandler;
 import com.wraith.repository.handler.UserEventHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -154,5 +155,10 @@ public class ApplicationConfig {
     @Bean(name = "userEventHandler")
     UserEventHandler userEventHandler() {
         return new UserEventHandler();
+    }
+
+    @Bean(name = "accountEventHandler")
+    AccountEventHandler accountEventHandler() {
+        return new AccountEventHandler();
     }
 }

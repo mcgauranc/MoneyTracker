@@ -1,5 +1,6 @@
 package com.wraith.repository;
 
+import com.wraith.repository.entity.Account;
 import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * User: rowan.massey
@@ -22,7 +25,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testResponseContentType() throws Exception {
-        MockHttpServletResponse response = performGetRequest("/user/");
+        MockHttpServletResponse response = performGetRequest("/users/");
         Assert.assertTrue(response != null);
         Assert.assertEquals(response.getStatus(), HttpStatus.OK.value());
         Assert.assertEquals(response.getContentType(), "application/json");
@@ -30,7 +33,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testGetUserRequest() throws Exception {
-        String content = performGetRequest("/user/1").getContentAsString();
+        String content = performGetRequest("/users/1").getContentAsString();
         Object object = parser.parse(content);
         JSONObject jsonObject = (JSONObject) object;
         Assert.assertEquals((String) jsonObject.get("userName"), "Administrator");
@@ -202,7 +205,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
         //Get the groups link for the returned payload.
         JSONArray links = (JSONArray) jsonObject.get("links");
-        JSONObject groups = getJsonObjectFromArray("rel", "user.users.groups", links);
+        JSONObject groups = getJsonObjectFromArray("rel", "users.users.groups", links);
 
         //Retrieve the groups link, and perform a request to get the information from the database.
         String groupsLink = getResourceURI(groups.get("href").toString());
@@ -224,7 +227,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         //Retrieve created user from the database using search.
         Map<String, String> parameters = new HashMap<>();
         parameters.put("username", "thirteenth.person");
-        MockHttpServletResponse getResponse = performGetRequest("/user/search/findByUserName", parameters);
+        MockHttpServletResponse getResponse = performGetRequest("/users/search/findByUserName", parameters);
         String content = getResponse.getContentAsString();
         Assert.assertNotNull(content);
         JSONObject sixPerson = (JSONObject) parser.parse(content);
@@ -234,7 +237,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         //Retrieve created user from the database using search.
         parameters.clear();
         parameters.put("username", "fourteenth.person");
-        MockHttpServletResponse getSeventhResponse = performGetRequest("/user/search/findByUserName", parameters);
+        MockHttpServletResponse getSeventhResponse = performGetRequest("/users/search/findByUserName", parameters);
         String seventhPersonContent = getSeventhResponse.getContentAsString();
         Assert.assertNotNull(seventhPersonContent);
         JSONObject seventhUser = (JSONObject) parser.parse(seventhPersonContent);
@@ -253,6 +256,36 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNull(jsonObject.get("password"));
     }
 
+    @Test
+    public void testUserCreateRequestWithAccount() throws Exception {
+        Users user = getNewUser("sixteenth.person", "Passw0rd", "Sixteenth", "Person");
+
+        Set<Account> accounts = new HashSet<>();
+        accounts.add(AccountRequestTest.getNewAccount("Current", 12.65, "Banking", "Euro", "EUR"));
+        user.setAccounts(accounts);
+
+        String resourceRequest = createNewUser(user);
+
+        //Retrieve the previously create user.
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        JSONObject content = (JSONObject) parser.parse(getResponse.getContentAsString());
+
+        //Get the account link for the returned payload.
+        JSONArray links = (JSONArray) content.get("links");
+        JSONObject account = getJsonObjectFromArray("rel", "users.users.accounts", links);
+
+        //Retrieve the account link, and perform a request to get the information from the database.
+        String accountsLink = getResourceURI(account.get("href").toString());
+        MockHttpServletResponse getAccountResponse = performGetRequest(accountsLink);
+        JSONObject accountObject = (JSONObject) parser.parse(getAccountResponse.getContentAsString());
+
+        //Ensure that the response contains the name Current.
+        JSONObject accountName = getJsonObjectFromArray("name", "Current", (JSONArray) accountObject.get("content"));
+
+        Assert.assertEquals((String) accountName.get("name"), "Current");
+        Assert.assertEquals(accountName.get("balance"), 12.65);
+    }
+
     /**
      * This method creates a new user object.
      *
@@ -262,7 +295,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
      * @param lastName  The users last name
      * @return A user object, containing provided information.
      */
-    private Users getNewUser(String userName, String password, String firstName, String lastName) {
+    public static Users getNewUser(String userName, String password, String firstName, String lastName) {
         Users user = new Users();
 
         user.setUserName(userName);
@@ -285,12 +318,17 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
         Users user = getNewUser(userName, password, firstName, lastName);
-        byte[] userBytes = mapper.writeValueAsBytes(user);
+        return createNewEntity(user, Users.class);
+    }
 
-        //Insert new user record.
-        MockHttpServletResponse postResponse = performPostRequest("/user/", userBytes);
-        Assert.assertNotNull(postResponse);
-        return getResourceURI(postResponse.getHeader("Location"));
+    /**
+     * This method creates a new user for a give user object.
+     *
+     * @return The REST query location of the created user.
+     * @throws Exception
+     */
+    private String createNewUser(Users user) throws Exception {
+        return createNewEntity(user, Users.class);
     }
 }
 

@@ -121,7 +121,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, mappedBy = "user")
     public Set<Transaction> getTransactions() {
         return transactions;
     }
@@ -131,7 +131,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(name = "Users_Account", joinColumns = {@JoinColumn(name = "users_account_user_id", referencedColumnName = "users_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "users_account_account_id", referencedColumnName = "account_id", nullable = false)})
     public Set<Account> getAccounts() {

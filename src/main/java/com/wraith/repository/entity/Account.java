@@ -39,7 +39,7 @@ public class Account extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "account_type_id")
     public AccountType getType() {
         return type;
@@ -59,7 +59,7 @@ public class Account extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "account_currency_id")
     public Currency getCurrency() {
         return currency;

@@ -1,6 +1,7 @@
 package com.wraith.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.repository.entity.BaseEntity;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -197,5 +198,20 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         handlerAdapter.handle(request, response, handler);
         Assert.assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value());
         return response;
+    }
+
+    /**
+     * This method creates a new entity for a given entity object.
+     *
+     * @return The REST query location of the created entity.
+     * @throws Exception
+     */
+    protected <T extends BaseEntity> String createNewEntity(BaseEntity entity, Class<T> clazz) throws Exception {
+        byte[] entityBytes = mapper.writeValueAsBytes(entity);
+        String entityName = clazz.getSimpleName().toLowerCase();
+        //Insert new user record.
+        MockHttpServletResponse postResponse = performPostRequest("/".concat(entityName).concat("/"), entityBytes);
+        Assert.assertNotNull(postResponse);
+        return getResourceURI(postResponse.getHeader("Location"));
     }
 }
