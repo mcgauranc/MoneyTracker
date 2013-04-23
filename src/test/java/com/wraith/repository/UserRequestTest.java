@@ -5,7 +5,6 @@ import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -175,25 +174,6 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
-    //This test is now irrelevant as the password field is now, not returned.
-    @Ignore
-    @Test
-    public void testCreatedUserPasswordEncoding() throws Exception {
-        String resourceRequest = createNewUser("eleventh.person", "Passw0rd", "Eleventh", "Person");
-
-        //Encode the password for the created user
-        Encoding encoding = new Encoding();
-        String password = encoding.encodePassword("Passw0rd", "eleventh.person");
-
-        //Retrieve created user from the database.
-        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
-        String content = getResponse.getContentAsString();
-        JSONObject jsonObject = (JSONObject) parser.parse(content);
-
-        //Ensure that the password retrieved from the database, and the one encoded match.
-        Assert.assertEquals((String) jsonObject.get("password"), password);
-    }
-
     @Test
     public void testCreatedUserAssignedToUserGroup() throws Exception {
         String resourceRequest = createNewUser("twelfth.person", "Passw0rd", "Twelfth", "Person");
@@ -304,21 +284,6 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         user.setLastName(lastName);
 
         return user;
-    }
-
-    /**
-     * This method creates a new user on the server database, and validates the result.
-     *
-     * @param userName  The username of the newly created user.
-     * @param password  The password of the newly created user.
-     * @param firstName The created users first name.
-     * @param lastName  The created users last name.
-     * @return The REST query location of the created user.
-     * @throws Exception
-     */
-    private String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
-        Users user = getNewUser(userName, password, firstName, lastName);
-        return createNewEntity(user, Users.class);
     }
 
     /**

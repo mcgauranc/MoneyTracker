@@ -2,6 +2,7 @@ package com.wraith.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wraith.repository.entity.BaseEntity;
+import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -208,10 +209,25 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      */
     protected <T extends BaseEntity> String createNewEntity(BaseEntity entity, Class<T> clazz) throws Exception {
         byte[] entityBytes = mapper.writeValueAsBytes(entity);
-        String entityName = clazz.getSimpleName().toLowerCase();
+        String entityName = StringUtils.uncapitalize(clazz.getSimpleName());
         //Insert new user record.
         MockHttpServletResponse postResponse = performPostRequest("/".concat(entityName).concat("/"), entityBytes);
         Assert.assertNotNull(postResponse);
         return getResourceURI(postResponse.getHeader("Location"));
     }
+
+    /**
+     * This method creates a new user to test account requests.
+     *
+     * @param userName  The user name of the created user
+     * @param password  The password for the created user.
+     * @param firstName The users first name.
+     * @param lastName  The users last name.
+     * @throws Exception
+     */
+    protected String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
+        Users user = UserRequestTest.getNewUser(userName, password, firstName, lastName);
+        return createNewEntity(user, Users.class);
+    }
+
 }

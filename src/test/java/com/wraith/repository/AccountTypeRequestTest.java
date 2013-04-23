@@ -1,7 +1,6 @@
 package com.wraith.repository;
 
-import com.wraith.repository.entity.Account;
-import com.wraith.repository.entity.Currency;
+import com.wraith.repository.entity.AccountType;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
@@ -10,31 +9,29 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
  * User: rowan.massey
- * Date: 18/04/13
- * Time: 22:00
+ * Date: 23/04/13
+ * Time: 19:19
  */
-public class AccountRequestTest extends AbstractBaseIntegrationTests {
+public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
-    public void testCreateAccountRequest() throws Exception {
-        String resourceRequest = createNewAccount("Account 1", 12.43, "Banking", "Euro", "EUR");
+    public void testCreateAccountTypeRequest() throws Exception {
+        String resourceRequest = createNewAccountType("Banking 1");
 
         //Retrieve the inserted account record from the database, and ensure that values are correct.
         authenticate("Administrator", "Passw0rd");
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "Account 1");
-        Assert.assertEquals(jsonObject.get("balance"), 12.43);
+        Assert.assertEquals((String) jsonObject.get("name"), "Banking 1");
     }
 
     @Test
-    public void testUpdateAccountRequest() throws Exception {
-        String resourceRequest = createNewAccount("Account 2", 12.43, "Banking", "Euro", "EUR");
+    public void testUpdateAccountTypeRequest() throws Exception {
+        String resourceRequest = createNewAccountType("Banking 2");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "Updated Account 2");
-        jsonObject.put("balance", "1234.56");
+        jsonObject.put("name", "Updated Banking 2");
 
         byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
 
@@ -47,18 +44,16 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Account 2");
-        Assert.assertEquals(getJSONObject.get("balance"), 1234.56);
+        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Banking 2");
     }
 
     @Test(expected = Exception.class)
     public void testUpdateAccountRequestWithCurrentUser() throws Exception {
-        String resourceRequest = createNewAccount("Account 3", 12.43, "Banking", "Euro", "EUR");
+        String resourceRequest = createNewAccountType("Banking 3");
         createNewUser("first.person", "Passw0rd", "first", "Person");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "Updated Account 3");
-        jsonObject.put("balance", "1234.56");
+        jsonObject.put("name", "Updated Banking 3");
 
         byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
 
@@ -70,7 +65,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteAccountRequest() throws Exception {
-        String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
+        String resourceRequest = createNewAccountType("Banking 4");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
         authenticate("Administrator", "Passw0rd");
@@ -79,12 +74,11 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
         //Ensure that the deleted account can't be retrieved from the database.
         performGetRequest(resourceRequest);
-
     }
 
     @Test(expected = Exception.class)
     public void testDeleteAccountRequestWithCurrentUser() throws Exception {
-        String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
+        String resourceRequest = createNewAccountType("Banking 5");
         createNewUser("second.person", "Passw0rd", "second", "Person");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
@@ -96,49 +90,25 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
     /**
      * This method creates a new account, and returns the accounts reference URI
      *
-     * @param name        The name of the account.
-     * @param balance     The account balance.
-     * @param accountType The type of the account.
-     * @param currency    The accounts currency.
-     * @param currencyIso The ISO currency of the account.
+     * @param name The name of the account.
      * @return The reference URI for the created account.
      * @throws Exception
      */
-    public String createNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) throws Exception {
-        Account account = getNewAccount(name, balance, accountType, currency, currencyIso);
-        return createNewEntity(account, Account.class);
+    public String createNewAccountType(String name) throws Exception {
+        AccountType accountType = getNewAccountType(name);
+        return createNewEntity(accountType, AccountType.class);
     }
 
     /**
-     * This method creates and returns a currency object.
+     * This method creates a new account type class.
      *
-     * @param iso  The ISO code of the currency.
-     * @param name The name of the currency.
-     * @return An instance of the currency object.
+     * @param name The name of the account type.
+     * @return An instance of the Account Type.
      */
-    private static Currency getCurrency(String iso, String name) {
-        Currency currency = new Currency();
-        currency.setIso(iso);
-        currency.setName(name);
-        return currency;
+    public static AccountType getNewAccountType(String name) {
+        AccountType accountType = new AccountType();
+        accountType.setName(name);
+        return accountType;
     }
 
-    /**
-     * This method creates a new instance of the account object.
-     *
-     * @param name        The name of the account.
-     * @param balance     The account balance.
-     * @param accountType The type of the account.
-     * @param currency    The accounts currency.
-     * @param currencyIso The ISO currency of the account.
-     * @return An instance of the account object.
-     */
-    public static Account getNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) {
-        Account account = new Account();
-        account.setName(name);
-        account.setBalance(balance);
-        account.setType(AccountTypeRequestTest.getNewAccountType(accountType));
-        account.setCurrency(getCurrency(currencyIso, currency));
-        return account;
-    }
 }
