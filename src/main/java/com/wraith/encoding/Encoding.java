@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.encoding;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;

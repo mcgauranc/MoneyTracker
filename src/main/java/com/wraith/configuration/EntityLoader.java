@@ -1,5 +1,8 @@
-package com.wraith.repository;
+package com.wraith.configuration;
 
+import com.wraith.encoding.Encoding;
+import com.wraith.repository.GroupsRepository;
+import com.wraith.repository.UsersRepository;
 import com.wraith.repository.entity.Authorities;
 import com.wraith.repository.entity.Groups;
 import com.wraith.repository.entity.Users;

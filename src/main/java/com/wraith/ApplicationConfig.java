@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.wraith.repository.handler.AccountEventHandler;
@@ -29,9 +29,9 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "com.wraith.repository")
+@ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository"})
 @EnableAsync
-@EnableJpaRepositories(basePackages = "com.wraith.repository")
+@EnableJpaRepositories(basePackages = {"com.wraith.repository"})
 @PropertySource({"classpath:db.properties"})
 @EnableTransactionManagement
 public class ApplicationConfig {

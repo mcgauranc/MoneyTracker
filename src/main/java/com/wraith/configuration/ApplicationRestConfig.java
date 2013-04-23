@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

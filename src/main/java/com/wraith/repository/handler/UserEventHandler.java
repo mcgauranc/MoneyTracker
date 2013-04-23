@@ -1,7 +1,7 @@
 package com.wraith.repository.handler;
 
+import com.wraith.encoding.Encoding;
 import com.wraith.exception.MoneyException;
-import com.wraith.repository.Encoding;
 import com.wraith.repository.GroupsRepository;
 import com.wraith.repository.entity.Groups;
 import com.wraith.repository.entity.Users;

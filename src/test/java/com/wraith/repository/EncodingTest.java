@@ -1,5 +1,6 @@
 package com.wraith.repository;
 
+import com.wraith.encoding.Encoding;
 import junit.framework.Assert;
 import org.junit.Test;
 

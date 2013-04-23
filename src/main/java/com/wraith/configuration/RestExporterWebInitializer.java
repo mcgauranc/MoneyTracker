@@ -1,5 +1,6 @@
-package com.wraith.repository;
+package com.wraith.configuration;
 
+import com.wraith.ApplicationConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

@@ -20,20 +20,20 @@ public class AccountTypeEventHandler {
 
     @HandleBeforeCreate
     public void beforeAccountTypeCreate(AccountType accountType) {
-        logger.debug(String.format("In before create for account '%s'", accountType.getName()));
+        logger.debug(String.format("In before create for account type '%s'", accountType.getName()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeSave
     public void beforeAccountTypeUpdate(AccountType accountType) {
-        logger.debug(String.format("In before update for account '%s'", accountType.getName()));
+        logger.debug(String.format("In before update for account type '%s'", accountType.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeDelete
     public void beforeAccountTypeDelete(AccountType accountType) {
-        logger.debug(String.format("In before delete for account '%s'", accountType.getName()));
+        logger.debug(String.format("In before delete for account type '%s'", accountType.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 }

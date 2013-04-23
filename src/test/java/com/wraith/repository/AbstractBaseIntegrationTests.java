@@ -1,6 +1,9 @@
 package com.wraith.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.ApplicationConfig;
+import com.wraith.configuration.ApplicationRestConfig;
+import com.wraith.configuration.RestExporterWebInitializer;
 import com.wraith.repository.entity.BaseEntity;
 import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
