@@ -15,9 +15,13 @@
     <security:http auto-config="true" use-expressions="true" create-session="stateless"
                    entry-point-ref="basicEntryPoint">
         <!--USER-->
-        <security:intercept-url method="GET" pattern="/users/**" access="(hasRole('ROLE_USER'))"/>
-        <security:intercept-url method="GET" pattern="/account/**" access="(hasRole('ROLE_ADMIN'))"/>
-        <security:intercept-url method="GET" pattern="/accountType/**" access="(hasRole('ROLE_ADMIN'))"/>
+        <security:intercept-url method="GET" pattern="/users/**" access="isAuthenticated() and (hasRole('ROLE_USER'))"/>
+        <security:intercept-url method="GET" pattern="/account/**"
+                                access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
+        <security:intercept-url method="GET" pattern="/accountType/**"
+                                access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
+        <security:intercept-url method="GET" pattern="/address/**"
+                                access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
 
         <security:http-basic entry-point-ref="basicEntryPoint"/>
         <!--<security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER"/>-->

@@ -1,6 +1,6 @@
 package com.wraith.repository.handler;
 
-import com.wraith.repository.entity.AccountType;
+import com.wraith.repository.entity.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.repository.annotation.HandleBeforeCreate;
@@ -11,30 +11,31 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * User: rowan.massey
- * Date: 23/04/13
- * Time: 19:06
+ * Date: 30/04/13
+ * Time: 19:09
  */
-@RepositoryEventHandler(AccountType.class)
-public class AccountTypeEventHandler {
+@RepositoryEventHandler(Address.class)
+public class AddressEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeCreate
-    public void beforeAccountTypeCreate(AccountType accountType) {
-        logger.debug(String.format("In before create for account type '%s'", accountType.getName()));
+    public void beforeAddressCreate(Address address) {
+        logger.debug(String.format("In before create for address '%s'", address.toString()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeSave
-    public void beforeAccountTypeUpdate(AccountType accountType) {
-        logger.debug(String.format("In before update for account type '%s'", accountType.getName()));
+    public void beforeAddressUpdate(Address address) {
+        logger.debug(String.format("In before update for address '%s'", address.toString()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeDelete
-    public void beforeAccountTypeDelete(AccountType accountType) {
-        logger.debug(String.format("In before delete for account type '%s'", accountType.getName()));
+    public void beforeAddressDelete(Address address) {
+        logger.debug(String.format("In before delete for address '%s'", address.toString()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 }
