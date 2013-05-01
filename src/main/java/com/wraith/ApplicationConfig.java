@@ -1,10 +1,7 @@
 package com.wraith;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.wraith.repository.handler.AccountEventHandler;
-import com.wraith.repository.handler.AccountTypeEventHandler;
-import com.wraith.repository.handler.AddressEventHandler;
-import com.wraith.repository.handler.UserEventHandler;
+import com.wraith.repository.handler.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -172,5 +169,10 @@ public class ApplicationConfig {
     @Bean(name = "addressEventHandler")
     AddressEventHandler addressEventHandler() {
         return new AddressEventHandler();
+    }
+
+    @Bean(name = "authoritiesEventHandler")
+    AuthoritiesEventHandler authoritiesEventHandler() {
+        return new AuthoritiesEventHandler();
     }
 }
