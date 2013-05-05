@@ -34,17 +34,13 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) jsonObject.get("authority"), "ROLE_REPORTER");
     }
 
-    @Test
-    public void testCreateAuthorityWithCurrentUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+    @Test(expected = Exception.class)
+    public void testCreateAuthorityWithOrdinaryUserRequest() throws Exception {
+        createNewUser("twentieth.person", "Passw0rd", "Twentieth", "Person");
+        authenticate("twentieth.person", "Passw0rd");
 
-        String resourceRequest = createNewAuthority("ROLE_REPORTER");
+        createNewAuthority("ROLE_REPORTER");
 
-        //Retrieve the inserted authority record from the database, and ensure that values are correct.
-        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
-        String content = getResponse.getContentAsString();
-        JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("authority"), "ROLE_REPORTER");
     }
 
     @Test
@@ -69,6 +65,22 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("authority"), "UPDATED_ROLE_DEVELOPER");
     }
 
+    @Test(expected = Exception.class)
+    public void testUpdateAuthorityWithOrdinaryUserRequest() throws Exception {
+        authenticate("Administrator", "Passw0rd");
+        String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("authority", "UPDATED_ROLE_DEVELOPER");
+
+        byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+
+        createNewUser("twentyfirst.person", "Passw0rd", "Twenty First", "Person");
+        authenticate("twentyfirst.person", "Passw0rd");
+        //Update the inserted account record from the database, and ensure that values are correct.
+        performPutRequest(resourceRequest, updatedAccountBytes);
+    }
+
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteAuthorityRequest() throws Exception {
         authenticate("Administrator", "Passw0rd");
@@ -81,6 +93,19 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
         //Ensure that the deleted account can't be retrieved from the database.
         performGetRequest(resourceRequest);
+    }
+
+    @Test(expected = Exception.class)
+    public void testDeleteAuthorityWithOrdinaryUserRequest() throws Exception {
+        authenticate("Administrator", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_SUPPORTER");
+
+        createNewUser("twentysecond.person", "Passw0rd", "Twenty Second", "Person");
+        authenticate("twentysecond.person", "Passw0rd");
+
+        //Delete the inserted account record from the database, and ensure that values are correct.
+        performDeleteRequest(resourceRequest);
     }
 
     /**

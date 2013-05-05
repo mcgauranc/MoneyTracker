@@ -1,12 +1,13 @@
 package com.wraith.repository;
 
 import com.wraith.repository.entity.Address;
-import com.wraith.repository.entity.Country;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import static com.wraith.repository.CountryRequestTest.getNewCountry;
 
 /**
  * User: rowan.massey
@@ -108,19 +109,5 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
         address.setCounty(county);
         address.setCountry(getNewCountry(countryISO, country));
         return address;
-    }
-
-    /**
-     * This method creates a new country object
-     *
-     * @param countryISO The countries ISO code.
-     * @param name       The name of the country.
-     * @return An instance of the created country.
-     */
-    private static Country getNewCountry(String countryISO, String name) {
-        Country country = new Country();
-        country.setName(name);
-        country.setIso(countryISO);
-        return country;
     }
 }

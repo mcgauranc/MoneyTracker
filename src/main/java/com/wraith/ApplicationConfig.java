@@ -180,4 +180,9 @@ public class ApplicationConfig {
     CategoryEventHandler categoryEventHandler() {
         return new CategoryEventHandler();
     }
+
+    @Bean(name = "countryEventHandler")
+    CountryEventHandler countryEventHandler() {
+        return new CountryEventHandler();
+    }
 }
