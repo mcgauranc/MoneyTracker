@@ -175,4 +175,9 @@ public class ApplicationConfig {
     AuthoritiesEventHandler authoritiesEventHandler() {
         return new AuthoritiesEventHandler();
     }
+
+    @Bean(name = "categoryEventHandler")
+    CategoryEventHandler categoryEventHandler() {
+        return new CategoryEventHandler();
+    }
 }

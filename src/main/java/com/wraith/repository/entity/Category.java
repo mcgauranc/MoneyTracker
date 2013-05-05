@@ -21,7 +21,7 @@ public class Category extends BaseEntity implements Serializable {
     private Category parentCategory;
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_parent_id")
     public Category getParentCategory() {
         return parentCategory;

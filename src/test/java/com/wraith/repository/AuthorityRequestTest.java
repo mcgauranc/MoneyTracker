@@ -35,6 +35,19 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
     }
 
     @Test
+    public void testCreateAuthorityWithCurrentUserRequest() throws Exception {
+        authenticate("Administrator", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_REPORTER");
+
+        //Retrieve the inserted authority record from the database, and ensure that values are correct.
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject jsonObject = (JSONObject) parser.parse(content);
+        Assert.assertEquals((String) jsonObject.get("authority"), "ROLE_REPORTER");
+    }
+
+    @Test
     public void testUpdateAuthorityRequest() throws Exception {
         authenticate("Administrator", "Passw0rd");
 
