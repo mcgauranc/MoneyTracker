@@ -22,20 +22,20 @@ public class CountryEventHandler {
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeCreate
     public void beforeCountryCreate(Country country) {
-        logger.debug(String.format("In before create for authority '%s'", country.getName()));
+        logger.debug(String.format("In before create for country '%s'", country.getName()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeSave
     public void beforeCountryUpdate(Country country) {
-        logger.debug(String.format("In before update for category '%s'", country.getName()));
+        logger.debug(String.format("In before update for country '%s'", country.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeDelete
     public void beforeCountryDelete(Country country) {
-        logger.debug(String.format("In before delete for authority '%s'", country.getName()));
+        logger.debug(String.format("In before delete for country '%s'", country.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 

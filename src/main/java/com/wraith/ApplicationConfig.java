@@ -185,4 +185,9 @@ public class ApplicationConfig {
     CountryEventHandler countryEventHandler() {
         return new CountryEventHandler();
     }
+
+    @Bean(name = "currencyEventHandler")
+    CurrencyEventHandler currencyEventHandler() {
+        return new CurrencyEventHandler();
+    }
 }

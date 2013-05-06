@@ -1,12 +1,13 @@
 package com.wraith.repository;
 
 import com.wraith.repository.entity.Account;
-import com.wraith.repository.entity.Currency;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import static com.wraith.repository.CurrencyRequestTest.getCurrency;
 
 /**
  * User: rowan.massey
@@ -107,20 +108,6 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
     public String createNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) throws Exception {
         Account account = getNewAccount(name, balance, accountType, currency, currencyIso);
         return createNewEntity(account, Account.class);
-    }
-
-    /**
-     * This method creates and returns a currency object.
-     *
-     * @param iso  The ISO code of the currency.
-     * @param name The name of the currency.
-     * @return An instance of the currency object.
-     */
-    private static Currency getCurrency(String iso, String name) {
-        Currency currency = new Currency();
-        currency.setIso(iso);
-        currency.setName(name);
-        return currency;
     }
 
     /**
