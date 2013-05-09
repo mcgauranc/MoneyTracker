@@ -190,4 +190,9 @@ public class ApplicationConfig {
     CurrencyEventHandler currencyEventHandler() {
         return new CurrencyEventHandler();
     }
+
+    @Bean(name = "groupsEventHandler")
+    GroupsEventHandler groupsEventHandler() {
+        return new GroupsEventHandler();
+    }
 }

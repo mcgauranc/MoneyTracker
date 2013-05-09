@@ -7,6 +7,9 @@ import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * User: rowan.massey
  * Date: 01/05/13
@@ -129,6 +132,20 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
     public static Authorities getNewAuthority(String authorityName) {
         Authorities authorities = new Authorities();
         authorities.setAuthority(authorityName);
+        return authorities;
+    }
+
+    /**
+     * This method returns a set of authorities, based on the number passed in.
+     *
+     * @param authorityNames An array of authority names.
+     * @return A set containing the list of authorities passed in.
+     */
+    public static Set<Authorities> getNewAuthoritySet(String... authorityNames) {
+        Set<Authorities> authorities = new HashSet<>();
+        for (String authority : authorityNames) {
+            authorities.add(getNewAuthority(authority));
+        }
         return authorities;
     }
 }

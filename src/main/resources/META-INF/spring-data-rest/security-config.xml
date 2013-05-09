@@ -28,6 +28,8 @@
                                 access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
         <security:intercept-url method="GET" pattern="/currency/**"
                                 access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
+        <security:intercept-url method="GET" pattern="/groups/**"
+                                access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
 
         <security:http-basic entry-point-ref="basicEntryPoint"/>
         <!--<security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER"/>-->

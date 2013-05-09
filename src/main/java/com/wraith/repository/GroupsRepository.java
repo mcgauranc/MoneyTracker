@@ -11,7 +11,7 @@ import java.util.List;
  * Date: 24/02/13
  * Time: 16:33
  */
-@RestResource(rel = "groups", path = "groups")
+@RestResource()
 public interface GroupsRepository extends CrudRepository<Groups, Long> {
 
     public List<Groups> findByName(String groupName);
