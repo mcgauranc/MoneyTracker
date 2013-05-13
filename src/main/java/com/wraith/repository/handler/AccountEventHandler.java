@@ -19,6 +19,7 @@ public class AccountEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @PreAuthorize("isAuthenticated() and (hasRole('ROLE_USER'))")
     @HandleBeforeCreate
     public void beforeAccountCreate(Account account) {
         logger.debug(String.format("In before create for account '%s'", account.getName()));

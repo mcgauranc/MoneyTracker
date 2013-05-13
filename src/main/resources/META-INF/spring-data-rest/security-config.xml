@@ -32,6 +32,8 @@
                                 access="isAuthenticated() and (hasRole('ROLE_ADMIN'))"/>
         <security:intercept-url method="GET" pattern="/payee/**"
                                 access="isAuthenticated() and (hasRole('ROLE_USER'))"/>
+        <security:intercept-url method="GET" pattern="/transaction/**"
+                                access="isAuthenticated() and (hasRole('ROLE_USER'))"/>
 
         <security:http-basic entry-point-ref="basicEntryPoint"/>
         <!--<security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER"/>-->

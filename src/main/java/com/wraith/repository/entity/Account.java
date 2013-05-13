@@ -25,7 +25,7 @@ public class Account extends BaseEntity implements Serializable {
 
     private String name;
     private AccountType type;
-    private double balance;
+    private double openingBalance;
     private Currency currency;
 
     @NaturalId
@@ -49,13 +49,13 @@ public class Account extends BaseEntity implements Serializable {
         this.type = type;
     }
 
-    @Column(name = "account_balance", nullable = false)
-    public double getBalance() {
-        return balance;
+    @Column(name = "account_openingBalance", nullable = false)
+    public double getOpeningBalance() {
+        return openingBalance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setOpeningBalance(double balance) {
+        this.openingBalance = balance;
     }
 
     @NotAudited

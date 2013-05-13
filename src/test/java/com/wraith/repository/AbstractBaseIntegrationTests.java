@@ -58,6 +58,21 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     @Autowired
     protected RequestMappingHandlerMapping handlerMapping;
 
+    @Autowired
+    protected UsersRepository usersRepository;
+
+    @Autowired
+    protected CategoryRepository categoryRepository;
+
+    @Autowired
+    protected CurrencyRepository currencyRepository;
+
+    @Autowired
+    protected PayeeRepository payeeRepository;
+
+    @Autowired
+    protected AccountRepository accountRepository;
+
     @Before
     public void setUp() {
         admin = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("Administrator", "Passw0rd"));
@@ -232,5 +247,4 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         Users user = UserRequestTest.getNewUser(userName, password, firstName, lastName);
         return createNewEntity(user, Users.class);
     }
-
 }

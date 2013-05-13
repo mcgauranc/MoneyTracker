@@ -18,29 +18,32 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateAccountRequest() throws Exception {
+        authenticate("Administrator", "Passw0rd");
+
         String resourceRequest = createNewAccount("Account 1", 12.43, "Banking", "Euro", "EUR");
 
         //Retrieve the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
+
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
         Assert.assertEquals((String) jsonObject.get("name"), "Account 1");
-        Assert.assertEquals(jsonObject.get("balance"), 12.43);
+        Assert.assertEquals(jsonObject.get("openingBalance"), 12.43);
     }
 
     @Test
     public void testUpdateAccountRequest() throws Exception {
+        authenticate("Administrator", "Passw0rd");
+
         String resourceRequest = createNewAccount("Account 2", 12.43, "Banking", "Euro", "EUR");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "Updated Account 2");
-        jsonObject.put("balance", "1234.56");
+        jsonObject.put("openingBalance", "1234.56");
 
         byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
 
         //Update the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
         Assert.assertNotNull(putResponse);
 
@@ -49,7 +52,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         JSONObject getJSONObject = (JSONObject) parser.parse(content);
 
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Account 2");
-        Assert.assertEquals(getJSONObject.get("balance"), 1234.56);
+        Assert.assertEquals(getJSONObject.get("openingBalance"), 1234.56);
     }
 
     @Test(expected = Exception.class)
@@ -105,7 +108,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
      * @return The reference URI for the created account.
      * @throws Exception
      */
-    public String createNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) throws Exception {
+    private String createNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) throws Exception {
         Account account = getNewAccount(name, balance, accountType, currency, currencyIso);
         return createNewEntity(account, Account.class);
     }
@@ -123,7 +126,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
     public static Account getNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) {
         Account account = new Account();
         account.setName(name);
-        account.setBalance(balance);
+        account.setOpeningBalance(balance);
         account.setType(AccountTypeRequestTest.getNewAccountType(accountType));
         account.setCurrency(getCurrency(currencyIso, currency));
         return account;

@@ -238,6 +238,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUserCreateRequestWithAccount() throws Exception {
+        authenticate("Administrator", "Passw0rd");
         Users user = getNewUser("sixteenth.person", "Passw0rd", "Sixteenth", "Person");
 
         Set<Account> accounts = new HashSet<>();
@@ -263,7 +264,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         JSONObject accountName = getJsonObjectFromArray("name", "Current", (JSONArray) accountObject.get("content"));
 
         Assert.assertEquals((String) accountName.get("name"), "Current");
-        Assert.assertEquals(accountName.get("balance"), 12.65);
+        Assert.assertEquals(accountName.get("openingBalance"), 12.65);
     }
 
     /**

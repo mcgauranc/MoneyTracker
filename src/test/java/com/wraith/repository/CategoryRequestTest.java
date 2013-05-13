@@ -16,11 +16,6 @@ import org.springframework.util.StringUtils;
  */
 public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
-//    @BeforeClass
-//    public static void Setup() throws Exception {
-//        createNewUser("seventeenth.person", "Passw0rd", "Seventeenth", "Person");
-//    }
-
     @Test
     public void testCreateCategoryWithNoParentRequest() throws Exception {
         String resourceRequest = createNewCategory("Groceries", null);
@@ -135,7 +130,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
      * @param parentCategory The name of the parent category, if any.
      * @return an instance of a category object.
      */
-    private static Category getNewCategory(String name, String parentCategory) {
+    public static Category getNewCategory(String name, String parentCategory) {
         Category category = new Category();
         category.setName(name);
         if (!StringUtils.isEmpty(parentCategory)) {
