@@ -4,18 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wraith</groupId>
-    <artifactId>moneyTracker</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>moneyTrackerClient</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
-    <name>Money Tracker Application</name>
+    <name>Money Tracker Client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <targetJdk>1.7</targetJdk>
     </properties>
-
-    <modules>
-        <module>MoneyTrackerServer</module>
-        <module>MoneyTrackerClient</module>
-    </modules>
 </project>

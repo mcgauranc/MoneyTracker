@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ArtifactManager">
-    <artifact type="war" name="moneyTracker:war">
-      <output-path>$PROJECT_DIR$/target</output-path>
-      <root id="archive" name="moneyTracker-1.0.0.BUILD-SNAPSHOT.war">
-        <element id="artifact" artifact-name="moneyTracker:war exploded" />
+    <artifact type="war" name="moneyTrackerServer:war">
+      <output-path>$PROJECT_DIR$/MoneyTrackerServer/target</output-path>
+      <root id="archive" name="moneyTrackerServer-1.0.0.BUILD-SNAPSHOT.war">
+        <element id="artifact" artifact-name="moneyTrackerServer:war exploded" />
       </root>
     </artifact>
-    <artifact type="exploded-war" name="moneyTracker:war exploded">
-      <output-path>$PROJECT_DIR$/target/moneyTracker-1.0.0.BUILD-SNAPSHOT</output-path>
+    <artifact type="exploded-war" name="moneyTrackerServer:war exploded">
+      <output-path>$PROJECT_DIR$/MoneyTrackerServer/target/moneyTrackerServer-1.0.0.BUILD-SNAPSHOT</output-path>
       <root id="root">
-        <element id="javaee-facet-resources" facet="moneyTracker/web/Web" />
+        <element id="javaee-facet-resources" facet="moneyTrackerServer/web/Web" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
-            <element id="module-output" name="moneyTracker" />
+            <element id="module-output" name="moneyTrackerServer" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:3.2.1.RELEASE" />
@@ -103,11 +103,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="moneyTracker" />
+        <module name="moneyTrackerClient" />
+        <module name="moneyTrackerServer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="moneyTracker" target="1.7" />
+      <module name="moneyTrackerServer" target="1.7" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="">
@@ -159,35 +161,14 @@
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MoneyTrackerClient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MoneyTrackerServer" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
-  </component>
-  <component name="GradleSettings">
-    <option name="gradleHome" value="$PROJECT_DIR$/../../Gradle" />
-    <option name="linkedProjectPath" value="C:\Development\Github\MoneyTracker\build.gradle" />
-  </component>
-  <component name="GradleUISettings2">
-    <setting name="root">
-      <setting name="task-tab">
-        <setting name="show-description" value="true" />
-      </setting>
-      <setting name="favorites-tab" />
-      <setting name="command_line-tab" />
-      <setting name="setup-tab">
-        <setting name="setup">
-          <setting name="custom-gradle-executor" />
-          <setting name="current-directory" value="C:\Development\Github\MoneyTracker" />
-          <setting name="log-level" value="DEBUG" />
-        </setting>
-      </setting>
-      <setting name="main_panel">
-        <setting name="current-tab" value="Command Line" />
-      </setting>
-    </setting>
   </component>
   <component name="IdProvider" IDEtalkID="7132EE627F45AF411F3F37303B7D8AF1" />
   <component name="InspectionProjectProfileManager">
@@ -206,7 +187,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/MoneyTrackerServer/pom.xml" />
       </list>
     </option>
   </component>
@@ -344,6 +325,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/moneyTracker.iml" filepath="$PROJECT_DIR$/moneyTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MoneyTrackerClient/MoneyTrackerClient.iml" filepath="$PROJECT_DIR$/MoneyTrackerClient/MoneyTrackerClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MoneyTrackerServer/moneyTrackerServer.iml" filepath="$PROJECT_DIR$/MoneyTrackerServer/moneyTrackerServer.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
@@ -420,7 +403,7 @@
     </configuration>
   </component>
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/main/resources/import.sql.bak" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/MoneyTrackerServer/src/main/resources/import.sql.bak" dialect="TSQL" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
@@ -956,13 +939,13 @@
     </library>
     <library name="Maven: org.springframework.hateoas:spring-hateoas:0.5.0.BUILD-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130308.203807-13.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130430.141522-15.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130308.203807-13-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130430.141522-15-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130308.203807-13-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/hateoas/spring-hateoas/0.5.0.BUILD-SNAPSHOT/spring-hateoas-0.5.0.BUILD-20130430.141522-15-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.plugin:spring-plugin-core:0.8.0.RELEASE">
