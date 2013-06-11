@@ -4,7 +4,7 @@ MoneyTracker is intended to be a simple, easy to use REST based money tracking a
 
 ## Server
 
-As mentioned above, the server side of MoneyTracker is implemented using REST. Following on from the REST principles, it is also stateless. Along with using the HTTP verbs GET, PUT, POST and DELETE - all of which, are catered for.
+As mentioned above, the server side of MoneyTracker is implemented using REST. Following the REST principles, it is also stateless. Along with using the HTTP verbs GET, PUT, POST and DELETE to update information.
 
 ### REST
 
@@ -12,13 +12,15 @@ The REST functionality was achieved by leveraging [Spring Data Rest](http://www.
 
 * GET - Retrieval of required information, rendered in JSON format.
 * PUT - Updating of information for a given entity, a JSON payload is required.
-* POST - Inserting of information, again a JSON payload is required.
+* POST - Inserting of information, a JSON payload is again, required.
 * DELETE - Deleting of required information.
+
+It also allows for JSONP and JSONP+E.
 
 ### Security
 
-Most of the request to the server need to be validated. Currently Base64 and digest authorisation are facilitated for. However, only Base64 encoding of the username and password is catered for (for testing purposes only).
-Most requests need to have an associated **Authorization** header. The only request that requires no authentication is the POST to the Users table. In most other instances only admin users, or users who own the relevant records
+Most of the requests to the server need to be validated. Currently Base64 and Digest authorisation are catered for. However, only Base64 encoding of the username and password is provided for (used for testing purposes).
+Most requests need to have an associated **Authorization** header. The only request that requires no authentication is the POST to the Users table. In all other instances only authorised, admin users, or users who own the relevant records
 will be able to update them.
 
 ### Data Layer
@@ -47,13 +49,16 @@ The data layer is currently implemented using [Hibernate](http://www.hibernate.o
 
 ### Auditing
 
-All auditing is performed, using [Hibernate Envers](http://docs.jboss.org/envers/docs/) To ensure that changes are tracked, several tables are audited. These include:
+All auditing is performed, using [Hibernate Envers](http://docs.jboss.org/envers/docs/) To ensure that changes are tracked, the following several tables are audited:
 
 * Account
 * Payee
-* Transaction
+* Undertaking (Transaction)
 * Users
 
+### Logging
+
+All logging is taken care of using [Logback](http://logback.qos.ch/). It natively speaks to SLF4J, and allows for automatic reloading of configuration files.
 
 ## Client
 
