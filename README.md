@@ -26,16 +26,24 @@ will be able to update them.
 The data layer is currently implemented using [Hibernate](http://www.hibernate.org/), which uses JPA to expose the tables to Spring Data Rest. The underlying database connection to the database uses C3P0. The following tables are created:
 
 * Account
+* Account_Audit
 * AccountType
 * Address
 * Authorities
 * Category
 * Country
 * Currency
+* Group_Authorities
 * Groups
 * Payee
+* Payee_Audit
+* Revision
 * Undertaking (Transaction)
+* Undertaking_Audit
 * Users
+* Users_Account
+* Users_Audit
+* Users_Groups
 
 ### Auditing
 
