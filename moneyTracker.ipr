@@ -78,6 +78,18 @@
         </element>
       </root>
     </artifact>
+    <artifact type="exploded-war" name="moneyTrackerClient:war exploded">
+      <output-path>$PROJECT_DIR$/classes/artifacts/moneyTrackerClient_war_exploded</output-path>
+      <root id="root">
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="moneyTrackerClient" />
+            <element id="library" level="application" name="jQuery-2.0.0" />
+          </element>
+        </element>
+        <element id="javaee-facet-resources" facet="moneyTrackerClient/web/Web" />
+      </root>
+    </artifact>
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
@@ -182,6 +194,9 @@
     <option name="PROJECT_PROFILE" value="Project Default" />
     <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
+  </component>
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{jQuery-2.0.0}" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -325,7 +340,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/moneyTracker.iml" filepath="$PROJECT_DIR$/moneyTracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MoneyTrackerClient/MoneyTrackerClient.iml" filepath="$PROJECT_DIR$/MoneyTrackerClient/MoneyTrackerClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MoneyTrackerClient/moneyTrackerClient.iml" filepath="$PROJECT_DIR$/MoneyTrackerClient/moneyTrackerClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/MoneyTrackerServer/moneyTrackerServer.iml" filepath="$PROJECT_DIR$/MoneyTrackerServer/moneyTrackerServer.iml" />
     </modules>
   </component>
@@ -407,6 +422,13 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/MoneyTrackerClient/web/index.jsp" value="file://$PROJECT_DIR$/MoneyTrackerClient/web" />
+      </map>
+    </option>
   </component>
   <component name="libraryTable">
     <library name="Maven: antlr:antlr:2.7.7">

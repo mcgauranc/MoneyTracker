@@ -27,7 +27,7 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository"})
+@ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository", "com.wraith.security", "com.wraith.authentication."})
 @EnableAsync
 @EnableJpaRepositories(basePackages = {"com.wraith.repository"})
 @PropertySource({"classpath:db.properties"})

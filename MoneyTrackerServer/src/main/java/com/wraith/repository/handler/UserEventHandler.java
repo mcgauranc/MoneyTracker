@@ -2,7 +2,9 @@ package com.wraith.repository.handler;
 
 import com.wraith.encoding.Encoding;
 import com.wraith.exception.MoneyException;
+import com.wraith.repository.CountryRepository;
 import com.wraith.repository.GroupsRepository;
+import com.wraith.repository.entity.Country;
 import com.wraith.repository.entity.Groups;
 import com.wraith.repository.entity.Users;
 import org.slf4j.Logger;
@@ -32,6 +34,8 @@ public class UserEventHandler {
     private Encoding encoding;
     @Autowired
     private GroupsRepository groupsRepository;
+    @Autowired
+    CountryRepository countryRepository;
 
     @HandleBeforeCreate
     public void beforeUserCreate(Users user) {
@@ -40,6 +44,11 @@ public class UserEventHandler {
         user.setEnabled(1);
         user.setGroups(getUserRoleGroup());
         user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));
+        if (user.getAddress() != null) {
+            logger.debug(String.format("User address is not null, retrieving country for ISO '%s', from database.", user.getAddress().getCountry().getName()));
+            Country userCountry = countryRepository.findByIso(user.getAddress().getCountry().getName()).get(0);
+            user.getAddress().setCountry(userCountry);
+        }
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")

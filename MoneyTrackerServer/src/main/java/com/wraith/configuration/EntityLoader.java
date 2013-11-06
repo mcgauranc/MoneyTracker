@@ -3,9 +3,7 @@ package com.wraith.configuration;
 import com.wraith.encoding.Encoding;
 import com.wraith.repository.GroupsRepository;
 import com.wraith.repository.UsersRepository;
-import com.wraith.repository.entity.Authorities;
-import com.wraith.repository.entity.Groups;
-import com.wraith.repository.entity.Users;
+import com.wraith.repository.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -119,6 +117,18 @@ public class EntityLoader {
             logger.error("Error encoding password for default user.", e);
         }
         defaultUser.setGroups(groups);
+        Country country = new Country();
+        country.setIso("IRL");
+        country.setName("Republic of Ireland");
+        Address address = new Address();
+        address.setAddress1("Address 1");
+        address.setAddress2("Address 2");
+        address.setAddress3("Address 3");
+        address.setAddress4("Address 4");
+        address.setCity("Lucan");
+        address.setCounty("Dublin");
+        address.setCountry(country);
+        defaultUser.setAddress(address);
         return usersRepository.save(defaultUser);
     }
 }
