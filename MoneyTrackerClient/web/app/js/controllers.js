@@ -3,6 +3,7 @@
 /* Controllers */
 
 var userController = angular.module("userController", []);
+var accountController = angular.module("accountController", []);
 
 userController.controller("UserListCtrl", ["$scope", "User",
     function ($scope, User) {

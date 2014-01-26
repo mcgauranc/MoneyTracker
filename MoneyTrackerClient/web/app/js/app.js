@@ -2,21 +2,15 @@
 
 /* App Module */
 
-var userApp = angular.module("userApp", [
+var moneyApp = angular.module("moneyApp", [
     "ngRoute",
-//    'usercatAnimations',
     "userController",
-//    'usercatFilters',
-    "userServices"
+    "userService",
+    "accountController",
+    "accountService"
 ]);
 
-var accountApp = angular.module("accountApp", [
-    "ngRoute",
-    "accountControllers",
-    "accountServices"
-]);
-
-userApp.config(["$routeProvider",
+moneyApp.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider.
             when("/user", {
@@ -27,14 +21,6 @@ userApp.config(["$routeProvider",
                 templateUrl: "partials/user/user-detail.html",
                 controller: "UserDetailCtrl"
             }).
-            otherwise({
-                redirectTo: "/user"
-            });
-    }]);
-
-accountApp.config(["$routeProvider",
-    function ($routeProvider) {
-        $routeProvider.
             when("/account", {
                 templateUrl: "partials/account/account-list.html",
                 controller: "AccountListCtrl"
@@ -44,6 +30,6 @@ accountApp.config(["$routeProvider",
                 controller: "AccountDetailCtrl"
             }).
             otherwise({
-                redirectTo: "/account"
+                redirectTo: "/user"
             });
-    }])
+    }]);

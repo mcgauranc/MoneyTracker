@@ -84,12 +84,6 @@
         <element id="javaee-facet-resources" facet="moneyTrackerClient/web/Web" />
       </root>
     </artifact>
-    <artifact type="war" name="moneyTrackerServer:war">
-      <output-path>$PROJECT_DIR$/MoneyTrackerServer/target</output-path>
-      <root id="archive" name="moneyTrackerServer-1.0.0.BUILD-SNAPSHOT.war">
-        <element id="artifact" artifact-name="moneyTrackerServer:war exploded" />
-      </root>
-    </artifact>
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
@@ -162,6 +156,19 @@
       <profile version="1.0" is_locked="false">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
+        <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="myValues">
+            <value>
+              <list size="4">
+                <item index="0" class="java.lang.String" itemvalue="k-data-source" />
+                <item index="1" class="java.lang.String" itemvalue="kendo-grid" />
+                <item index="2" class="java.lang.String" itemvalue="k-columns" />
+                <item index="3" class="java.lang.String" itemvalue="k-selectable" />
+              </list>
+            </value>
+          </option>
+          <option name="myCustomValuesEnabled" value="true" />
+        </inspection_tool>
         <inspection_tool class="SqlNoDataSourceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
       </profile>
     </profiles>
@@ -170,6 +177,7 @@
     <version value="1.0" />
   </component>
   <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/MoneyTrackerClient/web/app/index.html" libraries="{jquery-1.9.1}" />
     <file url="PROJECT" libraries="{jQuery-2.0.0}" />
   </component>
   <component name="MavenProjectsManager">
@@ -300,6 +308,9 @@
         <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
       </item>
     </group>
+  </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="rowan.massey" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
