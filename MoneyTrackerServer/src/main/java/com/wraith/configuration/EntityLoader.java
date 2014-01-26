@@ -45,7 +45,7 @@ public class EntityLoader {
 
             //Create all the groups that the application supports.
             Groups adminGroup = createGroup("Administrators", adminAuthorities);
-            createGroup("Users", userAuthorities);
+            //createGroup("Users", userAuthorities);
 
             Set<Groups> adminGroups = new HashSet<>();
             adminGroups.add(adminGroup);
@@ -112,7 +112,7 @@ public class EntityLoader {
         defaultUser.setDateOfBirth(Calendar.getInstance().getTime());
         defaultUser.setEnabled(1);
         try {
-            defaultUser.setPassword(encoding.encodePassword(password, defaultUser.getUserName()));
+            defaultUser.setPassword(encoding.encodePassword(password));
         } catch (NoSuchAlgorithmException e) {
             logger.error("Error encoding password for default user.", e);
         }

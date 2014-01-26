@@ -2,7 +2,7 @@ package com.wraith.repository;
 
 import com.wraith.repository.entity.Groups;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.repository.annotation.RestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
 

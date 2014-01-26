@@ -10,10 +10,10 @@ import com.wraith.repository.entity.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.repository.annotation.HandleBeforeCreate;
-import org.springframework.data.rest.repository.annotation.HandleBeforeDelete;
-import org.springframework.data.rest.repository.annotation.HandleBeforeSave;
-import org.springframework.data.rest.repository.annotation.RepositoryEventHandler;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
+import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.NoSuchAlgorithmException;
@@ -72,7 +72,7 @@ public class UserEventHandler {
     private String getCreatedUserPassword(String userName, String password) {
         logger.debug(String.format("Encoding password for user '%s'", userName));
         try {
-            return encoding.encodePassword(password, userName);
+            return encoding.encodePassword(password);
         } catch (NoSuchAlgorithmException e) {
             logger.error(String.format("Error encoding user password. Error was '%s'", e.getMessage()), e);
             throw new MoneyException(String.format("There was an error encoding the user password for user '%s'", userName));

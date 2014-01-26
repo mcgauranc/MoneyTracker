@@ -1,7 +1,7 @@
 package com.wraith.encoding;
 
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.NoSuchAlgorithmException;
@@ -18,13 +18,13 @@ public class Encoding {
 
     }
 
-    public String encodePassword(String password, Object salt) throws NoSuchAlgorithmException {
-        PasswordEncoder encoder = new Md5PasswordEncoder();
-        return encoder.encodePassword(password, salt);
+    public String encodePassword(String password) throws NoSuchAlgorithmException {
+        PasswordEncoder encoder = new StandardPasswordEncoder();
+        return encoder.encode(password);
     }
 
-    public Boolean validPassword(String password, String encodedPassword, Object salt) throws NoSuchAlgorithmException {
-        PasswordEncoder encoder = new Md5PasswordEncoder();
-        return encoder.isPasswordValid(encodedPassword, password, salt);
+    public Boolean validPassword(String password, String encodedPassword) throws NoSuchAlgorithmException {
+        PasswordEncoder encoder = new StandardPasswordEncoder();
+        return encoder.matches(encodedPassword, password);
     }
 }

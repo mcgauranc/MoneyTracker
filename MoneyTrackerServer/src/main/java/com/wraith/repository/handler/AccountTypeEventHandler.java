@@ -3,10 +3,10 @@ package com.wraith.repository.handler;
 import com.wraith.repository.entity.AccountType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.repository.annotation.HandleBeforeCreate;
-import org.springframework.data.rest.repository.annotation.HandleBeforeDelete;
-import org.springframework.data.rest.repository.annotation.HandleBeforeSave;
-import org.springframework.data.rest.repository.annotation.RepositoryEventHandler;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
+import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
