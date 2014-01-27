@@ -7,7 +7,8 @@ var moneyApp = angular.module("moneyApp", [
     "userController",
     "userService",
     "accountController",
-    "accountService"
+    "accountService",
+    "kendo.directives"
 ]);
 
 moneyApp.config(["$routeProvider",

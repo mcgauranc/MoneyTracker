@@ -1,21 +1,12 @@
-<div class="container-fluid">
-    <!--<div kendo-grid k-data-source="users.content" k-selectable="'row'"-->
-    <!--k-columns='[{"field": "firstName", "title": "First Name"}, {"field": "lastName", "title": "Last Name"}]'>-->
-    <!--</div>-->
-
-    <div class="row-fluid">
-        <div class="span2">
-            There are "{{users.content.length}}" users in moneyTrak<br>
-            Search: <input ng-model="query" placeholder="filter users">
-        </div>
-        <div class="span10">
-            <ul>
-                <li ng-repeat="user in users.content">
-                    <p>{{user.firstName}} {{user.lastName}}</p>
-                </li>
-            </ul>
-        </div>
+<div>
+    <div class="k-grid k-widget k-secondary"
+         kendo-grid k-data-source="users.content"
+         k-selectable="'row'"
+         k-pageable="{ 'refresh': true, 'pageSizes': true }"
+         k-columns='[{"field": "userName", "title": "Username"}, {"field": "firstName", "title": "First Name"}, {"field": "lastName", "title": "Last Name"}]'
+         k-sortable="true"
+         k-groupable="true"
+         k-filterable="true"
+         data-role="grid" style>
     </div>
 </div>
-
-
