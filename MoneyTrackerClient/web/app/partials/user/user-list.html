@@ -1,12 +1,16 @@
 <div>
     <div class="k-grid k-widget k-secondary"
-         kendo-grid k-data-source="users.content"
+         kendo-grid
+         k-data-source="users.content"
          k-selectable="'row'"
          k-pageable="{ 'refresh': true, 'pageSizes': true }"
          k-columns='[{"field": "userName", "title": "Username"}, {"field": "firstName", "title": "First Name"}, {"field": "lastName", "title": "Last Name"}]'
          k-sortable="true"
          k-groupable="true"
-         k-filterable="true"
+         k-filterable="false"
+         k-batch="true"
+         k-toolbar="['create']"
+         k-editable="popup"
          data-role="grid" style>
     </div>
 </div>
