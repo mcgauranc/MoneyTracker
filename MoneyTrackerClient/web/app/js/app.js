@@ -14,7 +14,7 @@ var moneyApp = angular.module("moneyApp", [
 moneyApp.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider.
-            when("/user", {
+            when("/users", {
                 templateUrl: "partials/user/user-list.html",
                 controller: "UserListCtrl"
             }).
@@ -22,7 +22,7 @@ moneyApp.config(["$routeProvider",
                 templateUrl: "partials/user/user-detail.html",
                 controller: "UserDetailCtrl"
             }).
-            when("/account", {
+            when("/accounts", {
                 templateUrl: "partials/account/account-list.html",
                 controller: "AccountListCtrl"
             }).
