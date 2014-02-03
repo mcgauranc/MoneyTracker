@@ -5,12 +5,12 @@
 var userService = angular.module("userService", ["ngResource"]);
 var accountService = angular.module("accountService", ["ngResource"]);
 
-userService.factory("User", ["$resource",
+userService.factory("Users", ["$resource",
     function ($resource) {
-        return $resource("/server/userss/", {
+        return $resource("/server/userss/", {}, {
             query: {
-                method: 'GET', isArray: false},
-            update: {
-                method: "PUT"}
+                method: 'GET', isArray: false}
+//            update: {
+//                method: "PUT"}
         });
     }]);

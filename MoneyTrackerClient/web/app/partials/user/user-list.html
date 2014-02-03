@@ -1,16 +1,13 @@
 <div>
     <div class="k-grid k-widget k-secondary"
          kendo-grid
-         k-data-source='userData'
+         k-data-source='usersDataSource'
          k-selectable="'row'"
-         k-autobind="true"
-         k-pageable="{ 'refresh': true, 'pageSizes': true }"
          k-columns="[{'field': 'userName', 'title': 'Username'}, {'field': 'firstName', 'title': 'First Name'},
             {'field': 'lastName', 'title': 'Last Name'}, {'field': 'enabled', 'title': 'Enabled'}]"
          k-sortable='true'
          k-groupable='true'
-         k-filterable='false'
-         k-batch='true'
+         k-batch='false'
          k-toolbar="['create']"
          k-editable="'popup'"
          data-role='grid' style>
