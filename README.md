@@ -62,7 +62,13 @@ All logging is taken care of using [Logback](http://logback.qos.ch/). It nativel
 
 ## Client
 
-The client side will currently just be a collection of JSP pages, which will use jQuery as the underlying functionality to access the relevant REST URI's exposed by the server.
+The client side will currently use AngularJS in conjunction with Kendo UI. A single page approach, to displaying information will be taken. AngularJS facilitates an MVC approach to developing
+ client side code - which fits in nicely with what I want to achieve with this project. It also leverages the great capabilities of Kendo UI. The following URLs will be useful should you wish to
+  read up further.
+
+  * [AngularJS](http://angularjs.org/)
+  * [Kendo UI](http://www.telerik.com/kendo-ui)
+  * [Angular Kendo UI] (http://kendo-labs.github.io/angular-kendo/#/)
 
 # License
 
