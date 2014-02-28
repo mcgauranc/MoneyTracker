@@ -8,9 +8,7 @@ var accountService = angular.module("accountService", ["ngResource"]);
 userService.factory("Users", ["$resource",
     function ($resource) {
         return $resource("/server/userss/", {}, {
-            query: {
+            get: {
                 method: 'GET', isArray: false}
-//            update: {
-//                method: "PUT"}
         });
     }]);

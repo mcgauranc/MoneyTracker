@@ -8,20 +8,14 @@ var accountController = angular.module("accountController", []);
 userController.controller("UserListCtrl", ['$scope', 'Users',
     function ($scope, Users) {
 
-        var userList = Users.query();
-        userList.$promise.then(function (data) {
-            populateDataSource(data)
-        }, function (status) {
-            console.log(status)
-        });
-
-        $scope.users = {};
-        $scope.users.dataSource = new kendo.data.DataSource();
-
-        var populateDataSource = function (data) {
-            var dataSource = new kendo.data.DataSource({
-                data: data,
-                pageSize: 20,
+        $scope.userDataSource = new kendo.data.DataSource({
+            pageSize: 20,
+            transport: {
+                read: function (options) {
+                    Users.get(function (data) {
+                        options.success(data.content);
+                    });
+                },
                 schema: {
                     data: "content",
                     model: {
@@ -46,10 +40,7 @@ userController.controller("UserListCtrl", ['$scope', 'Users',
                         }
                     }
                 }
-            });
-            dataSource.read();
-            $scope.users.dataSource = dataSource;
-        }
+            }});
     }]);
 
 userController.controller("UserDetailCtrl", ["$scope", "$routeParams", "User",
