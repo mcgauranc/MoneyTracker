@@ -4,7 +4,6 @@
     <artifact type="exploded-war" build-on-make="true" name="moneyTrackerServer:war exploded">
       <output-path>$PROJECT_DIR$/MoneyTrackerServer/target/moneyTrackerServer-1.0.0.BUILD-SNAPSHOT</output-path>
       <root id="root">
-        <element id="javaee-facet-resources" facet="moneyTrackerServer/web/Web" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="moneyTrackerServer" />
@@ -72,7 +71,7 @@
         </element>
       </root>
     </artifact>
-    <artifact type="exploded-war" name="moneyTrackerClient:war exploded">
+    <artifact type="exploded-war" build-on-make="true" name="moneyTrackerClient:war exploded">
       <output-path>$PROJECT_DIR$/classes/artifacts/moneyTrackerClient_war_exploded</output-path>
       <root id="root">
         <element id="directory" name="WEB-INF">
@@ -118,9 +117,7 @@
       <module name="moneyTrackerServer" target="1.7" />
     </bytecodeTargetLevel>
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright />
-  </component>
+  <component name="CopyrightManager" default="" />
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>

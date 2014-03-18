@@ -8,7 +8,7 @@ var moneyApp = angular.module("moneyApp", [
     "userService",
     "accountController",
     "accountService",
-    "kendo.directives"
+    "ngGrid"
 ]);
 
 moneyApp.config(["$routeProvider",

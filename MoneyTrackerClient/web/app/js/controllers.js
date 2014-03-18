@@ -2,53 +2,45 @@
 
 /* Controllers */
 
-var userController = angular.module("userController", []);
 var accountController = angular.module("accountController", []);
 
+var userController = angular.module("userController", []);
 userController.controller("UserListCtrl", ['$scope', 'Users',
     function ($scope, Users) {
 
-        var userList = Users.query();
-        userList.$promise.then(function (data) {
-            populateDataSource(data)
-        }, function (status) {
-            console.log(status)
-        });
+        $scope.filterOptions = {
+            filterText: "",
+            useExternalFilter: true
+        };
 
-        $scope.users = {};
-        $scope.users.dataSource = new kendo.data.DataSource();
+        $scope.pagingOptions = {
+            pageSizes: [10, 50, 100],
+            pageSize: 10,
+            currentPage: 1
+        };
 
-        var populateDataSource = function (data) {
-            var dataSource = new kendo.data.DataSource({
-                data: data,
-                pageSize: 20,
-                schema: {
-                    data: "content",
-                    model: {
-                        fields: {
-                            userName: {
-                                editable: true,
-                                nullable: false
-                            },
-                            firstName: {
-                                editable: true,
-                                nullable: false
-                            },
-                            lastName: {
-                                editable: true,
-                                nullable: false
-                            },
-                            enabled: {
-                                type: "boolean",
-                                editable: true,
-                                nullable: false
-                            }
-                        }
-                    }
-                }
+        $scope.setPagingData = function (data, page, pageSize) {
+            $scope.myData = data.slice((page - 1) * pageSize, page * pageSize);
+            $scope.totalServerItems = data.length;
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+        };
+
+        $scope.gridOptions = {
+            data: 'myData',
+            enablePaging: true,
+            showFooter: true,
+            totalServerItems: 'totalServerItems',
+            pagingOptions: $scope.pagingOptions,
+            filterOptions: $scope.filterOptions
+        };
+
+        function getPagedDataAsync() {
+            console.log('in get data');  //this get logged twice
+            userService.get().then(function (data) {
+                $scope.setPagingData(data);
             });
-            dataSource.read();
-            $scope.users.dataSource = dataSource;
         }
     }]);
 
