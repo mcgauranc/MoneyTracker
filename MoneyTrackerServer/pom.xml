@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -11,37 +11,20 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>3.2.5.RELEASE</spring.version>
-        <spring.security>3.1.4.RELEASE</spring.security>
-        <spring.data.rest>2.0.0.M1</spring.data.rest>
+        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.security>3.2.4.RELEASE</spring.security>
+        <spring.data.rest>2.1.2.RELEASE</spring.data.rest>
         <slf4j.version>1.7.2</slf4j.version>
-        <!--<jackson.version>2.1.4</jackson.version>-->
         <logback.version>1.0.13</logback.version>
-        <hibernate.version>4.1.6.Final</hibernate.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
         <targetJdk>1.7</targetJdk>
     </properties>
 
     <repositories>
         <repository>
-            <id>spring-milestone</id>
-            <name>spring-milestone</name>
-            <url>http://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <!--<repository>-->
-        <!--<id>spring-snapshots</id>-->
-        <!--<name>Spring Snapshots</name>-->
-        <!--<url>http://repo.spring.io/snapshot</url>-->
-        <!--<snapshots>-->
-        <!--<enabled>true</enabled>-->
-        <!--</snapshots>-->
-        <!--</repository>-->
-        <repository>
-            <id>spring-release</id>
-            <name>spring-release</name>
-            <url>http://repo.springsource.org/libs-release</url>
+            <id>repo.spring.io</id>
+            <name>repo.spring.io-releases</name>
+            <url>http://repo.spring.io/release/</url>
         </repository>
         <repository>
             <id>maven</id>
@@ -124,34 +107,28 @@
             <version>${spring.data.rest}</version>
         </dependency>
 
-
         <!-- SPRING DATA JPA -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>1.4.2.RELEASE</version>
+            <version>1.6.2.RELEASE</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.hateoas</groupId>-->
-        <!--<artifactId>spring-hateoas</artifactId>-->
-        <!--<version>0.8.0.RELEASE</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.plugin</groupId>
             <artifactId>spring-plugin-core</artifactId>
-            <version>0.8.0.RELEASE</version>
+            <version>1.1.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>1.7.0.M1</version>
+            <version>1.8.2.RELEASE</version>
         </dependency>
 
         <!-- HIBERNATE / JPA -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -180,18 +157,6 @@
             <artifactId>usertype.core</artifactId>
             <version>3.0.0.GA</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--<artifactId>jackson-databind</artifactId>-->
-        <!--<version>${jackson.version}</version>-->
-        <!--</dependency>-->
-
-        <!-- This is *not* a mistake. The latest Joda binding is in 2.1.2 -->
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
-        <!--<artifactId>jackson-datatype-joda</artifactId>-->
-        <!--<version>2.1.2</version>-->
-        <!--</dependency>-->
 
         <!--C3P0-->
         <dependency>
