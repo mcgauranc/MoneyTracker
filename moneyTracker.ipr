@@ -68,6 +68,7 @@
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
+            <element id="library" level="project" name="Spring-4.0.6.RELEASE" />
           </element>
         </element>
       </root>
@@ -88,6 +89,11 @@
       <output-path>$PROJECT_DIR$/MoneyTrackerServer/target</output-path>
       <root id="archive" name="moneyTrackerServer-1.0.0.BUILD-SNAPSHOT.war">
         <element id="artifact" artifact-name="moneyTrackerServer:war exploded" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="lib">
+            <element id="library" level="project" name="Spring-4.0.6.RELEASE" />
+          </element>
+        </element>
       </root>
     </artifact>
   </component>

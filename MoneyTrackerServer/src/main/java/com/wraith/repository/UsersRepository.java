@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 24/01/13
  * Time: 22:01
  */
-@RestResource
+@RestResource(rel = "users", path = "/users")
 public interface UsersRepository extends PagingAndSortingRepository<Users, Long> {
 
     @RestResource
