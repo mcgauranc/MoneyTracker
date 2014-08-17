@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.unitTests;
 
 import com.wraith.encoding.Encoding;
 import junit.framework.Assert;

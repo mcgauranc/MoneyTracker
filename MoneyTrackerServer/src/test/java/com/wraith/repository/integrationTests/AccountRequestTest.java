@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Account;
 import junit.framework.Assert;
@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.wraith.repository.CurrencyRequestTest.getCurrency;
+import static com.wraith.repository.integrationTests.CurrencyRequestTest.getCurrency;
 
 /**
  * User: rowan.massey
@@ -15,6 +15,25 @@ import static com.wraith.repository.CurrencyRequestTest.getCurrency;
  * Time: 22:00
  */
 public class AccountRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates a new instance of the account object.
+     *
+     * @param name        The name of the account.
+     * @param balance     The account balance.
+     * @param accountType The type of the account.
+     * @param currency    The accounts currency.
+     * @param currencyIso The ISO currency of the account.
+     * @return An instance of the account object.
+     */
+    public static Account getNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) {
+        Account account = new Account();
+        account.setName(name);
+        account.setOpeningBalance(balance);
+        account.setType(AccountTypeRequestTest.getNewAccountType(accountType));
+        account.setCurrency(getCurrency(currencyIso, currency));
+        return account;
+    }
 
     @Test
     public void testCreateAccountRequest() throws Exception {
@@ -111,24 +130,5 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
     private String createNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) throws Exception {
         Account account = getNewAccount(name, balance, accountType, currency, currencyIso);
         return createNewEntity(account, Account.class);
-    }
-
-    /**
-     * This method creates a new instance of the account object.
-     *
-     * @param name        The name of the account.
-     * @param balance     The account balance.
-     * @param accountType The type of the account.
-     * @param currency    The accounts currency.
-     * @param currencyIso The ISO currency of the account.
-     * @return An instance of the account object.
-     */
-    public static Account getNewAccount(String name, Double balance, String accountType, String currency, String currencyIso) {
-        Account account = new Account();
-        account.setName(name);
-        account.setOpeningBalance(balance);
-        account.setType(AccountTypeRequestTest.getNewAccountType(accountType));
-        account.setCurrency(getCurrency(currencyIso, currency));
-        return account;
     }
 }

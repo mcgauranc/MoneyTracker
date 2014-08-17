@@ -7,8 +7,7 @@ var moneyApp = angular.module("moneyApp", [
     "userController",
     "userService",
     "accountController",
-    "accountService",
-    "ngGrid"
+    "accountService"
 ]);
 
 moneyApp.config(["$routeProvider",

@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Payee;
 import junit.framework.Assert;
@@ -13,6 +13,16 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * Time: 23:07
  */
 public class PayeeRequestTests extends AbstractBaseIntegrationTests {
+
+    /**
+     * @param name
+     * @return
+     */
+    public static Payee getNewPayee(String name) {
+        Payee payee = new Payee();
+        payee.setName(name);
+        return payee;
+    }
 
     @Test(expected = Exception.class)
     public void testCreatePayeeWithNoAuthenticationRequest() throws Exception {
@@ -119,15 +129,5 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
     private String createNewPayee(String name) throws Exception {
         Payee payee = getNewPayee(name);
         return createNewEntity(payee, Payee.class);
-    }
-
-    /**
-     * @param name
-     * @return
-     */
-    public static Payee getNewPayee(String name) {
-        Payee payee = new Payee();
-        payee.setName(name);
-        return payee;
     }
 }

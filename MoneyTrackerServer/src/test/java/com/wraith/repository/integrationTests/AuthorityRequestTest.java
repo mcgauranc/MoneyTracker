@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Authorities;
 import junit.framework.Assert;
@@ -16,6 +16,32 @@ import java.util.Set;
  * Time: 19:49
  */
 public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method returns a new instance of the created authority.
+     *
+     * @param authorityName The name of the authority.
+     * @return An instance of the Authorities class for the given authority name.
+     */
+    public static Authorities getNewAuthority(String authorityName) {
+        Authorities authorities = new Authorities();
+        authorities.setAuthority(authorityName);
+        return authorities;
+    }
+
+    /**
+     * This method returns a set of authorities, based on the number passed in.
+     *
+     * @param authorityNames An array of authority names.
+     * @return A set containing the list of authorities passed in.
+     */
+    public static Set<Authorities> getNewAuthoritySet(String... authorityNames) {
+        Set<Authorities> authorities = new HashSet<>();
+        for (String authority : authorityNames) {
+            authorities.add(getNewAuthority(authority));
+        }
+        return authorities;
+    }
 
     @Test(expected = Exception.class)
     public void testCreateAuthorityWithNoAuthenticationRequest() throws Exception {
@@ -121,31 +147,5 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
     private String createNewAuthority(String authorityName) throws Exception {
         Authorities authority = getNewAuthority(authorityName);
         return createNewEntity(authority, Authorities.class);
-    }
-
-    /**
-     * This method returns a new instance of the created authority.
-     *
-     * @param authorityName The name of the authority.
-     * @return An instance of the Authorities class for the given authority name.
-     */
-    public static Authorities getNewAuthority(String authorityName) {
-        Authorities authorities = new Authorities();
-        authorities.setAuthority(authorityName);
-        return authorities;
-    }
-
-    /**
-     * This method returns a set of authorities, based on the number passed in.
-     *
-     * @param authorityNames An array of authority names.
-     * @return A set containing the list of authorities passed in.
-     */
-    public static Set<Authorities> getNewAuthoritySet(String... authorityNames) {
-        Set<Authorities> authorities = new HashSet<>();
-        for (String authority : authorityNames) {
-            authorities.add(getNewAuthority(authority));
-        }
-        return authorities;
     }
 }

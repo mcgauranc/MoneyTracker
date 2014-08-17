@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Address;
 import junit.framework.Assert;
@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.wraith.repository.CountryRequestTest.getNewCountry;
+import static com.wraith.repository.integrationTests.CountryRequestTest.getNewCountry;
 
 /**
  * User: rowan.massey
@@ -15,6 +15,27 @@ import static com.wraith.repository.CountryRequestTest.getNewCountry;
  * Time: 18:27
  */
 public class AddressRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates and instance of the address class, with default values.
+     *
+     * @param address1   The first address line.
+     * @param address2   The second address line.
+     * @param city       The addresses city.
+     * @param county     The addresses county.
+     * @param country    The addresses country.
+     * @param countryISO The ISO code of the country.
+     * @return an instance of the created Address object.
+     */
+    public static Address getNewAddress(String address1, String address2, String city, String county, String country, String countryISO) {
+        Address address = new Address();
+        address.setAddress1(address1);
+        address.setAddress2(address2);
+        address.setCity(city);
+        address.setCounty(county);
+        address.setCountry(getNewCountry(countryISO, country));
+        return address;
+    }
 
     @Test(expected = Exception.class)
     public void testCreateAddressWithNoAuthenticationRequest() throws Exception {
@@ -88,26 +109,5 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
     public String createNewAddress(String address1, String address2, String city, String county, String country, String countryISO) throws Exception {
         Address address = getNewAddress(address1, address2, city, county, country, countryISO);
         return createNewEntity(address, Address.class);
-    }
-
-    /**
-     * This method creates and instance of the address class, with default values.
-     *
-     * @param address1   The first address line.
-     * @param address2   The second address line.
-     * @param city       The addresses city.
-     * @param county     The addresses county.
-     * @param country    The addresses country.
-     * @param countryISO The ISO code of the country.
-     * @return an instance of the created Address object.
-     */
-    public static Address getNewAddress(String address1, String address2, String city, String county, String country, String countryISO) {
-        Address address = new Address();
-        address.setAddress1(address1);
-        address.setAddress2(address2);
-        address.setCity(city);
-        address.setCounty(county);
-        address.setCountry(getNewCountry(countryISO, country));
-        return address;
     }
 }

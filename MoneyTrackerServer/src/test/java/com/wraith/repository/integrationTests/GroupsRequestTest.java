@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Authorities;
 import com.wraith.repository.entity.Groups;
@@ -11,7 +11,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.util.Set;
 
-import static com.wraith.repository.AuthorityRequestTest.getNewAuthoritySet;
+import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
 
 /**
  * User: rowan.massey
@@ -19,6 +19,22 @@ import static com.wraith.repository.AuthorityRequestTest.getNewAuthoritySet;
  * Time: 13:17
  */
 public class GroupsRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method returns a new instance of a group object with a given name, and list of authorities.
+     *
+     * @param name        The name of the group.
+     * @param authorities A list of associated authorities.
+     * @return A new instance of the groups object.
+     */
+    private static Groups getNewGroup(String name, Set<Authorities> authorities) {
+        Groups groups = new Groups();
+        groups.setName(name);
+        if (authorities != null) {
+            groups.setAuthorities(authorities);
+        }
+        return groups;
+    }
 
     @Test(expected = Exception.class)
     public void testCreateGroupsWithNoAuthenticationRequest() throws Exception {
@@ -139,21 +155,5 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
     private String createNewGroup(String name, Set<Authorities> authorities) throws Exception {
         Groups groups = getNewGroup(name, authorities);
         return createNewEntity(groups, Groups.class);
-    }
-
-    /**
-     * This method returns a new instance of a group object with a given name, and list of authorities.
-     *
-     * @param name        The name of the group.
-     * @param authorities A list of associated authorities.
-     * @return A new instance of the groups object.
-     */
-    private static Groups getNewGroup(String name, Set<Authorities> authorities) {
-        Groups groups = new Groups();
-        groups.setName(name);
-        if (authorities != null) {
-            groups.setAuthorities(authorities);
-        }
-        return groups;
     }
 }

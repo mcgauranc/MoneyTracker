@@ -1,11 +1,16 @@
 package com.wraith.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 /**
  * User: rowan.massey
@@ -13,12 +18,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Time: 23:39
  */
 @Configuration
-@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    MoneyUserDetailsService moneyUserDetailsService;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin").password("password").roles("ADMIN", "USER");
+        auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new Md5PasswordEncoder());
+        //auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin").password("password").roles("ADMIN", "USER");
     }
 
     @Override
@@ -34,7 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/groups/**").hasRole("ADMIN")
                 .antMatchers("/payees/**").hasRole("USER")
                 .antMatchers("/transactions/**").hasRole("USER")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and().httpBasic();
+    }
+
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("password", moneyUserDetailsService);
+        rememberMeServices.setCookieName("cookieName");
+        rememberMeServices.setParameter("rememberMe");
+        return rememberMeServices;
     }
 
 //    <security:http-basic entry-point-ref="basicEntryPoint"/>
@@ -53,17 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    </security:authentication-provider>
 //    </security:authentication-manager>
 //
-//    <bean id="rememberMeService"
-//    class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
-//    <constructor-arg name="userDetailsService" ref="moneyUserDetailsService"/>
-//    <constructor-arg name="key" value="testKeyForMoney"/>
-//    <constructor-arg name="tokenRepository" ref="customTokenService"/>
-//    </bean>
-//
-//
-//    <bean id="moneyUserDetailsService" class="com.wraith.security.MoneyUserDetailsService">
-//    <property name="dataSource" ref="dataSource"/>
-//    </bean>
 //
 //    <!--<bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">-->
 //    <!--<property name="userDetailsService" ref="moneyUserDetailsService"/>-->

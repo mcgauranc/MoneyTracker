@@ -28,10 +28,12 @@ import java.util.Set;
 public class Users extends BaseEntity implements Serializable {
 
     private String userName;
+    @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
+    @JsonIgnore
     private int enabled;
     private Address address;
     private Set<Groups> groups = new HashSet<>();

@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.*;
 import com.wraith.repository.entity.Transaction.TransactionType;
@@ -16,6 +16,40 @@ import java.util.Calendar;
  * Time: 00:04
  */
 public class TransactionRequestTests extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates a new instance of a transaction for the given details.
+     *
+     * @param amount       The name of the account to which this transaction belongs.
+     * @param category     The category of the transaction.
+     * @param chequeNumber The transactions cheque number - if any.
+     * @param currency     The transaction currency.
+     * @param notes        Any extra notes associated with the transaction.
+     * @param payee        The name of the payee for this transaction.
+     * @param quantity     The quantity of the transaction.
+     * @param type         The type of transaction DEPOSIT, WITHDRAWL
+     * @param user         The user associated with this transaction.
+     * @return The URI to the created transaction.
+     * @throws Exception
+     */
+    public static Transaction getNewTransaction(Account account, Double amount, Category category, String chequeNumber, Currency currency,
+                                                String notes, Payee payee, Integer quantity, TransactionType type, Users user) {
+        Transaction transaction = new Transaction();
+        transaction.setAccount(account);
+        transaction.setAmount(amount);
+        transaction.setCategory(category);
+        transaction.setCheckNumber(chequeNumber);
+        transaction.setCurrency(currency);
+        transaction.setNotes(notes);
+        transaction.setNumber(0);
+        transaction.setPayee(payee);
+        transaction.setQuantity(quantity);
+        transaction.setTransactionDate(Calendar.getInstance().getTime());
+        transaction.setType(type);
+        transaction.setUser(user);
+
+        return transaction;
+    }
 
     @Test(expected = Exception.class)
     public void testCreatePayeeWithNoAuthenticationRequest() throws Exception {
@@ -148,40 +182,6 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
 
         Transaction transaction = getNewTransaction(account, amount, category, chequeNumber, currency, notes, payee, quantity, type, user);
         return createNewEntity(transaction, Transaction.class);
-    }
-
-    /**
-     * This method creates a new instance of a transaction for the given details.
-     *
-     * @param amount       The name of the account to which this transaction belongs.
-     * @param category     The category of the transaction.
-     * @param chequeNumber The transactions cheque number - if any.
-     * @param currency     The transaction currency.
-     * @param notes        Any extra notes associated with the transaction.
-     * @param payee        The name of the payee for this transaction.
-     * @param quantity     The quantity of the transaction.
-     * @param type         The type of transaction DEPOSIT, WITHDRAWL
-     * @param user         The user associated with this transaction.
-     * @return The URI to the created transaction.
-     * @throws Exception
-     */
-    public static Transaction getNewTransaction(Account account, Double amount, Category category, String chequeNumber, Currency currency,
-                                                String notes, Payee payee, Integer quantity, TransactionType type, Users user) {
-        Transaction transaction = new Transaction();
-        transaction.setAccount(account);
-        transaction.setAmount(amount);
-        transaction.setCategory(category);
-        transaction.setCheckNumber(chequeNumber);
-        transaction.setCurrency(currency);
-        transaction.setNotes(notes);
-        transaction.setNumber(0);
-        transaction.setPayee(payee);
-        transaction.setQuantity(quantity);
-        transaction.setTransactionDate(Calendar.getInstance().getTime());
-        transaction.setType(type);
-        transaction.setUser(user);
-
-        return transaction;
     }
 
     /**

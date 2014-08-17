@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.AccountType;
 import junit.framework.Assert;
@@ -13,6 +13,18 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * Time: 19:19
  */
 public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates a new account type class.
+     *
+     * @param name The name of the account type.
+     * @return An instance of the Account Type.
+     */
+    public static AccountType getNewAccountType(String name) {
+        AccountType accountType = new AccountType();
+        accountType.setName(name);
+        return accountType;
+    }
 
     @Test
     public void testCreateAccountTypeRequest() throws Exception {
@@ -97,18 +109,6 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
     public String createNewAccountType(String name) throws Exception {
         AccountType accountType = getNewAccountType(name);
         return createNewEntity(accountType, AccountType.class);
-    }
-
-    /**
-     * This method creates a new account type class.
-     *
-     * @param name The name of the account type.
-     * @return An instance of the Account Type.
-     */
-    public static AccountType getNewAccountType(String name) {
-        AccountType accountType = new AccountType();
-        accountType.setName(name);
-        return accountType;
     }
 
 }

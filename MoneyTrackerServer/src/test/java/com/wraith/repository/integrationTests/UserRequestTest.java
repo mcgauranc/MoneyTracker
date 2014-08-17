@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Account;
 import com.wraith.repository.entity.Users;
@@ -21,6 +21,26 @@ import java.util.Set;
  * Time: 14:09
  */
 public class UserRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates a new user object.
+     *
+     * @param userName  The users username.
+     * @param password  The password for the user.
+     * @param firstName The users first name.
+     * @param lastName  The users last name
+     * @return A user object, containing provided information.
+     */
+    public static Users getNewUser(String userName, String password, String firstName, String lastName) {
+        Users user = new Users();
+
+        user.setUserName(userName);
+        user.setPassword(password);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
+        return user;
+    }
 
     @Test
     public void testResponseContentType() throws Exception {
@@ -225,7 +245,6 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) seventhUserContent.get("userName"), "fourteenth.person");
     }
 
-
     @Test
     public void testUserPasswordIsNotReturned() throws Exception {
         String resourceRequest = createNewUser("fifteenth.person", "Passw0rd", "Fifteenth", "Person");
@@ -265,26 +284,6 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
         Assert.assertEquals((String) accountName.get("name"), "Current");
         Assert.assertEquals(accountName.get("openingBalance"), 12.65);
-    }
-
-    /**
-     * This method creates a new user object.
-     *
-     * @param userName  The users username.
-     * @param password  The password for the user.
-     * @param firstName The users first name.
-     * @param lastName  The users last name
-     * @return A user object, containing provided information.
-     */
-    public static Users getNewUser(String userName, String password, String firstName, String lastName) {
-        Users user = new Users();
-
-        user.setUserName(userName);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-
-        return user;
     }
 
     /**

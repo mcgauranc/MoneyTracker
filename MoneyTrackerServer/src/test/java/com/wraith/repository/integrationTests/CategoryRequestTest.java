@@ -1,4 +1,4 @@
-package com.wraith.repository;
+package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Category;
 import junit.framework.Assert;
@@ -15,6 +15,22 @@ import org.springframework.util.StringUtils;
  * Time: 20:40
  */
 public class CategoryRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method creates a new instance of the category object
+     *
+     * @param name           The name of the category.
+     * @param parentCategory The name of the parent category, if any.
+     * @return an instance of a category object.
+     */
+    public static Category getNewCategory(String name, String parentCategory) {
+        Category category = new Category();
+        category.setName(name);
+        if (!StringUtils.isEmpty(parentCategory)) {
+            category.setParentCategory(getNewCategory(parentCategory, null));
+        }
+        return category;
+    }
 
     @Test
     public void testCreateCategoryWithNoParentRequest() throws Exception {
@@ -121,21 +137,5 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
     private String createNewCategory(String name, String parentCategory) throws Exception {
         Category category = getNewCategory(name, parentCategory);
         return createNewEntity(category, Category.class);
-    }
-
-    /**
-     * This method creates a new instance of the category object
-     *
-     * @param name           The name of the category.
-     * @param parentCategory The name of the parent category, if any.
-     * @return an instance of a category object.
-     */
-    public static Category getNewCategory(String name, String parentCategory) {
-        Category category = new Category();
-        category.setName(name);
-        if (!StringUtils.isEmpty(parentCategory)) {
-            category.setParentCategory(getNewCategory(parentCategory, null));
-        }
-        return category;
     }
 }

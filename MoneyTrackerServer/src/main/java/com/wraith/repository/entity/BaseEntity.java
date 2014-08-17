@@ -1,5 +1,7 @@
 package com.wraith.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ import java.io.Serializable;
 public class BaseEntity implements Cloneable, Serializable {
 
     protected long id;
+    @JsonIgnore
     protected long version;
 
     @Id

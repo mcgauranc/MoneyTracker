@@ -7,6 +7,7 @@ import com.wraith.repository.entity.Users;
 import org.apache.commons.lang.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,8 +15,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -24,12 +27,18 @@ import java.util.Collection;
  * Date: 12/08/12
  * Time: 21:44
  */
+@Component
 public class MoneyUserDetailsService extends JdbcDaoSupport implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
     UsersRepository usersRepository;
+
+    @Autowired
+    public MoneyUserDetailsService(DataSource dataSource) {
+        this.setDataSource(dataSource);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
