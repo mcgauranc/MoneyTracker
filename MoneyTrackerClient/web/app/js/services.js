@@ -2,18 +2,10 @@
 
 /* Services */
 
-var userService = angular.module("userService", ["ngResource"]);
-var accountService = angular.module("accountService", ["ngResource"]);
+var userService = angular.module("userService", ["restangular"]).config(function (RestangularProvider) {
+    RestangularProvider.setBaseUrl("http://localhost:8080/server")
+});
 
-userService.factory("Users", ["$resource",
-    function ($resource) {
-        return $resource("/server/users/", {}, {
-            get: {
-                method: 'GET'},
-            update: {
-                method: "PUT"},
-            remove: {
-                method: "DELETE"
-            }
-        });
-    }]);
+userService.factory("Users", function (Restangular) {
+    return Restangular.service("users");
+});

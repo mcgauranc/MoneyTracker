@@ -24,6 +24,7 @@
     <orderEntry type="library" name="jQuery-2.0.0" level="application" />
     <orderEntry type="library" name="jquery-1.9.1" level="application" />
     <orderEntry type="library" name="angularjs-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="restangular" level="application" />
   </component>
 </module>
 

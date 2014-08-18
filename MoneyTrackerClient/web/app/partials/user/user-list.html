@@ -15,8 +15,8 @@
             <!--Body content-->
 
             <ul class="users">
-                <li ng-repeat="user in users._embedded.users">
-                    <a href="{{user._links.self.href}}">{{user.userName}}</a>
+                <li ng-repeat="user in allUsers._embedded.users">
+                <a href="{{user._links.self.href}}">{{user.userName}}</a>
                 </li>
             </ul>
 

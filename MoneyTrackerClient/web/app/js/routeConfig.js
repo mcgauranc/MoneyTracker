@@ -1,15 +1,5 @@
 "use strict";
 
-/* App Module */
-
-var moneyApp = angular.module("moneyApp", [
-    "ngRoute",
-    "userController",
-    "userService",
-    "accountController",
-    "accountService"
-]);
-
 moneyApp.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider.
