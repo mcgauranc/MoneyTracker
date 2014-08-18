@@ -1,4 +1,6 @@
-app.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$location', '$http',
+var authorisationController = angular.module("authorisationController", []);
+
+authorisationController.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$location', '$http',
     function ($scope, authService, Restangular, $location, $http) {
         var authController = $scope.authController = {};
 

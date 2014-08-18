@@ -2,7 +2,9 @@
 
 /* Controllers */
 
-moneyApp.controller("UserListCtrl", ["$scope", "AuthRestangular", "$location", "focus",
+var userController = angular.module("userController", []);
+
+userController.controller("UserListCtrl", ["$scope", "Restangular", "$location", "focus",
     function ($scope, Restangular, $location, focus) {
 
         var userController = $scope.userController = {};
@@ -14,8 +16,8 @@ moneyApp.controller("UserListCtrl", ["$scope", "AuthRestangular", "$location", "
         userController.pageSize = 5;
 
         userController.refresh = function () {
-            userController.all.getList({"size": userController.pageSize, "page": userController.currentPage, "sort": "id,desc"}).then(function (books) {
-                $scope.users = books;
+            userController.all.getList({"size": userController.pageSize, "page": userController.currentPage, "sort": ""}).then(function (users) {
+                $scope.users = users;
                 userController.pages = users.page.totalPages;
             }, function (error) {
                 userController.location.path('/');

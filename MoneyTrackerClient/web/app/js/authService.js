@@ -1,4 +1,4 @@
-app.service('AuthService', ['$localStorage', '$q', '$http' , function ($localStorage, $q, $http) {
+moneyApp.service('AuthService', ['$localStorage', '$q', '$http' , function ($localStorage, $q, $http) {
     var authService = this;
     authService.authToken = null;
     authService.storage = $localStorage;

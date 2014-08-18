@@ -193,7 +193,7 @@
     <version value="1.0" />
   </component>
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$/MoneyTrackerClient/web/app/index.html" libraries="{jquery-1.9.1}" />
+    <file url="file://$PROJECT_DIR$/MoneyTrackerClient/web/app/index.html" libraries="{jquery-1.9.1, restangular, sha256, underscore}" />
     <file url="PROJECT" libraries="{angularjs-DefinitelyTyped, jQuery-2.0.0}" />
   </component>
   <component name="MavenProjectsManager">
