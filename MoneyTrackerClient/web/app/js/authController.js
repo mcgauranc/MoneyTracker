@@ -25,5 +25,4 @@ app.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$
             authController.password = '';
             authController.location.path('/');
         };
-
     }]);
