@@ -21,9 +21,6 @@ public class RestExporterWebInitializer implements WebApplicationInitializer {
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
-//        FilterRegistration.Dynamic filter = servletContext.addFilter("springSecurityFilterChain", "org.springframework.web.filter.DelegatingFilterProxy");
-//        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-
         AnnotationConfigWebApplicationContext webCtx = new AnnotationConfigWebApplicationContext();
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(webCtx);

@@ -3,14 +3,16 @@ package com.wraith.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+
+import javax.inject.Inject;
 
 /**
  * User: rowan.massey
@@ -18,22 +20,23 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
  * Time: 23:39
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebMvcSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    @Inject
     MoneyUserDetailsService moneyUserDetailsService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new Md5PasswordEncoder());
+        auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new StandardPasswordEncoder());
         //auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin").password("password").roles("ADMIN", "USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/auth").hasRole("USER")
                 .antMatchers("/users/**").hasRole("USER")
                 .antMatchers("/accounts/**").hasRole("ADMIN")
                 .antMatchers("/accountTypes/**").hasRole("ADMIN")
@@ -55,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return rememberMeServices;
     }
 
-//    <security:http-basic entry-point-ref="basicEntryPoint"/>
+    //    <security:http-basic entry-point-ref="basicEntryPoint"/>
 //    <security:form-login authentication-success-handler-ref="ajaxAuthenticationSuccessHandler"
 //    login-page="/WEB-INF/pages/login/login.jsp"/>
 //    <security:logout logout-url="/j_spring_security_logout"/>
