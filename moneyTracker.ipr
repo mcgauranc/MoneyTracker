@@ -30,14 +30,14 @@
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-core:2.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE" />
             <element id="library" level="project" name="Maven: org.objenesis:objenesis:2.1" />
-            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
+            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.2" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.8.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.7" />
+            <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.2" />
             <element id="library" level="project" name="Maven: org.springframework.plugin:spring-plugin-core:1.1.0.RELEASE" />
             <element id="library" level="project" name="Maven: org.atteo:evo-inflector:1.2" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.3" />
-            <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.4" />
-            <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.4" />
+            <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.3" />
+            <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.3" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.6.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.1" />
             <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
@@ -68,6 +68,23 @@
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.2" />
+            <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.2" />
+            <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.13" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:7.0.54" />
+            <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:7.0.54" />
+            <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.54" />
+            <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.0.3.Final" />
+            <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+            <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.0.0" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-actuator:1.1.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-actuator:1.1.5.RELEASE" />
             <element id="library" level="project" name="Spring-4.0.6.RELEASE" />
           </element>
         </element>
@@ -169,13 +186,15 @@
         <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="myValues">
             <value>
-              <list size="6">
+              <list size="8">
                 <item index="0" class="java.lang.String" itemvalue="k-data-source" />
                 <item index="1" class="java.lang.String" itemvalue="kendo-grid" />
                 <item index="2" class="java.lang.String" itemvalue="k-columns" />
                 <item index="3" class="java.lang.String" itemvalue="k-selectable" />
                 <item index="4" class="java.lang.String" itemvalue="ng-repeat" />
                 <item index="5" class="java.lang.String" itemvalue="ng-view" />
+                <item index="6" class="java.lang.String" itemvalue="ng-controller" />
+                <item index="7" class="java.lang.String" itemvalue="ng-app" />
               </list>
             </value>
           </option>
@@ -498,26 +517,37 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.3.3/jackson-annotations-2.3.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.4">
+    <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.4/jackson-core-2.3.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.3/jackson-core-2.3.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.4/jackson-core-2.3.4-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.3/jackson-core-2.3.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.4/jackson-core-2.3.4-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.3.3/jackson-core-2.3.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.4">
+    <library name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.4/jackson-databind-2.3.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.3/jackson-databind-2.3.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.4/jackson-databind-2.3.4-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.3/jackson-databind-2.3.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.4/jackson-databind-2.3.4-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.3.3/jackson-databind-2.3.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.fasterxml:classmate:1.0.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.0.0/classmate-1.0.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.0.0/classmate-1.0.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.jayway.jsonpath:json-path:0.8.1">
@@ -575,6 +605,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: javax.validation:validation-api:1.1.0.Final">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: joda-time:joda-time:2.1">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/joda-time/joda-time/2.1/joda-time-2.1.jar!/" />
@@ -628,6 +669,39 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jtds/jtds/1.2/jtds-1.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.tomcat.embed:tomcat-embed-core:7.0.54">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/7.0.54/tomcat-embed-core-7.0.54.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/7.0.54/tomcat-embed-core-7.0.54-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/7.0.54/tomcat-embed-core-7.0.54-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.tomcat.embed:tomcat-embed-el:7.0.54">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/7.0.54/tomcat-embed-el-7.0.54.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/7.0.54/tomcat-embed-el-7.0.54-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/7.0.54/tomcat-embed-el-7.0.54-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.54">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-logging-juli/7.0.54/tomcat-embed-logging-juli-7.0.54.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-logging-juli/7.0.54/tomcat-embed-logging-juli-7.0.54-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-logging-juli/7.0.54/tomcat-embed-logging-juli-7.0.54-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.aspectj:aspectjrt:1.8.1">
@@ -749,6 +823,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-envers/4.3.6.Final/hibernate-envers-4.3.6.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.hibernate:hibernate-validator:5.0.3.Final">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/5.0.3.Final/hibernate-validator-5.0.3.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/5.0.3.Final/hibernate-validator-5.0.3.Final-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/5.0.3.Final/hibernate-validator-5.0.3.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hsqldb:hsqldb:2.2.4">
@@ -883,26 +968,136 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/0.11.4/lombok-0.11.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.slf4j:jcl-over-slf4j:1.7.7">
+    <library name="Maven: org.slf4j:jcl-over-slf4j:1.7.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.7/jcl-over-slf4j-1.7.7.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.2/jcl-over-slf4j-1.7.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.7/jcl-over-slf4j-1.7.7-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.2/jcl-over-slf4j-1.7.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.7/jcl-over-slf4j-1.7.7-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.2/jcl-over-slf4j-1.7.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.slf4j:slf4j-api:1.7.7">
+    <library name="Maven: org.slf4j:jul-to-slf4j:1.7.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.2/jul-to-slf4j-1.7.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.2/jul-to-slf4j-1.7.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.2/jul-to-slf4j-1.7.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.slf4j:log4j-over-slf4j:1.7.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.2/log4j-over-slf4j-1.7.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.2/log4j-over-slf4j-1.7.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.2/log4j-over-slf4j-1.7.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.slf4j:slf4j-api:1.7.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-actuator:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-actuator/1.1.5.RELEASE/spring-boot-actuator-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-actuator/1.1.5.RELEASE/spring-boot-actuator-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-actuator/1.1.5.RELEASE/spring-boot-actuator-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/1.1.5.RELEASE/spring-boot-autoconfigure-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/1.1.5.RELEASE/spring-boot-autoconfigure-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/1.1.5.RELEASE/spring-boot-autoconfigure-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter-actuator:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-actuator/1.1.5.RELEASE/spring-boot-starter-actuator-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-actuator/1.1.5.RELEASE/spring-boot-starter-actuator-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-actuator/1.1.5.RELEASE/spring-boot-starter-actuator-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter-logging:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/1.1.5.RELEASE/spring-boot-starter-logging-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/1.1.5.RELEASE/spring-boot-starter-logging-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/1.1.5.RELEASE/spring-boot-starter-logging-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/1.1.5.RELEASE/spring-boot-starter-tomcat-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/1.1.5.RELEASE/spring-boot-starter-tomcat-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/1.1.5.RELEASE/spring-boot-starter-tomcat-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter-web:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/1.1.5.RELEASE/spring-boot-starter-web-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/1.1.5.RELEASE/spring-boot-starter-web-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/1.1.5.RELEASE/spring-boot-starter-web-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/1.1.5.RELEASE/spring-boot-starter-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/1.1.5.RELEASE/spring-boot-starter-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/1.1.5.RELEASE/spring-boot-starter-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/1.1.5.RELEASE/spring-boot-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/1.1.5.RELEASE/spring-boot-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/1.1.5.RELEASE/spring-boot-1.1.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.data:spring-data-commons:1.8.2.RELEASE">
@@ -1134,6 +1329,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.6.RELEASE/spring-webmvc-4.0.6.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.yaml:snakeyaml:1.13">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.13/snakeyaml-1.13.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.13/snakeyaml-1.13-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.13/snakeyaml-1.13-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: xml-apis:xml-apis:1.0.b2">

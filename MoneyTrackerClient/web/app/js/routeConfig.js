@@ -3,15 +3,15 @@
 moneyApp.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider.
+            when("/", {
+                templateUrl: "partials/login.html",
+                controller: "AuthController"
+            }).
             when("/users", {
                 templateUrl: "partials/user/user-list.html",
-                controller: "UserListCtrl"
-            }).
-            when("/user/:userId", {
-                templateUrl: "partials/user/user-detail.html",
-                controller: "UserDetailCtrl"
+                controller: "UserController"
             }).
             otherwise({
-                redirectTo: "/users"
+                redirectTo: "partials/login.html"
             });
     }]);

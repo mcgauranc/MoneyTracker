@@ -2,12 +2,11 @@
 
 /* Controllers */
 
-var userController = angular.module("userController", []);
-
-userController.controller("UserListCtrl", ["$scope", "Restangular", "$location", "focus",
+moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location", "focus",
     function ($scope, Restangular, $location, focus) {
 
         var userController = $scope.userController = {};
+
         userController.all = Restangular.all('users');
         userController.currentPage = 0;
         userController.pages = 0;

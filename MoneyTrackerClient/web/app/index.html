@@ -20,56 +20,37 @@
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
+    <script type="text/javascript" src="lib/ngStorage.js"></script>
+
     <script src="js/main.js"></script>
     <script src="js/restangularConfig.js"></script>
     <script src="js/routeConfig.js"></script>
     <script src="js/authService.js"></script>
-    <script src="js/authorisationController.js"></script>
+    <script src="js/authController.js"></script>
     <script src="js/userController.js"></script>
     <script src="js/services.js"></script>
-
-
 </head>
 <body>
 
-<!--<div ng-controller="AuthController" class="navbar navbar-default navbar-fixed-top">-->
-<!--<div class="container">-->
-<!--<div class="navbar-header">-->
-<!--<span class="navbar-brand">Books Manager</span>-->
-<!--</div>-->
-<!--<div class="navbar-collapse collapse">-->
-<!--<ul class="nav navbar-nav">-->
-<!--</ul>-->
-<!--<ul class="nav navbar-nav navbar-right">-->
-<!--<li ng-show="authorisationController.authService.storage.authToken !== undefined">-->
-<!--<div class="nav-element" ng-click="authorisationController.logout()"><span class="glyphicon glyphicon-off"></span>Logout</div>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div ng-view class="container">-->
-<!--</div>-->
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="#/users">Profile</a>
-            <a class="brand" href="#/transactions">Transactions</a>
-            <a class="brand" href="#/admin">Administration</a>
+<div ng-controller="AuthController" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">User Manager</span>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="authController.authService.storage.authToken !== undefined">
+                    <div class="nav-element" ng-click="authController.logout()"><span
+                            class="glyphicon glyphicon-off"></span>Logout
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-<br>
-<br>
-
-<div class="container" ng-view>
-
+<div ng-view class="container">
 </div>
 
 </body>
