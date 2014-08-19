@@ -53,7 +53,7 @@ userController.controller("UserListCtrl", ["$scope", "Restangular", "$location",
             }
         };
 
-        userController.newBook = function () {
+        userController.newUser = function () {
             userController.currentPage = 0;
             userController.pageSize = 4;
             userController.refresh();
@@ -67,12 +67,12 @@ userController.controller("UserListCtrl", ["$scope", "Restangular", "$location",
             userController.refresh();
         };
 
-        userController.edit = function (book, event) {
-            userController.current = book;
+        userController.edit = function (user, event) {
+            userController.current = user;
             focus('startEdit');
         };
 
-        userController.remove = function (book) {
+        userController.remove = function (user) {
             user.remove().then(function (result) {
                 userController.refresh();
             });

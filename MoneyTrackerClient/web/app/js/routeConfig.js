@@ -11,15 +11,7 @@ moneyApp.config(["$routeProvider",
                 templateUrl: "partials/user/user-detail.html",
                 controller: "UserDetailCtrl"
             }).
-            when("/accounts", {
-                templateUrl: "partials/account/account-list.html",
-                controller: "AccountListCtrl"
-            }).
-            when("/account/:accountId", {
-                templateUrl: "partials/account/account-detail.html",
-                controller: "AccountDetailCtrl"
-            }).
             otherwise({
-                redirectTo: "/user"
+                redirectTo: "/users"
             });
     }]);

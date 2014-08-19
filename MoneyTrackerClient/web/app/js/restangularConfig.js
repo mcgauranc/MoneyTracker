@@ -9,11 +9,11 @@ moneyApp.config(function (RestangularProvider) {
                 data[EMBEDDED_TAG][i][HREF_TAG] = data[EMBEDDED_TAG][i][LINKS_TAG][0][HREF_TAG];
                 delete data[EMBEDDED_TAG][i][LINKS_TAG];
             }
-            returnData = data[EMBEDDED_TAG];
+            returnData = data[EMBEDDED_TAG][route];
             delete data[EMBEDDED_TAG];
-//            for (var key in data) {
-//                returnData[key] = data[key];
-//            }
+            for (var key in data) {
+                returnData[key] = data[key];
+            }
         }
         return returnData;
     });

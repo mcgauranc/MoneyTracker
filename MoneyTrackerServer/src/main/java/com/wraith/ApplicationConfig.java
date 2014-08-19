@@ -1,7 +1,15 @@
 package com.wraith;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.wraith.repository.handler.*;
+import com.wraith.repository.handler.AccountEventHandler;
+import com.wraith.repository.handler.AccountTypeEventHandler;
+import com.wraith.repository.handler.AddressEventHandler;
+import com.wraith.repository.handler.AuthoritiesEventHandler;
+import com.wraith.repository.handler.CategoryEventHandler;
+import com.wraith.repository.handler.CountryEventHandler;
+import com.wraith.repository.handler.CurrencyEventHandler;
+import com.wraith.repository.handler.GroupsEventHandler;
+import com.wraith.repository.handler.UserEventHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,6 +34,7 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
+//@EnableAutoConfiguration
 @Configuration
 @ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository", "com.wraith.security", "com.wraith.authentication."})
 @EnableAsync
@@ -76,6 +85,10 @@ public class ApplicationConfig {
     private String generateStatistics;
     @Value("${hibernate.show_sql}")
     private String showSql;
+
+	//    public static void main(String[] args) {
+	//        SpringApplication.run(ApplicationConfig.class, args);
+	//    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
