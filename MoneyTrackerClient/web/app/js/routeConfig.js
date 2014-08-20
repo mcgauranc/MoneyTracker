@@ -12,6 +12,6 @@ moneyApp.config(["$routeProvider",
                 controller: "UserController"
             }).
             otherwise({
-                redirectTo: "partials/login.html"
+                redirectTo: "/"
             });
     }]);

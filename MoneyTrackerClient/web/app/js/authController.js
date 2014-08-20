@@ -12,7 +12,7 @@ moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular
         authController.login = function () {
             authController.authService.login(authController.username, authController.password)
                 .then(function (response) {
-                    authController.location.path('/auth');
+                    authController.location.path('/users');
                 }, function (reject) {
                     console.log('Login error');
                 });

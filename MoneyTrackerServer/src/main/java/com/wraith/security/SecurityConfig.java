@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new StandardPasswordEncoder());
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
+//		auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new StandardPasswordEncoder());
+        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
 				.password("password").roles("ADMIN", "USER");
 	}
 
@@ -38,30 +38,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				//    		.antMatchers("/users/**").hasRole("USER")
-				//            .antMatchers("/accounts/**").hasRole("ADMIN")
-				//	    	.antMatchers("/accountTypes/**").hasRole("ADMIN")
-				//            .antMatchers("/addresses/**").hasRole("ADMIN")
-				//		    .antMatchers("/authorities/**").hasRole("ADMIN")
-				//            .antMatchers("/countries/**").hasRole("ADMIN")
-				//			.antMatchers("/currencies/**").hasRole("ADMIN")
-				//            .antMatchers("/groups/**").hasRole("ADMIN")
-				//			.antMatchers("/payees/**").hasRole("USER")
-				//            .antMatchers("/transactions/**").hasRole("USER")
-				.antMatchers("/**").hasRole("USER").and().httpBasic().and().formLogin()
-				.successHandler(ajaxAuthenticationSuccessHandler).and().logout().permitAll().and().sessionManagement()
-				.maximumSessions(1);
+        http
+                .authorizeRequests()
+//       		.antMatchers("/users/**").hasRole("USER")
+//	            .antMatchers("/accounts/**").hasRole("ADMIN")
+//	    	    .antMatchers("/accountTypes/**").hasRole("ADMIN")
+//	            .antMatchers("/addresses/**").hasRole("ADMIN")
+//	            .antMatchers("/authorities/**").hasRole("ADMIN")
+//		        .antMatchers("/countries/**").hasRole("ADMIN")
+//			    .antMatchers("/currencies/**").hasRole("ADMIN")
+//		        .antMatchers("/groups/**").hasRole("ADMIN")
+//		        .antMatchers("/payees/**").hasRole("USER")
+//			    .antMatchers("/transactions/**").hasRole("USER")
+                .antMatchers("/**").hasRole("USER")
+                .and()
+                .httpBasic()
+                .realmName("MoneyTracker Realm via Basic Authentication")
+                .and()
+                .csrf()
+                .disable(); //Disabled CSRF, is this REST service won't exclusively be for browsers.
 
 	}
-
-	//	@Bean
-	//	public RememberMeServices rememberMeServices() {
-	//		TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("password", moneyUserDetailsService);
-	//		rememberMeServices.setCookieName("cookieName");
-	//		rememberMeServices.setParameter("rememberMe");
-	//		return rememberMeServices;
-	//	}
 
 	//    <security:http-basic entry-point-ref="basicEntryPoint"/>
 	//    <security:form-login authentication-success-handler-ref="ajaxAuthenticationSuccessHandler"
@@ -84,10 +81,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	//    <!--<property name="userDetailsService" ref="moneyUserDetailsService"/>-->
 	//    <!--<property name="authenticationEntryPoint" ref="digestEntryPoint"/>-->
 	//    <!--</bean>-->
-	//
-	//    <bean id="basicEntryPoint" class=
-	//            "org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
-	//    <property name="realmName" value="MoneyTracker Realm via Basic Authentication"/>
-	//    </bean>
 
 }
