@@ -7,16 +7,15 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http' , function ($loc
     authService.storage = authService.storage.authService;
 
     authService.login = function (username, password) {
-        authService.authToken = 'Basic ' + CryptoJS.enc.Utf8.parse(username + ':' + CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64)).toString(CryptoJS.enc.Base64);
-        return authService.isAuthenticated();
+//        authService.authToken = 'Basic ' + CryptoJS.enc.Utf8.parse(username + ':' + CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64)).toString(CryptoJS.enc.Base64);
+        authService.authToken = "Basic " + CryptoJS.enc.Utf8.parse(username + ':' + password).toString(CryptoJS.enc.Base64);
+        return authService.isAuthenticated(username, password);
     };
 
-    authService.isAuthenticated = function () {
+    authService.isAuthenticated = function (username, password) {
         var deferred = $q.defer();
 
-        $http({method: 'GET',
-            url: BASE_URL + '/auth',
-            headers: {Authorization: authService.authToken}}).
+        $http.post(BASE_URL + "/login", {'j_username': username, 'j_password': password}, {headers: {"Authorization": authService.authToken, "x-ajax-call": "true"}}).
             success(function (data, status, headers, config) {
                 authService.storage.authToken = authService.authToken;
                 deferred.resolve();
