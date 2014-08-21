@@ -1,6 +1,7 @@
 package com.wraith.security;
 
-import com.wraith.authentication.AjaxAuthenticationSuccessHandler;
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,8 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
-import javax.inject.Inject;
+import com.wraith.authentication.AjaxAuthenticationSuccessHandler;
 
 /**
  * User: rowan.massey Date: 14/08/2014 Time: 23:39
@@ -28,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new StandardPasswordEncoder());
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
-				.password("password").roles("ADMIN", "USER");
+		auth.userDetailsService(moneyUserDetailsService).passwordEncoder(new StandardPasswordEncoder());
+//        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
+//				.password("password").roles("ADMIN", "USER");
 	}
 
 	public void configure(WebSecurity web) throws Exception {
@@ -39,24 +42,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-//       		.antMatchers("/users/**").hasRole("USER")
-//	            .antMatchers("/accounts/**").hasRole("ADMIN")
-//	    	    .antMatchers("/accountTypes/**").hasRole("ADMIN")
-//	            .antMatchers("/addresses/**").hasRole("ADMIN")
-//	            .antMatchers("/authorities/**").hasRole("ADMIN")
-//		        .antMatchers("/countries/**").hasRole("ADMIN")
-//			    .antMatchers("/currencies/**").hasRole("ADMIN")
-//		        .antMatchers("/groups/**").hasRole("ADMIN")
-//		        .antMatchers("/payees/**").hasRole("USER")
-//			    .antMatchers("/transactions/**").hasRole("USER")
+            .authorizeRequests()
+	            .antMatchers("/accounts/**").hasRole("ADMIN")
+	    	    .antMatchers("/accountTypes/**").hasRole("ADMIN")
+	            .antMatchers("/addresses/**").hasRole("ADMIN")
+	            .antMatchers("/authorities/**").hasRole("ADMIN")
+		        .antMatchers("/countries/**").hasRole("ADMIN")
+			    .antMatchers("/currencies/**").hasRole("ADMIN")
+		        .antMatchers("/groups/**").hasRole("ADMIN")
                 .antMatchers("/**").hasRole("USER")
                 .and()
-                .httpBasic()
+            .httpBasic()
                 .realmName("MoneyTracker Realm via Basic Authentication")
                 .and()
-                .csrf()
-                .disable(); //Disabled CSRF, is this REST service won't exclusively be for browsers.
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+            .csrf()
+                .disable(); //Disabled CSRF, as this REST service won't exclusively be for browsers.
 
 	}
 

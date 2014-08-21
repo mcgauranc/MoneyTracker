@@ -1,8 +1,11 @@
 package com.wraith.repository;
 
-import com.wraith.repository.entity.Authorities;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
+
+import com.wraith.repository.entity.Authorities;
 
 /**
  * User: rowan.massey
@@ -11,4 +14,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
  */
 @RestResource(rel = "authorities", path = "/authorities")
 public interface AuthoritiesRepository extends CrudRepository<Authorities, Long> {
+
+    public List<Authorities> findByAuthority(String authority);
+
 }
