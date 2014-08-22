@@ -1,13 +1,15 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Category;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.util.StringUtils;
+
+import com.wraith.repository.entity.Category;
 
 /**
  * User: rowan.massey
@@ -79,7 +81,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteCategoryWithNoParentForAdminUserRequest() throws Exception {
         String resourceRequest = createNewCategory("Computer", null);
 
@@ -88,7 +90,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse putResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(putResponse);
 
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
@@ -136,6 +138,6 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewCategory(String name, String parentCategory) throws Exception {
         Category category = getNewCategory(name, parentCategory);
-        return createNewEntity(category, Category.class);
+        return createNewEntity(category, CATEGORIES_PATH);
     }
 }

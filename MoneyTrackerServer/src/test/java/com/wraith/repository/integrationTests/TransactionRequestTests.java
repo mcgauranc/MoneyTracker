@@ -1,14 +1,21 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.*;
-import com.wraith.repository.entity.Transaction.TransactionType;
+import java.util.Calendar;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.Calendar;
+import com.wraith.repository.entity.Account;
+import com.wraith.repository.entity.Category;
+import com.wraith.repository.entity.Currency;
+import com.wraith.repository.entity.Payee;
+import com.wraith.repository.entity.Transaction;
+import com.wraith.repository.entity.Transaction.TransactionType;
+import com.wraith.repository.entity.Users;
 
 /**
  * User: rowan.massey
@@ -181,7 +188,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         Payee payee = getPayee(payeeName);
 
         Transaction transaction = getNewTransaction(account, amount, category, chequeNumber, currency, notes, payee, quantity, type, user);
-        return createNewEntity(transaction, Transaction.class);
+        return createNewEntity(transaction, TRANSACTIONS_PATH);
     }
 
     /**

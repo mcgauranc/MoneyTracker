@@ -1,13 +1,15 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Address;
+import static com.wraith.repository.integrationTests.CountryRequestTest.getNewCountry;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import static com.wraith.repository.integrationTests.CountryRequestTest.getNewCountry;
+import com.wraith.repository.entity.Address;
 
 /**
  * User: rowan.massey
@@ -108,6 +110,6 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
      */
     public String createNewAddress(String address1, String address2, String city, String county, String country, String countryISO) throws Exception {
         Address address = getNewAddress(address1, address2, city, county, country, countryISO);
-        return createNewEntity(address, Address.class);
+        return createNewEntity(address, ADDRESSES_PATH);
     }
 }

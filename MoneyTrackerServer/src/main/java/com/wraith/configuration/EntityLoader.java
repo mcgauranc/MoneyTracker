@@ -33,7 +33,6 @@ public class EntityLoader {
 	private GroupsRepository groupsRepository;
 	@Inject
 	private AuthoritiesRepository authoritiesRepository;
-
 	@Inject
 	private Encoding encoding;
 

@@ -1,14 +1,16 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Authorities;
-import junit.framework.Assert;
-import net.minidev.json.JSONObject;
-import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.mock.web.MockHttpServletResponse;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import junit.framework.Assert;
+import net.minidev.json.JSONObject;
+
+import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.repository.entity.Authorities;
 
 /**
  * User: rowan.massey
@@ -110,7 +112,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         performPutRequest(resourceRequest, updatedAccountBytes);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteAuthorityRequest() throws Exception {
         authenticate("Administrator", "Passw0rd");
 
@@ -121,7 +123,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(deleteResponse);
 
         //Ensure that the deleted account can't be retrieved from the database.
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
@@ -146,6 +148,6 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewAuthority(String authorityName) throws Exception {
         Authorities authority = getNewAuthority(authorityName);
-        return createNewEntity(authority, Authorities.class);
+        return createNewEntity(authority, AUTHORITIES_PATH);
     }
 }

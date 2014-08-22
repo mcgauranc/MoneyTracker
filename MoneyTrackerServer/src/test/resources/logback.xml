@@ -41,22 +41,22 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="DEBUG" additivity="false">
+    <logger name="org.springframework" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.springframework.data.rest" level="DEBUG" additivity="false">
+    <logger name="org.springframework.data.rest" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+    <logger name="org.springframework.security" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.hibernate" level="DEBUG" additivity="false">
+    <logger name="org.hibernate" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.hibernate.cache" level="DEBUG" additivity="false">
+    <logger name="org.hibernate.cache" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="com.wraith" level="DEBUG" additivity="false">
+    <logger name="com.wraith" level="ERROR" additivity="false">
         <appender-ref ref="console"/>
     </logger>
 

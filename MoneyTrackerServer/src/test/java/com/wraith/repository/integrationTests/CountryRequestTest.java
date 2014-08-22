@@ -1,11 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Country;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.repository.entity.Country;
 
 /**
  * User: rowan.massey
@@ -95,7 +97,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         performPutRequest(resourceRequest, updatedCountryBytes);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteCountryRequest() throws Exception {
         authenticate("Administrator", "Passw0rd");
 
@@ -106,7 +108,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(deleteResponse);
 
         //Ensure that the deleted account can't be retrieved from the database.
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
@@ -135,6 +137,6 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewCountry(String countryISO, String name) throws Exception {
         Country country = getNewCountry(countryISO, name);
-        return createNewEntity(country, Country.class);
+        return createNewEntity(country, COUNTRIES_PATH);
     }
 }

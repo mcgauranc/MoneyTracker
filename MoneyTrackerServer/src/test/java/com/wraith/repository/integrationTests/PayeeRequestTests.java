@@ -1,11 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Payee;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.repository.entity.Payee;
 
 /**
  * User: rowan.massey
@@ -95,7 +97,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Tesco");
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteCategoryWithAdminUserRequest() throws Exception {
         authenticate("Administrator", "Passw0rd");
         String resourceRequest = createNewPayee("Art of Coffee");
@@ -104,7 +106,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         MockHttpServletResponse putResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(putResponse);
 
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
@@ -128,6 +130,6 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
      */
     private String createNewPayee(String name) throws Exception {
         Payee payee = getNewPayee(name);
-        return createNewEntity(payee, Payee.class);
+        return createNewEntity(payee, PAYEES_PATH);
     }
 }

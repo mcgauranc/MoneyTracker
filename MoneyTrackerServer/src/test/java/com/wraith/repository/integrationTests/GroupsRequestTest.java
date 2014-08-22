@@ -1,17 +1,19 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Authorities;
-import com.wraith.repository.entity.Groups;
+import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
+
+import java.util.Set;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.Set;
-
-import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
+import com.wraith.repository.entity.Authorities;
+import com.wraith.repository.entity.Groups;
 
 /**
  * User: rowan.massey
@@ -154,6 +156,6 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewGroup(String name, Set<Authorities> authorities) throws Exception {
         Groups groups = getNewGroup(name, authorities);
-        return createNewEntity(groups, Groups.class);
+        return createNewEntity(groups, GROUPS_PATH);
     }
 }

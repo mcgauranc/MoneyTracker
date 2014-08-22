@@ -1,11 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Currency;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.repository.entity.Currency;
 
 /**
  * User: rowan.massey
@@ -135,7 +137,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
      */
     private String createNewCurrency(String iso, String name) throws Exception {
         Currency currency = getCurrency(iso, name);
-        return createNewEntity(currency, Currency.class);
+        return createNewEntity(currency, CURRENCY_PATH);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.AccountType;
 import junit.framework.Assert;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.repository.entity.AccountType;
 
 /**
  * User: rowan.massey
@@ -75,7 +77,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(putResponse);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteAccountRequest() throws Exception {
         String resourceRequest = createNewAccountType("Banking 4");
 
@@ -85,7 +87,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(deleteResponse);
 
         //Ensure that the deleted account can't be retrieved from the database.
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
@@ -108,7 +110,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
      */
     public String createNewAccountType(String name) throws Exception {
         AccountType accountType = getNewAccountType(name);
-        return createNewEntity(accountType, AccountType.class);
+        return createNewEntity(accountType, ACCOUNT_TYPES_PATH);
     }
 
 }

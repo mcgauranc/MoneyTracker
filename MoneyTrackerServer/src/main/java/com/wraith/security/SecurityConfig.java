@@ -3,7 +3,9 @@ package com.wraith.security;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -62,6 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable(); //Disabled CSRF, as this REST service won't exclusively be for browsers.
 
 	}
+
+    //Needed to expose this for use with integration tests.
+    @Bean(name="authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
 	//    <security:http-basic entry-point-ref="basicEntryPoint"/>
 	//    <security:form-login authentication-success-handler-ref="ajaxAuthenticationSuccessHandler"

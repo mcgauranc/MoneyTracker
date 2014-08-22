@@ -1,19 +1,21 @@
 package com.wraith.repository.integrationTests;
 
-import com.wraith.repository.entity.Account;
-import com.wraith.repository.entity.Users;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import com.wraith.repository.entity.Account;
+import com.wraith.repository.entity.Users;
 
 /**
  * User: rowan.massey
@@ -47,7 +49,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse response = performGetRequest("/users/");
         Assert.assertTrue(response != null);
         Assert.assertEquals(response.getStatus(), HttpStatus.OK.value());
-        Assert.assertEquals(response.getContentType(), "application/json");
+        Assert.assertEquals(response.getContentType(), "application/hal+json");
     }
 
     @Test
@@ -293,7 +295,6 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
      * @throws Exception
      */
     private String createNewUser(Users user) throws Exception {
-        return createNewEntity(user, Users.class);
+        return createNewEntity(user, USERS_PATH);
     }
 }
-

@@ -1,16 +1,15 @@
 package com.wraith.repository.integrationTests;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.ApplicationConfig;
-import com.wraith.configuration.ApplicationRestConfig;
-import com.wraith.configuration.RestExporterWebInitializer;
-import com.wraith.repository.*;
-import com.wraith.repository.entity.BaseEntity;
-import com.wraith.repository.entity.Users;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -27,13 +26,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.ApplicationConfig;
+import com.wraith.configuration.ApplicationRestConfig;
+import com.wraith.configuration.RestExporterWebInitializer;
+import com.wraith.repository.AccountRepository;
+import com.wraith.repository.CategoryRepository;
+import com.wraith.repository.CurrencyRepository;
+import com.wraith.repository.PayeeRepository;
+import com.wraith.repository.UsersRepository;
+import com.wraith.repository.entity.BaseEntity;
+import com.wraith.repository.entity.Users;
+import com.wraith.security.SecurityConfig;
 
 /**
  * User: rowan.massey
@@ -42,14 +51,27 @@ import java.util.Map;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-@ContextConfiguration(classes = {ApplicationConfig.class, ApplicationRestConfig.class, RestExporterWebInitializer.class})
+@WebAppConfiguration()
+@ContextConfiguration(classes = {ApplicationConfig.class, ApplicationRestConfig.class, SecurityConfig.class, RestExporterWebInitializer.class})
 public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
+
+    public static final String ACCOUNTS_PATH = "accounts";
+    public static final String USERS_PATH = "users";
+    public static final String CURRENCY_PATH = "currency";
+    public static final String ACCOUNT_TYPES_PATH = "accountTypes";
+    public static final String COUNTRIES_PATH = "countries";
+    public static final String ADDRESSES_PATH = "addresses";
+    public static final String AUTHORITIES_PATH = "authorities";
+    public static final String CATEGORIES_PATH = "categories";
+    public static final String TRANSACTIONS_PATH = "transactions";
+    public static final String GROUPS_PATH = "groups";
+    public static final String PAYEES_PATH = "payees";
 
     protected ObjectMapper mapper;
     protected JSONParser parser;
 
     @Inject
-    @Qualifier(value = "authenticationManager")
+    @Qualifier("authenticationManager")
     protected AuthenticationManager authenticationManager;
     protected Authentication admin;
 
@@ -78,7 +100,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     public void setUp() {
         admin = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("Administrator", "Passw0rd"));
         mapper = new ObjectMapper();
-        parser = new JSONParser();
+        parser = new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE);
     }
 
     protected void authenticate(String userName, String password) {
@@ -122,6 +144,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         return null;
     }
 
+
     /**
      * This method performs a GET request to the server to retrieve records, along with the associated parameters - if any.
      *
@@ -130,6 +153,17 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @return The response object from the server.
      */
     protected MockHttpServletResponse performGetRequest(String uri, Map parameters) throws Exception {
+        return performGetRequest(uri, parameters, HttpStatus.OK);
+    }
+
+    /**
+     * This method performs a GET request to the server to retrieve records, along with the associated parameters - if any.
+     *
+     * @param uri        The uri on which the request will be performed.
+     * @param parameters The parameters that will get passed to the request.
+     * @return The response object from the server.
+     */
+    protected MockHttpServletResponse performGetRequest(String uri, Map parameters, HttpStatus expectedStatus) throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -142,8 +176,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
 
         Object handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);
-        Assert.assertTrue(response != null);
-        Assert.assertEquals(response.getStatus(), HttpStatus.OK.value());
+        Assert.assertEquals(response.getStatus(), expectedStatus.value());
         return response;
     }
 
@@ -170,7 +203,8 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
 
         request.setMethod("POST");
         request.setRequestURI(uri);
-        request.setContentType("application/json");
+        request.setContentType("application/hal+json");
+//        request.setContentType("application/json");
         request.setContent(content);
 
         Object handler = handlerMapping.getHandler(request).getHandler();
@@ -226,11 +260,10 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @return The REST query location of the created entity.
      * @throws Exception
      */
-    protected <T extends BaseEntity> String createNewEntity(BaseEntity entity, Class<T> clazz) throws Exception {
+    protected <T extends BaseEntity> String createNewEntity(BaseEntity entity, String path) throws Exception {
         byte[] entityBytes = mapper.writeValueAsBytes(entity);
-        String entityName = StringUtils.uncapitalize(clazz.getSimpleName());
         //Insert new user record.
-        MockHttpServletResponse postResponse = performPostRequest("/".concat(entityName).concat("/"), entityBytes);
+        MockHttpServletResponse postResponse = performPostRequest("/".concat(path).concat("/"), entityBytes);
         Assert.assertNotNull(postResponse);
         return getResourceURI(postResponse.getHeader("Location"));
     }
@@ -246,6 +279,6 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      */
     protected String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
         Users user = UserRequestTest.getNewUser(userName, password, firstName, lastName);
-        return createNewEntity(user, Users.class);
+        return createNewEntity(user, USERS_PATH);
     }
 }
