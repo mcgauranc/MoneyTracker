@@ -1,7 +1,6 @@
 package com.wraith.security;
 
-import javax.inject.Inject;
-
+import com.wraith.authentication.AjaxAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
-import com.wraith.authentication.AjaxAuthenticationSuccessHandler;
+import javax.inject.Inject;
 
 /**
  * User: rowan.massey Date: 14/08/2014 Time: 23:39
@@ -71,27 +70,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-	//    <security:http-basic entry-point-ref="basicEntryPoint"/>
-	//    <security:form-login authentication-success-handler-ref="ajaxAuthenticationSuccessHandler"
-	//    login-page="/WEB-INF/pages/login/login.jsp"/>
-	//    <security:logout logout-url="/j_spring_security_logout"/>
-	//    <security:remember-me data-source-ref="dataSource"/>
-	//    <!--<security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER"/>-->
-	//    </security:http>
-	//
-	//    <security:authentication-manager alias="authenticationManager">
-	//    <security:authentication-provider user-service-ref="moneyUserDetailsService">
-	//    <security:password-encoder hash="md5">
-	//    <security:salt-source user-property="username"/>
-	//    </security:password-encoder>
-	//    </security:authentication-provider>
-	//    </security:authentication-manager>
-	//
-	//
-	//    <!--<bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">-->
-	//    <!--<property name="userDetailsService" ref="moneyUserDetailsService"/>-->
-	//    <!--<property name="authenticationEntryPoint" ref="digestEntryPoint"/>-->
-	//    <!--</bean>-->
-
 }

@@ -1,20 +1,23 @@
 package com.wraith.repository.integrationTests;
 
-import java.util.Collection;
-import java.util.Map;
-
-import javax.inject.Inject;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.ApplicationConfig;
+import com.wraith.configuration.ApplicationRestConfig;
+import com.wraith.configuration.RestExporterWebInitializer;
+import com.wraith.repository.*;
+import com.wraith.repository.entity.BaseEntity;
+import com.wraith.repository.entity.Users;
+import com.wraith.security.SecurityConfig;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -31,18 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.ApplicationConfig;
-import com.wraith.configuration.ApplicationRestConfig;
-import com.wraith.configuration.RestExporterWebInitializer;
-import com.wraith.repository.AccountRepository;
-import com.wraith.repository.CategoryRepository;
-import com.wraith.repository.CurrencyRepository;
-import com.wraith.repository.PayeeRepository;
-import com.wraith.repository.UsersRepository;
-import com.wraith.repository.entity.BaseEntity;
-import com.wraith.repository.entity.Users;
-import com.wraith.security.SecurityConfig;
+import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * User: rowan.massey
@@ -53,6 +47,7 @@ import com.wraith.security.SecurityConfig;
 @Transactional
 @WebAppConfiguration()
 @ContextConfiguration(classes = {ApplicationConfig.class, ApplicationRestConfig.class, SecurityConfig.class, RestExporterWebInitializer.class})
+@IntegrationTest
 public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
 
     public static final String ACCOUNTS_PATH = "accounts";
