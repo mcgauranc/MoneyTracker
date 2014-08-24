@@ -2,12 +2,9 @@ package com.wraith.repository.integrationTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wraith.ApplicationConfig;
-import com.wraith.configuration.ApplicationRestConfig;
-import com.wraith.configuration.RestExporterWebInitializer;
 import com.wraith.repository.*;
 import com.wraith.repository.entity.BaseEntity;
 import com.wraith.repository.entity.Users;
-import com.wraith.security.SecurityConfig;
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -18,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -26,10 +24,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -45,8 +41,7 @@ import java.util.Map;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-@WebAppConfiguration()
-@ContextConfiguration(classes = {ApplicationConfig.class, ApplicationRestConfig.class, SecurityConfig.class, RestExporterWebInitializer.class})
+@SpringApplicationConfiguration(classes = ApplicationConfig.class)
 @IntegrationTest
 public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
 

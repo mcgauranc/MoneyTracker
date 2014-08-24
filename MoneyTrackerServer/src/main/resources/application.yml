@@ -3,6 +3,7 @@ server:
   port: 8080
   context-path: "/server"
 spring:
+#    profiles: development
     datasource:
         driverClassName: net.sourceforge.jtds.jdbc.Driver
         url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak;instance=sqlexpress
@@ -19,3 +20,22 @@ spring:
         hibernate.cache.use_second_level_cache: true
         hibernate.cache.use_query_cache: true
         hibernate.generate_statistics: true
+
+#spring:
+#    profiles: testing
+#    datasource:
+#        driverClassName: org.hsqldb.jdbcDriver
+#        url: jdbc:hsqldb:mem:moneyTrak
+#        username: sa
+#        password:
+#    jpa:
+#      database-platform: org.hibernate.dialect.SQLServerDialect
+#      show-sql: true
+#      generate-ddl: false
+#      hibernate:
+#        ddl-auto: create-drop
+#      properties:
+#        hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+#        hibernate.cache.use_second_level_cache: true
+#        hibernate.cache.use_query_cache: true
+#        hibernate.generate_statistics: true

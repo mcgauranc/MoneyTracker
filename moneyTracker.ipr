@@ -49,6 +49,7 @@
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
+            <element id="library" level="project" name="Maven: org.objenesis:objenesis:1.0" />
             <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-rest:1.1.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.1.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.1.5.RELEASE" />
@@ -74,7 +75,6 @@
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-webmvc:2.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-core:2.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE" />
-            <element id="library" level="project" name="Maven: org.objenesis:objenesis:2.1" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.8.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.plugin:spring-plugin-core:1.1.0.RELEASE" />
             <element id="library" level="project" name="Maven: org.atteo:evo-inflector:1.2" />
@@ -89,6 +89,7 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.0.6.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.6.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.0.6.RELEASE" />
+            <element id="library" level="project" name="Spring-4.0.6.RELEASE" />
           </element>
         </element>
       </root>
@@ -622,15 +623,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/joda-time/joda-time/2.1/joda-time-2.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: junit:junit-dep:4.10">
+    <library name="Maven: junit:junit:4.11">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.10/junit-dep-4.10.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.10/junit-dep-4.10-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.10/junit-dep-4.10-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.minidev:json-smart:1.1.1">
@@ -952,26 +953,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/joda/joda-money/0.6/joda-money-0.6-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.mockito:mockito-all:1.9.5">
+    <library name="Maven: org.mockito:mockito-core:1.9.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.objenesis:objenesis:2.1">
+    <library name="Maven: org.objenesis:objenesis:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/2.1/objenesis-2.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/1.0/objenesis-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/2.1/objenesis-2.1-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/1.0/objenesis-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/2.1/objenesis-2.1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/1.0/objenesis-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.slf4j:jcl-over-slf4j:1.7.2">
@@ -1082,6 +1083,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/1.1.5.RELEASE/spring-boot-starter-logging-1.1.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework.boot:spring-boot-starter-test:1.1.5.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-test/1.1.5.RELEASE/spring-boot-starter-test-1.1.5.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-test/1.1.5.RELEASE/spring-boot-starter-test-1.1.5.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-test/1.1.5.RELEASE/spring-boot-starter-test-1.1.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.1.5.RELEASE">
