@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost:8080/server';
+var BASE_URL = 'http://localhost:8080/api';
 var EMBEDDED_TAG = '_embedded';
 var HREF_TAG = 'href';
 var LINKS_TAG = 'links';

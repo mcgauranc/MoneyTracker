@@ -17,10 +17,10 @@ to launch the spring-data-rest application, which means that it doesn't require 
 1. Create the MoneyTrak database in SQL Server.
 2. Set the database user name and password for database access.
 3. Run "mvn spring-boot:run" in the command line for the server project.
-4. Access http://localhost:8080/server
+4. Access <http://localhost:8080/#/>
 5. Enter in "Admin" and "Passw0rd" as the username and password to access this Url. These are the default credentials, which are automatically created.
 
-Once the server is up and running you can run http://localhost:8080/server/health to ensure that everything is running correctly. See [Endpoints] (http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready) for
+Once the server is up and running you can run <http://localhost:8080/health> to ensure that everything is running correctly. See [Endpoints] (http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready) for
 a list of endpoints that can be used.
  
 *NOTE: All steps above, presume a default implementation. i.e. That you've made no changes to the application.yml, other than to the username and password to access the database.*
@@ -35,6 +35,8 @@ The REST functionality was achieved by leveraging [Spring Data Rest](http://www.
 * DELETE - Deleting of required information.
 
 It also allows for JSONP and JSONP+E.
+
+Access to the REST API is provided by HATEOAS, if you navigate to <http://localhost:8080/api> you'll see a list of available URLs
 
 ### Security
 
