@@ -1,17 +1,5 @@
 package com.wraith.configuration;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import com.wraith.encoding.Encoding;
 import com.wraith.repository.AuthoritiesRepository;
 import com.wraith.repository.GroupsRepository;
@@ -21,6 +9,16 @@ import com.wraith.repository.entity.Authorities;
 import com.wraith.repository.entity.Country;
 import com.wraith.repository.entity.Groups;
 import com.wraith.repository.entity.Users;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component("entityLoader")
 public class EntityLoader {
@@ -54,7 +52,7 @@ public class EntityLoader {
 			Set<Groups> adminGroups = new HashSet<>();
 			adminGroups.add(adminGroup);
 
-			createUser("Admin", "User", "Administrator", "Passw0rd", "IRL", "Republic of Ireland", adminGroups);
+			createUser("Admin", "User", "Admin", "Passw0rd", "IRL", "Republic of Ireland", adminGroups);
 
 //			//Set the authorities for the user group.
 //			Set<Authorities> userAuthorities = new HashSet<>();
