@@ -48,7 +48,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        org.junit.Assert.assertEquals((String) jsonObject.get("name"), "Account 1");
+        org.junit.Assert.assertEquals(jsonObject.get("name"), "Account 1");
         Assert.assertEquals(jsonObject.get("openingBalance"), 12.43);
     }
 
@@ -72,7 +72,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Account 2");
+        Assert.assertEquals(getJSONObject.get("name"), "Updated Account 2");
         Assert.assertEquals(getJSONObject.get("openingBalance"), 1234.56);
     }
 

@@ -260,7 +260,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     protected <T extends BaseEntity> String createNewEntity(BaseEntity entity, String path) throws Exception {
         byte[] entityBytes = mapper.writeValueAsBytes(entity);
         //Insert new user record.
-        MockHttpServletResponse postResponse = performPostRequest("/".concat(path).concat("/"), entityBytes);
+        MockHttpServletResponse postResponse = performPostRequest("/api/".concat(path).concat("/"), entityBytes);
         Assert.assertNotNull(postResponse);
         return getResourceURI(postResponse.getHeader("Location"));
     }
