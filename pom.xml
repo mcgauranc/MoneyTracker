@@ -4,10 +4,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wraith</groupId>
-    <artifactId>moneyTrackerServer</artifactId>
+    <artifactId>moneyTracker</artifactId>
     <packaging>war</packaging>
     <version>1.0.0.BUILD-SNAPSHOT</version>
-    <name>Money Tracker Server</name>
+    <name>Money Tracker Application</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
