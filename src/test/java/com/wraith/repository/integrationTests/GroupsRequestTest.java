@@ -4,10 +4,10 @@ import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNew
 
 import java.util.Set;
 
-import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;

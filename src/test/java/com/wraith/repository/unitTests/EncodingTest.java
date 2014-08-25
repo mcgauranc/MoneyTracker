@@ -1,8 +1,9 @@
 package com.wraith.repository.unitTests;
 
-import com.wraith.encoding.Encoding;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
+
+import com.wraith.encoding.Encoding;
 
 /**
  * User: rowan.massey

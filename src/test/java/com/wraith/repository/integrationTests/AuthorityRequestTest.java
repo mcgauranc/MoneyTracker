@@ -3,9 +3,9 @@ package com.wraith.repository.integrationTests;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.Assert;
 import net.minidev.json.JSONObject;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;

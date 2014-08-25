@@ -2,9 +2,9 @@ package com.wraith.repository.integrationTests;
 
 import static com.wraith.repository.integrationTests.CurrencyRequestTest.getCurrency;
 
-import junit.framework.Assert;
 import net.minidev.json.JSONObject;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -48,7 +48,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "Account 1");
+        org.junit.Assert.assertEquals((String) jsonObject.get("name"), "Account 1");
         Assert.assertEquals(jsonObject.get("openingBalance"), 12.43);
     }
 
