@@ -39,7 +39,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateCurrencyRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCurrency("EUR", "Euro");
 
@@ -60,7 +60,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateCountryRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCurrency("ZAR", "South African Rand");
 
@@ -82,7 +82,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testUpdateCountryWithOrdinaryUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCurrency("CAD", "Canadian Dollar");
 
@@ -99,7 +99,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteCountryRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCurrency("DKK", "Danish Krone");
 
@@ -115,7 +115,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
         createNewUser("fourtysecond.person", "Passw0rd", "Fourty Second", "Person");
 
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewCurrency("NZD", "New Zealand Dollar");
 
         authenticate("fourtysecond.person", "Passw0rd");

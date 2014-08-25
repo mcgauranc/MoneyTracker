@@ -47,7 +47,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateGroupsRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewGroup("Developers", getNewAuthoritySet("ROLE_DEVELOPER", "ROLE_REPORTER"));
 
@@ -85,7 +85,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateGroupsRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewGroup("Testers", getNewAuthoritySet("ROLE_TESTER"));
 
@@ -105,7 +105,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testUpdateGroupsWithOrdinaryUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewGroup("Marketing", getNewAuthoritySet("ROLE_MARKETING"));
 
@@ -122,7 +122,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteCategoryWithAdminUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewGroup("Publishers", getNewAuthoritySet("ROLE_PUBLISHERS"));
 
         //Update the inserted category record from the database, and ensure that values are correct.

@@ -39,7 +39,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateAccountRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAccount("Account 1", 12.43, "Banking", "Euro", "EUR");
 
@@ -54,7 +54,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateAccountRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAccount("Account 2", 12.43, "Banking", "Euro", "EUR");
 
@@ -98,7 +98,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(deleteResponse);
 

@@ -1,10 +1,11 @@
+spring:
+  application.name: MoneyTracker
+  profiles.active: development
+
 server:
   address: 127.0.0.1
   port: 8080
   context-path: ""
-#spring:
-#  application.name: MoneyTracker
-#  profiles.active: development
 
 spring:
 #    profiles: development

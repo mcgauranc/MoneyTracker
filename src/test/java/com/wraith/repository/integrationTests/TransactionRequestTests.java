@@ -68,7 +68,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateTransactionWithAdminUser() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Credit Card", 12.65, "Toothpaste", "12345", "Euro", "EUR", "This is the note",
                 "Superquinn", 1, TransactionType.WITHDRAWAL, "Administrator");
@@ -93,7 +93,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateTransactionWithAdminUser() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 65.54, "Chocolate", "", "Euro", "EUR", "This is the Chocolate bar",
                 "Spar", 1, TransactionType.WITHDRAWAL, "Administrator");
@@ -136,7 +136,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
 
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteTransactionWithAdminUser() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 0.85, "Crisps", "", "Euro", "EUR", "This is a bag of crisps",
                 "Spar", 1, TransactionType.WITHDRAWAL, "Administrator");

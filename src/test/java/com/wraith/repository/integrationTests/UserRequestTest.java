@@ -100,7 +100,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         String resourceRequest = createNewUser("third.person", "Passw0rd", "Third", "Person");
 
         //Update the previously created record.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         Users updatedUser = getNewUser("third.person", "Passw0rd", "Third_Updated", "Person_Updated");
         byte[] updatedUserBytes = mapper.writeValueAsBytes(updatedUser);
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedUserBytes);
@@ -174,7 +174,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         String resourceRequest = createNewUser("eighth.person", "Passw0rd", "Eighth", "Person");
 
         //Delete the created user.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(deleteResponse);
 
@@ -259,7 +259,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUserCreateRequestWithAccount() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         Users user = getNewUser("sixteenth.person", "Passw0rd", "Sixteenth", "Person");
 
         Set<Account> accounts = new HashSet<>();

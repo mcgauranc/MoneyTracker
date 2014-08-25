@@ -1,18 +1,15 @@
 package com.wraith.repository.integrationTests;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.ApplicationConfig;
-import com.wraith.repository.AccountRepository;
-import com.wraith.repository.CategoryRepository;
-import com.wraith.repository.CurrencyRepository;
-import com.wraith.repository.PayeeRepository;
-import com.wraith.repository.UsersRepository;
-import com.wraith.repository.entity.BaseEntity;
-import com.wraith.repository.entity.Users;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import junit.framework.Assert;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -28,14 +25,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.ApplicationConfig;
+import com.wraith.repository.AccountRepository;
+import com.wraith.repository.CategoryRepository;
+import com.wraith.repository.CurrencyRepository;
+import com.wraith.repository.PayeeRepository;
+import com.wraith.repository.UsersRepository;
+import com.wraith.repository.entity.BaseEntity;
+import com.wraith.repository.entity.Users;
 
 /**
  * User: rowan.massey
@@ -45,7 +49,7 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationConfig.class)
 @IntegrationTest
-//@ActiveProfiles(value = "testing")
+@ActiveProfiles(value = "testing")
 public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
 
     public static final String ACCOUNTS_PATH = "accounts";
@@ -91,7 +95,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
 
     @Before
     public void setUp() {
-        admin = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("Administrator", "Passw0rd"));
+        admin = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("Admin", "Passw0rd"));
         mapper = new ObjectMapper();
         parser = new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE);
     }
@@ -113,7 +117,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @return A resource uri. e.g. /user/1
      */
     protected String getResourceURI(String uri) {
-        String LOCALHOST = "http://localhost";
+        String LOCALHOST = "http://localhost/api";
         return StringUtils.remove(uri, LOCALHOST);
     }
 

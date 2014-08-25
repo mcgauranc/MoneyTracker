@@ -33,7 +33,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         String resourceRequest = createNewAccountType("Banking 1");
 
         //Retrieve the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
@@ -50,7 +50,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
 
         //Update the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
         Assert.assertNotNull(putResponse);
 
@@ -82,7 +82,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         String resourceRequest = createNewAccountType("Banking 4");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(deleteResponse);
 

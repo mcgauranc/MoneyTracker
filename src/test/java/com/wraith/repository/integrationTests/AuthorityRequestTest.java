@@ -54,7 +54,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateAuthorityRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAuthority("ROLE_REPORTER");
 
@@ -76,7 +76,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateAuthorityRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
 
@@ -98,7 +98,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testUpdateAuthorityWithOrdinaryUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
 
         JSONObject jsonObject = new JSONObject();
@@ -114,7 +114,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testDeleteAuthorityRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAuthority("ROLE_SUPPORTER");
 
@@ -128,7 +128,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testDeleteAuthorityWithOrdinaryUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAuthority("ROLE_SUPPORTER");
 

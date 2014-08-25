@@ -48,7 +48,7 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateAddressRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAddress("Address 1", "Address 2", "Belfast", "Antrim", "Northern Ireland", "NI");
         //Retrieve the inserted account record from the database, and ensure that values are correct.
@@ -62,7 +62,7 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateAccountTypeRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAddress("Address 1", "Address 2", "Cork", "Cork", "Ireland", "IRE");
 
@@ -84,7 +84,7 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = ResourceNotFoundException.class)
     public void testDeleteAccountRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewAddress("Address 1", "Address 2", "Galway", "Galway", "Ireland", "IRE");
 

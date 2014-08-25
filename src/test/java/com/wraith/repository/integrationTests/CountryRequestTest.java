@@ -39,7 +39,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateCountryRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCountry("UK", "United Kingdom");
 
@@ -60,7 +60,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdateCountryRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCountry("DE", "Germany");
 
@@ -82,7 +82,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testUpdateCountryWithOrdinaryUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCountry("US", "United States of America");
 
@@ -99,7 +99,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testDeleteCountryRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceRequest = createNewCountry("CA", "Canada");
 
@@ -115,7 +115,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
         createNewUser("thirtysecond.person", "Passw0rd", "Thirty Second", "Person");
 
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewCountry("AU", "Australia");
 
         authenticate("thirtysecond.person", "Passw0rd");

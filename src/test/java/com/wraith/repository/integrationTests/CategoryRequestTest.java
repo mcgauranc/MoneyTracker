@@ -54,7 +54,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
         byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
 
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
         Assert.assertNotNull(putResponse);
@@ -85,7 +85,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
     public void testDeleteCategoryWithNoParentForAdminUserRequest() throws Exception {
         String resourceRequest = createNewCategory("Computer", null);
 
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
         MockHttpServletResponse putResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(putResponse);

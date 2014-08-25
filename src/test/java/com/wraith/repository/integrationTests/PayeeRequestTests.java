@@ -35,7 +35,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreatePayeeWithAdminUser() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceLocation = createNewPayee("Spar");
         MockHttpServletResponse getResponse = performGetRequest(resourceLocation);
         String getContent = getResponse.getContentAsString();
@@ -57,7 +57,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdatePayeeWithAdminUser() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewPayee("Statoil");
 
@@ -99,7 +99,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testDeleteCategoryWithAdminUserRequest() throws Exception {
-        authenticate("Administrator", "Passw0rd");
+        authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewPayee("Art of Coffee");
 
         //Update the inserted category record from the database, and ensure that values are correct.
