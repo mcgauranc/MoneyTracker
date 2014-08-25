@@ -2,7 +2,11 @@ package com.wraith.repository.integrationTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wraith.ApplicationConfig;
-import com.wraith.repository.*;
+import com.wraith.repository.AccountRepository;
+import com.wraith.repository.CategoryRepository;
+import com.wraith.repository.CurrencyRepository;
+import com.wraith.repository.PayeeRepository;
+import com.wraith.repository.UsersRepository;
 import com.wraith.repository.entity.BaseEntity;
 import com.wraith.repository.entity.Users;
 import junit.framework.Assert;
@@ -26,7 +30,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -40,9 +43,9 @@ import java.util.Map;
  * Time: 00:06
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
 @SpringApplicationConfiguration(classes = ApplicationConfig.class)
 @IntegrationTest
+//@ActiveProfiles(value = "testing")
 public abstract class AbstractBaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests {
 
     public static final String ACCOUNTS_PATH = "accounts";

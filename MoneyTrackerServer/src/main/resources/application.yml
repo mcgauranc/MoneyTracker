@@ -1,12 +1,16 @@
 server:
   address: 127.0.0.1
   port: 8080
-  context-path: "/server"
+  context-path: ""
+#spring:
+#  application.name: MoneyTracker
+#  profiles.active: development
+
 spring:
 #    profiles: development
     datasource:
         driverClassName: net.sourceforge.jtds.jdbc.Driver
-        url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak;instance=sqlexpress
+        url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak
         username: sa
         password: Passw0rd
     jpa:
@@ -29,7 +33,7 @@ spring:
 #        username: sa
 #        password:
 #    jpa:
-#      database-platform: org.hibernate.dialect.SQLServerDialect
+#      database-platform: org.hibernate.dialect.HSQLDialect
 #      show-sql: true
 #      generate-ddl: false
 #      hibernate:
