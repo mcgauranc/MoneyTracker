@@ -10,6 +10,9 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * This is the entry class to the money track application. It sets up all of the security, controllers, services etc.
+ */
 @EnableAsync
 @Configuration
 @EnableAutoConfiguration

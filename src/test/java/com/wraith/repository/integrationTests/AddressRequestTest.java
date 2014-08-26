@@ -1,15 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import static com.wraith.repository.integrationTests.CountryRequestTest.getNewCountry;
-
+import com.wraith.repository.entity.Address;
 import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import com.wraith.repository.entity.Address;
+import static com.wraith.repository.integrationTests.CountryRequestTest.getNewCountry;
 
 /**
  * User: rowan.massey
@@ -39,7 +37,7 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
         return address;
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreateAddressWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewAddress("Address 1", "Address 2", "Dublin", "Dublin", "Ireland", "IRE");
@@ -82,7 +80,7 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("address1"), "Updated Address 1");
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteAccountRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 

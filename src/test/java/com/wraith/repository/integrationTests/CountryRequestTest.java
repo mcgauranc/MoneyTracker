@@ -1,13 +1,11 @@
 package com.wraith.repository.integrationTests;
 
+import com.wraith.repository.entity.Country;
 import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import com.wraith.repository.entity.Country;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * User: rowan.massey
@@ -30,7 +28,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         return country;
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreateCountryWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewCountry("IRE", "Ireland");
@@ -50,7 +48,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) jsonObject.get("name"), "United Kingdom");
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreateCountryWithOrdinaryUserRequest() throws Exception {
         createNewUser("thirtieth.person", "Passw0rd", "Thirtieth", "Person");
         authenticate("thirtieth.person", "Passw0rd");
@@ -80,7 +78,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Germany");
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testUpdateCountryWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
@@ -111,7 +109,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
         createNewUser("thirtysecond.person", "Passw0rd", "Thirty Second", "Person");
 

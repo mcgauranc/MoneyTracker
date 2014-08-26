@@ -1,19 +1,17 @@
 package com.wraith.repository.integrationTests;
 
-import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
+import com.wraith.repository.entity.Authorities;
+import com.wraith.repository.entity.Groups;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.Set;
 
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.mock.web.MockHttpServletResponse;
-
-import com.wraith.repository.entity.Authorities;
-import com.wraith.repository.entity.Groups;
+import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
 
 /**
  * User: rowan.massey
@@ -38,7 +36,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         return groups;
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreateGroupsWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewGroup("Reporters", null);
@@ -75,7 +73,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(developerAuthority);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreateGroupsWithOrdinaryUserRequest() throws Exception {
         createNewUser("fiftieth.person", "Passw0rd", "Fiftieth", "Person");
         authenticate("fiftieth.person", "Passw0rd");
@@ -103,7 +101,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Testers");
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testUpdateGroupsWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
@@ -120,7 +118,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         performPutRequest(resourceRequest, updatedGroupsBytes);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteCategoryWithAdminUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewGroup("Publishers", getNewAuthoritySet("ROLE_PUBLISHERS"));
@@ -132,7 +130,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
         createNewUser("fiftysecond.person", "Passw0rd", "Fifty Second", "Person");
         authenticate("fiftysecond.person", "Passw0rd");

@@ -1,15 +1,13 @@
 package com.wraith.repository.integrationTests;
 
-import static com.wraith.repository.integrationTests.CurrencyRequestTest.getCurrency;
-
+import com.wraith.repository.entity.Account;
 import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import com.wraith.repository.entity.Account;
+import static com.wraith.repository.integrationTests.CurrencyRequestTest.getCurrency;
 
 /**
  * User: rowan.massey
@@ -76,7 +74,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals(getJSONObject.get("openingBalance"), 1234.56);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testUpdateAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = createNewAccount("Account 3", 12.43, "Banking", "Euro", "EUR");
         createNewUser("first.person", "Passw0rd", "first", "Person");
@@ -93,7 +91,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(putResponse);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteAccountRequest() throws Exception {
         String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
 
@@ -107,7 +105,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testDeleteAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
         createNewUser("second.person", "Passw0rd", "second", "Person");

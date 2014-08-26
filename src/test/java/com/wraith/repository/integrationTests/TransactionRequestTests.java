@@ -1,21 +1,14 @@
 package com.wraith.repository.integrationTests;
 
-import java.util.Calendar;
-
+import com.wraith.repository.entity.*;
+import com.wraith.repository.entity.Transaction.TransactionType;
 import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import com.wraith.repository.entity.Account;
-import com.wraith.repository.entity.Category;
-import com.wraith.repository.entity.Currency;
-import com.wraith.repository.entity.Payee;
-import com.wraith.repository.entity.Transaction;
-import com.wraith.repository.entity.Transaction.TransactionType;
-import com.wraith.repository.entity.Users;
+import java.util.Calendar;
 
 /**
  * User: rowan.massey
@@ -58,7 +51,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         return transaction;
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testCreatePayeeWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceLocation = createNewTransaction("Current", 12.65, "Toothpaste", "12345", "Euro", "EUR", "This is the note",
@@ -134,7 +127,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         Assert.assertEquals(getJSONObject.get("amount"), 6.00);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteTransactionWithAdminUser() throws Exception {
         authenticate("Admin", "Passw0rd");
 
@@ -148,7 +141,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         performGetRequest(resourceLocation);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteTransactionWithNormalUser() throws Exception {
         createNewUser("eightysecond.person", "Passw0rd", "Eighty Second", "Person");
         authenticate("eightysecond.person", "Passw0rd");

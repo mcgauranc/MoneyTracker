@@ -1,13 +1,11 @@
 package com.wraith.repository.integrationTests;
 
+import com.wraith.repository.entity.AccountType;
 import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import com.wraith.repository.entity.AccountType;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * User: rowan.massey
@@ -61,7 +59,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Banking 2");
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testUpdateAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = createNewAccountType("Banking 3");
         createNewUser("first.person", "Passw0rd", "first", "Person");
@@ -90,7 +88,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testDeleteAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = createNewAccountType("Banking 5");
         createNewUser("second.person", "Passw0rd", "second", "Person");

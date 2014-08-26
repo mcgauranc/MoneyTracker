@@ -1,21 +1,19 @@
 package com.wraith.repository.integrationTests;
 
+import com.wraith.repository.entity.Account;
+import com.wraith.repository.entity.Users;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockHttpServletResponse;
-
-import com.wraith.repository.entity.Account;
-import com.wraith.repository.entity.Users;
 
 /**
  * User: rowan.massey
@@ -135,7 +133,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) updatedJsonObject.get("lastName"), updatedUser.getLastName());
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testUserUpdateRequestWithOtherUserPermission() throws Exception {
         String resourceRequest = createNewUser("fifth.person", "Passw0rd", "Fifth", "Person");
         createNewUser("sixth.person", "Passw0rd", "Sixth", "Person");
@@ -156,7 +154,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) updatedJsonObject.get("lastName"), updatedUser.getLastName());
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteUserRequestWithCurrentUserPermission() throws Exception {
         String resourceRequest = createNewUser("seventh.person", "Passw0rd", "Seventh", "Person");
 
@@ -169,7 +167,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expectedExceptions = ResourceNotFoundException.class)
     public void testDeleteUserRequestWithAdminPermission() throws Exception {
         String resourceRequest = createNewUser("eighth.person", "Passw0rd", "Eighth", "Person");
 
@@ -182,7 +180,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expectedExceptions = Exception.class)
     public void testDeleteUserRequestWithOtherPermission() throws Exception {
         String resourceRequest = createNewUser("ninth.person", "Passw0rd", "Ninth", "Person");
         createNewUser("tenth.person", "Passw0rd", "Tenth", "Person");
