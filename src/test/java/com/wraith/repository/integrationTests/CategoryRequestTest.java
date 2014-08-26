@@ -3,11 +3,11 @@ package com.wraith.repository.integrationTests;
 import com.wraith.repository.entity.Category;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.util.StringUtils;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
  * User: rowan.massey
@@ -64,7 +64,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Banking");
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testUpdateCategoryWithNoParentForCurrentUserRequest() throws Exception {
 
         String resourceRequest = createNewCategory("Revenue", null);
@@ -91,7 +91,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
         String resourceRequest = createNewCategory("Computer", null);
 

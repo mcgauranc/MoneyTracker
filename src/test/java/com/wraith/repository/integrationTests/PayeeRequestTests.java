@@ -2,10 +2,10 @@ package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Payee;
 import net.minidev.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
  * User: rowan.massey
@@ -24,7 +24,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         return payee;
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testCreatePayeeWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewPayee("Superquinn");
@@ -107,7 +107,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
         createNewUser("sixtysecond.person", "Passw0rd", "Sixty Second", "Person");
         authenticate("sixtysecond.person", "Passw0rd");

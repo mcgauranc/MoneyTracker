@@ -2,10 +2,10 @@ package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Authorities;
 import net.minidev.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +43,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         return authorities;
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testCreateAuthorityWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewAuthority("ROLE_TESTER");
@@ -63,7 +63,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) jsonObject.get("authority"), "ROLE_REPORTER");
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testCreateAuthorityWithOrdinaryUserRequest() throws Exception {
         createNewUser("twentieth.person", "Passw0rd", "Twentieth", "Person");
         authenticate("twentieth.person", "Passw0rd");
@@ -94,7 +94,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("authority"), "UPDATED_ROLE_DEVELOPER");
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testUpdateAuthorityWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
         String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
@@ -124,7 +124,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testDeleteAuthorityWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 

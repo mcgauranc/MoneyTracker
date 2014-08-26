@@ -2,10 +2,10 @@ package com.wraith.repository.integrationTests;
 
 import com.wraith.repository.entity.Currency;
 import net.minidev.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 /**
  * User: rowan.massey
@@ -28,7 +28,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         return currency;
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testCreateCurrencyWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceRequest = createNewCurrency("GBP", "British Pound");
@@ -48,7 +48,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) jsonObject.get("name"), "Euro");
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testCreateCurrencyWithOrdinaryUserRequest() throws Exception {
         createNewUser("fourtieth.person", "Passw0rd", "Fourtieth", "Person");
         authenticate("fourtieth.person", "Passw0rd");
@@ -78,7 +78,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertEquals((String) getJSONObject.get("name"), "Updated Rand");
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testUpdateCountryWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
@@ -95,7 +95,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         performPutRequest(resourceRequest, updatedCountryBytes);
     }
 
-    @Test(expectedExceptions = ResourceNotFoundException.class)
+    @Test(expected = ResourceNotFoundException.class)
     public void testDeleteCountryRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
@@ -109,7 +109,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         performGetRequest(resourceRequest);
     }
 
-    @Test(expectedExceptions = Exception.class)
+    @Test(expected = Exception.class)
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
         createNewUser("fourtysecond.person", "Passw0rd", "Fourty Second", "Person");
 
