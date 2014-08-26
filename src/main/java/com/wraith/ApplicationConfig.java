@@ -1,5 +1,6 @@
 package com.wraith;
 
+import com.wraith.repository.handler.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -9,21 +10,11 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.wraith.repository.handler.AccountEventHandler;
-import com.wraith.repository.handler.AccountTypeEventHandler;
-import com.wraith.repository.handler.AddressEventHandler;
-import com.wraith.repository.handler.AuthoritiesEventHandler;
-import com.wraith.repository.handler.CategoryEventHandler;
-import com.wraith.repository.handler.CountryEventHandler;
-import com.wraith.repository.handler.CurrencyEventHandler;
-import com.wraith.repository.handler.GroupsEventHandler;
-import com.wraith.repository.handler.UserEventHandler;
-
 @EnableAsync
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = { "com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository",
-		"com.wraith.security", "com.wraith.authentication." })
+        "com.wraith.security", "com.wraith.authentication", "com.wraith.controller", "com.wraith.service"})
 @EnableTransactionManagement
 public class ApplicationConfig {
 
