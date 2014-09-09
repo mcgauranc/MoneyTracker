@@ -1,6 +1,7 @@
 package com.wraith.repository.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
 @Entity
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "dataupload_id")),
         @AttributeOverride(name = "version", column = @Column(name = "dataupload_version"))})
-public class DataUpload {
+public class DataUpload extends BaseEntity implements Serializable {
 
     private String description;
     private Date uploadDate;
