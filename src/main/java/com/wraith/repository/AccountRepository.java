@@ -1,7 +1,7 @@
 package com.wraith.repository;
 
 import com.wraith.repository.entity.Account;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 24/01/13
  * Time: 21:56
  */
-public interface AccountRepository extends CrudRepository<Account, Long> {
+public interface AccountRepository extends PagingAndSortingRepository<Account, Long> {
 
     public List<Account> findByName(String accountName);
 

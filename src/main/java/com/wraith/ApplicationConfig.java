@@ -21,9 +21,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApplicationConfig.class, args);
-	}
+    /**
+     * This is the main entry point to run the application. If you wish to run the application execute the
+     * spring-boot:run maven command. To allow for DEBUGGING, right click this method and select
+     * "Debug 'ApplicationConfig.main()'"
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(ApplicationConfig.class);
+        app.setAdditionalProfiles("default");
+        app.run(args);
+    }
 
 	@Bean
 	public RepositoryRestConfiguration restConfiguration() {

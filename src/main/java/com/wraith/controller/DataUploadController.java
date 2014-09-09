@@ -1,9 +1,12 @@
 package com.wraith.controller;
 
+import com.wraith.service.DataUploadService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.inject.Inject;
 
 /**
  * This controller manages the data upload request functionality.
@@ -15,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DataUploadController {
 
+    @Inject
+    DataUploadService dataUploadService;
+
     @RequestMapping(value = "/$service/dataUpload", method = RequestMethod.GET)
     public String getUploadedData(Model model) {
-        return "Data Uploaded";
+        return "dataupload";
     }
 
     @RequestMapping(value = "/$service/dataUpload", method = RequestMethod.POST)

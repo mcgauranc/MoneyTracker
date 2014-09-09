@@ -54,7 +54,7 @@
         <appender-ref ref="spring"/>
     </logger>
     <logger name="org.hibernate" level="ERROR" additivity="false">
-        <appender-ref ref="spring"/>
+        <appender-ref ref="hibernate"/>
     </logger>
     <logger name="org.hibernate.cache" level="ERROR" additivity="false">
         <appender-ref ref="hibernate"/>
