@@ -19,7 +19,7 @@ public class DataUpload extends BaseEntity implements Serializable {
     private Users user;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "dataupload_users_id")
     public Users getUser() {
         return user;
     }
@@ -28,6 +28,7 @@ public class DataUpload extends BaseEntity implements Serializable {
         this.user = user;
     }
 
+    @Column(name = "dataupload_description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -36,6 +37,7 @@ public class DataUpload extends BaseEntity implements Serializable {
         this.description = description;
     }
 
+    @Column(name = "dataupload_date", nullable = false)
     public Date getUploadDate() {
         return uploadDate;
     }
