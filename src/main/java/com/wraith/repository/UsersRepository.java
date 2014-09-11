@@ -17,4 +17,6 @@ public interface UsersRepository extends PagingAndSortingRepository<Users, Long>
 
     @RestResource
     public List<Users> findByUserName(@Param("username") String username);
+
+    public List<Users> findAll();
 }
