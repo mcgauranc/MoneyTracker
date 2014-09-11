@@ -23,12 +23,6 @@ import java.util.Date;
         @AttributeOverride(name = "version", column = @Column(name = "undertaking_version"))})
 public class Transaction extends BaseEntity implements Serializable {
 
-    public enum TransactionType {
-        DEPOSIT,
-        WITHDRAWAL,
-        TRANSFER
-    }
-
     private Payee payee;
     private Currency currency;
     private Category category;
@@ -36,7 +30,6 @@ public class Transaction extends BaseEntity implements Serializable {
     private String checkNumber;
     private Date transactionDate;
     private Double amount;
-    private TransactionType type;
     private int quantity;
     private String notes;
     private Users user;
@@ -109,15 +102,6 @@ public class Transaction extends BaseEntity implements Serializable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    @Column(name = "undertaking_type", nullable = false)
-    public TransactionType getType() {
-        return type;
-    }
-
-    public void setType(TransactionType type) {
-        this.type = type;
     }
 
     @Column(name = "undertaking_quantity", nullable = true)

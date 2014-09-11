@@ -16,8 +16,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository",
-        "com.wraith.security", "com.wraith.authentication", "com.wraith.controller", "com.wraith.service"})
+@ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository",
+        "com.wraith.security", "com.wraith.authentication", "com.wraith.controller", "com.wraith.service",
+        "com.wraith.processor"})
 @EnableTransactionManagement
 public class ApplicationConfig {
 
@@ -30,57 +31,57 @@ public class ApplicationConfig {
      */
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(ApplicationConfig.class);
-        app.setAdditionalProfiles("default");
+//        app.setAdditionalProfiles("default");
         app.run(args);
     }
 
-	@Bean
-	public RepositoryRestConfiguration restConfiguration() {
-		return new RepositoryRestConfiguration();
-	}
+    @Bean
+    public RepositoryRestConfiguration restConfiguration() {
+        return new RepositoryRestConfiguration();
+    }
 
-	@Bean(name = "userEventHandler")
-	UserEventHandler userEventHandler() {
-		return new UserEventHandler();
-	}
+    @Bean(name = "userEventHandler")
+    UserEventHandler userEventHandler() {
+        return new UserEventHandler();
+    }
 
-	@Bean(name = "accountEventHandler")
-	AccountEventHandler accountEventHandler() {
-		return new AccountEventHandler();
-	}
+    @Bean(name = "accountEventHandler")
+    AccountEventHandler accountEventHandler() {
+        return new AccountEventHandler();
+    }
 
-	@Bean(name = "accountTypeEventHandler")
-	AccountTypeEventHandler accountTypeEventHandler() {
-		return new AccountTypeEventHandler();
-	}
+    @Bean(name = "accountTypeEventHandler")
+    AccountTypeEventHandler accountTypeEventHandler() {
+        return new AccountTypeEventHandler();
+    }
 
-	@Bean(name = "addressEventHandler")
-	AddressEventHandler addressEventHandler() {
-		return new AddressEventHandler();
-	}
+    @Bean(name = "addressEventHandler")
+    AddressEventHandler addressEventHandler() {
+        return new AddressEventHandler();
+    }
 
-	@Bean(name = "authoritiesEventHandler")
-	AuthoritiesEventHandler authoritiesEventHandler() {
-		return new AuthoritiesEventHandler();
-	}
+    @Bean(name = "authoritiesEventHandler")
+    AuthoritiesEventHandler authoritiesEventHandler() {
+        return new AuthoritiesEventHandler();
+    }
 
-	@Bean(name = "categoryEventHandler")
-	CategoryEventHandler categoryEventHandler() {
-		return new CategoryEventHandler();
-	}
+    @Bean(name = "categoryEventHandler")
+    CategoryEventHandler categoryEventHandler() {
+        return new CategoryEventHandler();
+    }
 
-	@Bean(name = "countryEventHandler")
-	CountryEventHandler countryEventHandler() {
-		return new CountryEventHandler();
-	}
+    @Bean(name = "countryEventHandler")
+    CountryEventHandler countryEventHandler() {
+        return new CountryEventHandler();
+    }
 
-	@Bean(name = "currencyEventHandler")
-	CurrencyEventHandler currencyEventHandler() {
-		return new CurrencyEventHandler();
-	}
+    @Bean(name = "currencyEventHandler")
+    CurrencyEventHandler currencyEventHandler() {
+        return new CurrencyEventHandler();
+    }
 
-	@Bean(name = "groupsEventHandler")
-	GroupsEventHandler groupsEventHandler() {
-		return new GroupsEventHandler();
-	}
+    @Bean(name = "groupsEventHandler")
+    GroupsEventHandler groupsEventHandler() {
+        return new GroupsEventHandler();
+    }
 }
