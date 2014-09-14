@@ -1,8 +1,7 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wraith.ApplicationConfig;
-import com.wraith.repository.*;
 import com.wraith.repository.entity.BaseEntity;
 import com.wraith.repository.entity.Users;
 import net.minidev.json.JSONArray;

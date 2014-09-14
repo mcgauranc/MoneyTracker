@@ -9,7 +9,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -18,6 +18,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -37,9 +38,12 @@ public class BatchConfiguration {
     TransactionRepository transactionRepository;
 
     @Bean
-    public ItemReader<MoneyTransaction> reader() {
+    @StepScope
+    public ItemReader<MoneyTransaction> reader(@Value("#{jobParameters[targetFile]}") String file) {
+//    public ItemReader<MoneyTransaction> reader() {
         FlatFileItemReader<MoneyTransaction> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("upload/test-money-data.csv"));
+        reader.setResource(new ClassPathResource(file));
+//        reader.setResource(new ClassPathResource("/upload/test-money-data.csv"));
         reader.setLineMapper(new DefaultLineMapper<MoneyTransaction>() {
                                  {
                                      setLineTokenizer(new DelimitedLineTokenizer() {
@@ -59,6 +63,8 @@ public class BatchConfiguration {
                                  }
                              }
         );
+        reader.setStrict(false);
+        reader.setLinesToSkip(1);
         return reader;
     }
 
@@ -68,12 +74,11 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Job moneyTransactionImport(JobBuilderFactory jobs, Step s1) {
+    public Job moneyTransactionImport(JobBuilderFactory jobs, Step step) {
         return jobs.get("moneyTransactionImport")
-                .incrementer(new RunIdIncrementer())
-                .flow(s1)
+                .incrementer(new MoneyRunIdIncrementer())
+                .flow(step)
                 .end()
-//                .listener(notificationExecutionsListener)
                 .build();
     }
 
@@ -86,9 +91,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<MoneyTransaction> reader,
-                      ItemWriter<Transaction> writer, ItemProcessor<MoneyTransaction, Transaction> processor) {
-        return stepBuilderFactory.get("step1")
+    public Step step(StepBuilderFactory stepBuilderFactory, ItemReader<MoneyTransaction> reader,
+                     ItemWriter<Transaction> writer, ItemProcessor<MoneyTransaction, Transaction> processor) {
+        return stepBuilderFactory.get("step")
                 .<MoneyTransaction, Transaction>chunk(100)
                 .reader(reader)
                 .processor(processor)

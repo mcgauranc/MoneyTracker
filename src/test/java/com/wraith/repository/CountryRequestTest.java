@@ -1,73 +1,73 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
-import com.wraith.repository.entity.Currency;
+import com.wraith.repository.entity.Country;
 import net.minidev.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
  * User: rowan.massey
- * Date: 06/05/13
- * Time: 11:44
+ * Date: 05/05/13
+ * Time: 21:07
  */
-public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
+public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     /**
-     * This method creates and returns a currency object.
+     * This method creates a new country object
      *
-     * @param iso  The ISO code of the currency.
-     * @param name The name of the currency.
-     * @return An instance of the currency object.
+     * @param countryISO The countries ISO code.
+     * @param name       The name of the country.
+     * @return An instance of the created country.
      */
-    public static Currency getCurrency(String iso, String name) {
-        Currency currency = new Currency();
-        currency.setIso(iso);
-        currency.setName(name);
-        return currency;
+    public static Country getNewCountry(String countryISO, String name) {
+        Country country = new Country();
+        country.setName(name);
+        country.setIso(countryISO);
+        return country;
     }
 
     @Test(expected = Exception.class)
-    public void testCreateCurrencyWithNoAuthenticationRequest() throws Exception {
+    public void testCreateCountryWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
-        String resourceRequest = createNewCurrency("GBP", "British Pound");
+        String resourceRequest = createNewCountry("IRE", "Ireland");
         performGetRequest(resourceRequest);
     }
 
     @Test
-    public void testCreateCurrencyRequest() throws Exception {
+    public void testCreateCountryRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
-        String resourceRequest = createNewCurrency("EUR", "Euro");
+        String resourceRequest = createNewCountry("UK", "United Kingdom");
 
         //Retrieve the inserted authority record from the database, and ensure that values are correct.
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "Euro");
+        Assert.assertEquals((String) jsonObject.get("name"), "United Kingdom");
     }
 
     @Test(expected = Exception.class)
-    public void testCreateCurrencyWithOrdinaryUserRequest() throws Exception {
-        createNewUser("fourtieth.person", "Passw0rd", "Fourtieth", "Person");
-        authenticate("fourtieth.person", "Passw0rd");
+    public void testCreateCountryWithOrdinaryUserRequest() throws Exception {
+        createNewUser("thirtieth.person", "Passw0rd", "Thirtieth", "Person");
+        authenticate("thirtieth.person", "Passw0rd");
 
-        createNewCurrency("USD", "Dollar");
+        createNewCountry("FR", "France");
     }
 
     @Test
     public void testUpdateCountryRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
-        String resourceRequest = createNewCurrency("ZAR", "South African Rand");
+        String resourceRequest = createNewCountry("DE", "Germany");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "Updated Rand");
+        jsonObject.put("name", "Updated Germany");
 
         byte[] updatedCountryBytes = mapper.writeValueAsBytes(jsonObject);
 
-        //Update the inserted currency record from the database, and ensure that values are correct.
+        //Update the inserted country record from the database, and ensure that values are correct.
         MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedCountryBytes);
         Assert.assertNotNull(putResponse);
 
@@ -75,48 +75,48 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Rand");
+        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Germany");
     }
 
     @Test(expected = Exception.class)
     public void testUpdateCountryWithOrdinaryUserRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
-        String resourceRequest = createNewCurrency("CAD", "Canadian Dollar");
+        String resourceRequest = createNewCountry("US", "United States of America");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "Updated Canadian Dollar");
+        jsonObject.put("name", "Updated United States of America");
 
         byte[] updatedCountryBytes = mapper.writeValueAsBytes(jsonObject);
 
-        createNewUser("fourtyfirst.person", "Passw0rd", "Fourty First", "Person");
-        authenticate("fourtyfirst.person", "Passw0rd");
+        createNewUser("thirtyfirst.person", "Passw0rd", "Thirty First", "Person");
+        authenticate("thirtyfirst.person", "Passw0rd");
         //Update the inserted country record from the database, and ensure that values are correct.
         performPutRequest(resourceRequest, updatedCountryBytes);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void testDeleteCountryRequest() throws Exception {
         authenticate("Admin", "Passw0rd");
 
-        String resourceRequest = createNewCurrency("DKK", "Danish Krone");
+        String resourceRequest = createNewCountry("CA", "Canada");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
         MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(deleteResponse);
 
         //Ensure that the deleted account can't be retrieved from the database.
-        performGetRequest(resourceRequest);
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
-        createNewUser("fourtysecond.person", "Passw0rd", "Fourty Second", "Person");
+        createNewUser("thirtysecond.person", "Passw0rd", "Thirty Second", "Person");
 
         authenticate("Admin", "Passw0rd");
-        String resourceRequest = createNewCurrency("NZD", "New Zealand Dollar");
+        String resourceRequest = createNewCountry("AU", "Australia");
 
-        authenticate("fourtysecond.person", "Passw0rd");
+        authenticate("thirtysecond.person", "Passw0rd");
         //Delete the inserted account record from the database, and ensure that values are correct.
         MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
         Assert.assertNotNull(deleteResponse);
@@ -126,16 +126,15 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
     }
 
     /**
-     * This method creates a new currency record in the database, and returns the URI location of the created record.
+     * This method creates a new country in the database for a given name and ISO code.
      *
-     * @param iso  The ISO code of the currency.
-     * @param name The name of the currency.
-     * @return The URI location of the created currency.
+     * @param countryISO The country's ISO code.
+     * @param name       The name of the country.
+     * @return The URI location of the created country.
      * @throws Exception
      */
-    private String createNewCurrency(String iso, String name) throws Exception {
-        Currency currency = getCurrency(iso, name);
-        return createNewEntity(currency, CURRENCY_PATH);
+    private String createNewCountry(String countryISO, String name) throws Exception {
+        Country country = getNewCountry(countryISO, name);
+        return createNewEntity(country, COUNTRIES_PATH);
     }
-
 }

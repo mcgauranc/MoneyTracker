@@ -3,12 +3,15 @@ package com.wraith;
 import com.wraith.repository.handler.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * This is the entry class to the money track application. It sets up all of the security, controllers, services etc.
@@ -31,13 +34,20 @@ public class ApplicationConfig {
      */
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(ApplicationConfig.class);
-//        app.setAdditionalProfiles("default");
         app.run(args);
     }
 
     @Bean
     public RepositoryRestConfiguration restConfiguration() {
         return new RepositoryRestConfiguration();
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("5MB");
+        factory.setMaxRequestSize("5MB");
+        return factory.createMultipartConfig();
     }
 
     @Bean(name = "userEventHandler")
