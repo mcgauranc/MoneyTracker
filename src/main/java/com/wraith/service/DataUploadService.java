@@ -1,12 +1,11 @@
 package com.wraith.service;
 
+import com.wraith.configuration.MoneyRunIdIncrementer;
 import com.wraith.exception.MoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.NoSuchJobException;
@@ -35,10 +34,11 @@ public class DataUploadService {
 
     private static final String TEMP_DIRECTORY = "java.io.tmpdir";
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Inject
     private JobLauncher jobLauncher;
 
-    @Inject
+    //    @Inject
     private Job job;
 
 //    @Inject
@@ -48,12 +48,17 @@ public class DataUploadService {
     private JobOperator operator;
 //
 //    @Inject
-//    private JobBuilderFactory jobs;
-//
+private JobBuilderFactory jobs;
+    //
 //    @Inject
-//    private Step step;
+    private Step step;
 
 
+    @Inject
+    public DataUploadService(JobBuilderFactory jobBuilderFactory, Step step) {
+        this.jobs = jobBuilderFactory;
+        this.step = step;
+    }
     /**
      * @param name
      * @param file
@@ -69,7 +74,7 @@ public class DataUploadService {
                         new BufferedOutputStream(new FileOutputStream(new File(fileName)));
                 stream.write(bytes);
                 stream.close();
-                return startImportJob(fileName);
+                return startImportJob(fileName, "moneyTransactionImport");
             } catch (Exception e) {
                 logger.error(String.format("Error processing file '%s'.", name), e);
                 throw new MoneyException(e);
@@ -82,9 +87,10 @@ public class DataUploadService {
     /**
      * @param file
      */
-    private JobExecution startImportJob(String file) {
+    private JobExecution startImportJob(String file, String jobName) {
         logger.debug(String.format("Starting job to import file '%s'.", file));
         try {
+            job = jobs.get(jobName).incrementer(new MoneyRunIdIncrementer()).flow(step).end().build();
             return jobLauncher.run(job, new JobParametersBuilder().addString("targetFile", file).toJobParameters());
         } catch (JobExecutionAlreadyRunningException e) {
             logger.error(String.format("Job for processing file '%s' is already running.", file), e);
@@ -120,12 +126,12 @@ public class DataUploadService {
                     operator.abandon(executionId);
                 }
             }
-        } catch (NoSuchJobException e) {
-            e.printStackTrace();
+        } catch (NoSuchJobException | NoSuchJobExecutionException e) {
+            logger.error(String.format("Job '%s' does not exist.", job), e);
+            throw new MoneyException(e);
         } catch (JobExecutionAlreadyRunningException e) {
-            e.printStackTrace();
-        } catch (NoSuchJobExecutionException e) {
-            e.printStackTrace();
+            logger.error(String.format("Job '%s' is already running.", job), e);
+            throw new MoneyException(e);
         }
     }
 }

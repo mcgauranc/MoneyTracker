@@ -4,10 +4,8 @@ import com.wraith.processor.MoneyTransaction;
 import com.wraith.processor.TransactionProcessor;
 import com.wraith.repository.TransactionRepository;
 import com.wraith.repository.entity.Transaction;
-import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
@@ -35,7 +33,7 @@ import javax.inject.Inject;
 public class BatchConfiguration {
 
     @Inject
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @Bean
     @StepScope
@@ -73,14 +71,14 @@ public class BatchConfiguration {
         return new TransactionProcessor();
     }
 
-    @Bean
-    public Job moneyTransactionImport(JobBuilderFactory jobs, Step step) {
-        return jobs.get("moneyTransactionImport")
-                .incrementer(new MoneyRunIdIncrementer())
-                .flow(step)
-                .end()
-                .build();
-    }
+//    @Bean
+//    public Job moneyTransactionImport(JobBuilderFactory jobs, Step step) {
+//        return jobs.get("moneyTransactionImport")
+//                .incrementer(new MoneyRunIdIncrementer())
+//                .flow(step)
+//                .end()
+//                .build();
+//    }
 
     @Bean
     public RepositoryItemWriter writer() {
