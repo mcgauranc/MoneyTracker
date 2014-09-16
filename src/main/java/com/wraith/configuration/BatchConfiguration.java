@@ -1,13 +1,13 @@
 package com.wraith.configuration;
 
-import com.wraith.processor.MoneyTransaction;
-import com.wraith.processor.TransactionProcessor;
-import com.wraith.repository.TransactionRepository;
-import com.wraith.repository.entity.Transaction;
+import javax.inject.Inject;
+
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-import javax.inject.Inject;
+import com.wraith.processor.MoneyTransaction;
+import com.wraith.processor.TransactionProcessor;
+import com.wraith.repository.TransactionRepository;
+import com.wraith.repository.entity.Transaction;
 
 /**
  * User: rowan.massey
@@ -34,6 +38,8 @@ public class BatchConfiguration {
 
     @Inject
     private TransactionRepository transactionRepository;
+	@Inject
+	private JobRepository jobRepository;
 
     @Bean
     @StepScope
@@ -98,4 +104,18 @@ public class BatchConfiguration {
                 .writer(writer)
                 .build();
     }
+
+	/**
+	 * Need to create an asynchronous task executor for this launcher, as a web request will be making this request, and a
+	 * response needs to be returned immediately.
+	 *
+	 * @return an instance of SimpleJobLauncher, with an asynchronously defined task launcher.
+	 */
+	@Bean
+	public SimpleJobLauncher simpleJobLauncher() {
+		SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
+		jobLauncher.setJobRepository(jobRepository);
+		jobLauncher.setTaskExecutor(new SimpleAsyncTaskExecutor());
+		return jobLauncher;
+	}
 }
