@@ -43,11 +43,9 @@ public class BatchConfiguration {
 
     @Bean
     @StepScope
-    public ItemReader<MoneyTransaction> reader(@Value("#{jobParameters[targetFile]}") String file) {
-//    public ItemReader<MoneyTransaction> reader() {
+    public FlatFileItemReader<MoneyTransaction> reader(@Value("#{jobParameters[targetFile]}") String file) {
         FlatFileItemReader<MoneyTransaction> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource(file));
-//        reader.setResource(new ClassPathResource("/upload/test-money-data.csv"));
         reader.setLineMapper(new DefaultLineMapper<MoneyTransaction>() {
                                  {
                                      setLineTokenizer(new DelimitedLineTokenizer() {
@@ -62,7 +60,6 @@ public class BatchConfiguration {
                                              setTargetType(MoneyTransaction.class);
 
                                          }
-
                                      });
                                  }
                              }
@@ -76,15 +73,6 @@ public class BatchConfiguration {
     public ItemProcessor<MoneyTransaction, Transaction> processor() {
         return new TransactionProcessor();
     }
-
-//    @Bean
-//    public Job moneyTransactionImport(JobBuilderFactory jobs, Step step) {
-//        return jobs.get("moneyTransactionImport")
-//                .incrementer(new MoneyRunIdIncrementer())
-//                .flow(step)
-//                .end()
-//                .build();
-//    }
 
     @Bean
     public RepositoryItemWriter writer() {
