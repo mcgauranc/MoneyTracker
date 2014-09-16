@@ -1,7 +1,9 @@
 package com.wraith.configuration;
 
-import javax.inject.Inject;
-
+import com.wraith.processor.MoneyTransaction;
+import com.wraith.processor.TransactionProcessor;
+import com.wraith.repository.TransactionRepository;
+import com.wraith.repository.entity.Transaction;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -22,10 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-import com.wraith.processor.MoneyTransaction;
-import com.wraith.processor.TransactionProcessor;
-import com.wraith.repository.TransactionRepository;
-import com.wraith.repository.entity.Transaction;
+import javax.inject.Inject;
 
 /**
  * User: rowan.massey
@@ -93,17 +92,18 @@ public class BatchConfiguration {
                 .build();
     }
 
-	/**
-	 * Need to create an asynchronous task executor for this launcher, as a web request will be making this request, and a
-	 * response needs to be returned immediately.
-	 *
-	 * @return an instance of SimpleJobLauncher, with an asynchronously defined task launcher.
-	 */
+    @Bean
+    public SimpleAsyncTaskExecutor taskExecutor() {
+        SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
+        executor.setConcurrencyLimit(1);
+        return executor;
+    }
+
 	@Bean
-	public SimpleJobLauncher simpleJobLauncher() {
-		SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
+    public SimpleJobLauncher jobLauncher() {
+        SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
 		jobLauncher.setJobRepository(jobRepository);
-		jobLauncher.setTaskExecutor(new SimpleAsyncTaskExecutor());
-		return jobLauncher;
+        jobLauncher.setTaskExecutor(taskExecutor());
+        return jobLauncher;
 	}
 }

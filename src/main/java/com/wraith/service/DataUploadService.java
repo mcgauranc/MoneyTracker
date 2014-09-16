@@ -1,19 +1,10 @@
 package com.wraith.service;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.wraith.configuration.MoneyRunIdIncrementer;
+import com.wraith.exception.MoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.NoSuchJobException;
@@ -25,8 +16,11 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wraith.configuration.MoneyRunIdIncrementer;
-import com.wraith.exception.MoneyException;
+import javax.inject.Inject;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Set;
 
 /**
  * This service class deals with all data upload requirements. This is the entry point for all the relevant processing.
@@ -43,20 +37,10 @@ public class DataUploadService {
 
     @Inject
 	private SimpleJobLauncher jobLauncher;
-
-    //    @Inject
-    private Job job;
-
-//    @Inject
-//    private JobRegistry jobRegistry;
-
     @Inject
     private JobOperator operator;
-//
-//    @Inject
-private JobBuilderFactory jobs;
-    //
-//    @Inject
+
+    private JobBuilderFactory jobs;
     private Step step;
 
 
@@ -74,13 +58,17 @@ private JobBuilderFactory jobs;
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-                String path = System.getProperty(TEMP_DIRECTORY);
-                String fileName = path.concat(name);
+                String rootPath = System.getProperty("catalina.home");
+                File uploadDirectory = new File(rootPath.concat(File.separator).concat("uploads"));
+                if (!uploadDirectory.exists()) {
+                    uploadDirectory.mkdirs();
+                }
+                File uploadFile = new File(uploadDirectory.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(fileName)));
+                        new BufferedOutputStream(new FileOutputStream(uploadFile));
                 stream.write(bytes);
                 stream.close();
-                return startImportJob(fileName, "moneyTransactionImport");
+                return startImportJob(uploadFile, "moneyTransactionImport");
             } catch (Exception e) {
                 logger.error(String.format("Error processing file '%s'.", name), e);
                 throw new MoneyException(e);
@@ -93,11 +81,11 @@ private JobBuilderFactory jobs;
     /**
      * @param file
      */
-    private JobExecution startImportJob(String file, String jobName) {
+    private JobExecution startImportJob(File file, String jobName) {
         logger.debug(String.format("Starting job to import file '%s'.", file));
         try {
-            job = jobs.get(jobName).incrementer(new MoneyRunIdIncrementer()).flow(step).end().build();
-            return jobLauncher.run(job, new JobParametersBuilder().addString("targetFile", file).toJobParameters());
+            Job job = jobs.get(jobName).incrementer(new MoneyRunIdIncrementer()).flow(step).end().build();
+            return jobLauncher.run(job, new JobParametersBuilder().addString("targetFile", file.getAbsolutePath()).toJobParameters());
         } catch (JobExecutionAlreadyRunningException e) {
             logger.error(String.format("Job for processing file '%s' is already running.", file), e);
             throw new MoneyException(e);

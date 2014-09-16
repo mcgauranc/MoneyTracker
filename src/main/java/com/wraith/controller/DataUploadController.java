@@ -1,6 +1,7 @@
 package com.wraith.controller;
 
 import com.wraith.service.DataUploadService;
+import org.springframework.batch.core.BatchStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +26,7 @@ public class DataUploadController {
 
     @RequestMapping(value = "/$service/dataUpload", method = RequestMethod.POST)
     @ResponseBody
-    public void processFileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-        dataUploadService.processFile(name, file);
+    public BatchStatus processFileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+        return dataUploadService.processFile(name, file).getStatus();
     }
 }
