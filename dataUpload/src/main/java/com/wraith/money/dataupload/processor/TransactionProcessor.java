@@ -1,7 +1,5 @@
-package com.wraith.processor;
+package com.wraith.money.dataupload.processor;
 
-import com.wraith.repository.*;
-import com.wraith.repository.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;

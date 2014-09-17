@@ -1,7 +1,9 @@
-package com.wraith.configuration;
+package com.wraith.money.dataupload.configuration;
 
-import javax.inject.Inject;
-
+import com.wraith.processor.MoneyTransaction;
+import com.wraith.processor.TransactionProcessor;
+import com.wraith.repository.TransactionRepository;
+import com.wraith.repository.entity.Transaction;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -22,10 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-import com.wraith.processor.MoneyTransaction;
-import com.wraith.processor.TransactionProcessor;
-import com.wraith.repository.TransactionRepository;
-import com.wraith.repository.entity.Transaction;
+import javax.inject.Inject;
 
 /**
  * User: rowan.massey

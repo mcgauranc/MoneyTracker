@@ -1,4 +1,4 @@
-package com.wraith.processor;
+package com.wraith.money.dataupload.processor;
 
 /**
  * User: rowan.massey

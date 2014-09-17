@@ -20,8 +20,7 @@ import javax.servlet.MultipartConfigElement;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.wraith.configuration", "com.wraith.encoding", "com.wraith.repository",
-        "com.wraith.security", "com.wraith.authentication", "com.wraith.controller", "com.wraith.service",
-        "com.wraith.processor"})
+        "com.wraith.security", "com.wraith.authentication", "com.wraith.money.dataupload"})
 @EnableTransactionManagement
 public class ApplicationConfig {
 
