@@ -1,10 +1,19 @@
 package com.wraith.service;
 
-import com.wraith.configuration.MoneyRunIdIncrementer;
-import com.wraith.exception.MoneyException;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.*;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.NoSuchJobException;
@@ -16,11 +25,8 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.inject.Inject;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Set;
+import com.wraith.configuration.MoneyRunIdIncrementer;
+import com.wraith.exception.MoneyException;
 
 /**
  * This service class deals with all data upload requirements. This is the entry point for all the relevant processing.
@@ -58,12 +64,12 @@ public class DataUploadService {
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-                String rootPath = System.getProperty("catalina.home");
+				String rootPath = System.getProperty(TEMP_DIRECTORY);
                 File uploadDirectory = new File(rootPath.concat(File.separator).concat("uploads"));
                 if (!uploadDirectory.exists()) {
                     uploadDirectory.mkdirs();
                 }
-                File uploadFile = new File(uploadDirectory.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				File uploadFile = new File(rootPath.concat(File.separator).concat(file.getOriginalFilename()));
                 BufferedOutputStream stream =
                         new BufferedOutputStream(new FileOutputStream(uploadFile));
                 stream.write(bytes);
