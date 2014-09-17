@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wraith</groupId>
     <artifactId>moneyTracker</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0.0.BUILD-SNAPSHOT</version>
     <name>Money Tracker Application</name>
 
@@ -69,17 +69,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-envers</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
 
         <!-- JODA -->
@@ -218,4 +207,8 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>data</module>
+        <module>dataUpload</module>
+    </modules>
 </project>
