@@ -19,10 +19,9 @@ import javax.servlet.MultipartConfigElement;
  */
 @EnableAsync
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.wraith.money.data", "com.wraith.money.repository"})
+@EnableJpaRepositories(basePackages = {"com.wraith.money.repository"})
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.wraith.money.web.configuration", "com.wraith.money.web.encoding", "com.wraith.money.web.security",
-        "com.wraith.money.web.authentication"})
+@ComponentScan(basePackages = {"com.wraith.money"})
 @EnableTransactionManagement
 public class ApplicationConfig {
 
