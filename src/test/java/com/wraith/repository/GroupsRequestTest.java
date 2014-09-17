@@ -1,4 +1,4 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
 import com.wraith.repository.entity.Authorities;
 import com.wraith.repository.entity.Groups;
@@ -11,7 +11,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.util.Set;
 
-import static com.wraith.repository.integrationTests.AuthorityRequestTest.getNewAuthoritySet;
+import static com.wraith.repository.AuthorityRequestTest.getNewAuthoritySet;
 
 /**
  * User: rowan.massey

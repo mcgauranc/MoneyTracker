@@ -81,6 +81,24 @@ All auditing is performed, using [Hibernate Envers](http://docs.jboss.org/envers
 
 All logging is taken care of using [Logback](http://logback.qos.ch/). It natively speaks to SLF4J, and allows for automatic reloading of configuration files.
 
+## Data Upload
+
+Data uploading of financial information is supported (facilitated, by the use of Spring Batch). All files need to be in CSV format, and must conform to the following structure:
+ 
+ * Number
+ * Date
+ * Account
+ * Payee
+ * Cleared
+ * Amount
+ * Category
+ * Subcategory
+ * Memo
+
+To upload information, POST the file to "/$service/dataUpload", this will load the file to a temp directory, and immediately start processing the file in a Spring Batch Job. 
+
+Note: Currently, only information exported from MS Money is supported. However, support for Allied Irish Banks new export functionality will be done. 
+
 ## Client
 
 The client side will currently use AngularJS in conjunction with Kendo UI. A single page approach, to displaying information will be taken. AngularJS facilitates an MVC approach to developing

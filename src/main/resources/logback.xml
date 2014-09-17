@@ -53,8 +53,11 @@
     <logger name="org.springframework.boot" level="ERROR" additivity="false">
         <appender-ref ref="spring"/>
     </logger>
-    <logger name="org.hibernate" level="ERROR" additivity="false">
+    <logger name="org.springframework.batch" level="ERROR" additivity="false">
         <appender-ref ref="spring"/>
+    </logger>
+    <logger name="org.hibernate" level="ERROR" additivity="false">
+        <appender-ref ref="hibernate"/>
     </logger>
     <logger name="org.hibernate.cache" level="ERROR" additivity="false">
         <appender-ref ref="hibernate"/>

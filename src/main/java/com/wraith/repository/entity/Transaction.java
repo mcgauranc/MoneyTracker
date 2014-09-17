@@ -17,17 +17,11 @@ import java.util.Date;
 @Entity
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Audited
-@AuditTable(value = "Undertaking_Audit")
-@Table(name = "Undertaking")
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "undertaking_id")),
-        @AttributeOverride(name = "version", column = @Column(name = "undertaking_version"))})
+@AuditTable(value = "Transaction_Audit")
+@Table(name = "[Transaction]")
+@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "transaction_id")),
+        @AttributeOverride(name = "version", column = @Column(name = "transaction_version"))})
 public class Transaction extends BaseEntity implements Serializable {
-
-    public enum TransactionType {
-        DEPOSIT,
-        WITHDRAWAL,
-        TRANSFER
-    }
 
     private Payee payee;
     private Currency currency;
@@ -36,7 +30,6 @@ public class Transaction extends BaseEntity implements Serializable {
     private String checkNumber;
     private Date transactionDate;
     private Double amount;
-    private TransactionType type;
     private int quantity;
     private String notes;
     private Users user;
@@ -44,7 +37,7 @@ public class Transaction extends BaseEntity implements Serializable {
 
     @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "undertaking_payee_id")
+    @JoinColumn(name = "transaction_payee_id")
     public Payee getPayee() {
         return payee;
     }
@@ -55,7 +48,7 @@ public class Transaction extends BaseEntity implements Serializable {
 
     @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "undertaking_currency_id")
+    @JoinColumn(name = "transaction_currency_id")
     public Currency getCurrency() {
         return currency;
     }
@@ -66,7 +59,7 @@ public class Transaction extends BaseEntity implements Serializable {
 
     @NotAudited
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "undertaking_category_id")
+    @JoinColumn(name = "transaction_category_id")
     public Category getCategory() {
         return category;
     }
@@ -75,7 +68,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.category = category;
     }
 
-    @Column(name = "undertaking_number", nullable = false)
+    @Column(name = "transaction_number", nullable = false)
     public int getNumber() {
         return number;
     }
@@ -84,7 +77,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.number = number;
     }
 
-    @Column(name = "undertaking_checknumber", nullable = true)
+    @Column(name = "transaction_checknumber", nullable = true)
     public String getCheckNumber() {
         return checkNumber;
     }
@@ -93,7 +86,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.checkNumber = checkNumber;
     }
 
-    @Column(name = "undertaking_date", nullable = false)
+    @Column(name = "transaction_date", nullable = false)
     public Date getTransactionDate() {
         return transactionDate;
     }
@@ -102,7 +95,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    @Column(name = "undertaking_amount", nullable = false)
+    @Column(name = "transaction_amount", nullable = false)
     public Double getAmount() {
         return amount;
     }
@@ -111,16 +104,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.amount = amount;
     }
 
-    @Column(name = "undertaking_type", nullable = false)
-    public TransactionType getType() {
-        return type;
-    }
-
-    public void setType(TransactionType type) {
-        this.type = type;
-    }
-
-    @Column(name = "undertaking_quantity", nullable = true)
+    @Column(name = "transaction_quantity", nullable = true)
     public int getQuantity() {
         return quantity;
     }
@@ -129,7 +113,7 @@ public class Transaction extends BaseEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    @Column(name = "undertaking_notes", nullable = true)
+    @Column(name = "transaction_notes", nullable = true)
     public String getNotes() {
         return notes;
     }
@@ -139,7 +123,7 @@ public class Transaction extends BaseEntity implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "undertaking_user_id", nullable = false)
+    @JoinColumn(name = "transaction_user_id", nullable = false)
     public Users getUser() {
         return user;
     }
@@ -149,7 +133,7 @@ public class Transaction extends BaseEntity implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "undertaking_account_id", nullable = false)
+    @JoinColumn(name = "transaction_account_id", nullable = false)
     public Account getAccount() {
         return account;
     }

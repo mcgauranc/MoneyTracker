@@ -1,4 +1,4 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
 import com.wraith.repository.entity.Account;
 import net.minidev.json.JSONObject;
@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import static com.wraith.repository.integrationTests.CurrencyRequestTest.getCurrency;
 
 /**
  * User: rowan.massey
@@ -31,7 +29,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         account.setName(name);
         account.setOpeningBalance(balance);
         account.setType(AccountTypeRequestTest.getNewAccountType(accountType));
-        account.setCurrency(getCurrency(currencyIso, currency));
+        account.setCurrency(CurrencyRequestTest.getCurrency(currencyIso, currency));
         return account;
     }
 

@@ -1,4 +1,4 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
 import com.wraith.repository.entity.AccountType;
 import net.minidev.json.JSONObject;

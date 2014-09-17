@@ -1,7 +1,6 @@
-package com.wraith.repository.integrationTests;
+package com.wraith.repository;
 
 import com.wraith.repository.entity.*;
-import com.wraith.repository.entity.Transaction.TransactionType;
 import net.minidev.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,13 +26,12 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
      * @param notes        Any extra notes associated with the transaction.
      * @param payee        The name of the payee for this transaction.
      * @param quantity     The quantity of the transaction.
-     * @param type         The type of transaction DEPOSIT, WITHDRAWL
      * @param user         The user associated with this transaction.
      * @return The URI to the created transaction.
      * @throws Exception
      */
     public static Transaction getNewTransaction(Account account, Double amount, Category category, String chequeNumber, Currency currency,
-                                                String notes, Payee payee, Integer quantity, TransactionType type, Users user) {
+                                                String notes, Payee payee, Integer quantity, Users user) {
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setAmount(amount);
@@ -45,7 +43,6 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         transaction.setPayee(payee);
         transaction.setQuantity(quantity);
         transaction.setTransactionDate(Calendar.getInstance().getTime());
-        transaction.setType(type);
         transaction.setUser(user);
 
         return transaction;
@@ -55,7 +52,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
     public void testCreatePayeeWithNoAuthenticationRequest() throws Exception {
         authenticate("", "");
         String resourceLocation = createNewTransaction("Current", 12.65, "Toothpaste", "12345", "Euro", "EUR", "This is the note",
-                "Superquinn", 1, TransactionType.WITHDRAWAL, "");
+                "Superquinn", 1, "");
         performGetRequest(resourceLocation);
     }
 
@@ -64,7 +61,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Credit Card", 12.65, "Toothpaste", "12345", "Euro", "EUR", "This is the note",
-                "Superquinn", 1, TransactionType.WITHDRAWAL, "Administrator");
+                "Superquinn", 1, "Administrator");
         MockHttpServletResponse getResponse = performGetRequest(resourceLocation);
         String getContent = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(getContent);
@@ -77,7 +74,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("eightieth.person", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Current", 1245.65, "Wine", "", "Euro", "EUR", "This is the Wine note",
-                "Superquinn", 1, TransactionType.WITHDRAWAL, "eightieth.person");
+                "Superquinn", 1, "eightieth.person");
         MockHttpServletResponse getResponse = performGetRequest(resourceLocation);
         String getContent = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(getContent);
@@ -89,7 +86,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 65.54, "Chocolate", "", "Euro", "EUR", "This is the Chocolate bar",
-                "Spar", 1, TransactionType.WITHDRAWAL, "Administrator");
+                "Spar", 1, "Administrator");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("amount", 154.65);
@@ -111,7 +108,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("eightyfirst.person", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 12.54, "Beer", "", "Euro", "EUR", "This is a six pack",
-                "Spar", 1, TransactionType.WITHDRAWAL, "eightyfirst.person");
+                "Spar", 1, "eightyfirst.person");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("amount", 6.00);
@@ -132,7 +129,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("Admin", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 0.85, "Crisps", "", "Euro", "EUR", "This is a bag of crisps",
-                "Spar", 1, TransactionType.WITHDRAWAL, "Administrator");
+                "Spar", 1, "Administrator");
 
         //Delete the inserted transaction record from the database, and ensure that values are correct.
         MockHttpServletResponse putResponse = performDeleteRequest(resourceLocation);
@@ -147,7 +144,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("eightysecond.person", "Passw0rd");
 
         String resourceLocation = createNewTransaction("Wallet", 50.00, "Money Found", "", "Euro", "EUR", "Found money on street",
-                "Unknown", 1, TransactionType.DEPOSIT, "eightysecond.person");
+                "Unknown", 1, "eightysecond.person");
 
         //Delete the inserted transaction record from the database, and ensure that values are correct.
         MockHttpServletResponse putResponse = performDeleteRequest(resourceLocation);
@@ -167,20 +164,19 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
      * @param notes        Any extra notes associated with the transaction.
      * @param payeeName    The name of the payee for this transaction.
      * @param quantity     The quantity of the transaction.
-     * @param type         The type of transaction DEPOSIT, WITHDRAWL
      * @param userName     The user associated with this transaction.
      * @return The URI to the created transaction.
      * @throws Exception
      */
     private String createNewTransaction(String accountName, Double amount, String categoryName, String chequeNumber, String currencyName, String currencyISO,
-                                        String notes, String payeeName, Integer quantity, TransactionType type, String userName) throws Exception {
+                                        String notes, String payeeName, Integer quantity, String userName) throws Exception {
         Users user = getUser(userName);
         Account account = getAccount(accountName, 1234.56, "Current", "Euro", "EUR");
         Category category = getCategory(categoryName);
         Currency currency = getCurrency(currencyName, currencyISO);
         Payee payee = getPayee(payeeName);
 
-        Transaction transaction = getNewTransaction(account, amount, category, chequeNumber, currency, notes, payee, quantity, type, user);
+        Transaction transaction = getNewTransaction(account, amount, category, chequeNumber, currency, notes, payee, quantity, user);
         return createNewEntity(transaction, TRANSACTIONS_PATH);
     }
 
