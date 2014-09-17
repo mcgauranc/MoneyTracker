@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * This class is a representation of the groups entity, it manages all of the groups that the relevant user belongs to.
+ *
  * User: rowan.massey
  * Date: 12/08/12
  * Time: 20:53
