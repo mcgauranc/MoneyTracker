@@ -1,10 +1,10 @@
 package com.wraith.money.web.configuration;
 
 import com.wraith.money.data.*;
-import com.wraith.money.web.encoding.Encoding;
-import com.wraith.money.web.repository.AuthoritiesRepository;
-import com.wraith.money.web.repository.GroupsRepository;
-import com.wraith.money.web.repository.UsersRepository;
+import com.wraith.money.repository.AuthoritiesRepository;
+import com.wraith.money.repository.GroupsRepository;
+import com.wraith.money.repository.UsersRepository;
+import com.wraith.money.repository.encoding.Encoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

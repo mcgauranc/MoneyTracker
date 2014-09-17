@@ -3,7 +3,7 @@ package com.wraith.money.web.security;
 import com.wraith.money.data.Authorities;
 import com.wraith.money.data.Groups;
 import com.wraith.money.data.Users;
-import com.wraith.money.web.repository.UsersRepository;
+import com.wraith.money.repository.UsersRepository;
 import org.apache.commons.lang.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,8 +31,8 @@ public class MoneyUserDetailsService extends JdbcDaoSupport implements UserDetai
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Inject
-    UsersRepository usersRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Autowired
     public MoneyUserDetailsService(DataSource dataSource) {

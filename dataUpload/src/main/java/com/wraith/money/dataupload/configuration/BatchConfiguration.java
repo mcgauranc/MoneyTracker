@@ -3,6 +3,7 @@ package com.wraith.money.dataupload.configuration;
 import com.wraith.money.data.Transaction;
 import com.wraith.money.dataupload.processor.MoneyTransaction;
 import com.wraith.money.dataupload.processor.TransactionProcessor;
+import com.wraith.money.repository.TransactionRepository;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -36,8 +37,8 @@ public class BatchConfiguration {
 
     @Inject
     private TransactionRepository transactionRepository;
-	@Inject
-	private JobRepository jobRepository;
+    @Inject
+    private JobRepository jobRepository;
 
     @Bean
     @StepScope
@@ -96,11 +97,11 @@ public class BatchConfiguration {
         return executor;
     }
 
-	@Bean
+    @Bean
     public SimpleJobLauncher jobLauncher() {
         SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
-		jobLauncher.setJobRepository(jobRepository);
+        jobLauncher.setJobRepository(jobRepository);
         jobLauncher.setTaskExecutor(taskExecutor());
         return jobLauncher;
-	}
+    }
 }

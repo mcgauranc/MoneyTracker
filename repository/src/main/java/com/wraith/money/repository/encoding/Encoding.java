@@ -1,4 +1,4 @@
-package com.wraith.money.web.encoding;
+package com.wraith.money.repository.encoding;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;

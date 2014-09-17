@@ -1,6 +1,6 @@
-package com.wraith.money.web.repository.handler;
+package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Groups;
+import com.wraith.money.data.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
@@ -11,31 +11,31 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * User: rowan.massey
- * Date: 06/05/13
- * Time: 13:14
+ * Date: 30/04/13
+ * Time: 19:09
  */
-@RepositoryEventHandler(Groups.class)
-public class GroupsEventHandler {
+@RepositoryEventHandler(Address.class)
+public class AddressEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeCreate
-    public void beforeGroupsCreate(Groups groups) {
-        logger.debug(String.format("In before create for groups '%s'", groups.getName()));
+    public void beforeAddressCreate(Address address) {
+        logger.debug(String.format("In before create for address '%s'", address.toString()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeSave
-    public void beforeGroupsUpdate(Groups groups) {
-        logger.debug(String.format("In before update for groups '%s'", groups.getName()));
+    public void beforeAddressUpdate(Address address) {
+        logger.debug(String.format("In before update for address '%s'", address.toString()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeDelete
-    public void beforeGroupsDelete(Groups groups) {
-        logger.debug(String.format("In before delete for groups '%s'", groups.getName()));
+    public void beforeAddressDelete(Address address) {
+        logger.debug(String.format("In before delete for address '%s'", address.toString()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 }

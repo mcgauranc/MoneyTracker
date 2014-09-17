@@ -1,6 +1,6 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.web.encoding.Encoding;
+import com.wraith.money.repository.encoding.Encoding;
 import org.junit.Assert;
 import org.junit.Test;
 

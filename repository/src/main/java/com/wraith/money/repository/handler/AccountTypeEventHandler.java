@@ -1,6 +1,6 @@
-package com.wraith.money.web.repository.handler;
+package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Country;
+import com.wraith.money.data.AccountType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
@@ -11,32 +11,30 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * User: rowan.massey
- * Date: 05/05/13
- * Time: 21:04
+ * Date: 23/04/13
+ * Time: 19:06
  */
-@RepositoryEventHandler(Country.class)
-public class CountryEventHandler {
+@RepositoryEventHandler(AccountType.class)
+public class AccountTypeEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeCreate
-    public void beforeCountryCreate(Country country) {
-        logger.debug(String.format("In before create for country '%s'", country.getName()));
+    public void beforeAccountTypeCreate(AccountType accountType) {
+        logger.debug(String.format("In before create for account type '%s'", accountType.getName()));
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeSave
-    public void beforeCountryUpdate(Country country) {
-        logger.debug(String.format("In before update for country '%s'", country.getName()));
+    public void beforeAccountTypeUpdate(AccountType accountType) {
+        logger.debug(String.format("In before update for account type '%s'", accountType.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @HandleBeforeDelete
-    public void beforeCountryDelete(Country country) {
-        logger.debug(String.format("In before delete for country '%s'", country.getName()));
+    public void beforeAccountTypeDelete(AccountType accountType) {
+        logger.debug(String.format("In before delete for account type '%s'", accountType.getName()));
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
-
 }

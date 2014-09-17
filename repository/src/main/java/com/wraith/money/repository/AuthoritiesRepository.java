@@ -1,4 +1,4 @@
-package com.wraith.money.web.repository;
+package com.wraith.money.repository;
 
 import com.wraith.money.data.Authorities;
 import org.springframework.data.repository.CrudRepository;

@@ -1,12 +1,12 @@
-package com.wraith.money.web.repository.handler;
+package com.wraith.money.repository.handler;
 
 import com.wraith.money.data.Country;
 import com.wraith.money.data.Groups;
 import com.wraith.money.data.Users;
-import com.wraith.money.web.encoding.Encoding;
-import com.wraith.money.web.exception.MoneyException;
-import com.wraith.money.web.repository.CountryRepository;
-import com.wraith.money.web.repository.GroupsRepository;
+import com.wraith.money.repository.CountryRepository;
+import com.wraith.money.repository.GroupsRepository;
+import com.wraith.money.repository.encoding.Encoding;
+import com.wraith.money.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class UserEventHandler {
             return encoding.encodePassword(password);
         } catch (NoSuchAlgorithmException e) {
             logger.error(String.format("Error encoding user password. Error was '%s'", e.getMessage()), e);
-            throw new MoneyException(String.format("There was an error encoding the user password for user '%s'", userName));
+            throw new RepositoryException(String.format("There was an error encoding the user password for user '%s'", userName));
         }
     }
 

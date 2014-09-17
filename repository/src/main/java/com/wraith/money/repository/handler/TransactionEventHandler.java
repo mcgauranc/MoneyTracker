@@ -1,4 +1,4 @@
-package com.wraith.money.web.repository.handler;
+package com.wraith.money.repository.handler;
 
 import com.wraith.money.data.Transaction;
 import org.slf4j.Logger;

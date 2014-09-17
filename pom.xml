@@ -209,6 +209,8 @@
     </build>
     <modules>
         <module>data</module>
+        <module>repository</module>
+        <module>web</module>
         <module>dataUpload</module>
     </modules>
 </project>
