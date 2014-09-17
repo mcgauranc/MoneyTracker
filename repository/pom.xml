@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.wraith</groupId>
+        <groupId>com.wraith.money</groupId>
         <artifactId>moneyTracker</artifactId>
         <version>1.0.0.BUILD-SNAPSHOT</version>
         <relativePath>..</relativePath>
@@ -13,6 +13,7 @@
 
     <artifactId>repository</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
