@@ -1,0 +1,12 @@
+package com.wraith.money.web.repository;
+
+import com.wraith.money.web.repository.entity.Transaction;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+/**
+ * User: rowan.massey
+ * Date: 24/02/13
+ * Time: 15:48
+ */
+public interface TransactionRepository extends PagingAndSortingRepository<Transaction, Long> {
+}

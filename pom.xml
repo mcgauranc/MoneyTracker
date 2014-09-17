@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <start-class>com.wraith.ApplicationConfig</start-class>
+        <start-class>com.wraith.money.web.ApplicationConfig</start-class>
     </properties>
 
     <repositories>
