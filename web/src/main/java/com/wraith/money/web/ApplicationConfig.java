@@ -4,6 +4,7 @@ import com.wraith.money.repository.handler.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +20,10 @@ import javax.servlet.MultipartConfigElement;
  */
 @EnableAsync
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.wraith.money.data", "com.wraith.money.repository"})
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.wraith.money.web"})
+@EnableJpaRepositories(basePackages = {"com.wraith.money.repository"})
+@EntityScan(basePackages = {"com.wraith.money.data"})
+@ComponentScan(basePackages = {"com.wraith.money.web", "com.wraith.money.repository", "com.wraith.money.dataupload"})
 @EnableTransactionManagement
 public class ApplicationConfig {
 
