@@ -1,0 +1,151 @@
+package com.wraith.money.web.repository;
+
+import com.wraith.money.data.Authorities;
+import net.minidev.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * User: rowan.massey
+ * Date: 01/05/13
+ * Time: 19:49
+ */
+public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
+
+    /**
+     * This method returns a new instance of the created authority.
+     *
+     * @param authorityName The name of the authority.
+     * @return An instance of the Authorities class for the given authority name.
+     */
+    public static Authorities getNewAuthority(String authorityName) {
+        Authorities authorities = new Authorities();
+        authorities.setAuthority(authorityName);
+        return authorities;
+    }
+
+    /**
+     * This method returns a set of authorities, based on the number passed in.
+     *
+     * @param authorityNames An array of authority names.
+     * @return A set containing the list of authorities passed in.
+     */
+    public static Set<Authorities> getNewAuthoritySet(String... authorityNames) {
+        Set<Authorities> authorities = new HashSet<>();
+        for (String authority : authorityNames) {
+            authorities.add(getNewAuthority(authority));
+        }
+        return authorities;
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateAuthorityWithNoAuthenticationRequest() throws Exception {
+        authenticate("", "");
+        String resourceRequest = createNewAuthority("ROLE_TESTER");
+        performGetRequest(resourceRequest);
+    }
+
+    @Test
+    public void testCreateAuthorityRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_REPORTER");
+
+        //Retrieve the inserted authority record from the database, and ensure that values are correct.
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject jsonObject = (JSONObject) parser.parse(content);
+        Assert.assertEquals((String) jsonObject.get("authority"), "ROLE_REPORTER");
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateAuthorityWithOrdinaryUserRequest() throws Exception {
+        createNewUser("twentieth.person", "Passw0rd", "Twentieth", "Person");
+        authenticate("twentieth.person", "Passw0rd");
+
+        createNewAuthority("ROLE_REPORTER");
+
+    }
+
+    @Test
+    public void testUpdateAuthorityRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("authority", "UPDATED_ROLE_DEVELOPER");
+
+        byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+
+        //Update the inserted account record from the database, and ensure that values are correct.
+        MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
+        Assert.assertNotNull(putResponse);
+
+        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject getJSONObject = (JSONObject) parser.parse(content);
+
+        Assert.assertEquals((String) getJSONObject.get("authority"), "UPDATED_ROLE_DEVELOPER");
+    }
+
+    @Test(expected = Exception.class)
+    public void testUpdateAuthorityWithOrdinaryUserRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
+        String resourceRequest = createNewAuthority("ROLE_DEVELOPER");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("authority", "UPDATED_ROLE_DEVELOPER");
+
+        byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+
+        createNewUser("twentyfirst.person", "Passw0rd", "Twenty First", "Person");
+        authenticate("twentyfirst.person", "Passw0rd");
+        //Update the inserted account record from the database, and ensure that values are correct.
+        performPutRequest(resourceRequest, updatedAccountBytes);
+    }
+
+    @Test
+    public void testDeleteAuthorityRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_SUPPORTER");
+
+        //Delete the inserted account record from the database, and ensure that values are correct.
+        MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
+        Assert.assertNotNull(deleteResponse);
+
+        //Ensure that the deleted account can't be retrieved from the database.
+        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
+    }
+
+    @Test(expected = Exception.class)
+    public void testDeleteAuthorityWithOrdinaryUserRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
+
+        String resourceRequest = createNewAuthority("ROLE_SUPPORTER");
+
+        createNewUser("twentysecond.person", "Passw0rd", "Twenty Second", "Person");
+        authenticate("twentysecond.person", "Passw0rd");
+
+        //Delete the inserted account record from the database, and ensure that values are correct.
+        performDeleteRequest(resourceRequest);
+    }
+
+    /**
+     * This method creates a new authority in the database, and returns the URI location.
+     *
+     * @param authorityName The name of the authority.
+     * @return The location of the created authority.
+     * @throws Exception
+     */
+    private String createNewAuthority(String authorityName) throws Exception {
+        Authorities authority = getNewAuthority(authorityName);
+        return createNewEntity(authority, AUTHORITIES_PATH);
+    }
+}
