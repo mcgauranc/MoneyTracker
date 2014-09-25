@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.Set;
 
 /**
@@ -49,12 +50,17 @@ public class DataUploadService {
         this.jobs = jobBuilderFactory;
         this.step = step;
     }
+
     /**
-     * @param name
-     * @param file
+     * This method processes the file that was passed in during the file upload.
+     *
+     * @param file The file that was uploaded.
+     * @param fileType This is the type of file that will be processed, currently either "MSMoney", or "AIB"
+     *
+     * @return The job execution object.
      */
-    public JobExecution processFile(String name, MultipartFile file) {
-        logger.debug(String.format("Starting process of '%s' for upload, and import.", name));
+    public JobExecution performUploadData(MultipartFile file, String fileType) {
+        logger.debug(String.format("Starting process of '%s' for upload, and import.", file.getOriginalFilename()));
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -68,9 +74,9 @@ public class DataUploadService {
                         new BufferedOutputStream(new FileOutputStream(uploadFile));
                 stream.write(bytes);
                 stream.close();
-                return startImportJob(uploadFile, "moneyTransactionImport");
+                return startImportJob(uploadFile, fileType + Calendar.getInstance().getTimeInMillis());
             } catch (Exception e) {
-                logger.error(String.format("Error processing file '%s'.", name), e);
+                logger.error(String.format("Error processing file '%s'.", file.getOriginalFilename()), e);
                 throw new MoneyException(e);
             }
         } else {
@@ -79,7 +85,12 @@ public class DataUploadService {
     }
 
     /**
-     * @param file
+     * This method starts the import of the given job, which will upload the given file.
+     *
+     * @param file The file that will be processed.
+     * @param jobName The name of the job.
+     *
+     * @return The JobExecution object.
      */
     private JobExecution startImportJob(File file, String jobName) {
         logger.debug(String.format("Starting job to import file '%s'.", file));
