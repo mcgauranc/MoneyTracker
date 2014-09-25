@@ -1,4 +1,4 @@
-package com.wraith.money.dataupload.processor;
+package com.wraith.money.web.processor;
 
 import com.wraith.money.data.*;
 import com.wraith.money.repository.*;

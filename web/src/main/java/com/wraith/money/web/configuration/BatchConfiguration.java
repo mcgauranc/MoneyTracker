@@ -1,9 +1,9 @@
-package com.wraith.money.dataupload.configuration;
+package com.wraith.money.web.configuration;
 
 import com.wraith.money.data.Transaction;
-import com.wraith.money.dataupload.processor.MoneyTransaction;
-import com.wraith.money.dataupload.processor.TransactionProcessor;
 import com.wraith.money.repository.TransactionRepository;
+import com.wraith.money.web.processor.MoneyTransaction;
+import com.wraith.money.web.processor.TransactionProcessor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;

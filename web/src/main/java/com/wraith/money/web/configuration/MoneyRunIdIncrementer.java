@@ -1,4 +1,4 @@
-package com.wraith.money.dataupload.configuration;
+package com.wraith.money.web.configuration;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;

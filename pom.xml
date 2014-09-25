@@ -195,7 +195,6 @@
     <modules>
         <module>data</module>
         <module>repository</module>
-        <module>dataUpload</module>
         <module>web</module>
     </modules>
 </project>

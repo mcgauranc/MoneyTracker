@@ -1,7 +1,7 @@
-package com.wraith.money.dataupload.service;
+package com.wraith.money.web.service;
 
-import com.wraith.money.dataupload.configuration.MoneyRunIdIncrementer;
-import com.wraith.money.dataupload.exception.DataUploadException;
+import com.wraith.money.web.configuration.MoneyRunIdIncrementer;
+import com.wraith.money.web.exception.MoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.*;
@@ -71,10 +71,10 @@ public class DataUploadService {
                 return startImportJob(uploadFile, "moneyTransactionImport");
             } catch (Exception e) {
                 logger.error(String.format("Error processing file '%s'.", name), e);
-                throw new DataUploadException(e);
+                throw new MoneyException(e);
             }
         } else {
-            throw new DataUploadException("There was no file to process.");
+            throw new MoneyException("There was no file to process.");
         }
     }
 
@@ -88,16 +88,16 @@ public class DataUploadService {
             return jobLauncher.run(job, new JobParametersBuilder().addString("targetFile", file.getAbsolutePath()).toJobParameters());
         } catch (JobExecutionAlreadyRunningException e) {
             logger.error(String.format("Job for processing file '%s' is already running.", file), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         } catch (JobParametersInvalidException e) {
             logger.error(String.format("Invalid parameters for processing of file '%s'.", file), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         } catch (JobRestartException e) {
             logger.error(String.format("Error restarting job, for processing file '%s'.", file), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         } catch (JobInstanceAlreadyCompleteException e) {
             logger.error(String.format("Job to process file '%s' has already completed.", file), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         }
     }
 
@@ -122,10 +122,10 @@ public class DataUploadService {
             }
         } catch (NoSuchJobException | NoSuchJobExecutionException e) {
             logger.error(String.format("Job '%s' does not exist.", job), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         } catch (JobExecutionAlreadyRunningException e) {
             logger.error(String.format("Job '%s' is already running.", job), e);
-            throw new DataUploadException(e);
+            throw new MoneyException(e);
         }
     }
 }
