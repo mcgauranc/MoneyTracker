@@ -2,9 +2,10 @@ package com.wraith.money.web.service;
 
 import com.wraith.money.web.repository.AbstractBaseIntegrationTests;
 import org.junit.Test;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-//@TestExecutionListeners( { DependencyInjectionTestExecutionListener.class,
-//        StepScopeTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class DataUploadServiceTest extends AbstractBaseIntegrationTests {
 
 //    @Autowired

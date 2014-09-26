@@ -11,6 +11,10 @@ moneyApp.config(["$routeProvider",
                 templateUrl: "partials/user/user-list.html",
                 controller: "UserController"
             }).
+            when("/dataUploads", {
+                templateUrl: "partials/dataUpload/dataUpload-list.html",
+                controller: "DataUploadController"
+            }).
             otherwise({
                 redirectTo: "/"
             });

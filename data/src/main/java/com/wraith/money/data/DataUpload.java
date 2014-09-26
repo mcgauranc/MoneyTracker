@@ -3,6 +3,8 @@ package com.wraith.money.data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: rowan.massey
@@ -17,6 +19,7 @@ public class DataUpload extends BaseEntity implements Serializable {
     private String description;
     private Date uploadDate;
     private Users user;
+    private Set<DataUploadMapping> mappings = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dataupload_users_id")
@@ -44,5 +47,14 @@ public class DataUpload extends BaseEntity implements Serializable {
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, mappedBy = "dataUpload")
+    public Set<DataUploadMapping> getMappings() {
+        return mappings;
+    }
+
+    public void setMappings(Set<DataUploadMapping> mappings) {
+        this.mappings = mappings;
     }
 }

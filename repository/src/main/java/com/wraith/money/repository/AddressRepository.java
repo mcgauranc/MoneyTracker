@@ -1,7 +1,7 @@
 package com.wraith.money.repository;
 
 import com.wraith.money.data.Address;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 /**
@@ -10,5 +10,5 @@ import org.springframework.data.rest.core.annotation.RestResource;
  * Time: 16:36
  */
 @RestResource
-public interface AddressRepository extends CrudRepository<Address, Long> {
+public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
 }

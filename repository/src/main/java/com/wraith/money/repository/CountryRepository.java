@@ -1,7 +1,7 @@
 package com.wraith.money.repository;
 
 import com.wraith.money.data.Country;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 24/02/13
  * Time: 16:34
  */
-public interface CountryRepository extends CrudRepository<Country, Long> {
+public interface CountryRepository extends PagingAndSortingRepository<Country, Long> {
 
     public List<Country> findByIso(String iso);
 

@@ -20,7 +20,7 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
     private String dataType;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datauploadmapping_dataupload_id")
     public DataUpload getDataUpload() {
         return dataUpload;

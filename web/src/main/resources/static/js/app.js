@@ -4,11 +4,7 @@ var HREF_TAG = 'href';
 var LINKS_TAG = 'links';
 var GETLIST_OP = 'getList';
 
-var moneyApp = angular.module("moneyApp", [
-    "restangular",
-    "ngRoute",
-    "ngStorage"
-]);
+var moneyApp = angular.module("moneyApp", ["restangular", "ngRoute", "ngStorage"]);
 
 //var app = angular.module('app', ['restangular', 'ngStorage', 'ui.bootstrap']);
 

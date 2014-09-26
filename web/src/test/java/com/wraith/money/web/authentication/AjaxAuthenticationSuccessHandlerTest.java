@@ -1,10 +1,10 @@
 package com.wraith.money.web.authentication;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
+@Test(groups = "UnitTest")
 public class AjaxAuthenticationSuccessHandlerTest {
 
-    @Test
     public void testOnAuthenticationSuccess() throws Exception {
 
     }
