@@ -1,0 +1,61 @@
+<link href="../../css/moneyTracker.css" rel="stylesheet">
+<div class="dataupload-list">
+    <h2>Data Uploads
+		<span class="btn-group" style="float: right; margin-top: 8px">
+		<button type="button" class="btn btn-default btn-sm" ng-click="dataUploadController.newDataUpload()"
+                tooltip="New">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+		</span>
+    </h2>
+    <ul class="list-group">
+        <li class="list-group-item"
+            ng-show="dataUploadController.current.name !== undefined && dataUploadController.current.route === undefined">
+            <input class="form-control input-sm input-edit"
+                   type="text" ng-enter="dataUploadController.save()"
+                   ng-model="dataUploadController.current.name" focus-on="startEdit"/>
+			<span class="badge input-badge">
+				<button ng-click="dataUploadController.save()" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+				<button ng-click="dataUploadController.cancel()" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+			</span>
+        </li>
+        <li ng-repeat="dataUpload in dataUploads" class="list-group-item">
+            <div ng-show="dataUpload != dataUploadController.current">
+                {{dataUpload.description}}
+				<span class="badge" style="float: right">
+					<button ng-click="dataUploadController.edit(dataUpload, $event)" class="btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-edit" tooltip="Edit"></span>
+                    </button>
+					<button ng-click="dataUploadController.remove(dataUpload)" class="btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-trash" tooltip="Remove"></span>
+                    </button>
+				</span>
+            </div>
+            <div ng-show="dataUpload == dataUploadController.current">
+                <input class="form-control input-sm input-edit"
+                       type="text" ng-enter="dataUploadController.save()"
+                       ng-model="dataUpload.description" focus-on="startEdit"/>
+				<span class="badge">
+					<button ng-click="dataUploadController.save()" class="btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+					<button ng-click="dataUploadController.cancel()" class="btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+				</span>
+            </div>
+        </li>
+    </ul>
+    <ul class="pagination pagination-sm">
+        <li ng-class="{disabled:dataUploadController.currentPage==0}">
+            <span ng-click="dataUploadController.previousPage()" class="glyphicon glyphicon-backward"></span>
+        </li>
+        <li ng-class="{disabled:dataUploadController.currentPage+1>=dataUploadController.pages}">
+            <span href="#" ng-click="dataUploadController.nextPage()" class="glyphicon glyphicon-forward"></span>
+        </li>
+    </ul>
+</div>

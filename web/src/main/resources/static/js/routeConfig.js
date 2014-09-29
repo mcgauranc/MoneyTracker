@@ -12,7 +12,7 @@ moneyApp.config(["$routeProvider",
                 controller: "UserController"
             }).
             when("/dataUploads", {
-                templateUrl: "partials/dataUpload/dataUpload-list.html",
+                templateUrl: "partials/dataUpload/dataUpload.html",
                 controller: "DataUploadController"
             }).
             otherwise({

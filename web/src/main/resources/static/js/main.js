@@ -6,8 +6,6 @@ var GETLIST_OP = 'getList';
 
 var moneyApp = angular.module("moneyApp", ["restangular", "ngRoute", "ngStorage"]);
 
-//var app = angular.module('app', ['restangular', 'ngStorage', 'ui.bootstrap']);
-
 moneyApp.directive('focusOn', function () {
     return function (scope, elem, attr) {
         scope.$on('focusOn', function (e, name) {
