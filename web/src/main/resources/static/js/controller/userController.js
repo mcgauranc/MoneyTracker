@@ -56,7 +56,11 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             userController.currentPage = 0;
             userController.pageSize = 4;
             userController.refresh();
-            userController.current.name = '';
+            userController.current.users_user_name = '';
+            userController.current.users_password = '';
+            userController.current.users_first_name = '';
+            userController.current.users_last_name = '';
+            userController.current.users_dateofbirth = '';
             focus('startEdit');
         };
 

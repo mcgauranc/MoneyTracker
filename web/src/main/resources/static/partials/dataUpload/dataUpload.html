@@ -10,10 +10,10 @@
     </h2>
     <ul class="list-group">
         <li class="list-group-item"
-            ng-show="dataUploadController.current.name !== undefined && dataUploadController.current.route === undefined">
+            ng-show="dataUploadController.current.dataupload_description !== undefined">
             <input class="form-control input-sm input-edit"
                    type="text" ng-enter="dataUploadController.save()"
-                   ng-model="dataUploadController.current.name" focus-on="startEdit"/>
+                   ng-model="dataUploadController.current.dataupload_description" focus-on="startEdit"/>
 			<span class="badge input-badge">
 				<button ng-click="dataUploadController.save()" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -38,7 +38,7 @@
             <div ng-show="dataUpload == dataUploadController.current">
                 <input class="form-control input-sm input-edit"
                        type="text" ng-enter="dataUploadController.save()"
-                       ng-model="dataUpload.description" focus-on="startEdit"/>
+                       ng-model="dataUpload.dataupload_description" focus-on="startEdit"/>
 				<span class="badge">
 					<button ng-click="dataUploadController.save()" class="btn btn-xs btn-default">
                         <span class="glyphicon glyphicon-ok"></span>

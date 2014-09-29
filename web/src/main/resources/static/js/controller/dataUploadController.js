@@ -46,24 +46,17 @@ moneyApp.controller("DataUploadController", ["$scope", "AuthRestangular", "$loca
 
         dataUploadController.save = function () {
             dataUploadController.pageSize = 5;
-            if ('route' in dataUploadController.current) {
-                dataUploadController.current.put().then(function (result) {
-                    dataUploadController.current = {};
-                    dataUploadController.refresh();
-                });
-            } else {
-                dataUploadController.all.post(dataUploadController.current).then(function (result) {
-                    dataUploadController.current = {};
-                    dataUploadController.refresh();
-                });
-            }
+            dataUploadController.all.post(dataUploadController.current).then(function (result) {
+                dataUploadController.current = {};
+                dataUploadController.refresh();
+            });
         };
 
         dataUploadController.newDataUpload = function () {
             dataUploadController.currentPage = 0;
             dataUploadController.pageSize = 4;
             dataUploadController.refresh();
-            dataUploadController.current.name = '';
+            dataUploadController.current.dataupload_description = '';
             focus('startEdit');
         };
 

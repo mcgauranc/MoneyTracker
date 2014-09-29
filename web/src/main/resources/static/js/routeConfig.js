@@ -8,7 +8,7 @@ moneyApp.config(["$routeProvider",
                 controller: "AuthController"
             }).
             when("/users", {
-                templateUrl: "partials/user/user-list.html",
+                templateUrl: "partials/user/users.html",
                 controller: "UserController"
             }).
             when("/dataUploads", {
