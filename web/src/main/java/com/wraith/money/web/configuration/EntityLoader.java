@@ -34,8 +34,8 @@ public class EntityLoader {
     private void defaultDataLoader() {
 
         if (!usersExist()) {
-            Authorities adminAuthority = getAuthority("ROLE_ADMIN");
-            Authorities userAuthority = getAuthority("ROLE_USER");
+            Authorities adminAuthority = authoritiesRepository.save(getAuthority("ROLE_ADMIN"));
+            Authorities userAuthority = authoritiesRepository.save(getAuthority("ROLE_USER"));
 
             //Set the authorities for the administrator group.
             Set<Authorities> adminAuthorities = new HashSet<>();
@@ -50,16 +50,11 @@ public class EntityLoader {
 
             createUser("Admin", "User", "Admin", "Passw0rd", "IRL", "Republic of Ireland", adminGroups);
 
-//			//Set the authorities for the user group.
-//			Set<Authorities> userAuthorities = new HashSet<>();
-//			userAuthorities.add(authoritiesRepository.findByAuthority("ROLE_USER").get(0));
-//
-//			Groups userGroup = createGroup("Users", userAuthorities);
-//
-//			Set<Groups> userGroups = new HashSet<>();
-//			userGroups.add(userGroup);
-//
-//			createUser("One", "User", "User1", "Passw0rd", "UK", "United Kingdom", userGroups);
+            //Set the authorities for the user group.
+            Set<Authorities> userAuthorities = new HashSet<>();
+            userAuthorities.add(userAuthority);
+
+            createGroup("Users", userAuthorities);
         }
     }
 

@@ -2,18 +2,38 @@
 <div class="dataupload-list">
     <h2>Users
 		<span class="btn-group" style="float: right; margin-top: 8px">
-		<button type="button" class="btn btn-default btn-sm" ng-click="userController.newUser()"
-                tooltip="New">
-            <span class="glyphicon glyphicon-plus"></span>
+		<button type="button" class="btn btn-default btn-sm" ng-click="userController.newUser()" tooltip="New">
+        <span class="glyphicon glyphicon-plus"></span>
         </button>
 		</span>
     </h2>
     <ul class="list-group">
-        <li class="list-group-item"
-            ng-show="userController.current.users_user_name !== undefined">
-            <input class="form-control input-sm input-edit"
-                   type="text" ng-enter="userController.save()"
-                   ng-model="userController.current.users_user_name" focus-on="startEdit"/>
+        <li class="list-group-item" ng-show="userController.current.userName !== undefined">
+
+            <label>User name:
+                <input class="form-control input-sm input-edit" type="text"
+                       ng-model="userController.current.userName" focus-on="startEdit"/>
+            </label>
+
+            <label>Password:
+                <input class="form-control input-sm input-edit" type="password"
+                       ng-model="userController.current.password" focus-on="startEdit"/>
+            </label>
+
+            <label>First name:
+                <input class="form-control input-sm input-edit" type="text"
+                       ng-model="userController.current.firstName" focus-on="startEdit"/>
+            </label>
+            <label>Last name:
+                <input class="form-control input-sm input-edit" type="text"
+                       ng-model="userController.current.lastName" focus-on="startEdit"/>
+            </label>
+
+            <label>Last name:
+                <input class="form-control input-sm input-edit" type="date"
+                       ng-model="userController.current.dateOfBirth" focus-on="startEdit"/>
+            </label>
+
 			<span class="badge input-badge">
 				<button ng-click="userController.save()" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -23,32 +43,34 @@
                 </button>
 			</span>
         </li>
-        <li ng-repeat="user in users" class="list-group-item">
-            <div ng-show="user != userController.current">
-                {{user.users_user_name}}
-				<span class="badge" style="float: right">
-					<button ng-click="userController.edit(dataUpload, $event)" class="btn btn-xs btn-default">
-                        <span class="glyphicon glyphicon-edit" tooltip="Edit"></span>
-                    </button>
-					<button ng-click="userController.remove(dataUpload)" class="btn btn-xs btn-default">
-                        <span class="glyphicon glyphicon-trash" tooltip="Remove"></span>
-                    </button>
-				</span>
-            </div>
-            <div ng-show="user == userController.current">
-                <input class="form-control input-sm input-edit"
-                       type="text" ng-enter="userController.save()"
-                       ng-model="user.users_user_name" focus-on="startEdit"/>
-				<span class="badge">
-					<button ng-click="userController.save()" class="btn btn-xs btn-default">
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </button>
-					<button ng-click="userController.cancel()" class="btn btn-xs btn-default">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-				</span>
-            </div>
-        </li>
+        <!--<li ng-repeat="user in users" class="list-group-item">-->
+        <!--&lt;!&ndash;<div ng-show="user != userController.current">&ndash;&gt;-->
+        <!--<div>-->
+        <!--{{user.userName}}-->
+        <!--{{user.firstName}}-->
+        <!--{{user.lastName}}-->
+        <!--<span class="badge" style="float: right">-->
+        <!--<button ng-click="userController.edit(user, $event)" class="btn btn-xs btn-default">-->
+        <!--<span class="glyphicon glyphicon-edit" tooltip="Edit"></span>-->
+        <!--</button>-->
+        <!--<button ng-click="userController.remove(user)" class="btn btn-xs btn-default">-->
+        <!--<span class="glyphicon glyphicon-trash" tooltip="Remove"></span>-->
+        <!--</button>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div ng-show="user == userController.current">&ndash;&gt;-->
+        <!--<div>-->
+        <!--<input class="form-control input-sm input-edit" type="text" ng-enter="userController.save()" ng-model="user.userName" focus-on="startEdit"/>-->
+        <!--<span class="badge">-->
+        <!--<button ng-click="userController.save()" class="btn btn-xs btn-default">-->
+        <!--<span class="glyphicon glyphicon-ok"></span>-->
+        <!--</button>-->
+        <!--<button ng-click="userController.cancel()" class="btn btn-xs btn-default">-->
+        <!--<span class="glyphicon glyphicon-remove"></span>-->
+        <!--</button>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</li>-->
     </ul>
     <ul class="pagination pagination-sm">
         <li ng-class="{disabled:userController.currentPage==0}">

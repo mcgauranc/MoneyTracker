@@ -1,6 +1,7 @@
 package com.wraith.money.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
@@ -28,7 +29,6 @@ import java.util.Set;
 public class Users extends BaseEntity implements Serializable {
 
     private String userName;
-    @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;
@@ -72,11 +72,13 @@ public class Users extends BaseEntity implements Serializable {
         this.userName = userName;
     }
 
+    @JsonIgnore
     @Column(name = "users_password")
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty("password")
     public void setPassword(String password) {
         this.password = password;
     }

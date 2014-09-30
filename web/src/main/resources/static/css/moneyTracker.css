@@ -1,0 +1,50 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+
+.dataupload-list {
+    max-width: 450px;
+    padding: 20px;
+    margin: 30px auto;
+}
+
+.dataupload-list .badge {
+    margin-top: -4px;
+}
+
+.dataupload-list span.glyphicon-trash {
+    color: #2c3e50;
+}
+
+.dataupload-list span.glyphicon-edit {
+    color: #2c3e50;
+}
+
+.dataupload-list .list-group {
+    margin-bottom: 0;
+}
+
+.dataupload-list .pagination {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.dataupload-list .pagination li {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.dataupload-list .input-edit {
+    width: 81%;
+    display: inline;
+}
+
+.dataupload-list .pagination li.forward {
+    float: right;
+}
+
+.dataupload-list span.input-badge {
+    margin-top: 2px;
+}

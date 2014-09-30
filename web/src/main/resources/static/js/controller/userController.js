@@ -7,12 +7,12 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
 
         var userController = $scope.userController = {};
 
-        userController.all = Restangular.all('users');
+        userController.all = Restangular.all("users");
         userController.currentPage = 0;
         userController.pages = 0;
         userController.current = {};
         userController.location = $location;
-        userController.pageSize = 5;
+        userController.pageSize = 10;
 
         userController.refresh = function () {
             userController.all.getList({"size": userController.pageSize, "page": userController.currentPage, "sort": ""}).then(function (users) {
@@ -45,6 +45,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
                     userController.refresh();
                 });
             } else {
+                userController.current.dateOfBirth = new Date(userController.current.dateOfBirth).toISOString();
                 userController.all.post(userController.current).then(function (result) {
                     userController.current = {};
                     userController.refresh();
@@ -56,11 +57,11 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             userController.currentPage = 0;
             userController.pageSize = 4;
             userController.refresh();
-            userController.current.users_user_name = '';
-            userController.current.users_password = '';
-            userController.current.users_first_name = '';
-            userController.current.users_last_name = '';
-            userController.current.users_dateofbirth = '';
+            userController.current.userName = '';
+            userController.current.password = '';
+            userController.current.firstName = '';
+            userController.current.lastName = '';
+            userController.current.dateOfBirth = '';
             focus('startEdit');
         };
 
@@ -76,7 +77,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         };
 
         userController.remove = function (user) {
-            user.remove().then(function (result) {
+            users.remove().then(function (result) {
                 userController.refresh();
             });
         };

@@ -35,7 +35,7 @@ public class Groups extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "Group_Authorities", joinColumns = {@JoinColumn(name = "group_authorities_group_id", referencedColumnName = "group_id")},
             inverseJoinColumns = {@JoinColumn(name = "group_authorities_authorities_id", referencedColumnName = "authorities_id")})
     public Set<Authorities> getAuthorities() {

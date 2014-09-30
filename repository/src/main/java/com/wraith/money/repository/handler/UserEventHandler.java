@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -84,9 +85,13 @@ public class UserEventHandler {
      * @return A set, containing the found users group.
      */
     private Set<Groups> getUserRoleGroup() {
-        Set<Groups> userGroups = new HashSet<>();
-        Groups userGroup = groupsRepository.findByName("Users").get(0);
-        userGroups.add(userGroup);
-        return userGroups;
+        Set<Groups> userGroupsSet = new HashSet<>();
+        List<Groups> userGroups = groupsRepository.findByName("Users");
+        if (userGroups.isEmpty()) {
+            throw new RepositoryException("No group called 'Users' is defined for the user to be assigned to.");
+        }
+        Groups userGroup = userGroups.get(0);
+        userGroupsSet.add(userGroup);
+        return userGroupsSet;
     }
 }
