@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.0.6.RELEASE</spring.version>
         <spring.security>3.2.4.RELEASE</spring.security>
-        <spring.data.rest>2.1.2.RELEASE</spring.data.rest>
+        <spring.data.rest>2.2.0.RELEASE</spring.data.rest>
         <slf4j.version>1.7.2</slf4j.version>
         <logback.version>1.0.13</logback.version>
         <hibernate.version>4.3.6.Final</hibernate.version>

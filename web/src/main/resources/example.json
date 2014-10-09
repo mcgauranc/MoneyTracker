@@ -1,0 +1,42 @@
+//CREATE USER
+
+//POST http://localhost:8080/api/users
+//Authorization: Basic QWRtaW46UGFzc3cwcmQ=
+//Content-Type: application/json;charset=UTF-8
+//Host: localhost:8080
+
+{
+    "userName": "rowan.massey",
+    "password": "Passw0rd",
+    "firstName": "Rowan",
+    "lastName": "Massey",
+    "dateOfBirth": "1979-04-03T00:00:00.000Z"
+}
+Location: http://localhost:8080/api/users/4
+
+
+//CREATE ADDRESS
+
+//POST http://localhost:8080/api/addresses
+//Authorization: Basic QWRtaW46UGFzc3cwcmQ=
+//Content-Type: application/json;charset=UTF-8
+//Host: localhost:8080
+//Content-Length: 159
+{
+"address1": "wwwwww",
+"address2": "wwwwww",
+"address3": "wwwwww",
+"address4": "wwwwww",
+"county": "wwwwww",
+"city": "wwwwww"
+}
+Location: http://localhost:8080/api/addresses/3
+
+//CREATE LINK
+
+//PUT http://localhost:8080/api/addresses/2
+//Authorization: Basic QWRtaW46UGFzc3cwcmQ=
+//Content-Type: text/uri-list
+http://localhost:8080/api/users/2
+
+

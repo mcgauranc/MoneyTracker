@@ -102,7 +102,7 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     @NotAudited
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "users_address_id")
     public Address getAddress() {
         return address;
