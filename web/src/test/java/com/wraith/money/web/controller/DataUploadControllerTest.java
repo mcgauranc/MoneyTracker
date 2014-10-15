@@ -2,6 +2,9 @@ package com.wraith.money.web.controller;
 
 import com.wraith.money.web.ApplicationConfig;
 import com.wraith.money.web.service.DataUploadService;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -16,13 +19,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 
-@Test(groups = "UnitTest")
 @ContextConfiguration(classes = {ApplicationConfig.class})
 @WebAppConfiguration
 public class DataUploadControllerTest {
@@ -35,7 +34,7 @@ public class DataUploadControllerTest {
 
     private MockMvc mockMvc;
 
-    @BeforeTest
+    @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(dataUploadController).build();

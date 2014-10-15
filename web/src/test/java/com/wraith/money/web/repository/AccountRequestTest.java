@@ -4,7 +4,6 @@ import com.wraith.money.data.Account;
 import net.minidev.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -89,7 +88,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
         Assert.assertNotNull(putResponse);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test(expected = Exception.class)
     public void testDeleteAccountRequest() throws Exception {
         String resourceRequest = createNewAccount("Account 4", 1245.67, "Banking", "Euro", "EUR");
 
