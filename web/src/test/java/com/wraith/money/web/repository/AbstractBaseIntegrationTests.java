@@ -61,27 +61,27 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     protected AuthenticationManager authenticationManager;
     protected Authentication admin;
 
-	@Inject
-	@Qualifier("repositoryExporterHandlerAdapter")
+    @Inject
+    @Qualifier("repositoryExporterHandlerAdapter")
     protected RequestMappingHandlerAdapter handlerAdapter;
 
-	@Inject
-	@Qualifier("repositoryExporterHandlerMapping")
+    @Inject
+    @Qualifier("repositoryExporterHandlerMapping")
     protected RequestMappingHandlerMapping handlerMapping;
 
-	@Inject
+    @Inject
     protected UsersRepository usersRepository;
 
-	@Inject
+    @Inject
     protected CategoryRepository categoryRepository;
 
-	@Inject
+    @Inject
     protected CurrencyRepository currencyRepository;
 
-	@Inject
+    @Inject
     protected PayeeRepository payeeRepository;
 
-	@Inject
+    @Inject
     protected AccountRepository accountRepository;
 
     @Before
@@ -215,6 +215,8 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
+        uri = getResourceURI(uri);
+
         request.setMethod("PUT");
         request.setRequestURI(uri);
         request.setContentType("application/hal+json");
@@ -261,6 +263,8 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
+        uri = getResourceURI(uri);
+
         request.setMethod("DELETE");
         request.setRequestURI(uri);
 
@@ -276,12 +280,12 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @return The REST query location of the created entity.
      * @throws Exception
      */
-	protected String createNewEntity(BaseEntity entity, String path) throws Exception {
+    protected String createNewEntity(BaseEntity entity, String path) throws Exception {
         byte[] entityBytes = mapper.writeValueAsBytes(entity);
         //Insert new user record.
         MockHttpServletResponse postResponse = performPostRequest("/api/".concat(path).concat("/"), entityBytes);
         Assert.assertNotNull(postResponse);
-		return postResponse.getHeader("Location");
+        return postResponse.getHeader("Location");
     }
 
     /**
@@ -295,6 +299,6 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      */
     protected String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
         Users user = UserRequestTest.getNewUser(userName, password, firstName, lastName);
-		return null;//createNewEntity(user, USERS_PATH);
+        return null;//createNewEntity(user, USERS_PATH);
     }
 }
