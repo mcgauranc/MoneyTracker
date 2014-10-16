@@ -1,14 +1,13 @@
 package com.wraith.money.web.repository;
 
-import java.util.Collection;
-import java.util.Map;
-
-import javax.inject.Inject;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.money.data.BaseEntity;
+import com.wraith.money.data.Users;
+import com.wraith.money.repository.*;
+import com.wraith.money.web.ApplicationConfig;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,15 +28,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.money.data.BaseEntity;
-import com.wraith.money.data.Users;
-import com.wraith.money.repository.AccountRepository;
-import com.wraith.money.repository.CategoryRepository;
-import com.wraith.money.repository.CurrencyRepository;
-import com.wraith.money.repository.PayeeRepository;
-import com.wraith.money.repository.UsersRepository;
-import com.wraith.money.web.ApplicationConfig;
+import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * User: rowan.massey
@@ -51,7 +44,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
 
     public static final String ACCOUNTS_PATH = "accounts";
     public static final String USERS_PATH = "users";
-    public static final String CURRENCY_PATH = "currency";
+    public static final String CURRENCY_PATH = "currencies";
     public static final String ACCOUNT_TYPES_PATH = "accountTypes";
     public static final String COUNTRIES_PATH = "countries";
     public static final String ADDRESSES_PATH = "addresses";
@@ -115,7 +108,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @return A resource uri. e.g. /user/1
      */
     protected String getResourceURI(String uri) {
-        String LOCALHOST = "http://localhost/api";
+        String LOCALHOST = "http://localhost";
         return StringUtils.remove(uri, LOCALHOST);
     }
 
@@ -162,6 +155,8 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
+        uri = getResourceURI(uri);
+
         request.setMethod("GET");
         request.setRequestURI(uri);
 
@@ -196,6 +191,8 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
+        uri = getResourceURI(uri);
+
         request.setMethod("POST");
         request.setRequestURI(uri);
         request.setContentType("application/hal+json");
@@ -220,7 +217,32 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
 
         request.setMethod("PUT");
         request.setRequestURI(uri);
-        request.setContentType("application/json");
+        request.setContentType("application/hal+json");
+        request.setContent(content);
+
+        Object handler = handlerMapping.getHandler(request).getHandler();
+        handlerAdapter.handle(request, response, handler);
+        Assert.assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value());
+        return response;
+    }
+
+    /**
+     * This method performs a POST request to the server to create records.
+     *
+     * @param uri         The uri to which the content will be posted to.
+     * @param content     A byte array of the contents of the request to send to the server.
+     * @param contentType This is the content type of the request.
+     * @return The response from the server.
+     */
+    protected MockHttpServletResponse performPutRequest(String uri, String contentType, byte[] content) throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        uri = getResourceURI(uri);
+
+        request.setMethod("PUT");
+        request.setRequestURI(uri);
+        request.setContentType(contentType);
         request.setContent(content);
 
         Object handler = handlerMapping.getHandler(request).getHandler();
