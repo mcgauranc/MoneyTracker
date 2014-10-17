@@ -1,15 +1,17 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.data.Authorities;
-import com.wraith.money.data.Groups;
+import java.util.Set;
+
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.Set;
+import com.wraith.money.data.Authorities;
+import com.wraith.money.data.Groups;
 
 /**
  * User: rowan.massey
@@ -58,7 +60,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         JSONObject authorities = getJsonObjectFromArray("rel", "groups.groups.authorities", links);
 
         //Retrieve the groups link, and perform a request to get the information from the database.
-        String authoritiesLink = getResourceURI(authorities.get("href").toString());
+		String authoritiesLink = authorities.get("href").toString();
         MockHttpServletResponse getGroupResponse = performGetRequest(authoritiesLink);
         String groupsContent = getGroupResponse.getContentAsString();
         JSONObject jsonGroupObject = (JSONObject) parser.parse(groupsContent);

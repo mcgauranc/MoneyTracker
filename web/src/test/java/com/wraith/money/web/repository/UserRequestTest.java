@@ -212,7 +212,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 		JSONObject groups = getJsonObjectFromArray("rel", "users.users.groups", links);
 
 		//Retrieve the groups link, and perform a request to get the information from the database.
-		String groupsLink = getResourceURI(groups.get("href").toString());
+		String groupsLink = groups.get("href").toString();
 		MockHttpServletResponse getGroupResponse = performGetRequest(groupsLink);
 		String groupsContent = getGroupResponse.getContentAsString();
 		JSONObject jsonGroupObject = (JSONObject) parser.parse(groupsContent);
@@ -279,7 +279,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         JSONObject account = getJsonObjectFromArray("rel", "users.users.accounts", links);
 
         //Retrieve the account link, and perform a request to get the information from the database.
-        String accountsLink = getResourceURI(account.get("href").toString());
+        String accountsLink = account.get("href").toString();
         MockHttpServletResponse getAccountResponse = performGetRequest(accountsLink);
         JSONObject accountObject = (JSONObject) parser.parse(getAccountResponse.getContentAsString());
 

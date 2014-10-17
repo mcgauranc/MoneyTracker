@@ -237,7 +237,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
 	private Category getCategory(String categoryName) {
 		if (categoryRepository.findByName(categoryName).size() == 0) {
 			//Create a new category and return it from the database.
-			Category category = CategoryRequestTest.getNewCategory(categoryName, null);
+			Category category = CategoryRequestTest.getNewCategory(categoryName);
 			return categoryRepository.save(category);
 		} else {
 			return categoryRepository.findByName(categoryName).get(0);

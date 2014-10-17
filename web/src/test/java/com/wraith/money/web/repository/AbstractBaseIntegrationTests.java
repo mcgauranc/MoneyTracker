@@ -1,13 +1,14 @@
 package com.wraith.money.web.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.money.data.BaseEntity;
-import com.wraith.money.data.Users;
-import com.wraith.money.repository.*;
-import com.wraith.money.web.ApplicationConfig;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,9 +29,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.money.data.BaseEntity;
+import com.wraith.money.data.Users;
+import com.wraith.money.repository.AccountRepository;
+import com.wraith.money.repository.CategoryRepository;
+import com.wraith.money.repository.CurrencyRepository;
+import com.wraith.money.repository.PayeeRepository;
+import com.wraith.money.repository.UsersRepository;
+import com.wraith.money.web.ApplicationConfig;
 
 /**
  * User: rowan.massey
@@ -53,6 +60,9 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     public static final String TRANSACTIONS_PATH = "transactions";
     public static final String GROUPS_PATH = "groups";
     public static final String PAYEES_PATH = "payees";
+	public static final String LINKS = "_links";
+	public static final String PARENT_CATEGORY = "parentCategory";
+	public static final String HREF = "href";
 
     protected ObjectMapper mapper;
     protected JSONParser parser;
@@ -107,7 +117,7 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      * @param uri The uri from which to remove the localhost string.
      * @return A resource uri. e.g. /user/1
      */
-    protected String getResourceURI(String uri) {
+	private String getResourceURI(String uri) {
         String LOCALHOST = "http://localhost";
         return StringUtils.remove(uri, LOCALHOST);
     }
@@ -299,6 +309,20 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
      */
     protected String createNewUser(String userName, String password, String firstName, String lastName) throws Exception {
         Users user = UserRequestTest.getNewUser(userName, password, firstName, lastName);
-        return null;//createNewEntity(user, USERS_PATH);
+		return createNewEntity(user, USERS_PATH);
+	}
+
+	/**
+	 * This method associates an existing parent entity, with its associated child entity, using puts.
+	 *
+	 * @return The REST query location of the created entity.
+	 * @throws Exception
+	 */
+	protected Boolean associateEntities(String parentEntityLocation, String childEntityLocation) throws Exception {
+
+		MockHttpServletResponse putResponse = performPutRequest(parentEntityLocation, "text/uri-list",
+				childEntityLocation.getBytes());
+		Assert.assertNotNull(putResponse);
+		return putResponse.getStatus() == HttpStatus.NO_CONTENT.value();
     }
 }

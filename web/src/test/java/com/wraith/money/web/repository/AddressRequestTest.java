@@ -8,6 +8,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.wraith.money.data.Address;
+import com.wraith.money.data.Country;
 
 /**
  * User: rowan.massey Date: 30/04/13 Time: 18:27
@@ -25,20 +26,14 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
 	 *            The addresses city.
 	 * @param county
 	 *            The addresses county.
-	 * @param country
-	 *            The addresses country.
-	 * @param countryISO
-	 *            The ISO code of the country.
 	 * @return an instance of the created Address object.
 	 */
-	public static Address getNewAddress(String address1, String address2, String city, String county, String country,
-			String countryISO) {
+	public static Address getNewAddress(String address1, String address2, String city, String county) {
 		Address address = new Address();
 		address.setAddress1(address1);
 		address.setAddress2(address2);
 		address.setCity(city);
 		address.setCounty(county);
-		address.setCountry(CountryRequestTest.getNewCountry(countryISO, country));
 		return address;
 	}
 
@@ -110,16 +105,21 @@ public class AddressRequestTest extends AbstractBaseIntegrationTests {
 	 *            The addresses city.
 	 * @param county
 	 *            The addresses county.
-	 * @param country
+	 * @param countryName
 	 *            The addresses country.
 	 * @param countryISO
 	 *            The ISO code of the country.
 	 * @return The URI location of the created record.
 	 * @throws Exception
 	 */
-	public String createNewAddress(String address1, String address2, String city, String county, String country, String countryISO)
-			throws Exception {
-		Address address = getNewAddress(address1, address2, city, county, country, countryISO);
-		return null;//createNewEntity(address, ADDRESSES_PATH);
+	public String createNewAddress(String address1, String address2, String city, String county, String countryName,
+			String countryISO) throws Exception {
+		Address address = getNewAddress(address1, address2, city, county);
+		Country country = CountryRequestTest.getNewCountry(countryName, countryISO);
+		String addressLocation = createNewEntity(address, ADDRESSES_PATH);
+		String countryLocation = createNewEntity(country, COUNTRIES_PATH);
+		associateEntities(addressLocation.concat("/").concat("country"), countryLocation);
+
+		return addressLocation;
 	}
 }

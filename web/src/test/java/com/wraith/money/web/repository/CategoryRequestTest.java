@@ -1,13 +1,13 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.data.Category;
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.util.StringUtils;
+
+import com.wraith.money.data.Category;
 
 /**
  * User: rowan.massey
@@ -20,15 +20,11 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
      * This method creates a new instance of the category object
      *
      * @param name           The name of the category.
-     * @param parentCategory The name of the parent category, if any.
      * @return an instance of a category object.
      */
-    public static Category getNewCategory(String name, String parentCategory) {
+	public static Category getNewCategory(String name) {
         Category category = new Category();
         category.setName(name);
-        if (!StringUtils.isEmpty(parentCategory)) {
-            category.setParentCategory(getNewCategory(parentCategory, null));
-        }
         return category;
     }
 
@@ -105,37 +101,50 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateCategoryWithParentRequest() throws Exception {
+
         String resourceRequest = createNewCategory("Toothpaste", "Personal Care");
 
         //Retrieve the inserted authority record from the database, and ensure that values are correct.
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "Toothpaste");
+		Assert.assertEquals(jsonObject.get("name"), "Toothpaste");
 
         //Get the category link for the returned payload.
-        JSONArray links = (JSONArray) jsonObject.get("links");
-        JSONObject parentCategory = getJsonObjectFromArray("rel", "category.category.parentCategory", links);
+		JSONObject links = (JSONObject) jsonObject.get(LINKS);
+		JSONObject parentCategory = (JSONObject) links.get(PARENT_CATEGORY);
 
         //Retrieve the parent category link, and perform a request to get the information from the database.
-        String categoryParentLink = getResourceURI(parentCategory.get("href").toString());
+		String categoryParentLink = parentCategory.get(HREF).toString();
         MockHttpServletResponse getCategoryResponse = performGetRequest(categoryParentLink);
         JSONObject parentCategoryObject = (JSONObject) parser.parse(getCategoryResponse.getContentAsString());
 
         JSONObject parentCategoryName = (JSONObject) parentCategoryObject.get("content");
-        Assert.assertEquals((String) parentCategoryName.get("name"), "Personal Care");
+		Assert.assertEquals(parentCategoryName.get("name"), "Personal Care");
     }
 
     /**
-     * This method creates a new category, and returns the URI location of the created category.
-     *
-     * @param name           The name of the category
-     * @param parentCategory The name of the parent category, if any.
-     * @return The URI location of the created category.
-     * @throws Exception
-     */
-    private String createNewCategory(String name, String parentCategory) throws Exception {
-        Category category = getNewCategory(name, parentCategory);
-        return createNewEntity(category, CATEGORIES_PATH);
+	 * This method creates a new category, and returns the URI location of the created category.
+	 *
+	 * @param name
+	 *            The name of the category
+	 * @return The URI location of the created category.
+	 * @throws Exception
+	 */
+	private String createNewCategory(String name, String parentCategoryName) throws Exception {
+		String parentCategoryLocation = "";
+		if (!parentCategoryName.isEmpty()) {
+			Category parentCategory = getNewCategory(parentCategoryName);
+			parentCategoryLocation = createNewEntity(parentCategory, CATEGORIES_PATH);
+		}
+		Category category = getNewCategory(name);
+
+		String categoryLocation = createNewEntity(category, CATEGORIES_PATH);
+
+		if (!parentCategoryName.isEmpty()) {
+			associateEntities(parentCategoryLocation.concat("/").concat("parentCategory"), categoryLocation);
+		}
+
+		return categoryLocation;
     }
 }
