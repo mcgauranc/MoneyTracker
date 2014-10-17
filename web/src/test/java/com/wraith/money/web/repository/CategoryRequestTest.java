@@ -30,13 +30,14 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreateCategoryWithNoParentRequest() throws Exception {
+
         String resourceRequest = createNewCategory("Groceries", null);
 
         //Retrieve the inserted authority record from the database, and ensure that values are correct.
         MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) parser.parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "Groceries");
+		Assert.assertEquals(jsonObject.get("name"), "Groceries");
     }
 
     @Test
@@ -57,7 +58,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) parser.parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Banking");
+		Assert.assertEquals(getJSONObject.get("name"), "Updated Banking");
     }
 
     @Test(expected = Exception.class)
@@ -77,6 +78,7 @@ public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test
     public void testDeleteCategoryWithNoParentForAdminUserRequest() throws Exception {
+
         String resourceRequest = createNewCategory("Computer", null);
 
         authenticate("Admin", "Passw0rd");
