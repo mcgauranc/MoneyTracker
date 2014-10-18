@@ -1,152 +1,117 @@
 package com.wraith.money.web.repository;
 
+import com.wraith.money.web.helper.EntityRepositoryHelper;
 import net.minidev.json.JSONObject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.wraith.money.data.Category;
-
 /**
+ * This class tests all of the category requests for all types of users.
+ * <p/>
  * User: rowan.massey
  * Date: 01/05/13
  * Time: 20:40
  */
 public class CategoryRequestTest extends AbstractBaseIntegrationTests {
 
-    /**
-     * This method creates a new instance of the category object
-     *
-     * @param name           The name of the category.
-     * @return an instance of a category object.
-     */
-	public static Category getNewCategory(String name) {
-        Category category = new Category();
-        category.setName(name);
-        return category;
-    }
+    private static final String PARENT_CATEGORY = "parentCategory";
 
     @Test
     public void testCreateCategoryWithNoParentRequest() throws Exception {
 
-        String resourceRequest = createNewCategory("Groceries", null);
+        String resourceRequest = entityRepositoryHelper.createCategory("Groceries", null);
 
         //Retrieve the inserted authority record from the database, and ensure that values are correct.
-        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
         String content = getResponse.getContentAsString();
-        JSONObject jsonObject = (JSONObject) parser.parse(content);
-		Assert.assertEquals(jsonObject.get("name"), "Groceries");
+        JSONObject jsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
+        Assert.assertEquals(jsonObject.get("name"), "Groceries");
     }
 
     @Test
     public void testUpdateCategoryWithNoParentForAdminUserRequest() throws Exception {
-        String resourceRequest = createNewCategory("Banking", null);
+        String resourceRequest = entityRepositoryHelper.createCategory("Banking", null);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "Updated Banking");
 
-        byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+        byte[] updatedAccountBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
         authenticate("Admin", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
-        MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
+        MockHttpServletResponse putResponse = entityRepositoryHelper.updateEntity(resourceRequest, updatedAccountBytes);
         Assert.assertNotNull(putResponse);
 
-        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
         String content = getResponse.getContentAsString();
-        JSONObject getJSONObject = (JSONObject) parser.parse(content);
+        JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
 
-		Assert.assertEquals(getJSONObject.get("name"), "Updated Banking");
+        Assert.assertEquals(getJSONObject.get("name"), "Updated Banking");
     }
 
     @Test(expected = Exception.class)
     public void testUpdateCategoryWithNoParentForCurrentUserRequest() throws Exception {
 
-        String resourceRequest = createNewCategory("Revenue", null);
+        String resourceRequest = entityRepositoryHelper.createCategory("Revenue", null);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "Updated Revenue");
 
-        byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+        byte[] updatedAccountBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
         authenticate("seventeenth.person", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
-        MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
+        MockHttpServletResponse putResponse = entityRepositoryHelper.updateEntity(resourceRequest, updatedAccountBytes);
     }
 
     @Test
     public void testDeleteCategoryWithNoParentForAdminUserRequest() throws Exception {
 
-        String resourceRequest = createNewCategory("Computer", null);
+        String resourceRequest = entityRepositoryHelper.createCategory("Computer", null);
 
         authenticate("Admin", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
-        MockHttpServletResponse putResponse = performDeleteRequest(resourceRequest);
+        MockHttpServletResponse putResponse = entityRepositoryHelper.deleteEntity(resourceRequest);
         Assert.assertNotNull(putResponse);
 
-        performGetRequest(resourceRequest, null, HttpStatus.NOT_FOUND);
+        entityRepositoryHelper.getEntity(resourceRequest, null, HttpStatus.NOT_FOUND);
     }
 
     @Test(expected = Exception.class)
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
-        String resourceRequest = createNewCategory("Computer", null);
+        String resourceRequest = entityRepositoryHelper.createCategory("Computer", null);
 
         authenticate("seventeenth.person", "Passw0rd");
         //Update the inserted category record from the database, and ensure that values are correct.
-        MockHttpServletResponse putResponse = performDeleteRequest(resourceRequest);
+        MockHttpServletResponse putResponse = entityRepositoryHelper.deleteEntity(resourceRequest);
         Assert.assertNotNull(putResponse);
 
-        performGetRequest(resourceRequest);
+        entityRepositoryHelper.getEntity(resourceRequest);
     }
 
     @Test
     public void testCreateCategoryWithParentRequest() throws Exception {
 
-        String resourceRequest = createNewCategory("Toothpaste", "Personal Care");
+        String resourceRequest = entityRepositoryHelper.createCategory("Toothpaste", "Personal Care");
 
         //Retrieve the inserted authority record from the database, and ensure that values are correct.
-        MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
+        MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
         String content = getResponse.getContentAsString();
-        JSONObject jsonObject = (JSONObject) parser.parse(content);
-		Assert.assertEquals(jsonObject.get("name"), "Toothpaste");
+        JSONObject jsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
+        Assert.assertEquals(jsonObject.get("name"), "Toothpaste");
 
         //Get the category link for the returned payload.
-		JSONObject links = (JSONObject) jsonObject.get(LINKS);
-		JSONObject parentCategory = (JSONObject) links.get(PARENT_CATEGORY);
+        JSONObject links = (JSONObject) jsonObject.get(EntityRepositoryHelper.LINKS);
+        JSONObject parentCategory = (JSONObject) links.get(PARENT_CATEGORY);
 
         //Retrieve the parent category link, and perform a request to get the information from the database.
-		String categoryParentLink = parentCategory.get(HREF).toString();
-        MockHttpServletResponse getCategoryResponse = performGetRequest(categoryParentLink);
-        JSONObject parentCategoryObject = (JSONObject) parser.parse(getCategoryResponse.getContentAsString());
+        String categoryParentLink = parentCategory.get(EntityRepositoryHelper.HREF).toString();
+        MockHttpServletResponse getCategoryResponse = entityRepositoryHelper.getEntity(categoryParentLink);
+        JSONObject parentCategoryObject = (JSONObject) entityRepositoryHelper.getParser().parse(getCategoryResponse.getContentAsString());
 
-        JSONObject parentCategoryName = (JSONObject) parentCategoryObject.get("content");
-		Assert.assertEquals(parentCategoryName.get("name"), "Personal Care");
+        Assert.assertEquals("Personal Care", parentCategoryObject.get("name"));
     }
 
-    /**
-	 * This method creates a new category, and returns the URI location of the created category.
-	 *
-	 * @param name
-	 *            The name of the category
-	 * @return The URI location of the created category.
-	 * @throws Exception
-	 */
-	private String createNewCategory(String name, String parentCategoryName) throws Exception {
-		String parentCategoryLocation = "";
-		if (!parentCategoryName.isEmpty()) {
-			Category parentCategory = getNewCategory(parentCategoryName);
-			parentCategoryLocation = createNewEntity(parentCategory, CATEGORIES_PATH);
-		}
-		Category category = getNewCategory(name);
-
-		String categoryLocation = createNewEntity(category, CATEGORIES_PATH);
-
-		if (!parentCategoryName.isEmpty()) {
-			associateEntities(parentCategoryLocation.concat("/").concat("parentCategory"), categoryLocation);
-		}
-
-		return categoryLocation;
-    }
 }

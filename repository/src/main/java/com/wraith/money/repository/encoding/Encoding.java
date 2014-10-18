@@ -14,17 +14,17 @@ import java.security.NoSuchAlgorithmException;
 @Component
 public class Encoding {
 
-    public Encoding() {
+    PasswordEncoder encoder;
 
+    public Encoding() {
+        encoder = new StandardPasswordEncoder();
     }
 
     public String encodePassword(String password) throws NoSuchAlgorithmException {
-        PasswordEncoder encoder = new StandardPasswordEncoder();
         return encoder.encode(password);
     }
 
     public Boolean validPassword(String password, String encodedPassword) throws NoSuchAlgorithmException {
-        PasswordEncoder encoder = new StandardPasswordEncoder();
-        return encoder.matches(encodedPassword, password);
+        return encoder.matches(password, encodedPassword);
     }
 }
