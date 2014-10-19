@@ -48,8 +48,8 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
         //Ensure that the response contains the name users.
         JSONObject data = (JSONObject) jsonGroupObject.get(EntityRepositoryHelper.EMBEDDED);
-        JSONObject reporterAuthority = getJsonObjectFromArray("authority", "ROLE_REPORTER", (JSONArray) data.get(EntityRepositoryHelper.AUTHORITIES));
-        JSONObject developerAuthority = getJsonObjectFromArray("authority", "ROLE_DEVELOPER", (JSONArray) data.get(EntityRepositoryHelper.AUTHORITIES));
+        JSONObject reporterAuthority = entityRepositoryHelper.getJsonObjectFromArray("authority", "ROLE_REPORTER", (JSONArray) data.get(EntityRepositoryHelper.AUTHORITIES));
+        JSONObject developerAuthority = entityRepositoryHelper.getJsonObjectFromArray("authority", "ROLE_DEVELOPER", (JSONArray) data.get(EntityRepositoryHelper.AUTHORITIES));
 
         Assert.assertNotNull(developerAuthority);
         Assert.assertNotNull(reporterAuthority);

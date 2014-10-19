@@ -3,8 +3,6 @@ package com.wraith.money.web.repository;
 import com.wraith.money.repository.*;
 import com.wraith.money.web.ApplicationConfig;
 import com.wraith.money.web.helper.EntityRepositoryHelper;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -76,25 +74,5 @@ public abstract class AbstractBaseIntegrationTests extends AbstractTransactional
     protected void authenticate(String userName, String password, Collection<GrantedAuthority> authorities) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password, authorities));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-    }
-
-    /**
-     * This method retrieves a specific JSONObject from the given array, based on provided parameters.
-     *
-     * @param key   The key to search for within the array of objects.
-     * @param value The value for the given key.
-     * @param array The array containing the given key and value.
-     * @return The JSONObject which contains the provided key and value.
-     */
-    protected JSONObject getJsonObjectFromArray(String key, String value, JSONArray array) {
-        for (Object object : array) {
-            JSONObject jsonObject = (JSONObject) object;
-            if (jsonObject.containsKey(key)) {
-                if (jsonObject.get(key).toString().equalsIgnoreCase(value)) {
-                    return jsonObject;
-                }
-            }
-        }
-        return null;
     }
 }

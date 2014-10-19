@@ -2,6 +2,8 @@ package com.wraith.money.web.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wraith.money.data.*;
+import com.wraith.money.web.dto.TransactionDto;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.junit.Assert;
@@ -38,6 +40,7 @@ public class EntityRepositoryHelper {
     public static final String EMBEDDED = "_embedded";
     public static final String PARENT_CATEGORY = "parentCategory";
     public static final String AUTHORITIES = "authorities";
+    public static final String SELF = "self";
 
     private ObjectMapper mapper;
     private JSONParser parser;
@@ -124,14 +127,21 @@ public class EntityRepositoryHelper {
      * @throws Exception
      */
     public String createAccount(String name, Double balance, String currencyName, String currencyISO) throws Exception {
-        Account account = getAccount(name, balance);
-        Currency currency = getCurrency(currencyISO, currencyName);
-        String accountLocation = createEntity(account, ACCOUNTS_PATH);
-        String currencyLocation = createEntity(currency, CURRENCY_PATH);
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("accountName", name);
+        String recordLocation = entityRecordExists(ACCOUNTS_PATH, "findByName", parameters);
+        if (!recordLocation.isEmpty()) {
+            return recordLocation;
+        } else {
+            Account account = getAccount(name, balance);
+            String accountLocation = createEntity(account, ACCOUNTS_PATH);
+            String currencyLocation = createCurrency(currencyISO, currencyName);
 
-        associateEntities(accountLocation.concat("/").concat("currency"), currencyLocation);
+            associateEntities(accountLocation.concat("/").concat("currency"), currencyLocation);
 
-        return accountLocation;
+            return accountLocation;
+        }
+
     }
 
     /**
@@ -157,8 +167,15 @@ public class EntityRepositoryHelper {
      * @throws Exception
      */
     public String createCurrency(String iso, String name) throws Exception {
-        Currency currency = getCurrency(iso, name);
-        return createEntity(currency, CURRENCY_PATH);
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("currencyIso", iso);
+        String recordLocation = entityRecordExists(CURRENCY_PATH, "findByIso", parameters);
+        if (!recordLocation.isEmpty()) {
+            return recordLocation;
+        } else {
+            Currency currency = getCurrency(iso, name);
+            return createEntity(currency, CURRENCY_PATH);
+        }
     }
 
     /**
@@ -238,6 +255,35 @@ public class EntityRepositoryHelper {
     }
 
     /**
+     * This method creates a new entity for a given entity object.
+     *
+     * @return The REST query location of the created entity.
+     * @throws Exception
+     */
+    private String createTransaction(Transaction entity, String path, Map<String, String> associations) throws Exception {
+
+        TransactionDto transactionDto = new TransactionDto();
+        transactionDto.setNotes(entity.getNotes());
+        transactionDto.setAccount(associations.get("account"));
+        transactionDto.setAmount(entity.getAmount());
+        transactionDto.setCategory(associations.get("category"));
+        transactionDto.setCheckNumber(entity.getCheckNumber());
+        transactionDto.setCurrency(associations.get("currency"));
+        transactionDto.setNumber(entity.getNumber());
+        transactionDto.setPayee(associations.get("payee"));
+        transactionDto.setQuantity(entity.getQuantity());
+        transactionDto.setTransactionDate(entity.getTransactionDate());
+        transactionDto.setUser(associations.get("user"));
+        transactionDto.setCheckNumber(entity.getCheckNumber());
+
+        byte[] entityBytes = mapper.writeValueAsBytes(transactionDto);
+        //Insert new user record.
+        MockHttpServletResponse postResponse = requestHelper.performPostRequest("/api/".concat(path).concat("/"), entityBytes);
+        Assert.assertNotNull(postResponse);
+        return postResponse.getHeader("Location");
+    }
+
+    /**
      * This method associates an existing parent entity, with its associated child entity, using puts.
      *
      * @return The REST query location of the created entity.
@@ -284,7 +330,7 @@ public class EntityRepositoryHelper {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("userName", userName);
         String recordLocation = entityRecordExists("users", "findByUserName", parameters);
-        if (recordLocation.isEmpty()) {
+        if (recordLocation == null || recordLocation.isEmpty()) {
             Users user = getUser(userName, password, firstName, lastName);
             return createEntity(user, USERS_PATH);
         } else {
@@ -464,8 +510,15 @@ public class EntityRepositoryHelper {
      * @throws Exception
      */
     public String createPayee(String name) throws Exception {
-        Payee payee = getPayee(name);
-        return createEntity(payee, PAYEES_PATH);
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("payeeName", name);
+        String recordLocation = entityRecordExists("payees", "findByName", parameters);
+        if (!recordLocation.isEmpty()) {
+            return recordLocation;
+        } else {
+            Payee payee = getPayee(name);
+            return createEntity(payee, PAYEES_PATH);
+        }
     }
 
     /**
@@ -494,23 +547,31 @@ public class EntityRepositoryHelper {
      * @throws Exception
      */
     public String createTransaction(String accountName, Double amount, String categoryName, String chequeNumber,
-                                    String currencyName, String currencyISO, String notes, String payeeName, Integer quantity, String userName)
+                                    String currencyName, String currencyISO, String notes, String payeeName,
+                                    Integer quantity, String userName, String password, String firstName, String lastName)
             throws Exception {
 
-        String userLocation = createUser("test.user100", "Passw0rd", "user100", "test");
+        String userLocation = createUser(userName, password, firstName, lastName);
         String accountLocation = createAccount(accountName, amount, "Euro", "EUR");
         String categoryLocation = createCategory(categoryName, null);
-        String currencyLocation = createCurrency(currencyName, currencyISO);
+        String currencyLocation = createCurrency(currencyISO, currencyName);
         String payeeLocation = createPayee(payeeName);
 
-        Transaction transaction = getNewTransaction(amount, chequeNumber, notes, quantity);
-        String transactionLocation = createEntity(transaction, TRANSACTIONS_PATH);
+        Map<String, String> associations = new HashMap<>();
+        associations.put("user", userLocation);
+        associations.put("account", accountLocation);
+        associations.put("category", categoryLocation);
+        associations.put("currency", currencyLocation);
+        associations.put("payee", payeeLocation);
 
-        associateEntities(transactionLocation.concat("/").concat("user"), userLocation);
-        associateEntities(transactionLocation.concat("/").concat("account"), accountLocation);
-        associateEntities(transactionLocation.concat("/").concat("category"), categoryLocation);
-        associateEntities(transactionLocation.concat("/").concat("currency"), currencyLocation);
-        associateEntities(transactionLocation.concat("/").concat("payee"), payeeLocation);
+        Transaction transaction = getNewTransaction(amount, chequeNumber, notes, quantity);
+        String transactionLocation = createTransaction(transaction, TRANSACTIONS_PATH, associations);
+
+//        associateEntities(transactionLocation.concat("/").concat("user"), userLocation);
+//        associateEntities(transactionLocation.concat("/").concat("account"), accountLocation);
+//        associateEntities(transactionLocation.concat("/").concat("category"), categoryLocation);
+//        associateEntities(transactionLocation.concat("/").concat("currency"), currencyLocation);
+//        associateEntities(transactionLocation.concat("/").concat("payee"), payeeLocation);
 
         return transactionLocation;
     }
@@ -529,12 +590,47 @@ public class EntityRepositoryHelper {
         JSONObject entityContent = (JSONObject) getParser().parse(content);
 
         if (entityContent.isEmpty()) {
-            return null;
+            return "";
         } else {
-            return entityContent.get("self").toString();
+            return ((JSONObject) getJsonObjectFromArray(LINKS, ((JSONArray) ((JSONObject) entityContent.get(EMBEDDED)).get(entity))).get(SELF)).get(HREF).toString();
         }
+    }
 
+    /**
+     * This method retrieves a specific JSONObject from the given array, based on provided parameters.
+     *
+     * @param key   The key to search for within the array of objects.
+     * @param value The value for the given key.
+     * @param array The array containing the given key and value.
+     * @return The JSONObject which contains the provided key and value.
+     */
+    public JSONObject getJsonObjectFromArray(String key, String value, JSONArray array) {
+        for (Object object : array) {
+            JSONObject jsonObject = (JSONObject) object;
+            if (jsonObject.containsKey(key)) {
+                if (jsonObject.get(key).toString().equalsIgnoreCase(value)) {
+                    return jsonObject;
+                }
+            }
+        }
+        return null;
+    }
 
+    /**
+     * This method retrieves a specific JSONObject from the given array, based on provided parameters.
+     *
+     * @param key   The key to search for within the array of objects.
+     * @param array The array containing the given key and value.
+     * @return The JSONObject which contains the provided key and value.
+     */
+    public JSONObject getJsonObjectFromArray(String key, JSONArray array) {
+        for (Object object : array) {
+            JSONObject jsonObject = (JSONObject) object;
+            if (jsonObject.containsKey(key)) {
+                return (JSONObject) jsonObject.get(key);
+            }
+        }
+        return null;
     }
 
 }

@@ -177,5 +177,4 @@ public class RequestHelper {
         Assert.assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value());
         return response;
     }
-
 }

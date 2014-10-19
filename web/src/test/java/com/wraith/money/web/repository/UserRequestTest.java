@@ -180,7 +180,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 
         //Get the groups link for the returned payload.
         JSONArray links = (JSONArray) jsonObject.get("links");
-        JSONObject groups = getJsonObjectFromArray("rel", "users.users.groups", links);
+        JSONObject groups = entityRepositoryHelper.getJsonObjectFromArray("rel", "users.users.groups", links);
 
         //Retrieve the groups link, and perform a request to get the information from the database.
         String groupsLink = groups.get("href").toString();
@@ -189,7 +189,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         JSONObject jsonGroupObject = (JSONObject) entityRepositoryHelper.getParser().parse(groupsContent);
 
         //Ensure that the response contains the name users.
-        JSONObject groupContent = getJsonObjectFromArray("name", "Users", (JSONArray) jsonGroupObject.get("content"));
+        JSONObject groupContent = entityRepositoryHelper.getJsonObjectFromArray("name", "Users", (JSONArray) jsonGroupObject.get("content"));
 
         Assert.assertNotNull(groupContent);
     }
@@ -206,7 +206,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         Assert.assertNotNull(content);
         JSONObject sixPerson = (JSONObject) entityRepositoryHelper.getParser().parse(content);
-        JSONObject sixthUserContent = getJsonObjectFromArray("userName", "thirteenth.person", (JSONArray) sixPerson.get("content"));
+        JSONObject sixthUserContent = entityRepositoryHelper.getJsonObjectFromArray("userName", "thirteenth.person", (JSONArray) sixPerson.get("content"));
         Assert.assertEquals((String) sixthUserContent.get("userName"), "thirteenth.person");
 
         //Retrieve created user from the database using search.
@@ -216,7 +216,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
         String seventhPersonContent = getSeventhResponse.getContentAsString();
         Assert.assertNotNull(seventhPersonContent);
         JSONObject seventhUser = (JSONObject) entityRepositoryHelper.getParser().parse(seventhPersonContent);
-        JSONObject seventhUserContent = getJsonObjectFromArray("userName", "fourteenth.person", (JSONArray) seventhUser.get("content"));
+        JSONObject seventhUserContent = entityRepositoryHelper.getJsonObjectFromArray("userName", "fourteenth.person", (JSONArray) seventhUser.get("content"));
         Assert.assertEquals(seventhUserContent.get("userName"), "fourteenth.person");
     }
 
