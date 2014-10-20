@@ -1,6 +1,7 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -59,7 +60,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceLocation);
         String getContent = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(getContent);
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Statoil");
+		Assert.assertEquals(getJSONObject.get("name"), "Updated Statoil");
 
     }
 
@@ -81,7 +82,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
         MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceLocation);
         String getContent = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(getContent);
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Tesco");
+		Assert.assertEquals(getJSONObject.get("name"), "Updated Tesco");
     }
 
     @Test

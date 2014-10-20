@@ -1,6 +1,7 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
         String content = getResponse.getContentAsString();
         JSONObject jsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
-        Assert.assertEquals((String) jsonObject.get("name"), "United Kingdom");
+		Assert.assertEquals(jsonObject.get("name"), "United Kingdom");
     }
 
     @Test(expected = Exception.class)
@@ -60,7 +61,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Germany");
+		Assert.assertEquals(getJSONObject.get("name"), "Updated Germany");
     }
 
     @Test(expected = Exception.class)

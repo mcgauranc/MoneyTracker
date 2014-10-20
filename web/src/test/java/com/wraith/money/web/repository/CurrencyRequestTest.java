@@ -1,6 +1,7 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
         String content = getResponse.getContentAsString();
         JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
 
-        Assert.assertEquals((String) getJSONObject.get("name"), "Updated Rand");
+		Assert.assertEquals(getJSONObject.get("name"), "Updated Rand");
     }
 
     @Test(expected = Exception.class)
