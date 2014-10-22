@@ -36,7 +36,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testCreateCountryWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("thirtieth.person", "Passw0rd", "Thirtieth", "Person");
+		entityRepositoryHelper.createUser("thirtieth.person", "Passw0rd", "Thirtieth", "Person", "");
         authenticate("thirtieth.person", "Passw0rd");
 
         entityRepositoryHelper.createCountry("FR", "France");
@@ -75,7 +75,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
         byte[] updatedCountryBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
-        entityRepositoryHelper.createUser("thirtyfirst.person", "Passw0rd", "Thirty First", "Person");
+		entityRepositoryHelper.createUser("thirtyfirst.person", "Passw0rd", "Thirty First", "Person", "");
         authenticate("thirtyfirst.person", "Passw0rd");
         //Update the inserted country record from the database, and ensure that values are correct.
         entityRepositoryHelper.updateEntity(resourceRequest, updatedCountryBytes);
@@ -97,7 +97,7 @@ public class CountryRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("thirtysecond.person", "Passw0rd", "Thirty Second", "Person");
+		entityRepositoryHelper.createUser("thirtysecond.person", "Passw0rd", "Thirty Second", "Person", "");
 
         authenticate("Admin", "Passw0rd");
         String resourceRequest = entityRepositoryHelper.createCountry("AU", "Australia");

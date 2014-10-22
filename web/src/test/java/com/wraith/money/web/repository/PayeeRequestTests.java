@@ -33,7 +33,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testCreatePayeeWithNormalUser() throws Exception {
-        entityRepositoryHelper.createUser("sixtieth.person", "Passw0rd", "Sixtieth", "Person");
+		entityRepositoryHelper.createUser("sixtieth.person", "Passw0rd", "Sixtieth", "Person", "");
         authenticate("sixtieth.person", "Passw0rd");
 
         String resourceLocation = entityRepositoryHelper.createPayee("Tesco");
@@ -66,7 +66,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testUpdatePayeeWithNormalUser() throws Exception {
-        entityRepositoryHelper.createUser("sixtyfirst.person", "Passw0rd", "Sixty First", "Person");
+		entityRepositoryHelper.createUser("sixtyfirst.person", "Passw0rd", "Sixty First", "Person", "");
         authenticate("sixtyfirst.person", "Passw0rd");
 
         String resourceLocation = entityRepositoryHelper.createPayee("Tesco");
@@ -99,7 +99,7 @@ public class PayeeRequestTests extends AbstractBaseIntegrationTests {
 
     @Test
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("sixtysecond.person", "Passw0rd", "Sixty Second", "Person");
+		entityRepositoryHelper.createUser("sixtysecond.person", "Passw0rd", "Sixty Second", "Person", "");
         authenticate("sixtysecond.person", "Passw0rd");
 
         String resourceRequest = entityRepositoryHelper.createPayee("Starbucks");

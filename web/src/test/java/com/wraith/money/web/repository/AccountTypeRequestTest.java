@@ -1,6 +1,7 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
     @Test(expected = Exception.class)
     public void testUpdateAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = entityRepositoryHelper.createAccountType("Banking 3");
-        entityRepositoryHelper.createUser("first.person", "Passw0rd", "first", "Person");
+		entityRepositoryHelper.createUser("first.person", "Passw0rd", "first", "Person", "");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "Updated Banking 3");
@@ -78,7 +79,7 @@ public class AccountTypeRequestTest extends AbstractBaseIntegrationTests {
     @Test(expected = Exception.class)
     public void testDeleteAccountRequestWithCurrentUser() throws Exception {
         String resourceRequest = entityRepositoryHelper.createAccountType("Banking 5");
-        entityRepositoryHelper.createUser("second.person", "Passw0rd", "second", "Person");
+		entityRepositoryHelper.createUser("second.person", "Passw0rd", "second", "Person", "");
 
         //Delete the inserted account record from the database, and ensure that values are correct.
         authenticate("second.person", "Passw0rd");

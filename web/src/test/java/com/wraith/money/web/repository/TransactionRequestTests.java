@@ -1,6 +1,7 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
     @Test
     public void testCreateTransactionWithNormalUser() throws Exception {
         authenticate("Admin", "Passw0rd");
-        entityRepositoryHelper.createUser("eightieth.person", "Passw0rd", "Eightieth", "Person");
+		entityRepositoryHelper.createUser("eightieth.person", "Passw0rd", "Eightieth", "Person", "");
         entityRepositoryHelper.createCurrency("EUR", "Euro");
         authenticate("eightieth.person", "Passw0rd");
 
@@ -72,7 +73,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
         authenticate("Admin", "Passw0rd");
         entityRepositoryHelper.createCurrency("EUR", "Euro");
 
-        entityRepositoryHelper.createUser("eightyfirst.person", "Passw0rd", "Eighty First", "Person");
+		entityRepositoryHelper.createUser("eightyfirst.person", "Passw0rd", "Eighty First", "Person", "");
         authenticate("eightyfirst.person", "Passw0rd");
 
         String resourceLocation = entityRepositoryHelper.createTransaction("Wallet", 12.54, "Beer", "", "Euro", "EUR", "This is a six pack", "Spar",
@@ -110,7 +111,7 @@ public class TransactionRequestTests extends AbstractBaseIntegrationTests {
     public void testDeleteTransactionWithNormalUser() throws Exception {
         authenticate("Admin", "Passw0rd");
         entityRepositoryHelper.createCurrency("EUR", "Euro");
-        entityRepositoryHelper.createUser("eightysecond.person", "Passw0rd", "Eighty Second", "Person");
+		entityRepositoryHelper.createUser("eightysecond.person", "Passw0rd", "Eighty Second", "Person", "");
         authenticate("eightysecond.person", "Passw0rd");
 
         String resourceLocation = entityRepositoryHelper.createTransaction("Wallet", 50.00, "Money Found", "", "Euro", "EUR",

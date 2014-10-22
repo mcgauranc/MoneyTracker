@@ -38,7 +38,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testCreateCurrencyWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("fourtieth.person", "Passw0rd", "Fourtieth", "Person");
+		entityRepositoryHelper.createUser("fourtieth.person", "Passw0rd", "Fourtieth", "Person", "");
         authenticate("fourtieth.person", "Passw0rd");
 
         entityRepositoryHelper.createCurrency("USD", "Dollar");
@@ -77,7 +77,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
         byte[] updatedCountryBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
-        entityRepositoryHelper.createUser("fourtyfirst.person", "Passw0rd", "Fourty First", "Person");
+		entityRepositoryHelper.createUser("fourtyfirst.person", "Passw0rd", "Fourty First", "Person", "");
         authenticate("fourtyfirst.person", "Passw0rd");
         //Update the inserted country record from the database, and ensure that values are correct.
         entityRepositoryHelper.updateEntity(resourceRequest, updatedCountryBytes);
@@ -100,7 +100,7 @@ public class CurrencyRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testDeleteCountryWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("fourtysecond.person", "Passw0rd", "Fourty Second", "Person");
+		entityRepositoryHelper.createUser("fourtysecond.person", "Passw0rd", "Fourty Second", "Person", "");
 
         authenticate("Admin", "Passw0rd");
         String resourceRequest = entityRepositoryHelper.createCurrency("NZD", "New Zealand Dollar");

@@ -1,14 +1,16 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.data.Authorities;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.wraith.money.data.Authorities;
 
 /**
  * User: rowan.massey
@@ -56,7 +58,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testCreateAuthorityWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("twentieth.person", "Passw0rd", "Twentieth", "Person");
+		entityRepositoryHelper.createUser("twentieth.person", "Passw0rd", "Twentieth", "Person", "");
         authenticate("twentieth.person", "Passw0rd");
 
         entityRepositoryHelper.createAuthority("ROLE_REPORTER");
@@ -95,7 +97,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
         byte[] updatedAccountBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
-        entityRepositoryHelper.createUser("twentyfirst.person", "Passw0rd", "Twenty First", "Person");
+		entityRepositoryHelper.createUser("twentyfirst.person", "Passw0rd", "Twenty First", "Person", "");
         authenticate("twentyfirst.person", "Passw0rd");
         //Update the inserted account record from the database, and ensure that values are correct.
         entityRepositoryHelper.updateEntity(resourceRequest, updatedAccountBytes);
@@ -121,7 +123,7 @@ public class AuthorityRequestTest extends AbstractBaseIntegrationTests {
 
         String resourceRequest = entityRepositoryHelper.createAuthority("ROLE_SUPPORTER");
 
-        entityRepositoryHelper.createUser("twentysecond.person", "Passw0rd", "Twenty Second", "Person");
+		entityRepositoryHelper.createUser("twentysecond.person", "Passw0rd", "Twenty Second", "Person", "");
         authenticate("twentysecond.person", "Passw0rd");
 
         //Delete the inserted account record from the database, and ensure that values are correct.

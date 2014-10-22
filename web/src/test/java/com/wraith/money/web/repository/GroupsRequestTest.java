@@ -1,12 +1,14 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.web.helper.EntityRepositoryHelper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.wraith.money.web.helper.EntityRepositoryHelper;
 
 /**
  * This class tests all the permatations of the Group requests.
@@ -57,7 +59,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testCreateGroupsWithOrdinaryUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("fiftieth.person", "Passw0rd", "Fiftieth", "Person");
+		entityRepositoryHelper.createUser("fiftieth.person", "Passw0rd", "Fiftieth", "Person", "");
         authenticate("fiftieth.person", "Passw0rd");
 
         entityRepositoryHelper.createGroup("Quality Assurance", null);
@@ -93,7 +95,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
         jsonObject.put("name", "Updated Marketing");
         byte[] updatedGroupsBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
-        entityRepositoryHelper.createUser("fiftyfirst.person", "Passw0rd", "Fifty First", "Person");
+		entityRepositoryHelper.createUser("fiftyfirst.person", "Passw0rd", "Fifty First", "Person", "");
         authenticate("fiftyfirst.person", "Passw0rd");
 
         //Retrieve the updated group record from the database, and ensure that values are correct.
@@ -114,7 +116,7 @@ public class GroupsRequestTest extends AbstractBaseIntegrationTests {
 
     @Test(expected = Exception.class)
     public void testDeleteCategoryWithNoParentForCurrentUserRequest() throws Exception {
-        entityRepositoryHelper.createUser("fiftysecond.person", "Passw0rd", "Fifty Second", "Person");
+		entityRepositoryHelper.createUser("fiftysecond.person", "Passw0rd", "Fifty Second", "Person", "");
         authenticate("fiftysecond.person", "Passw0rd");
 
         String resourceRequest = entityRepositoryHelper.createGroup("Editors", AuthorityRequestTest.getNewAuthoritySet("ROLE_EDITORS"));

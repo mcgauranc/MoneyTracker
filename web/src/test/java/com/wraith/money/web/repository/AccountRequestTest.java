@@ -69,7 +69,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 	@Test(expected = Exception.class)
 	public void testUpdateAccountRequestWithCurrentUser() throws Exception {
 		String resourceRequest = entityRepositoryHelper.createAccount("Account 3", 12.43, "Euro", "EUR");
-		entityRepositoryHelper.createUser("first.person", "Passw0rd", "first", "Person");
+		entityRepositoryHelper.createUser("first.person", "Passw0rd", "first", "Person", "");
 
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("name", "Updated Account 3");
@@ -101,7 +101,7 @@ public class AccountRequestTest extends AbstractBaseIntegrationTests {
 	@Test(expected = Exception.class)
 	public void testDeleteAccountRequestWithCurrentUser() throws Exception {
 		String resourceRequest = entityRepositoryHelper.createAccount("Account 5", 1245.67, "Euro", "EUR");
-		entityRepositoryHelper.createUser("second.person", "Passw0rd", "second", "Person");
+		entityRepositoryHelper.createUser("second.person", "Passw0rd", "second", "Person", "");
 
 		//Delete the inserted account record from the database, and ensure that values are correct.
 		authenticate("second.person", "Passw0rd");
