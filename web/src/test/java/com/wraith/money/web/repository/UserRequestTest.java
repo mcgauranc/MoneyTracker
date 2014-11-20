@@ -1,18 +1,16 @@
 package com.wraith.money.web.repository;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.wraith.money.data.Users;
+import com.wraith.money.web.helper.EntityRepositoryHelper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.wraith.money.data.Users;
-import com.wraith.money.web.helper.EntityRepositoryHelper;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: rowan.massey Date: 01/04/13 Time: 14:09
@@ -57,9 +55,10 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 		//Update the previously created record.
 		authenticate("second.person", "Passw0rd");
 
-		Users updatedUser = new Users();
-		updatedUser.setFirstName("Second_Updated");
-		updatedUser.setLastName("Person_Updated");
+		JSONObject updatedUser = new JSONObject();
+		updatedUser.put("userName", "second.person");
+		updatedUser.put("firstName", "Second_Updated");
+		updatedUser.put("lastName", "Person_Updated");
 
 		byte[] updatedUserBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(updatedUser);
 		MockHttpServletResponse putResponse = entityRepositoryHelper.updateEntity(resourceRequest, updatedUserBytes);
@@ -69,9 +68,8 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 		MockHttpServletResponse getUpdatedResponse = entityRepositoryHelper.getEntity(resourceRequest);
 		String updatedContent = getUpdatedResponse.getContentAsString();
 		JSONObject updatedJsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(updatedContent);
-		Assert.assertEquals(updatedJsonObject.get("userName"), updatedUser.getUserName());
-		Assert.assertEquals(updatedJsonObject.get("firstName"), updatedUser.getFirstName());
-		Assert.assertEquals(updatedJsonObject.get("lastName"), updatedUser.getLastName());
+		Assert.assertEquals(updatedJsonObject.get("firstName"), updatedUser.get("firstName"));
+		Assert.assertEquals(updatedJsonObject.get("lastName"), updatedUser.get("lastName"));
 	}
 
 	@Test
@@ -106,6 +104,7 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
 		authenticate("fourth.person", "Passw0rd");
 
 		Users updatedUser = new Users();
+		updatedUser.setUserName("fourth.person");
 		updatedUser.setFirstName("Fourth_Updated");
 		updatedUser.setLastName("Person_Updated");
 
@@ -238,12 +237,12 @@ public class UserRequestTest extends AbstractBaseIntegrationTests {
     }
 
 	@Test
-	public void testUserPasswordIsNotReturned() throws Exception {
+	public void testUserPasswordIsReturned() throws Exception {
 		String resourceRequest = entityRepositoryHelper.createUser("fifteenth.person", "Passw0rd", "Fifteenth", "Person", "");
 
 		MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
 		String content = getResponse.getContentAsString();
 		JSONObject jsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
-		Assert.assertNull(jsonObject.get("password"));
+		Assert.assertNotNull(jsonObject.get("password"));
 	}
 }
