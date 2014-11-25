@@ -7,15 +7,22 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
 
         var userController = $scope.userController = {};
 
-        userController.all = Restangular.all("users");
+        userController.usersAll = Restangular.all("users");
+        userController.addressAll = Restangular.all("addresses");
+
         userController.currentPage = 0;
         userController.pages = 0;
-        userController.current = {};
+        userController.user = {};
+        userController.address = {};
         userController.location = $location;
         userController.pageSize = 10;
 
         userController.refresh = function () {
-            userController.all.getList({"size": userController.pageSize, "page": userController.currentPage, "sort": ""}).then(function (users) {
+            userController.usersAll.getList({
+                "size": userController.pageSize,
+                "page": userController.currentPage,
+                "sort": ""
+            }).then(function (users) {
                 $scope.users = users;
                 userController.pages = users.page.totalPages;
             }, function (error) {
@@ -40,14 +47,16 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.save = function () {
             userController.pageSize = 5;
             if ('route' in userController.current) {
-                userController.current.put().then(function (result) {
-                    userController.current = {};
+                userController.user.put().then(function (result) {
+                    userController.user = {};
                     userController.refresh();
                 });
             } else {
-                userController.current.dateOfBirth = new Date(userController.current.dateOfBirth).toISOString();
-                userController.all.post(userController.current).then(function (result) {
-                    userController.current = {};
+                userController.user.dateOfBirth = new Date(userController.user.dateOfBirth).toISOString();
+                userController.usersAll.post(userController.user).then(function (result) {
+                    userController.addressAll.post(userController.address);
+                    userController.user = {};
+                    userController.address = {};
                     userController.refresh();
                 });
             }
@@ -57,22 +66,29 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             userController.currentPage = 0;
             userController.pageSize = 4;
             userController.refresh();
-            userController.current.userName = '';
-            userController.current.password = '';
-            userController.current.firstName = '';
-            userController.current.lastName = '';
-            userController.current.dateOfBirth = '';
+            userController.user.userName = "";
+            userController.user.password = "";
+            userController.user.firstName = "";
+            userController.user.lastName = "";
+            userController.user.dateOfBirth = "";
+
+            userController.address.address1 = "";
+            userController.address.address2 = "";
+            userController.address.address3 = "";
+            userController.address.address4 = "";
+            userController.address.county = "";
+            userController.address.city = "";
             focus('startEdit');
         };
 
         userController.cancel = function () {
             userController.pageSize = 5;
-            userController.current = {};
+            userController.user = {};
             userController.refresh();
         };
 
         userController.edit = function (user, event) {
-            userController.current = user;
+            userController.user = user;
             focus('startEdit');
         };
 
