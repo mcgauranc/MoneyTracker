@@ -2,6 +2,7 @@ package com.wraith.money.repository;
 
 import com.wraith.money.data.Currency;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ import java.util.List;
  */
 public interface CurrencyRepository extends PagingAndSortingRepository<Currency, Long> {
 
-    public List<Currency> findByName(String currencyName);
+    public List<Currency> findByIso(@Param("currencyIso") String currencyIso);
 
 }

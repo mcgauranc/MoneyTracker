@@ -1,125 +1,71 @@
 package com.wraith.money.web.repository;
 
 import net.minidev.json.JSONObject;
-
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import com.wraith.money.data.Address;
-import com.wraith.money.data.Country;
 
 /**
  * User: rowan.massey Date: 30/04/13 Time: 18:27
  */
 public class AddressRequestTest extends AbstractBaseIntegrationTests {
 
-	/**
-	 * This method creates and instance of the address class, with default values.
-	 *
-	 * @param address1
-	 *            The first address line.
-	 * @param address2
-	 *            The second address line.
-	 * @param city
-	 *            The addresses city.
-	 * @param county
-	 *            The addresses county.
-	 * @return an instance of the created Address object.
-	 */
-	public static Address getNewAddress(String address1, String address2, String city, String county) {
-		Address address = new Address();
-		address.setAddress1(address1);
-		address.setAddress2(address2);
-		address.setCity(city);
-		address.setCounty(county);
-		return address;
-	}
+    @Test(expected = Exception.class)
+    public void testCreateAddressWithNoAuthenticationRequest() throws Exception {
+        authenticate("", "");
+        String resourceRequest = entityRepositoryHelper.createAddress("Address 1", "Address 2", "Dublin", "Dublin", "Ireland", "IRE");
+        entityRepositoryHelper.getEntity(resourceRequest);
+    }
 
-	@Test(expected = Exception.class)
-	public void testCreateAddressWithNoAuthenticationRequest() throws Exception {
-		authenticate("", "");
-		String resourceRequest = createNewAddress("Address 1", "Address 2", "Dublin", "Dublin", "Ireland", "IRE");
-		performGetRequest(resourceRequest);
-	}
+    @Test
+    public void testCreateAddressRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
 
-	@Test
-	public void testCreateAddressRequest() throws Exception {
-		authenticate("Admin", "Passw0rd");
+        String resourceRequest = entityRepositoryHelper.createAddress("Address 1", "Address 2", "Belfast", "Antrim", "Northern Ireland", "NI");
+        //Retrieve the inserted account record from the database, and ensure that values are correct.
+        MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject jsonObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
+        Assert.assertEquals(jsonObject.get("address1"), "Address 1");
+        Assert.assertEquals(jsonObject.get("address2"), "Address 2");
+        Assert.assertEquals(jsonObject.get("city"), "Belfast");
+    }
 
-		String resourceRequest = createNewAddress("Address 1", "Address 2", "Belfast", "Antrim", "Northern Ireland", "NI");
-		//Retrieve the inserted account record from the database, and ensure that values are correct.
-		MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
-		String content = getResponse.getContentAsString();
-		JSONObject jsonObject = (JSONObject) parser.parse(content);
-		Assert.assertEquals((String) jsonObject.get("address1"), "Address 1");
-		Assert.assertEquals((String) jsonObject.get("address2"), "Address 2");
-		Assert.assertEquals((String) jsonObject.get("city"), "Belfast");
-	}
+    @Test
+    public void testUpdateAccountTypeRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
 
-	@Test
-	public void testUpdateAccountTypeRequest() throws Exception {
-		authenticate("Admin", "Passw0rd");
+        String resourceRequest = entityRepositoryHelper.createAddress("Address 1", "Address 2", "Cork", "Cork", "Ireland", "IRE");
 
-		String resourceRequest = createNewAddress("Address 1", "Address 2", "Cork", "Cork", "Ireland", "IRE");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("address1", "Updated Address 1");
 
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("address1", "Updated Address 1");
+        byte[] updatedAccountBytes = entityRepositoryHelper.getMapper().writeValueAsBytes(jsonObject);
 
-		byte[] updatedAccountBytes = mapper.writeValueAsBytes(jsonObject);
+        //Update the inserted account record from the database, and ensure that values are correct.
+        MockHttpServletResponse putResponse = entityRepositoryHelper.updateEntity(resourceRequest, updatedAccountBytes);
+        Assert.assertNotNull(putResponse);
 
-		//Update the inserted account record from the database, and ensure that values are correct.
-		MockHttpServletResponse putResponse = performPutRequest(resourceRequest, updatedAccountBytes);
-		Assert.assertNotNull(putResponse);
+        MockHttpServletResponse getResponse = entityRepositoryHelper.getEntity(resourceRequest);
+        String content = getResponse.getContentAsString();
+        JSONObject getJSONObject = (JSONObject) entityRepositoryHelper.getParser().parse(content);
 
-		MockHttpServletResponse getResponse = performGetRequest(resourceRequest);
-		String content = getResponse.getContentAsString();
-		JSONObject getJSONObject = (JSONObject) parser.parse(content);
+        Assert.assertEquals(getJSONObject.get("address1"), "Updated Address 1");
+    }
 
-		Assert.assertEquals((String) getJSONObject.get("address1"), "Updated Address 1");
-	}
+    @Test
+    public void testDeleteAccountRequest() throws Exception {
+        authenticate("Admin", "Passw0rd");
 
-	@Test(expected = ResourceNotFoundException.class)
-	public void testDeleteAccountRequest() throws Exception {
-		authenticate("Admin", "Passw0rd");
+        String resourceRequest = entityRepositoryHelper.createAddress("Address 1", "Address 2", "Galway", "Galway", "Ireland", "IRE");
 
-		String resourceRequest = createNewAddress("Address 1", "Address 2", "Galway", "Galway", "Ireland", "IRE");
+        //Delete the inserted account record from the database, and ensure that values are correct.
+        MockHttpServletResponse deleteResponse = entityRepositoryHelper.deleteEntity(resourceRequest);
+        Assert.assertNotNull(deleteResponse);
 
-		//Delete the inserted account record from the database, and ensure that values are correct.
-		MockHttpServletResponse deleteResponse = performDeleteRequest(resourceRequest);
-		Assert.assertNotNull(deleteResponse);
+        //Ensure that the deleted account can't be retrieved from the database.
+        entityRepositoryHelper.getEntity(resourceRequest, null, HttpStatus.NOT_FOUND);
+    }
 
-		//Ensure that the deleted account can't be retrieved from the database.
-		performGetRequest(resourceRequest);
-	}
-
-	/**
-	 * This method creates a new address, saves it to the database, and returns the location of the created record.
-	 *
-	 * @param address1
-	 *            The first address line.
-	 * @param address2
-	 *            The second address line.
-	 * @param city
-	 *            The addresses city.
-	 * @param county
-	 *            The addresses county.
-	 * @param countryName
-	 *            The addresses country.
-	 * @param countryISO
-	 *            The ISO code of the country.
-	 * @return The URI location of the created record.
-	 * @throws Exception
-	 */
-	public String createNewAddress(String address1, String address2, String city, String county, String countryName,
-			String countryISO) throws Exception {
-		Address address = getNewAddress(address1, address2, city, county);
-		Country country = CountryRequestTest.getNewCountry(countryName, countryISO);
-		String addressLocation = createNewEntity(address, ADDRESSES_PATH);
-		String countryLocation = createNewEntity(country, COUNTRIES_PATH);
-		associateEntities(addressLocation.concat("/").concat("country"), countryLocation);
-
-		return addressLocation;
-	}
 }

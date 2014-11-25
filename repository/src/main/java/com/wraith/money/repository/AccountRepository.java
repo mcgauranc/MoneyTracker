@@ -2,6 +2,7 @@ package com.wraith.money.repository;
 
 import com.wraith.money.data.Account;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ import java.util.List;
  */
 public interface AccountRepository extends PagingAndSortingRepository<Account, Long> {
 
-    public List<Account> findByName(String accountName);
+    public List<Account> findByName(@Param("accountName") String accountName);
 
 }
