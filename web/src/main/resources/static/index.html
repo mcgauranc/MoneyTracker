@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Money Tracker</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/top-navbar.css">
 
     <script src="http://code.angularjs.org/1.2.9/angular.js"></script>
     <script src="http://code.angularjs.org/1.2.9/angular-resource.js"></script>
@@ -32,18 +30,17 @@
     <script src="js/services.js"></script>
 </head>
 <body>
-<div ng-controller="AuthController" class="navbar navbar-default navbar-fixed-top">
+<div ng-controller="AuthController">
     <div class="container">
-        <div class="navbar-header">
-            <span class="navbar-brand">Atlantic Money</span>
+        <div>
+            <span>Atlantic Money</span>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+        <div>
+            <ul>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul>
                 <li ng-show="authController.authService.storage.authToken !== undefined">
-                    <div class="nav-element" ng-click="authController.logout()"><span
-                            class="glyphicon glyphicon-off"></span>Logout
+                    <div ng-click="authController.logout()">Logout
                     </div>
                 </li>
             </ul>
@@ -53,5 +50,4 @@
 <div ng-view class="container">
 </div>
 </body>
-</html>
 </html>

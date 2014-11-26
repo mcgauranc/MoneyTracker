@@ -46,7 +46,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
 
         userController.save = function () {
             userController.pageSize = 5;
-            if ('route' in userController.current) {
+            if ('route' in userController.user) {
                 userController.user.put().then(function (result) {
                     userController.user = {};
                     userController.refresh();

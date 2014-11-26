@@ -1,70 +1,63 @@
-<link href="../../css/moneyTracker.css" rel="stylesheet">
-<div class="dataupload-list">
+<div>
     <h2>Users
-		<span class="btn-group" style="float: right; margin-top: 8px">
-		<button type="button" class="btn btn-default btn-sm" ng-click="userController.newUser()" tooltip="New">
-        <span class="glyphicon glyphicon-plus"></span>
-        </button>
-		</span>
+        <button type="button" ng-click="userController.newUser()" tooltip="New">New User</button>
     </h2>
-    <ul class="list-group">
-        <li class="list-group-item" ng-show="userController.current.userName !== undefined">
+    <ul>
+        <li ng-show="userController.user.userName !== undefined">
 
             <label>User name:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.user.userName" focus-on="startEdit"/>
             </label>
 
             <label>Password:
-                <input class="form-control input-sm input-edit" type="password"
+                <input type="password"
                        ng-model="userController.user.password" focus-on="startEdit"/>
             </label>
 
             <label>First name:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.user.firstName" focus-on="startEdit"/>
             </label>
             <label>Last name:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.user.lastName" focus-on="startEdit"/>
             </label>
 
             <label>Date of Birth:
-                <input class="form-control input-sm input-edit" type="date"
+                <input type="date"
                        ng-model="userController.user.dateOfBirth" focus-on="startEdit"/>
             </label>
 
             <label>Address 1:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.address1" focus-on="startEdit"/>
             </label>
             <label>Address 2:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.address2" focus-on="startEdit"/>
             </label>
             <label>Address 3:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.address3" focus-on="startEdit"/>
             </label>
             <label>Address 4:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.address4" focus-on="startEdit"/>
             </label>
             <label>County:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.county" focus-on="startEdit"/>
             </label>
             <label>City:
-                <input class="form-control input-sm input-edit" type="text"
+                <input type="text"
                        ng-model="userController.address.city" focus-on="startEdit"/>
             </label>
 
-			<span class="badge input-badge">
-				<button ng-click="userController.save()" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-ok"></span>
+			<span>
+				<button ng-click="userController.save()" class="btn btn-xs btn-default">Save
                 </button>
-				<button ng-click="userController.cancel()" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-remove"></span>
+				<button ng-click="userController.cancel()" class="btn btn-xs btn-default">Cancel
                 </button>
 			</span>
         </li>
@@ -97,12 +90,12 @@
         <!--</div>-->
         <!--</li>-->
     </ul>
-    <ul class="pagination pagination-sm">
+    <ul>
         <li ng-class="{disabled:userController.currentPage==0}">
-            <span ng-click="userController.previousPage()" class="glyphicon glyphicon-backward"></span>
+            <span ng-click="userController.previousPage()"></span>
         </li>
         <li ng-class="{disabled:userController.currentPage+1>=userController.pages}">
-            <span href="#" ng-click="userController.nextPage()" class="glyphicon glyphicon-forward"></span>
+            <span href="#" ng-click="userController.nextPage()"></span>
         </li>
     </ul>
 </div>
