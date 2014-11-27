@@ -22,7 +22,8 @@ moneyApp.config(function (RestangularProvider) {
 moneyApp.factory('AuthRestangular', ['Restangular', 'AuthService', function (Restangular, authService) {
     var authService = authService;
     return Restangular.withConfig(function (RestangularConfigurer) {
-        RestangularConfigurer.setFullRequestInterceptor(function (elems, operation, what, url, headers, params) {
+        RestangularConfigurer.setFullResponse(true);
+        RestangularConfigurer.addRequestInterceptor(function (elems, operation, what, url, headers, params) {
             var auth = authService.getAuthToken();
             if (auth != null) {
                 if (headers == null)

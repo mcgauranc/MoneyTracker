@@ -16,6 +16,23 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.address = {};
         userController.location = $location;
         userController.pageSize = 10;
+        userController.userLocation = "";
+        userController.addressLocation = "";
+
+        userController.setRelatedInformation = function (parentLocation, childLocation) {
+            $http({
+                url: parentLocation,
+                method: "PUT",
+                headers: {
+                    "Content-Type": "text/uri-list"
+                },
+                data: childLocation
+            }).success(function (response) {
+                console.log("Record successfully associated with parent. ", +response);
+            }).error(function (error) {
+                console.log("There was an error associating the record to the parent. " + error);
+            });
+        };
 
         userController.refresh = function () {
             userController.usersAll.getList({
@@ -53,8 +70,13 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
                 });
             } else {
                 userController.user.dateOfBirth = new Date(userController.user.dateOfBirth).toISOString();
-                userController.usersAll.post(userController.user).then(function (result) {
-                    userController.addressAll.post(userController.address);
+                userController.usersAll.post(userController.user).then(function (userResult) {
+                    userController.userLocation = userResult.headers().location;
+                    userController.addressAll.post(userController.address).then(function (addressResult) {
+                            userController.addressLocation = addressResult.headers().location;
+                            userController.setRelatedInformation(userController.userLocation, userController.addressLocation);
+                        }
+                    );
                     userController.user = {};
                     userController.address = {};
                     userController.refresh();
