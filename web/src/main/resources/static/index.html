@@ -51,22 +51,18 @@
             <div class="collapse navbar-collapse" id="moneyNavigationBar">
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-show="authController.authService.storage.authToken === undefined">
-                        <a href="#">
-                            <div>
-                                <span class="glyphicon glyphicon-user"></span>Sign Up
-                            </div>
-                        </a>
+                        <div>
+                            <span class="glyphicon glyphicon-user"></span> Sign Up
+                        </div>
                     </li>
                     <li ng-show="authController.authService.storage.authToken === undefined">
-                        <a href="#">
-                            <div>
-                                <span class="glyphicon glyphicon-log-in"></span>Login
-                            </div>
-                        </a>
+                        <div>
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </div>
                     </li>
                     <li ng-show="authController.authService.storage.authToken !== undefined">
                         <div ng-click="authController.logout()">
-                            <span class="glyphicon glyphicon-log-out"></span>Logout
+                            <span class="glyphicon glyphicon-log-out"></span> Logout
                         </div>
                     </li>
                 </ul>

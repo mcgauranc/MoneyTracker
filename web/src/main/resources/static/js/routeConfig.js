@@ -4,7 +4,10 @@ moneyApp.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider.
             when("/", {
-                templateUrl: "partials/login.html",
+                templateUrl: "partials/home.html"
+            }).
+            when("/login", {
+                templateUrl: "partials/login/login.html",
                 controller: "AuthController"
             }).
             when("/users", {
