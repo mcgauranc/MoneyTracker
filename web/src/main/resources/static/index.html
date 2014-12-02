@@ -38,21 +38,43 @@
 </head>
 <body>
 <div ng-controller="AuthController">
-    <div class="container">
-        <div>
-            <span>Atlantic Money</span>
-        </div>
-        <div>
-            <ul>
-                <li ng-show="authController.authService.storage.authToken !== undefined">
-                    <div ng-click="authController.logout()">Logout
-                    </div>
-                </li>
-            </ul>
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moneyNavigationBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Atlantic Money</a>
+            </div>
+            <div class="collapse navbar-collapse" id="moneyNavigationBar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-show="authController.authService.storage.authToken === undefined">
+                        <a href="#">
+                            <div>
+                                <span class="glyphicon glyphicon-user"></span>Sign Up
+                            </div>
+                        </a>
+                    </li>
+                    <li ng-show="authController.authService.storage.authToken === undefined">
+                        <a href="#">
+                            <div>
+                                <span class="glyphicon glyphicon-log-in"></span>Login
+                            </div>
+                        </a>
+                    </li>
+                    <li ng-show="authController.authService.storage.authToken !== undefined">
+                        <div ng-click="authController.logout()">
+                            <span class="glyphicon glyphicon-log-out"></span>Logout
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<div ng-view class="container">
+    <div ng-view class="container-fluid">
+    </div>
 </div>
 </body>
 </html>
