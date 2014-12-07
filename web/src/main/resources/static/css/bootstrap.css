@@ -4859,24 +4859,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding-top: 15px;
     padding-bottom: 15px;
   }
-
-  .navbar-nav > li > div {
-    background-color: transparent;
-    color: #9d9d9d;
-    text-decoration: none;
-    padding: 10px 15px;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
-  }
-
-  .navbar-nav > li > div:active {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
-  }
-
-  .navbar-nav > li > div:focus {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-  }
 }
 .navbar-form {
   padding: 10px 15px;
