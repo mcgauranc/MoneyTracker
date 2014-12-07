@@ -1,97 +1,88 @@
-<div>
-    <ul>
-        <li>
-            <label>User name:
-                <input type="text"
-                       ng-model="userController.user.userName" focus-on="startEdit"/>
-            </label>
+<form role="form">
+    <div class="form-group">
+        <label class="control-label" for="userName">User name:</label>
+        <input class="form-control" type="text" id="userName"
+               ng-model="userController.user.userName" focus-on="startEdit"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="userPassword">Password:</label>
+        <input class="form-control" type="password" id="userPassword"
+               ng-model="userController.user.password" focus-on="startEdit"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="userFirstName">First name:</label>
+        <input class="form-control" type="text" id="userFirstName"
+               ng-model="userController.user.firstName" focus-on="startEdit"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="userLastName">Last name:</label>
+        <input class="form-control" type="text" id="userLastName"
+               ng-model="userController.user.lastName" focus-on="startEdit"/>
+    </div>
+    <label class="control-label" for="userDateOfBirth">Date of Birth:</label>
+    <input class="form-control" type="date" id="userDateOfBirth"
+           ng-model="userController.user.dateOfBirth" focus-on="startEdit"/>
 
-            <label>Password:
-                <input type="password"
-                       ng-model="userController.user.password" focus-on="startEdit"/>
-            </label>
+    <div class="form-group">
+        <label class="control-label" for="userAddress1">Address 1:</label>
+        <input class="form-control" type="text" id="userAddress1"
+               ng-model="userController.address.address1" focus-on="startEdit"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="userAddress2">Address 2:</label>
+        <input class="form-control" type="text" id="userAddress2"
+               ng-model="userController.address.address2" focus-on="startEdit"/>
+    </div>
+    <label class="control-label" for="userAddress3">Address 3:</label>
+    <input class="form-control" type="text" id="userAddress3"
+           ng-model="userController.address.address3" focus-on="startEdit"/>
 
-            <label>First name:
-                <input type="text"
-                       ng-model="userController.user.firstName" focus-on="startEdit"/>
-            </label>
-            <label>Last name:
-                <input type="text"
-                       ng-model="userController.user.lastName" focus-on="startEdit"/>
-            </label>
+    <div class="form-group">
+        <label class="control-label" for="userAddress4">Address 4:</label>
+        <input class="form-control" type="text" id="userAddress4"
+               ng-model="userController.address.address4" focus-on="startEdit"/>
+    </div>
+    <label class="control-label" for="userCounty">County:</label>
+    <input class="form-control" type="text" id="userCounty"
+           ng-model="userController.address.county" focus-on="startEdit"/>
 
-            <label>Date of Birth:
-                <input type="date"
-                       ng-model="userController.user.dateOfBirth" focus-on="startEdit"/>
-            </label>
-
-            <label>Address 1:
-                <input type="text"
-                       ng-model="userController.address.address1" focus-on="startEdit"/>
-            </label>
-            <label>Address 2:
-                <input type="text"
-                       ng-model="userController.address.address2" focus-on="startEdit"/>
-            </label>
-            <label>Address 3:
-                <input type="text"
-                       ng-model="userController.address.address3" focus-on="startEdit"/>
-            </label>
-            <label>Address 4:
-                <input type="text"
-                       ng-model="userController.address.address4" focus-on="startEdit"/>
-            </label>
-            <label>County:
-                <input type="text"
-                       ng-model="userController.address.county" focus-on="startEdit"/>
-            </label>
-            <label>City:
-                <input type="text"
-                       ng-model="userController.address.city" focus-on="startEdit"/>
-            </label>
-
+    <div class="form-group">
+        <label class="control-label" for="userCity">City:</label>
+        <input class="form-control" type="text" id="userCity"
+               ng-model="userController.address.city" focus-on="startEdit"/>
+    </div>
+    <div class="btn-group">
 			<span>
-				<button ng-click="userController.save()" class="btn btn-xs btn-default">Save
-                </button>
-				<button ng-click="userController.cancel()" class="btn btn-xs btn-default">Cancel
-                </button>
+				<button ng-click="userController.save()" class="btn btn-success" type="submit">Save</button>
+				<button ng-click="userController.cancel()" class="btn btn-danger">Cancel</button>
 			</span>
-        </li>
-        <!--<li ng-repeat="user in users" class="list-group-item">-->
-        <!--&lt;!&ndash;<div ng-show="user != userController.current">&ndash;&gt;-->
-        <!--<div>-->
-        <!--{{user.userName}}-->
-        <!--{{user.firstName}}-->
-        <!--{{user.lastName}}-->
-        <!--<span class="badge" style="float: right">-->
-        <!--<button ng-click="userController.edit(user, $event)" class="btn btn-xs btn-default">-->
-        <!--<span class="glyphicon glyphicon-edit" tooltip="Edit"></span>-->
-        <!--</button>-->
-        <!--<button ng-click="userController.remove(user)" class="btn btn-xs btn-default">-->
-        <!--<span class="glyphicon glyphicon-trash" tooltip="Remove"></span>-->
-        <!--</button>-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<div ng-show="user == userController.current">&ndash;&gt;-->
-        <!--<div>-->
-        <!--<input class="form-control input-sm input-edit" type="text" ng-enter="userController.save()" ng-model="user.userName" focus-on="startEdit"/>-->
-        <!--<span class="badge">-->
-        <!--<button ng-click="userController.save()" class="btn btn-xs btn-default">-->
-        <!--<span class="glyphicon glyphicon-ok"></span>-->
-        <!--</button>-->
-        <!--<button ng-click="userController.cancel()" class="btn btn-xs btn-default">-->
-        <!--<span class="glyphicon glyphicon-remove"></span>-->
-        <!--</button>-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</li>-->
-    </ul>
-    <ul>
-        <!--<li ng-class="{disabled:userController.currentPage==0}">-->
-        <!--<span ng-click="userController.previousPage()"></span>-->
-        <!--</li>-->
-        <!--<li ng-class="{disabled:userController.currentPage+1>=userController.pages}">-->
-        <!--<span href="#" ng-click="userController.nextPage()"></span>-->
-        <!--</li>-->
-    </ul>
-</div>
+    </div>
+    <!--<li ng-repeat="user in users" class="list-group-item">-->
+    <!--&lt;!&ndash;<div ng-show="user != userController.current">&ndash;&gt;-->
+    <!--<div>-->
+    <!--{{user.userName}}-->
+    <!--{{user.firstName}}-->
+    <!--{{user.lastName}}-->
+    <!--<span class="badge" style="float: right">-->
+    <!--<button ng-click="userController.edit(user, $event)" class="btn btn-xs btn-default">-->
+    <!--<span class="glyphicon glyphicon-edit" tooltip="Edit"></span>-->
+    <!--</button>-->
+    <!--<button ng-click="userController.remove(user)" class="btn btn-xs btn-default">-->
+    <!--<span class="glyphicon glyphicon-trash" tooltip="Remove"></span>-->
+    <!--</button>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<div ng-show="user == userController.current">&ndash;&gt;-->
+    <!--<div>-->
+    <!--<input class="form-control input-sm input-edit" type="text" ng-enter="userController.save()" ng-model="user.userName" focus-on="startEdit"/>-->
+    <!--<span class="badge">-->
+    <!--<button ng-click="userController.save()" class="btn btn-xs btn-default">-->
+    <!--<span class="glyphicon glyphicon-ok"></span>-->
+    <!--</button>-->
+    <!--<button ng-click="userController.cancel()" class="btn btn-xs btn-default">-->
+    <!--<span class="glyphicon glyphicon-remove"></span>-->
+    <!--</button>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</li>-->
+</form>
