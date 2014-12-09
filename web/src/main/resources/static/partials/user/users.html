@@ -1,13 +1,29 @@
-<form role="form">
+<form id="userForm" role="form">
     <div class="form-group">
         <label class="control-label" for="userName">User name:</label>
-        <input class="form-control" type="text" id="userName"
+        <input class="form-control" type="text" id="userName" required="true"
                ng-model="userController.user.userName" focus-on="startEdit"/>
+
+        <div ng-show="userForm.userName.$error.required">
+            Username is required
+        </div>
     </div>
     <div class="form-group">
         <label class="control-label" for="userPassword">Password:</label>
-        <input class="form-control" type="password" id="userPassword"
+        <input class="form-control" type="password" id="userPassword" required="true"
                ng-model="userController.user.password" focus-on="startEdit"/>
+
+        <div ng-show="userForm.userPassword.$error.required">
+            Password is required
+        </div>
+    </div>
+    <div class="form-group" ng-show="userController.isNewUser()">
+        <label class="control-label" for="userConfirmPassword">Confirm Password:</label>
+        <input class="form-control" type="password" id="userConfirmPassword" focus-on="startEdit"/>
+
+        <div ng-show="userForm.userConfirmPassword.$error.validator">
+            Password and Confirm Password do not match
+        </div>
     </div>
     <div class="form-group">
         <label class="control-label" for="userFirstName">First name:</label>
@@ -19,10 +35,12 @@
         <input class="form-control" type="text" id="userLastName"
                ng-model="userController.user.lastName" focus-on="startEdit"/>
     </div>
-    <label class="control-label" for="userDateOfBirth">Date of Birth:</label>
-    <input class="form-control" type="date" id="userDateOfBirth"
-           ng-model="userController.user.dateOfBirth" focus-on="startEdit"/>
+    <div>
+        <label class="control-label" for="userDateOfBirth">Date of Birth:</label>
+        <input class="form-control" type="date" id="userDateOfBirth"
+               ng-model="userController.user.dateOfBirth" focus-on="startEdit"/>
 
+    </div>
     <div class="form-group">
         <label class="control-label" for="userAddress1">Address 1:</label>
         <input class="form-control" type="text" id="userAddress1"
@@ -33,24 +51,28 @@
         <input class="form-control" type="text" id="userAddress2"
                ng-model="userController.address.address2" focus-on="startEdit"/>
     </div>
-    <label class="control-label" for="userAddress3">Address 3:</label>
-    <input class="form-control" type="text" id="userAddress3"
-           ng-model="userController.address.address3" focus-on="startEdit"/>
-
+    <div>
+        <label class="control-label" for="userAddress3">Address 3:</label>
+        <input class="form-control" type="text" id="userAddress3"
+               ng-model="userController.address.address3" focus-on="startEdit"/>
+    </div>
     <div class="form-group">
         <label class="control-label" for="userAddress4">Address 4:</label>
         <input class="form-control" type="text" id="userAddress4"
                ng-model="userController.address.address4" focus-on="startEdit"/>
     </div>
-    <label class="control-label" for="userCounty">County:</label>
-    <input class="form-control" type="text" id="userCounty"
-           ng-model="userController.address.county" focus-on="startEdit"/>
-
     <div class="form-group">
         <label class="control-label" for="userCity">City:</label>
         <input class="form-control" type="text" id="userCity"
                ng-model="userController.address.city" focus-on="startEdit"/>
     </div>
+    <div>
+        <label class="control-label" for="userCounty">County:</label>
+        <input class="form-control" type="text" id="userCounty"
+               ng-model="userController.address.county" focus-on="startEdit"/>
+    </div>
+    <br/>
+
     <div class="btn-group">
 			<span>
 				<button ng-click="userController.save()" class="btn btn-success" type="submit">Save</button>

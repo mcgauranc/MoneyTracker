@@ -1,10 +1,10 @@
-moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$location', '$http',
-    function ($scope, authService, Restangular, $location, $http) {
+moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$location',
+    function ($scope, authService, Restangular, $location) {
 
         var authController = $scope.authController = {};
 
-        authController.username = '';
-        authController.password = '';
+        authController.username = "";
+        authController.password = "";
 
         authController.authService = authService;
         authController.location = $location;
@@ -16,14 +16,13 @@ moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular
                 }, function (reject) {
                     console.log('Login error');
                 });
-            authController.username = '';
-            authController.password = '';
+            authController.password = "";
         };
 
         authController.logout = function () {
             authController.authService.logout();
-            authController.username = '';
-            authController.password = '';
+            authController.username = "";
+            authController.password = "";
             authController.location.path('/');
         };
     }]);

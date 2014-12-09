@@ -30,11 +30,12 @@ moneyApp.factory('AuthRestangular', ['Restangular', 'AuthService', function (Res
                     headers = {};
                 headers.Authorization = auth;
             }
-            return {
-                element: elems,
-                params: params,
-                headers: headers
-            }
+            return elems;
+            //{
+            //    element: elems,
+            //    params: params,
+            //    headers: headers
+            //}
         });
     });
 }]);

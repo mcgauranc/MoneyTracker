@@ -38,7 +38,7 @@
 </head>
 <body>
 <div ng-controller="AuthController">
-    <div class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moneyNavigationBar">
@@ -57,12 +57,16 @@
                         <a href="#/login"><span class="glyphicon glyphicon-log-in"> Login</span></a>
                     </li>
                     <li ng-show="authController.authService.storage.authToken !== undefined">
-                        <a href="#" ng-click="authController.logout()"><span class="glyphicon glyphicon-log-out"> Logout</span></a>
+                        <a href="#">{{authController.authService.getFullName()}}</a>
+                    </li>
+                    <li ng-show="authController.authService.storage.authToken !== undefined">
+                        <a href="#" ng-click="authController.logout()"><span
+                                class="glyphicon glyphicon-log-out"> Logout </span></a>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
     <div ng-view class="container">
     </div>
 </div>

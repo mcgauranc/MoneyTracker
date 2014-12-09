@@ -8,7 +8,6 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         var userController = $scope.userController = {};
 
         userController.usersAll = Restangular.all("users");
-        userController.addressAll = Restangular.all("addresses");
 
         userController.currentPage = 0;
         userController.pages = 0;
@@ -17,7 +16,8 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.location = $location;
         userController.pageSize = 10;
         userController.userLocation = "";
-        userController.addressLocation = "";
+
+        userController.newUser = false;
 
         //userController.setRelatedInformation = function (parentLocation, childLocation) {
         //    $http({
@@ -34,6 +34,10 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         //    });
         //};
 
+        userController.isNewUser = function () {
+            return userController.newUser;
+        };
+
         userController.refresh = function () {
             userController.usersAll.getList({
                 "size": userController.pageSize,
@@ -41,7 +45,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
                 "sort": ""
             }).then(function (users) {
                 $scope.users = users;
-                userController.pages = users.page.totalPages;
+                userController.pages = users.data.page.totalPages;
             }, function (error) {
                 userController.location.path('/');
             });
@@ -71,12 +75,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             } else {
                 userController.user.dateOfBirth = new Date(userController.user.dateOfBirth).toISOString();
                 userController.usersAll.post(userController.user).then(function (userResult) {
-                    //userController.userLocation = userResult.headers().location;
-                    //userController.addressAll.post(userController.address).then(function (addressResult) {
-                    //        userController.addressLocation = addressResult.headers().location;
-                    //        userController.setRelatedInformation(userController.userLocation, userController.addressLocation);
-                    //    }
-                    //);
+                    userController.userLocation = userResult.headers().location;
                     userController.user = {};
                     userController.address = {};
                     userController.refresh();
@@ -85,6 +84,8 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         };
 
         userController.newUser = function () {
+            userController.newUser = true;
+
             userController.currentPage = 0;
             userController.pageSize = 4;
             userController.refresh();

@@ -1,9 +1,17 @@
 moneyApp.service('AuthService', ['$localStorage', '$q', '$http', function ($localStorage, $q, $http) {
+
     var authService = this;
+
+    authService.userName = "";
     authService.authToken = null;
+    authService.firstName = "";
+    authService.lastName = "";
+
     authService.storage = $localStorage;
+
     if (authService.storage.authService == null)
         authService.storage.authService = {};
+
     authService.storage = authService.storage.authService;
 
     authService.login = function (username, password) {
@@ -19,7 +27,8 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http', function ($loca
         $http.get(BASE_URL + "/users", {headers: {"Authorization": authService.authToken}}).
             success(function (data, status, headers, config) {
                 authService.storage.authToken = authService.authToken;
-                authService.storage.username = authService.username;
+                authService.firstName = data._embedded.users[0].firstName;
+                authService.lastName = data._embedded.users[0].lastName;
                 deferred.resolve();
             }).
             error(function (data, status, headers, config) {
@@ -37,8 +46,14 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http', function ($loca
         return authService.authToken;
     };
 
+    authService.getFullName = function () {
+        return authService.firstName + " " + authService.lastName;
+    };
+
     authService.logout = function () {
         authService.authToken = null;
+        authService.firstName = "";
+        authService.lastName = "";
         delete authService.storage.authToken;
         delete authService.storage.username;
     }
