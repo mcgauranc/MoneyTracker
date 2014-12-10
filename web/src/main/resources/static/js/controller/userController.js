@@ -12,6 +12,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.currentPage = 0;
         userController.pages = 0;
         userController.user = {};
+        userController.userConfirmPassword = "";
         userController.address = {};
         userController.location = $location;
         userController.pageSize = 10;
