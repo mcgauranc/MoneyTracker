@@ -8,7 +8,8 @@
             Username is required
         </div>
     </div>
-    <div class="form-group">
+    <div ng-class="{'has-error': userForm.txtUserPassword.$invalid && userForm.txtUserPassword.$dirty }"
+         class="form-group">
         <label id="lblPassword" class="control-label" for="txtUserPassword">Password:</label>
         <input id="txtUserPassword" class="form-control" type="password" required
                ng-model="userController.user.password" focus-on="startEdit"/>
@@ -17,9 +18,11 @@
             Password is required
         </div>
     </div>
-    <div class="form-group" ng-show="userController.isNewUser()">
+    <div ng-class="{ 'has-error': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty }"
+         class="form-group" ng-show="userController.isNewUser()">
         <label id="lblConfirmPassword" class="control-label" for="txtUserConfirmPassword">Confirm Password:</label>
-        <input class="form-control" type="password" id="txtUserConfirmPassword" required
+        <input id="txtUserConfirmPassword" class="form-control" type="password"
+               required
                ng-model="userController.userConfirmPassword"
                data-compare-to="userController.user.password" focus-on="startEdit"/>
 
@@ -79,7 +82,8 @@
 
     <div class="btn-group">
 			<span>
-				<button id="btnSave" ng-click="userController.save()" class="btn btn-success" type="submit">Save
+				<button ng-disabled="userForm.$invalid" id="btnSave" ng-click="userController.save()"
+                        class="btn btn-success" type="submit">Save
                 </button>
 				<button id="btnCancel" ng-click="userController.cancel()" class="btn btn-danger">Cancel</button>
 			</span>
