@@ -12,7 +12,6 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.currentPage = 0;
         userController.pages = 0;
         userController.user = {};
-        userController.userConfirmPassword = "";
         userController.address = {};
         userController.location = $location;
         userController.pageSize = 10;
@@ -75,6 +74,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
                 });
             } else {
                 userController.user.dateOfBirth = new Date(userController.user.dateOfBirth).toISOString();
+                userController.user.confirmPassword = "";
                 userController.usersAll.post(userController.user).then(function (userResult) {
                     userController.userLocation = userResult.headers().location;
                     userController.user = {};
@@ -92,6 +92,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             userController.refresh();
             userController.user.userName = "";
             userController.user.password = "";
+            userController.user.confirmPassword = "";
             userController.user.firstName = "";
             userController.user.lastName = "";
             userController.user.dateOfBirth = "";
