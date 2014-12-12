@@ -1,0 +1,20 @@
+{
+  "name": "MoneyTracker",
+  "version": "0.0.0",
+  "homepage": "http://www.ruaghain.com",
+  "authors": [
+    "Ruaghain <ruaghain_dev@hotmail.com>"
+  ],
+  "license": "n",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "grunt-cli": "~0.1.13"
+  }
+}
