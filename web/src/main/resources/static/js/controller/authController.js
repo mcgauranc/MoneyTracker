@@ -1,4 +1,4 @@
-moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular', '$location',
+moneyApp.controller("AuthController", ["$scope", "AuthService", "$http", "AuthRestangular", "$location",
     function ($scope, authService, Restangular, $location) {
 
         var authController = $scope.authController = {};
@@ -12,9 +12,9 @@ moneyApp.controller('AuthController', ['$scope', 'AuthService', 'AuthRestangular
         authController.login = function () {
             authController.authService.login(authController.username, authController.password)
                 .then(function (response) {
-                    authController.location.path('/users');
+                    authController.location.path("/users");
                 }, function (reject) {
-                    console.log('Login error');
+                    console.log("Login error");
                 });
             authController.password = "";
         };

@@ -1,9 +1,0 @@
-.ng-invalid-compare-to.ng-dirty {
-    border-color: red;
-    outline-color: red;
-}
-
-.ng-valid-compare-to.ng-valid.ng-dirty {
-    border-color: green;
-    outline-color: green;
-}

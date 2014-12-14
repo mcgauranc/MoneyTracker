@@ -1,75 +1,70 @@
 <form id="userForm" name="userForm" role="form" autocomplete="off">
-    <div class="form-group">
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': userForm.txtUserName.$invalid && userForm.txtUserName.$dirty,
+          'has-success has-feedback' : userForm.txtUserName.$valid && userForm.txtUserName.$dirty }">
         <label id="lblUserName" class="control-label" for="txtUserName">User name:</label>
         <input id="txtUserName" name="txtUserName" class="form-control" type="text" required
-               ng-model="userController.user.userName"
-               focus-on="startEdit"/>
+               ng-model="userController.user.userName" mny-username-unique/>
     </div>
     <div class="form-group"
-         ng-class="{ 'has-error has-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty }">
+         ng-class="{ 'has-error has-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
+          'has-success has-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty }">
         <label id="lblPassword" class="control-label" for="txtUserPassword">Password:</label>
         <input id="txtUserPassword" name="txtUserPassword" class="form-control" type="password" required
                ng-model="userController.user.password"/>
     </div>
-    <div class="form-group" ng-show="userController.isNewUser()">
+    <div class="form-group" ng-show="userController.isNewUser()"
+         ng-class="{ 'has-error has-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
+          'has-success has-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty }">
         <label id="lblConfirmPassword" class="control-label" for="txtUserConfirmPassword">Confirm Password:</label>
         <input id="txtUserConfirmPassword" name="txtUserConfirmPassword" class="form-control" type="password" required
                ng-model="userController.user.confirmPassword"
-               compare-to="userController.user.password"/>
+               mny-compare-to="userController.user.password"/>
     </div>
     <div class="form-group">
         <label id="lblFirstName" class="control-label" for="txtUserFirstName">First name:</label>
         <input id="txtUserFirstName" name="txtUserFirstName" class="form-control" type="text"
-               ng-model="userController.user.firstName"
-               focus-on="startEdit"/>
+               ng-model="userController.user.firstName"/>
     </div>
     <div class="form-group">
         <label id="lblLastName" class="control-label" for="txtUserLastName">Last name:</label>
         <input id="txtUserLastName" name="txtUserLastName" class="form-control" type="text"
-               ng-model="userController.user.lastName"
-               focus-on="startEdit"/>
+               ng-model="userController.user.lastName"/>
     </div>
     <div class="form-group">
         <label id="lblDateOfBirth" class="control-label" for="txtUserDateOfBirth">Date of Birth:</label>
         <input id="txtUserDateOfBirth" name="txtUserDateOfBirth" class="form-control" type="date"
-               ng-model="userController.user.dateOfBirth"
-               focus-on="startEdit"/>
+               ng-model="userController.user.dateOfBirth"/>
     </div>
     <div class="form-group">
         <label id="lblAddress1" class="control-label" for="txtUserAddress1">Address 1:</label>
         <input id="txtUserAddress1" name="txtUserAddress1" class="form-control" type="text"
-               ng-model="userController.address.address1"
-               focus-on="startEdit"/>
+               ng-model="userController.address.address1"/>
     </div>
     <div class="form-group">
         <label id="lblAddress2" class="control-label" for="txtUserAddress2">Address 2:</label>
         <input id="txtUserAddress2" name="txtUserAddress2" class="form-control" type="text"
-               ng-model="userController.address.address2"
-               focus-on="startEdit"/>
+               ng-model="userController.address.address2"/>
     </div>
     <div class="form-group">
         <label id="lblAddress3" class="control-label" for="txtUserAddress3">Address 3:</label>
         <input id="txtUserAddress3" name="txtUserAddress3" class="form-control" type="text"
-               ng-model="userController.address.address3"
-               focus-on="startEdit"/>
+               ng-model="userController.address.address3"/>
     </div>
     <div class="form-group">
         <label id="lblAddress4" class="control-label" for="txtUserAddress4">Address 4:</label>
         <input id="txtUserAddress4" name="txtUserAddress4" class="form-control" type="text"
-               ng-model="userController.address.address4"
-               focus-on="startEdit"/>
+               ng-model="userController.address.address4"/>
     </div>
     <div class="form-group">
         <label id="lblCity" class="control-label" for="txtUserCity">City:</label>
         <input id="txtUserCity" name="txtUserCity" class="form-control" type="text"
-               ng-model="userController.address.city"
-               focus-on="startEdit"/>
+               ng-model="userController.address.city"/>
     </div>
     <div>
         <label id="lblCounty" class="control-label" for="txtUserCounty">County:</label>
         <input id="txtUserCounty" name="txtUserCounty" class="form-control" type="text"
-               ng-model="userController.address.county"
-               focus-on="startEdit"/>
+               ng-model="userController.address.county"/>
     </div>
     <br/>
 
