@@ -9,12 +9,8 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
 
         userController.usersAll = Restangular.all("users");
 
-        userController.currentPage = 0;
-        userController.pages = 0;
         userController.user = {};
-        userController.address = {};
         userController.location = $location;
-        userController.pageSize = 10;
         userController.userLocation = "";
 
         userController.newUser = false;
@@ -34,10 +30,18 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         //    });
         //};
 
+        /**
+         * This method returns true if we're dealing with a new user.
+         *
+         * @returns {boolean|*|Function}
+         */
         userController.isNewUser = function () {
             return userController.newUser;
         };
 
+        /**
+         * This method refreshed the users list.
+         */
         userController.refresh = function () {
             userController.usersAll.getList({
                 "size": userController.pageSize,
@@ -51,22 +55,10 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             });
         };
 
-        userController.nextPage = function () {
-            if (userController.currentPage + 1 < userController.pages) {
-                userController.currentPage = userController.currentPage + 1;
-                userController.refresh();
-            }
-        };
-
-        userController.previousPage = function () {
-            if (userController.currentPage > 0) {
-                userController.currentPage = userController.currentPage - 1;
-                userController.refresh();
-            }
-        };
-
+        /**
+         * This method saves a new, or updates and existing user.
+         */
         userController.save = function () {
-            userController.pageSize = 5;
             if ('route' in userController.user) {
                 userController.user.put().then(function (result) {
                     userController.user = {};
@@ -78,17 +70,17 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
                 userController.usersAll.post(userController.user).then(function (userResult) {
                     userController.userLocation = userResult.headers().location;
                     userController.user = {};
-                    userController.address = {};
                     userController.refresh();
                 });
             }
         };
 
+        /**
+         * This method creates a new user object, to be referenced in code.
+         */
         userController.newUser = function () {
             userController.newUser = true;
 
-            userController.currentPage = 0;
-            userController.pageSize = 4;
             userController.refresh();
             userController.user.userName = "";
             userController.user.password = "";
@@ -97,28 +89,20 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             userController.user.lastName = "";
             userController.user.dateOfBirth = "";
 
-            userController.address.address1 = "";
-            userController.address.address2 = "";
-            userController.address.address3 = "";
-            userController.address.address4 = "";
-            userController.address.county = "";
-            userController.address.city = "";
-            focus('startEdit');
         };
 
         userController.cancel = function () {
-            userController.pageSize = 5;
             userController.user = {};
             userController.refresh();
         };
 
-        userController.edit = function (user, event) {
+        userController.edit = function (user) {
             userController.user = user;
             focus('startEdit');
         };
 
         userController.remove = function (user) {
-            users.remove().then(function (result) {
+            user.remove().then(function () {
                 userController.refresh();
             });
         };
