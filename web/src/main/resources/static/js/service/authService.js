@@ -1,11 +1,11 @@
-moneyApp.service('AuthService', ['$localStorage', '$q', '$http', function ($localStorage, $q, $http) {
+moneyApp.service('AuthService', ['$localStorage', '$q', '$http', 'mnyUserService', function ($localStorage, $q, $http) {
 
     var authService = this;
 
     authService.userName = "";
     authService.authToken = null;
-    authService.firstName = "";
-    authService.lastName = "";
+    //authService.firstName = "";
+    //authService.lastName = "";
 
     authService.storage = $localStorage;
 
@@ -24,11 +24,11 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http', function ($loca
     authService.isAuthenticated = function () {
         var deferred = $q.defer();
 
-        $http.get(BASE_URL + "/users", {headers: {"Authorization": authService.authToken}}).
+        $http.get(BASE_URL + "/users/search/existsByUserName?userName=" + authService.userName, {headers: {"Authorization": authService.authToken}}).
             success(function (data, status, headers, config) {
                 authService.storage.authToken = authService.authToken;
-                authService.firstName = data._embedded.users[0].firstName;
-                authService.lastName = data._embedded.users[0].lastName;
+                //authService.firstName = data._embedded.users[0].firstName;
+                //authService.lastName = data._embedded.users[0].lastName;
                 deferred.resolve();
             }).
             error(function (data, status, headers, config) {

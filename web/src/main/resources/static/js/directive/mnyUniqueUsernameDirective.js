@@ -6,7 +6,7 @@
  *
  */
 
-var mnyUsernameUnique = function ($http) {
+var mnyUsernameUnique = function ($http, mnyUserService) {
     return {
         restrict: "A",
         require: "ngModel",
@@ -14,8 +14,7 @@ var mnyUsernameUnique = function ($http) {
             element.bind("blur", function (e) {
                 ngModel.$loading = true;
 
-                //TODO: Check can I use restangular here.
-                $http.get("api/users/search/existsByUserName?userName=" + element.val()).success(function (data) {
+                mnyUserService.userExists(element.val()).success(function (data) {
                     ngModel.$loading = false;
                     ngModel.$setValidity("mnyUsernameUnique", !data);
                 });
