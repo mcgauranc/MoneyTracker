@@ -8,6 +8,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         var userController = $scope.userController = {};
 
         userController.user = {};
+
         userController.location = $location;
         userController.userLocation = "";
 
@@ -29,10 +30,9 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
         userController.save = function () {
             userController.user.dateOfBirth = new Date(userController.user.dateOfBirth).toISOString();
             userController.user.confirmPassword = "";
-            mnyUserService.save(userController.user).then(function (userResult) {
-                userController.userLocation = userResult.headers().location;
+            if (mnyUserService.save(userController.user)) {
                 userController.user = {};
-            });
+            }
         };
 
         /**
