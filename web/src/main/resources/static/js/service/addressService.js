@@ -4,16 +4,21 @@
  */
 
 moneyApp.service("mnyAddressService", ['Restangular', '$http', function (Restangular) {
-    return {
-        save: function (address) {
-            var deferred = $q.defer();
-            Restangular.all("addresses").post(address).success(function (data, status, headers) {
-                deferred.resolve();
-            }).error(function (data, status, headers) {
-                deferred(status);
-            });
-            return deferred.promise();
-        }
+
+    var addressService = this;
+
+    /**
+     * This method saves an address record, and returns the location of the saved resource.
+     *
+     * @param address The address object to save.
+     * @returns {string} The saved address's location.
+     */
+    addressService.save = function (address) {
+        var result = "";
+        Restangular.all("addresses").post(address).then(function (addressResult) {
+            result = addressResult.headers().location;
+        });
+        return result;
     }
 }]);
 

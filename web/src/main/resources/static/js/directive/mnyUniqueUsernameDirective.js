@@ -13,11 +13,7 @@ var mnyUsernameUnique = function ($http, mnyUserService) {
         link: function (scope, element, attrs, ngModel) {
             element.bind("blur", function (e) {
                 ngModel.$loading = true;
-
-                mnyUserService.userExists(element.val()).success(function (data) {
-                    ngModel.$loading = false;
-                    ngModel.$setValidity("mnyUsernameUnique", !data);
-                });
+                ngModel.$setValidity("mnyUsernameUnique", !mnyUserService.userExists(element.val()));
             });
         }
     };
