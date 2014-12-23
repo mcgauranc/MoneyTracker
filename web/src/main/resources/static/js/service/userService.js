@@ -4,9 +4,8 @@
  * This service facilitates all of the user functionality, and interaction with the server.
  */
 
-moneyApp.service("mnyUserService", ['$http', 'mnyAddressService', function ($http, mnyAddressService) {
+moneyApp.service("mnyUserService", ['$http', '$q', 'mnyAddressService', function ($http, $q) {
     var userService = this;
-
 
     /**
      * This method checks to see if a user, with the given username exists in the database.
@@ -15,11 +14,19 @@ moneyApp.service("mnyUserService", ['$http', 'mnyAddressService', function ($htt
      * @returns {boolean} Returns true, if the user exists in the database.
      */
     userService.userExists = function (userName) {
-        var result = false;
-        $http.get("api/users/search/existsByUserName?userName=" + userName).success(function (data) {
-            result = data;
+        //This deferred object will contain the promise that we'll return. The called should ALWAYS expect a promise.
+        //I could use "success", and "error" as opposed to "then" - the latter however is standard.
+        var deferred = $q.defer();
+        $http.get("api/users/search/existsByUserName?userName=" + userName).then(function (data) {
+            //On success we want to resolve the. We could use a caching mechanism here by assigning the value to a self.exists
+            //variable, and resolve to that if it's populated. e.g. if (self.name != null) { deferred.resolve(self.name); }
+            deferred.resolve(data);
+        }, function (error) {
+            //Reject the promise if there is a failure.
+            console.log("There was an error determining if the username was unique.");
+            deferred.reject(error);
         });
-        return result;
+        return deferred.promise;
     };
 
     /**
@@ -28,49 +35,13 @@ moneyApp.service("mnyUserService", ['$http', 'mnyAddressService', function ($htt
      * @returns {string}
      */
     userService.save = function (user) {
-        var result = "";
-        $http.post("api/users", user).success(function (data, status, headers) {
-            result = headers("location");
-            var address = getAddress(user);
-
-        }).error(function () {
-            console.log("There was an error saving the user.")
+        var deferred = $q.defer();
+        $http.post("api/users", user).then(function (data) {
+            deferred.resolve(data);
+        }, function (error) {
+            console.log("There was an error saving the user." + error);
+            deferred.reject(error);
         });
-
-        //Restangular.all("users").post(user).then(function (userResult, headers) {
-        //    result = true;
-        //    var userLocation = userResult.headers().location;
-        //    var address = getAddress(user);
-            //mnyAddressService.save(address).success(function(data, status, headers) {
-            //    var addressLocation = headers.getHeader("Location");
-            //    userService.associate(userLocation, addressLocation);
-            //}).error(function(){
-            //    deferred(status);
-            //});
-        //});
-        return result;
+        return deferred.promise;
     };
-
-    /**
-     *
-     * @param userlocation
-     * @param relatedLocation
-     * @returns {*}
-     */
-    userService.associate = function (userlocation, relatedLocation) {
-        return $http.put(userlocation, relatedLocation, {"Content-Type": "text/uri-list"})
-    };
-
-    function getAddress(user) {
-        var address = {};
-        if (!user.address1 == '') {
-            address.address1 = user.address1;
-            address.address2 = user.address2;
-            address.address3 = user.address3;
-            address.address4 = user.address4;
-            address.city = user.city;
-            address.county = user.county;
-        }
-        return address;
-    }
 }]);

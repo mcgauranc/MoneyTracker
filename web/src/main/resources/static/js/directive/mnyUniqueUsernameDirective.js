@@ -11,9 +11,15 @@ var mnyUsernameUnique = function ($http, mnyUserService) {
         restrict: "A",
         require: "ngModel",
         link: function (scope, element, attrs, ngModel) {
-            element.bind("blur", function (e) {
+            element.bind("blur", function () {
                 ngModel.$loading = true;
-                ngModel.$setValidity("mnyUsernameUnique", !mnyUserService.userExists(element.val()));
+                mnyUserService.userExists(element.val()).then(function(exists){
+                    var userExists = exists.data;
+                    ngModel.$setValidity("mnyUsernameUnique", !userExists);
+                }, function(result){
+                    console.log("There was an error processing if the user existed: " + result);
+                    ngModel.$setValidity("mnyUsernameUnique", false);
+                });
             });
         }
     };
