@@ -5,7 +5,6 @@ import com.wraith.money.repository.TransactionRepository;
 import com.wraith.money.web.processor.MoneyTransaction;
 import com.wraith.money.web.processor.TransactionProcessor;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
@@ -20,7 +19,6 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
@@ -31,8 +29,8 @@ import javax.inject.Inject;
  * Date: 11/09/2014
  * Time: 16:19
  */
-@Configuration
-@EnableBatchProcessing
+//@Configuration
+//@EnableBatchProcessing
 public class BatchConfiguration {
 
     @Inject

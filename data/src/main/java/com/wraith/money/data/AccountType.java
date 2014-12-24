@@ -1,12 +1,10 @@
 package com.wraith.money.data;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -14,14 +12,14 @@ import java.io.Serializable;
  * Date: 15/08/12
  * Time: 22:11
  */
-@Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "acctype_id")),
         @AttributeOverride(name = "version", column = @Column(name = "acctype_version"))})
 public class AccountType extends BaseEntity implements Serializable {
     private String name;
 
-    @Column(name = "acctype_name", nullable = false)
     public String getName() {
         return name;
     }

@@ -13,7 +13,6 @@ import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ import java.util.Set;
  * Date: 26/08/2014
  * Time: 21:11
  */
-@Service
+//@Service
 public class DataUploadService {
 
     private static final String TEMP_DIRECTORY = "java.io.tmpdir";

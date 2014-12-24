@@ -1,8 +1,11 @@
 package com.wraith.money.data;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,19 +17,20 @@ import java.util.Set;
  * Date: 12/08/12
  * Time: 20:53
  */
-@Entity
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "group_id")),
         @AttributeOverride(name = "version", column = @Column(name = "group_version"))})
 public class Groups extends BaseEntity implements Serializable {
 
     private String name;
+    @DBRef
     private Set<Authorities> authorities = new HashSet<>();
 
     public Groups() {
     }
 
-    @Column(name = "group_name", nullable = false)
     public String getName() {
         return name;
     }
@@ -35,9 +39,6 @@ public class Groups extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "Group_Authorities", joinColumns = {@JoinColumn(name = "group_authorities_group_id", referencedColumnName = "group_id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_authorities_authorities_id", referencedColumnName = "authorities_id")})
     public Set<Authorities> getAuthorities() {
         return authorities;
     }

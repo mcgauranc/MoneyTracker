@@ -1,29 +1,16 @@
 package com.wraith.money.web.processor;
 
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.wraith.money.data.*;
+import com.wraith.money.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import com.wraith.money.data.Account;
-import com.wraith.money.data.AccountType;
-import com.wraith.money.data.Category;
-import com.wraith.money.data.Currency;
-import com.wraith.money.data.Payee;
-import com.wraith.money.data.Transaction;
-import com.wraith.money.data.Users;
-import com.wraith.money.repository.AccountRepository;
-import com.wraith.money.repository.AccountTypeRepository;
-import com.wraith.money.repository.CategoryRepository;
-import com.wraith.money.repository.CurrencyRepository;
-import com.wraith.money.repository.PayeeRepository;
-import com.wraith.money.repository.UsersRepository;
+import javax.inject.Inject;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * User: rowan.massey Date: 11/09/2014 Time: 16:16
@@ -70,7 +57,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private Currency getBaseCurrency() {
-		List<Currency> currencies = currencyRepository.findByIso("EUR");
+		List<Currency> currencies = currencyRepository.findByIso("EUR", null).getContent();
 		if (!currencies.isEmpty()) {
 			return currencies.get(0);
 		} else {
@@ -87,7 +74,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private Account getAccount(String accountName, String accountType) {
-		List<Account> accounts = accountRepository.findByName(accountName);
+		List<Account> accounts = accountRepository.findByName(accountName, null).getContent();
 		if (!accounts.isEmpty()) {
 			return accounts.get(0);
 		} else {
@@ -108,14 +95,14 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 		if (payeeName.isEmpty()) {
 			payeeName = "Unknown";
 		}
-		List<Payee> payees = payeeRepository.findByName(payeeName);
+		List<Payee> payees = payeeRepository.findByName(payeeName, null).getContent();
 		if (!payees.isEmpty()) {
 			return payees.get(0);
 		} else {
 			Payee payee = new Payee();
 			payee.setName(payeeName);
 			payeeRepository.save(payee);
-			return payeeRepository.findByName(payeeName).get(0);
+			return payeeRepository.findByName(payeeName, null).getContent().get(0);
 		}
 	}
 
@@ -124,14 +111,14 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private AccountType getAccountType(String accountTypeName) {
-		List<AccountType> accountTypes = accountTypeRepository.findByName(accountTypeName);
+		List<AccountType> accountTypes = accountTypeRepository.findByName(accountTypeName, null).getContent();
 		if (!accountTypes.isEmpty()) {
 			return accountTypes.get(0);
 		} else {
 			AccountType accountType = new AccountType();
 			accountType.setName(accountTypeName);
 			accountTypeRepository.save(accountType);
-			return accountTypeRepository.findByName(accountTypeName).get(0);
+			return accountTypeRepository.findByName(accountTypeName, null).getContent().get(0);
 		}
 	}
 
@@ -142,7 +129,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 */
 	private Category getCategory(String categoryName, String subCategoryName) {
 		if (!subCategoryName.isEmpty()) {
-			List<Category> categories = categoryRepository.findByName(subCategoryName);
+			List<Category> categories = categoryRepository.findByName(subCategoryName, null).getContent();
 			if (!categories.isEmpty()) {
 				return categories.get(0);
 			} else {
@@ -153,8 +140,8 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 				return categoryRepository.save(subCategory);
 			}
 		} else {
-			if (!categoryRepository.findByName(categoryName).isEmpty()) {
-				return categoryRepository.findByName(categoryName).get(0);
+			if (!categoryRepository.findByName(categoryName, null).getContent().isEmpty()) {
+				return categoryRepository.findByName(categoryName, null).getContent().get(0);
 			} else {
 				Category category = new Category();
 				category.setName(categoryName);

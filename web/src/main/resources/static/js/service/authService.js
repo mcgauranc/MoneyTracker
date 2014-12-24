@@ -23,7 +23,6 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http', 'mnyUserService
 
     authService.isAuthenticated = function () {
         var deferred = $q.defer();
-
         $http.get(BASE_URL + "/users/search/existsByUserName?userName=" + authService.userName, {headers: {"Authorization": authService.authToken}}).
             success(function (data, status, headers, config) {
                 authService.storage.authToken = authService.authToken;
@@ -35,7 +34,6 @@ moneyApp.service('AuthService', ['$localStorage', '$q', '$http', 'mnyUserService
                 authService.authToken = null;
                 deferred(status);
             });
-
         return deferred.promise;
     };
 

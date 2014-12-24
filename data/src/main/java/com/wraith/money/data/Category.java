@@ -1,10 +1,12 @@
 package com.wraith.money.data;
 
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -12,17 +14,17 @@ import java.io.Serializable;
  * Date: 02/09/12
  * Time: 14:05
  */
-@Entity
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "category_id")),
         @AttributeOverride(name = "version", column = @Column(name = "category_version"))})
 public class Category extends BaseEntity implements Serializable {
 
+    @DBRef
     private Category parentCategory;
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_parent_id")
     public Category getParentCategory() {
         return parentCategory;
     }
@@ -31,8 +33,6 @@ public class Category extends BaseEntity implements Serializable {
         this.parentCategory = parentCategory;
     }
 
-    @NaturalId
-    @Column(name = "category_name", nullable = false)
     public String getName() {
         return name;
     }

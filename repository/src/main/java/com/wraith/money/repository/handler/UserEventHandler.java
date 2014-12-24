@@ -46,7 +46,7 @@ public class UserEventHandler {
         user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));
         if (user.getAddress() != null) {
             logger.debug(String.format("User address is not null, retrieving country for ISO '%s', from database.", user.getAddress().getCountry().getName()));
-            Country userCountry = countryRepository.findByIso(user.getAddress().getCountry().getName()).get(0);
+            Country userCountry = countryRepository.findByIso(user.getAddress().getCountry().getName(), null).getContent().get(0);
             user.getAddress().setCountry(userCountry);
         }
     }
@@ -86,7 +86,7 @@ public class UserEventHandler {
      */
     private Set<Groups> getUserRoleGroup() {
         Set<Groups> userGroupsSet = new HashSet<>();
-        List<Groups> userGroups = groupsRepository.findByName("Users");
+        List<Groups> userGroups = groupsRepository.findByName("Users", null).getContent();
         if (userGroups.isEmpty()) {
             throw new RepositoryException("No group called 'Users' is defined for the user to be assigned to.");
         }

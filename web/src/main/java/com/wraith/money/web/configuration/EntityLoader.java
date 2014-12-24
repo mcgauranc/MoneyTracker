@@ -7,7 +7,6 @@ import com.wraith.money.repository.UsersRepository;
 import com.wraith.money.repository.encoding.Encoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -16,7 +15,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component("entityLoader")
+//@Component("entityLoader")
 public class EntityLoader {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

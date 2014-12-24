@@ -1,6 +1,11 @@
 package com.wraith.money.data;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -8,11 +13,13 @@ import java.io.Serializable;
  * Date: 09/09/2014
  * Time: 21:17
  */
-@Entity
+//@Entity
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "datauploadmapping_id")),
         @AttributeOverride(name = "version", column = @Column(name = "datauploadmapping_version"))})
 public class DataUploadMapping extends BaseEntity implements Serializable {
 
+    @DBRef
     private DataUpload dataUpload;
     private String entityName;
     private String localField;
@@ -20,8 +27,6 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
     private String dataType;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "datauploadmapping_dataupload_id")
     public DataUpload getDataUpload() {
         return dataUpload;
     }
@@ -30,7 +35,6 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
         this.dataUpload = dataUpload;
     }
 
-    @Column(name = "datauploadmapping_entityname", nullable = false)
     public String getEntityName() {
         return entityName;
     }
@@ -39,7 +43,6 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
         this.entityName = entityName;
     }
 
-    @Column(name = "datauploadmapping_localfield", nullable = false)
     public String getLocalField() {
         return localField;
     }
@@ -48,7 +51,6 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
         this.localField = localField;
     }
 
-    @Column(name = "datauploadmapping_importedfield", nullable = false)
     public String getImportedField() {
         return importedField;
     }
@@ -57,7 +59,6 @@ public class DataUploadMapping extends BaseEntity implements Serializable {
         this.importedField = importedField;
     }
 
-    @Column(name = "datauploadmapping_fieldtype", nullable = false)
     public String getDataType() {
         return dataType;
     }

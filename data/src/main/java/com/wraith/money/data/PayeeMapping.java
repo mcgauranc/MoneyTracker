@@ -1,6 +1,11 @@
 package com.wraith.money.data;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -11,13 +16,13 @@ import java.io.Serializable;
  * Date: 09/09/2014
  * Time: 20:40
  */
-@Entity
+//@Entity
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "payeemapping_id")),
         @AttributeOverride(name = "version", column = @Column(name = "payeemapping_version"))})
 public class PayeeMapping extends BaseEntity implements Serializable {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "payee_id")
+    @DBRef
     private Payee payee;
     private String payeeDescription;
 

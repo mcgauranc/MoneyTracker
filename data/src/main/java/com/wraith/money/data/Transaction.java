@@ -1,11 +1,11 @@
 package com.wraith.money.data;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,17 +14,21 @@ import java.util.Date;
  * Date: 16/08/12
  * Time: 22:00
  */
-@Entity
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@Audited
-@AuditTable(value = "Transaction_Audit")
-@Table(name = "[Transaction]")
+//@Entity
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+//@Audited
+//@AuditTable(value = "Transaction_Audit")
+//@Table(name = "[Transaction]")
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "transaction_id")),
         @AttributeOverride(name = "version", column = @Column(name = "transaction_version"))})
 public class Transaction extends BaseEntity implements Serializable {
 
+    @DBRef
     private Payee payee;
+    @DBRef
     private Currency currency;
+    @DBRef
     private Category category;
     private int number;
     private String checkNumber;
@@ -32,12 +36,11 @@ public class Transaction extends BaseEntity implements Serializable {
     private Double amount;
     private int quantity;
     private String notes;
+    @DBRef
     private Users user;
+    @DBRef
     private Account account;
 
-    @NotAudited
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_payee_id")
     public Payee getPayee() {
         return payee;
     }
@@ -46,9 +49,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.payee = payee;
     }
 
-    @NotAudited
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_currency_id")
     public Currency getCurrency() {
         return currency;
     }
@@ -57,9 +57,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.currency = currency;
     }
 
-    @NotAudited
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_category_id")
     public Category getCategory() {
         return category;
     }
@@ -68,7 +65,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.category = category;
     }
 
-    @Column(name = "transaction_number", nullable = false)
     public int getNumber() {
         return number;
     }
@@ -77,7 +73,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.number = number;
     }
 
-    @Column(name = "transaction_checknumber", nullable = true)
     public String getCheckNumber() {
         return checkNumber;
     }
@@ -86,7 +81,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.checkNumber = checkNumber;
     }
 
-    @Column(name = "transaction_date", nullable = false)
     public Date getTransactionDate() {
         return transactionDate;
     }
@@ -95,7 +89,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    @Column(name = "transaction_amount", nullable = false)
     public Double getAmount() {
         return amount;
     }
@@ -104,7 +97,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.amount = amount;
     }
 
-    @Column(name = "transaction_quantity", nullable = true)
     public int getQuantity() {
         return quantity;
     }
@@ -113,7 +105,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    @Column(name = "transaction_notes", nullable = true)
     public String getNotes() {
         return notes;
     }
@@ -122,8 +113,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.notes = notes;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_user_id", nullable = false)
     public Users getUser() {
         return user;
     }
@@ -132,8 +121,6 @@ public class Transaction extends BaseEntity implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_account_id", nullable = false)
     public Account getAccount() {
         return account;
     }

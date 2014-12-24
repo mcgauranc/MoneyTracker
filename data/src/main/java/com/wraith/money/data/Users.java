@@ -1,14 +1,13 @@
 package com.wraith.money.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,10 +18,11 @@ import java.util.Set;
  * Date: 06/07/12
  * Time: 23:23
  */
-@Entity
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@Audited
-@AuditTable(value = "Users_Audit")
+//@Entity
+//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+//@Audited
+//@AuditTable(value = "Users_Audit")
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "users_id")),
         @AttributeOverride(name = "version", column = @Column(name = "users_version"))})
 public class Users extends BaseEntity implements Serializable {
@@ -34,16 +34,19 @@ public class Users extends BaseEntity implements Serializable {
     private Date dateOfBirth;
     @JsonIgnore
     private int enabled;
+    @DBRef
     private Address address;
+    @DBRef
     private Set<Groups> groups = new HashSet<>();
+    @DBRef
     private Set<Transaction> transactions = new HashSet<>();
+    @DBRef
     private Set<Account> accounts = new HashSet<>();
 
     public Users() {
 
     }
 
-    @Column(name = "users_firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -52,7 +55,6 @@ public class Users extends BaseEntity implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column(name = "users_lastName")
     public String getLastName() {
         return lastName;
     }
@@ -61,8 +63,6 @@ public class Users extends BaseEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    @NaturalId
-    @Column(name = "users_userName")
     public String getUserName() {
         return userName;
     }
@@ -72,7 +72,6 @@ public class Users extends BaseEntity implements Serializable {
     }
 
     //    @JsonIgnore
-    @Column(name = "users_password")
     public String getPassword() {
         return password;
     }
@@ -82,7 +81,6 @@ public class Users extends BaseEntity implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "users_enabled", nullable = false)
     public int getEnabled() {
         return enabled;
     }
@@ -91,7 +89,6 @@ public class Users extends BaseEntity implements Serializable {
         this.enabled = enabled;
     }
 
-    @Column(name = "users_dateofbirth")
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -100,9 +97,6 @@ public class Users extends BaseEntity implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @NotAudited
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "users_address_id")
     public Address getAddress() {
         return address;
     }
@@ -111,10 +105,6 @@ public class Users extends BaseEntity implements Serializable {
         this.address = address;
     }
 
-    @NotAudited
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "Users_Groups", joinColumns = {@JoinColumn(name = "users_groups_user_id", referencedColumnName = "users_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "users_groups_group_id", referencedColumnName = "group_id", nullable = false)})
     public Set<Groups> getGroups() {
         return groups;
     }
@@ -123,8 +113,6 @@ public class Users extends BaseEntity implements Serializable {
         this.groups = groups;
     }
 
-    @NotAudited
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, mappedBy = "user")
     public Set<Transaction> getTransactions() {
         return transactions;
     }
@@ -133,10 +121,6 @@ public class Users extends BaseEntity implements Serializable {
         this.transactions = transactions;
     }
 
-    @NotAudited
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinTable(name = "Users_Account", joinColumns = {@JoinColumn(name = "users_account_user_id", referencedColumnName = "users_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "users_account_account_id", referencedColumnName = "account_id", nullable = false)})
     public Set<Account> getAccounts() {
         return accounts;
     }

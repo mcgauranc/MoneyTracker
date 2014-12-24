@@ -1,8 +1,11 @@
 package com.wraith.money.data;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -10,8 +13,9 @@ import java.io.Serializable;
  * Date: 17/08/12
  * Time: 15:33
  */
-@Entity
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "address_id")),
         @AttributeOverride(name = "version", column = @Column(name = "address_version"))})
 public class Address extends BaseEntity implements Serializable {
@@ -22,9 +26,9 @@ public class Address extends BaseEntity implements Serializable {
     private String address4;
     private String county;
     private String city;
+    @DBRef
     private Country country;
 
-    @Column(name = "address_address1", nullable = false)
     public String getAddress1() {
         return address1;
     }
@@ -33,7 +37,6 @@ public class Address extends BaseEntity implements Serializable {
         this.address1 = address1;
     }
 
-    @Column(name = "address_address2")
     public String getAddress2() {
         return address2;
     }
@@ -42,7 +45,6 @@ public class Address extends BaseEntity implements Serializable {
         this.address2 = address2;
     }
 
-    @Column(name = "address_address3")
     public String getAddress3() {
         return address3;
     }
@@ -51,7 +53,6 @@ public class Address extends BaseEntity implements Serializable {
         this.address3 = address3;
     }
 
-    @Column(name = "address_address4")
     public String getAddress4() {
         return address4;
     }
@@ -60,7 +61,6 @@ public class Address extends BaseEntity implements Serializable {
         this.address4 = address4;
     }
 
-    @Column(name = "address_county")
     public String getCounty() {
         return county;
     }
@@ -69,7 +69,6 @@ public class Address extends BaseEntity implements Serializable {
         this.county = county;
     }
 
-    @Column(name = "address_city", nullable = false)
     public String getCity() {
         return city;
     }
@@ -78,8 +77,6 @@ public class Address extends BaseEntity implements Serializable {
         this.city = city;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_country_id")
     public Country getCountry() {
         return country;
     }

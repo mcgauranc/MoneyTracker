@@ -1,6 +1,11 @@
 package com.wraith.money.data;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,18 +16,19 @@ import java.util.Set;
  * Date: 09/09/2014
  * Time: 21:17
  */
-@Entity
+//@Entity
+@Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "dataupload_id")),
         @AttributeOverride(name = "version", column = @Column(name = "dataupload_version"))})
 public class DataUpload extends BaseEntity implements Serializable {
 
     private String description;
     private Date uploadDate;
+    @DBRef
     private Users user;
+    @DBRef
     private Set<DataUploadMapping> mappings = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dataupload_users_id")
     public Users getUser() {
         return user;
     }
@@ -31,7 +37,6 @@ public class DataUpload extends BaseEntity implements Serializable {
         this.user = user;
     }
 
-    @Column(name = "dataupload_description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -40,7 +45,6 @@ public class DataUpload extends BaseEntity implements Serializable {
         this.description = description;
     }
 
-    @Column(name = "dataupload_date", nullable = false)
     public Date getUploadDate() {
         return uploadDate;
     }
@@ -49,7 +53,6 @@ public class DataUpload extends BaseEntity implements Serializable {
         this.uploadDate = uploadDate;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, mappedBy = "dataUpload")
     public Set<DataUploadMapping> getMappings() {
         return mappings;
     }
