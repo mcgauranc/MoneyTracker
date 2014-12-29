@@ -9,12 +9,11 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
+ * This class is the object representation of an Address in the database.
+ *
  * User: rowan.massey
  * Date: 17/08/12
- * Time: 15:33
  */
-//@Entity
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "address_id")),
         @AttributeOverride(name = "version", column = @Column(name = "address_version"))})

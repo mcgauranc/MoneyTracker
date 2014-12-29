@@ -14,9 +14,7 @@ import java.io.Serializable;
  * <p/>
  * User: rowan.massey
  * Date: 09/09/2014
- * Time: 20:40
  */
-//@Entity
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "payeemapping_id")),
         @AttributeOverride(name = "version", column = @Column(name = "payeemapping_version"))})

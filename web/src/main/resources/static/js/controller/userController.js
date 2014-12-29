@@ -2,9 +2,9 @@
 
 /* Controllers */
 
-moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location", "focus", "mnyUserService",
-    "mnyAddressService", "mnyRelationshipService",
-    function ($scope, Restangular, $location, focus, mnyUserService, mnyAddressService, mnyRelationshipService) {
+moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserService",
+    "mnyAddressService", "mnyRelationshipService", "mnyAuthService",
+    function ($scope, $location, focus, mnyUserService, mnyAddressService, mnyRelationshipService, mnyAuthService) {
 
         var userController = $scope.userController = {};
 
@@ -32,6 +32,7 @@ moneyApp.controller("UserController", ["$scope", "AuthRestangular", "$location",
             var user = getUserDto(userController.user);
             mnyUserService.save(user).then(function (userData) {
                 userController.userLocation = userData.headers().location;
+                mnyAuthService.login(user.userName, user.password);
                 var address = getAddressDto(userController.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     userController.addressLocation = addressData.headers().location;

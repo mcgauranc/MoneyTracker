@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * This class facilitates all of the common properties for each of the entities.
+ *
  * User: rowan.massey
  * Date: 23/07/12
- * Time: 20:56
  */
 @MappedSuperclass
 public class BaseEntity implements Cloneable, Serializable {

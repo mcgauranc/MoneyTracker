@@ -8,12 +8,11 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
+ * This class is the object representation of an account type in the database. They include "Current", "Wallet" etc
+ *
  * User: rowan.massey
  * Date: 15/08/12
- * Time: 22:11
  */
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "acctype_id")),
         @AttributeOverride(name = "version", column = @Column(name = "acctype_version"))})

@@ -7,14 +7,15 @@ import com.wraith.money.repository.UsersRepository;
 import org.apache.commons.lang.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,18 +24,13 @@ import java.util.Collection;
  * Date: 12/08/12
  * Time: 21:44
  */
-//@Component
+@Component
 public class MoneyUserDetailsService implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Inject
     private UsersRepository usersRepository;
-
-//    @Autowired
-//    public MoneyUserDetailsService(DataSource dataSource) {
-//        this.setDataSource(dataSource);
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,7 +49,7 @@ public class MoneyUserDetailsService implements UserDetailsService {
     protected UserDetails findUserByUsername(String username) {
         logger.debug(String.format("Finding user with user name '%s'", username));
 
-        Users user = usersRepository.findByUserName(username, null).getContent().get(0);
+        Users user = usersRepository.findByUserName(username);
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         for (Groups group : user.getGroups()) {

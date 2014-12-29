@@ -20,7 +20,6 @@ import javax.servlet.MultipartConfigElement;
 @EnableAsync
 @Configuration
 @EnableMongoRepositories(basePackages = {"com.wraith.money.repository"})
-//@Import(RepositoryRestMvcConfiguration.class)
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
         org.springframework.boot.actuate.autoconfigure.ManagementSecurityAutoConfiguration.class})

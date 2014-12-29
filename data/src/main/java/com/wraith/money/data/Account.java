@@ -10,14 +10,11 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
+ * This class is the object representation of an account in the database.
+ *
  * User: rowan.massey
  * Date: 15/08/12
- * Time: 21:25
  */
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//@Audited
-//@AuditTable(value = "Account_Audit")
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "account_id")),
         @AttributeOverride(name = "version", column = @Column(name = "account_version"))})

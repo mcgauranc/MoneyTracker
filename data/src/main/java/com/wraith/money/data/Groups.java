@@ -15,10 +15,7 @@ import java.util.Set;
  *
  * User: rowan.massey
  * Date: 12/08/12
- * Time: 20:53
  */
-//@Entity
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "group_id")),
         @AttributeOverride(name = "version", column = @Column(name = "group_version"))})

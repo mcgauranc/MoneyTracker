@@ -12,8 +12,6 @@ import java.io.Serializable;
  * Date: 12/08/12
  * Time: 20:51
  */
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "authorities_id")),
         @AttributeOverride(name = "version", column = @Column(name = "authorities_version"))})

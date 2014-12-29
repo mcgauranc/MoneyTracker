@@ -19,7 +19,7 @@ moneyApp.config(function (RestangularProvider) {
     });
 });
 
-moneyApp.factory('AuthRestangular', ['Restangular', 'AuthService', function (Restangular, authService) {
+moneyApp.factory('AuthRestangular', ['Restangular', 'mnyAuthService', function (Restangular, authService) {
     var authService = authService;
     return Restangular.withConfig(function (RestangularConfigurer) {
         RestangularConfigurer.setFullResponse(true);

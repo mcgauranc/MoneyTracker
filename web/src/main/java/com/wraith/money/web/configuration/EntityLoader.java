@@ -1,12 +1,15 @@
 package com.wraith.money.web.configuration;
 
-import com.wraith.money.data.*;
+import com.wraith.money.data.Authorities;
+import com.wraith.money.data.Groups;
+import com.wraith.money.data.Users;
 import com.wraith.money.repository.AuthoritiesRepository;
 import com.wraith.money.repository.GroupsRepository;
 import com.wraith.money.repository.UsersRepository;
 import com.wraith.money.repository.encoding.Encoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -15,7 +18,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Component("entityLoader")
+@Component("entityLoader")
 public class EntityLoader {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,7 +50,7 @@ public class EntityLoader {
             Set<Groups> adminGroups = new HashSet<>();
             adminGroups.add(adminGroup);
 
-            createUser("Admin", "User", "Admin", "Passw0rd", "IRL", "Republic of Ireland", adminGroups);
+            createUser("Admin", "User", "Admin", "Passw0rd", adminGroups);
 
             //Set the authorities for the user group.
             Set<Authorities> userAuthorities = new HashSet<>();
@@ -107,8 +110,7 @@ public class EntityLoader {
      * @param groups    The group that the user is associated with.
      * @return An instance of the newly created user.
      */
-    private Users createUser(String firstName, String lastName, String userName, String password, String countryISO,
-                             String countryName, Set<Groups> groups) {
+    private Users createUser(String firstName, String lastName, String userName, String password, Set<Groups> groups) {
         Users defaultUser = new Users();
         defaultUser.setUserName(userName);
         defaultUser.setFirstName(firstName);
@@ -121,18 +123,6 @@ public class EntityLoader {
             logger.error("Error encoding password for default user.", e);
         }
         defaultUser.setGroups(groups);
-        Country country = new Country();
-        country.setIso(countryISO);
-        country.setName(countryName);
-        Address address = new Address();
-        address.setAddress1("Address 1");
-        address.setAddress2("Address 2");
-        address.setAddress3("Address 3");
-        address.setAddress4("Address 4");
-        address.setCity("Lucan");
-        address.setCounty("Dublin");
-        address.setCountry(country);
-        defaultUser.setAddress(address);
         return usersRepository.save(defaultUser);
     }
 }

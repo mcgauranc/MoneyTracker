@@ -14,9 +14,7 @@ import java.util.Set;
 /**
  * User: rowan.massey
  * Date: 09/09/2014
- * Time: 21:17
  */
-//@Entity
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "dataupload_id")),
         @AttributeOverride(name = "version", column = @Column(name = "dataupload_version"))})

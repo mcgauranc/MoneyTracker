@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * User: rowan.massey Date: 17/03/13 Time: 15:40
  */
-@RepositoryRestResource(itemResourceRel = "authorities", path = "/authorities")
+@RepositoryRestResource(collectionResourceRel = "authorities", path = "/authorities")
 public interface AuthoritiesRepository extends MongoRepository<Authorities, Long> {
 
 	public Page<Authorities> findByAuthority(@Param("authorityName") String authorityName, Pageable pageable);

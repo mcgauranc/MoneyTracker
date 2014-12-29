@@ -12,10 +12,7 @@ import java.io.Serializable;
 /**
  * User: rowan.massey
  * Date: 02/09/12
- * Time: 14:05
  */
-//@Entity
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "category_id")),
         @AttributeOverride(name = "version", column = @Column(name = "category_version"))})

@@ -12,13 +12,7 @@ import java.util.Date;
 /**
  * User: rowan.massey
  * Date: 16/08/12
- * Time: 22:00
  */
-//@Entity
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-//@Audited
-//@AuditTable(value = "Transaction_Audit")
-//@Table(name = "[Transaction]")
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "transaction_id")),
         @AttributeOverride(name = "version", column = @Column(name = "transaction_version"))})

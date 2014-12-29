@@ -11,12 +11,7 @@ import java.io.Serializable;
 /**
  * User: rowan.massey
  * Date: 16/08/12
- * Time: 22:04
  */
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//@Audited
-//@AuditTable(value = "Payee_Audit")
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "payee_id")),
         @AttributeOverride(name = "version", column = @Column(name = "payee_version"))})

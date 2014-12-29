@@ -2,11 +2,15 @@ package com.wraith.money.web.security;
 
 import com.wraith.money.web.authentication.AjaxAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
@@ -15,9 +19,9 @@ import javax.inject.Inject;
 /**
  * User: rowan.massey Date: 14/08/2014 Time: 23:39
  */
-//@Configuration
-//@EnableWebMvcSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
+@EnableWebMvcSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Inject
@@ -45,7 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/countries/**").hasRole("ADMIN")
                 .antMatchers("/currencies/**").hasRole("ADMIN")
                 .antMatchers("/groups/**").hasRole("ADMIN")
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/authenticate/**").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/users/").permitAll()
+                .antMatchers("/users/").hasRole("USER")
+                .antMatchers("/**").permitAll()
                 .and()
                 .httpBasic()
                 .realmName("MoneyTracker Realm via Basic Authentication")

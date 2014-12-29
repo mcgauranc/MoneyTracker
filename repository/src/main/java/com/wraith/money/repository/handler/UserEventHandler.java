@@ -1,6 +1,5 @@
 package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Country;
 import com.wraith.money.data.Groups;
 import com.wraith.money.data.Users;
 import com.wraith.money.repository.CountryRepository;
@@ -18,7 +17,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,15 +38,9 @@ public class UserEventHandler {
     @HandleBeforeCreate
     public void beforeUserCreate(Users user) {
         logger.debug(String.format("In before create for user '%s'", user.getUserFullName()));
-
         user.setEnabled(1);
         user.setGroups(getUserRoleGroup());
         user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));
-        if (user.getAddress() != null) {
-            logger.debug(String.format("User address is not null, retrieving country for ISO '%s', from database.", user.getAddress().getCountry().getName()));
-            Country userCountry = countryRepository.findByIso(user.getAddress().getCountry().getName(), null).getContent().get(0);
-            user.getAddress().setCountry(userCountry);
-        }
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")
@@ -86,12 +78,11 @@ public class UserEventHandler {
      */
     private Set<Groups> getUserRoleGroup() {
         Set<Groups> userGroupsSet = new HashSet<>();
-        List<Groups> userGroups = groupsRepository.findByName("Users", null).getContent();
-        if (userGroups.isEmpty()) {
+        Groups userGroups = groupsRepository.findByName("Users");
+        if (userGroups.getName().isEmpty()) {
             throw new RepositoryException("No group called 'Users' is defined for the user to be assigned to.");
         }
-        Groups userGroup = userGroups.get(0);
-        userGroupsSet.add(userGroup);
+        userGroupsSet.add(userGroups);
         return userGroupsSet;
     }
 }

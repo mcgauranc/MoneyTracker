@@ -1,4 +1,4 @@
-moneyApp.controller("AuthController", ["$scope", "AuthService", "$http", "AuthRestangular", "$location",
+moneyApp.controller("AuthController", ["$scope", "mnyAuthService", "$http", "AuthRestangular", "$location",
     function ($scope, authService, Restangular, $location) {
 
         var authController = $scope.authController = {};

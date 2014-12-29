@@ -16,12 +16,7 @@ import java.util.Set;
 /**
  * User: rowan.massey
  * Date: 06/07/12
- * Time: 23:23
  */
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-//@Audited
-//@AuditTable(value = "Users_Audit")
 @Document
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "users_id")),
         @AttributeOverride(name = "version", column = @Column(name = "users_version"))})
