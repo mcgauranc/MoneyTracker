@@ -6,25 +6,18 @@
  *
  */
 
-moneyApp.controller("AddressController", ["$scope", "AuthRestangular", "$location",
-    function ($scope, Restangular, $location) {
+moneyApp.controller("AddressController", ["$scope", "$location",
+    function ($scope, $location) {
 
         var addressController = $scope.addressController = {};
 
-        addressController.addressAll = Restangular.all("addresses");
-
         addressController.address = {};
-        addressController.location = $location;
         addressController.addressLocation = "";
 
         /**
          * This method saves a new instance of an address to the database.
          */
         addressController.save = function () {
-            addressController.addressAll.post(addressController.address).then(function () {
-                addressController.userLocation = addressController.headers().location;
-                addressController.addressLocation = {};
-            });
         };
 
         /**

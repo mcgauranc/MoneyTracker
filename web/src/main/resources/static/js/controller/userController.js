@@ -2,18 +2,19 @@
 
 /* Controllers */
 
-moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserService",
-    "mnyAddressService", "mnyRelationshipService", "mnyAuthService",
-    function ($scope, $location, focus, mnyUserService, mnyAddressService, mnyRelationshipService, mnyAuthService) {
+moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
+    "mnyAddressService", "mnyRelationshipService",
+    function ($scope, $location, mnyUserService, mnyAddressService, mnyRelationshipService) {
 
         var userController = $scope.userController = {};
 
         userController.user = {};
 
-        userController.location = $location;
         userController.userLocation = "";
         userController.addressLocation = "";
         userController.newUser = false;
+
+        userController.allUsers = [];
 
 
         /**
@@ -42,6 +43,17 @@ moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserS
                 });
             }, function (error) {
                 console.log("There was an error processing the user: " + error);
+            })
+        };
+
+        /**
+         *
+         */
+        userController.refresh = function () {
+            mnyUserService.getAllUsers().then(function (userData) {
+                userController.allUsers = userData;
+            }, function (error) {
+                console.log("There was an error getting all the users: " + error);
             })
         };
 
@@ -103,5 +115,10 @@ moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserS
             result.county = user.county;
 
             return result;
+        }
+
+        userController.redirect = function (path) {
+            userController.isNewUser = true;
+            $location.path(path);
         }
     }]);

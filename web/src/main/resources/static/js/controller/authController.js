@@ -6,16 +6,18 @@ moneyApp.controller("AuthController", ["$scope", "mnyAuthService", "$location",
         authController.username = "";
         authController.password = "";
 
-        authController.authService = authService;
-
         authController.login = function () {
-            authController.authService.login(authController.username, authController.password)
+            authService.login(authController.username, authController.password)
                 .then(function (response) {
                     $location.path("/landingPage");
                 }, function (reject) {
                     console.log("Login error");
                 });
             authController.password = "";
+        };
+
+        authController.isAuthenticated = function() {
+            return authService.getAuthToken() != undefined;
         };
 
         authController.logout = function () {

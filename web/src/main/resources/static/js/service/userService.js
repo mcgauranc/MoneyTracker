@@ -5,6 +5,7 @@
  */
 
 moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
+
     var userService = this;
 
     /**
@@ -45,4 +46,19 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
         });
         return deferred.promise;
     };
+
+    /**
+     *
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    userService.getAllUsers = function () {
+        var deferred = $q.defer();
+        $http.get("api/users").then(function (data) {
+            deferred.resolve(data.data._embedded.users);
+        }, function (error) {
+            console.log("There was an error saving the user." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    }
 }]);
