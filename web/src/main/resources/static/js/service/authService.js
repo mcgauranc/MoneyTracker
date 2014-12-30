@@ -1,4 +1,4 @@
-moneyApp.service('mnyAuthService', ['$localStorage', 'mnyUniqueUserService', function ($localStorage, mnyUniqueUserService) {
+moneyApp.service('mnyAuthService', ['$localStorage', 'mnyUserService', function ($localStorage, mnyUserService) {
 
     var authService = this;
 
@@ -30,7 +30,7 @@ moneyApp.service('mnyAuthService', ['$localStorage', 'mnyUniqueUserService', fun
      * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
      */
     authService.isAuthenticated = function () {
-        return mnyUniqueUserService.userExists(authService.userName);
+        return mnyUserService.userExists(authService.userName);
     };
 
     /**
@@ -42,14 +42,6 @@ moneyApp.service('mnyAuthService', ['$localStorage', 'mnyUniqueUserService', fun
             authService.authToken = authService.storage.authToken;
         }
         return authService.authToken;
-    };
-
-    /**
-     *
-     * @returns {string}
-     */
-    authService.getFullName = function () {
-        return authService.firstName + " " + authService.lastName;
     };
 
     /**

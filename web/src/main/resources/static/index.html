@@ -28,7 +28,7 @@
     <script type="text/javascript" src="js/bootstrap/npm.js"></script>
 
     <script src="js/main.js"></script>
-    <script src="js/restangularConfig.js"></script>
+    <!--<script src="js/restangularConfig.js"></script>-->
     <script src="js/routeConfig.js"></script>
 
     <script src="js/controller/authController.js"></script>
@@ -42,7 +42,6 @@
     <script src="js/service/userService.js"></script>
     <script src="js/service/addressService.js"></script>
     <script src="js/service/relationshipService.js"></script>
-    <script src="js/service/uniqueUserService.js"></script>
 
 </head>
 <body>
@@ -65,10 +64,7 @@
                     <li ng-show="authController.authService.storage.authToken === undefined">
                         <a href="#/login"><span class="glyphicon glyphicon-log-in"> Login</span></a>
                     </li>
-                    <!--<li ng-show="authController.authService.storage.authToken !== undefined">-->
-                        <!--<a href="#">{{authController.authService.getFullName()}}</a>-->
-                    <!--</li>-->
-                    <li ng-show="authController.authService.storage.authToken !== undefined">
+                    <li>
                         <a href="#" ng-click="authController.logout()"><span
                                 class="glyphicon glyphicon-log-out"> Logout </span></a>
                     </li>

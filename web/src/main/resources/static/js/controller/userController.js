@@ -32,7 +32,7 @@ moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserS
             var user = getUserDto(userController.user);
             mnyUserService.save(user).then(function (userData) {
                 userController.userLocation = userData.headers().location;
-                mnyAuthService.login(user.userName, user.password);
+                //mnyAuthService.login(user.userName, user.password);
                 var address = getAddressDto(userController.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     userController.addressLocation = addressData.headers().location;
@@ -71,7 +71,7 @@ moneyApp.controller("UserController", ["$scope", "$location", "focus", "mnyUserS
          * to the server.
          *
          * @param user The user object defined in the controller.
-         * @returns A user object with only relevant user object information populated.
+         * @returns {} user object with only relevant user object information populated.
          */
         function getUserDto(user) {
             var result = {};

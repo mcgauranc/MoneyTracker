@@ -18,7 +18,7 @@ moneyApp.service("mnyAddressService", ["$http", "$q", function ($http, $q) {
         $http.post("api/addresses", address).then(function (data) {
             deferred.resolve(data);
         }, function (error) {
-            console.log("There was an error saving the user." + error);
+            console.log("There was an error saving the address." + error);
             deferred.reject(error);
         });
         return deferred.promise;

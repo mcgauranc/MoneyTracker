@@ -6,14 +6,14 @@
  * Date: 12/12/2014
  */
 
-var mnyUsernameUnique = function ($http, mnyUniqueUserService) {
+var mnyUsernameUnique = function ($http, mnyUserService) {
     return {
         restrict: "A",
         require: "ngModel",
         link: function (scope, element, attrs, ngModel) {
             element.bind("blur", function () {
                 ngModel.$loading = true;
-                mnyUniqueUserService.userExists(element.val()).then(function (exists) {
+                mnyUserService.userExists(element.val()).then(function (exists) {
                     var userExists = exists.data == 1;
                     ngModel.$setValidity("mnyUsernameUnique", !userExists);
                 }, function(result){

@@ -1,6 +1,7 @@
 package com.wraith.money.web.security;
 
-import com.wraith.money.web.authentication.AjaxAuthenticationSuccessHandler;
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,7 +15,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
-import javax.inject.Inject;
+import com.wraith.money.web.authentication.AjaxAuthenticationSuccessHandler;
 
 /**
  * User: rowan.massey Date: 14/08/2014 Time: 23:39
@@ -42,16 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/accounts/**").hasRole("ADMIN")
-                .antMatchers("/accountTypes/**").hasRole("ADMIN")
-                .antMatchers("/addresses/**").hasRole("ADMIN")
+.antMatchers("/accounts/**").hasRole("USER").antMatchers("/accountTypes/**").hasRole("USER")
                 .antMatchers("/authorities/**").hasRole("ADMIN")
                 .antMatchers("/countries/**").hasRole("ADMIN")
                 .antMatchers("/currencies/**").hasRole("ADMIN")
                 .antMatchers("/groups/**").hasRole("ADMIN")
-                .antMatchers("/authenticate/**").hasRole("USER")
+				//                .antMatchers("/authenticate/**").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/users/").permitAll()
                 .antMatchers("/users/").hasRole("USER")
+				.antMatchers(HttpMethod.POST, "/addresses/").permitAll().antMatchers("/addresses/").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and()
                 .httpBasic()

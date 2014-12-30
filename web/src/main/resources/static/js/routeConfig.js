@@ -14,6 +14,9 @@ moneyApp.config(["$routeProvider",
                 templateUrl: "partials/user/users.html",
                 controller: "UserController"
             }).
+            when("/landingPage", {
+                templateUrl: "partials/landingPage/landingPage.html"
+            }).
             when("/dataUploads", {
                 templateUrl: "partials/dataUpload/dataUpload.html",
                 controller: "DataUploadController"

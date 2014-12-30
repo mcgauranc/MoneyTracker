@@ -1,39 +1,38 @@
 package com.wraith.money.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 /**
  * This class facilitates all of the common properties for each of the entities.
  *
- * User: rowan.massey
- * Date: 23/07/12
+ * User: rowan.massey Date: 23/07/12
  */
 @MappedSuperclass
 public class BaseEntity implements Cloneable, Serializable {
 
-    protected long id;
-    @JsonIgnore
-    protected long version;
+	@Id
+	protected String id;
+	//@JsonIgnore
+	@Version
+	protected String version;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    @Version
-    public long getVersion() {
-        return version;
-    }
+	public String getVersion() {
+		return version;
+	}
 
-    public void setVersion(long version) {
-        this.version = version;
-    }
+	public void setVersion(String version) {
+		this.version = version;
+	}
 }
