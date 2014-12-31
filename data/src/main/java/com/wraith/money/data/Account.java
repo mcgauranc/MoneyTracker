@@ -1,13 +1,10 @@
 package com.wraith.money.data;
 
+import java.io.Serializable;
+
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import java.io.Serializable;
 
 /**
  * This class is the object representation of an account in the database.
@@ -16,8 +13,6 @@ import java.io.Serializable;
  * Date: 15/08/12
  */
 @Document
-@AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "account_id")),
-        @AttributeOverride(name = "version", column = @Column(name = "account_version"))})
 public class Account extends BaseEntity implements Serializable {
 
     private String name;

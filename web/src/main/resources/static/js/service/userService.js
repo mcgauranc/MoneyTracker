@@ -49,6 +49,23 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
 
     /**
      *
+     * @param location
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    userService.remove = function (location) {
+        var deferred = $q.defer();
+        $http.delete(location).then(function (data) {
+            deferred.resolve(data);
+        }, function (error) {
+            console.log("There was an error deleting the user." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+
+    };
+
+    /**
+     *
      * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
      */
     userService.getAllUsers = function () {

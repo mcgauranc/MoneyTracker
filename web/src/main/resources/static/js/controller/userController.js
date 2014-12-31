@@ -49,6 +49,17 @@ moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
         /**
          *
          */
+        userController.delete = function (location) {
+            mnyUserService.delete(location).then(function (data) {
+                userController.refresh();
+            }, function (error) {
+
+            });
+        };
+
+        /**
+         *
+         */
         userController.refresh = function () {
             mnyUserService.getAllUsers().then(function (userData) {
                 userController.allUsers = userData;
@@ -121,4 +132,6 @@ moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
             userController.isNewUser = true;
             $location.path(path);
         }
-    }]);
+    }
+])
+;

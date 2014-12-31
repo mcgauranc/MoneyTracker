@@ -14,6 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
+ * This class represents the users table in the database.
+ *
  * User: rowan.massey Date: 06/07/12
  */
 @Document
@@ -35,10 +37,6 @@ public class Users extends BaseEntity implements Serializable {
 	private Set<Transaction> transactions = new HashSet<>();
 	@DBRef
 	private Set<Account> accounts = new HashSet<>();
-
-	public Users() {
-
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -126,5 +124,11 @@ public class Users extends BaseEntity implements Serializable {
 	@Transient
 	public String getUserFullName() {
 		return this.getFirstName().concat(" ").concat(getLastName());
+	}
+
+	@JsonIgnore
+	@Transient
+	public Users clone() throws CloneNotSupportedException {
+		return (Users) super.clone();
 	}
 }

@@ -3,7 +3,6 @@ package com.wraith.money.web.processor;
 /**
  * User: rowan.massey
  * Date: 11/09/2014
- * Time: 16:53
  */
 public class MoneyTransaction {
 

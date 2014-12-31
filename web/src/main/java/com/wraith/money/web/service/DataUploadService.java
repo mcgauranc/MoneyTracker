@@ -1,26 +1,29 @@
 package com.wraith.money.web.service;
 
-import com.wraith.money.web.configuration.MoneyRunIdIncrementer;
-import com.wraith.money.web.exception.MoneyException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.*;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.launch.JobOperator;
-import org.springframework.batch.core.launch.NoSuchJobException;
-import org.springframework.batch.core.launch.NoSuchJobExecutionException;
-import org.springframework.batch.core.launch.support.SimpleJobLauncher;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.inject.Inject;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
-import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.wraith.money.web.configuration.MoneyRunIdIncrementer;
+import com.wraith.money.web.exception.MoneyException;
 
 /**
  * This service class deals with all data upload requirements. This is the entry point for all the relevant processing.
@@ -29,16 +32,17 @@ import java.util.Set;
  * Date: 26/08/2014
  * Time: 21:11
  */
-//@Service
+@Service
 public class DataUploadService {
 
     private static final String TEMP_DIRECTORY = "java.io.tmpdir";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-	private SimpleJobLauncher jobLauncher;
-    @Inject
-    private JobOperator operator;
+	private JobLauncher jobLauncher;
+
+//    @Inject
+//    private JobOperator operator;
 
     private JobBuilderFactory jobs;
     private Step step;
@@ -122,20 +126,20 @@ public class DataUploadService {
      * @param job
      */
     public void stopAllExecutions(String job) {
-        Set<Long> runningJobs;
-        try {
-            runningJobs = operator.getRunningExecutions(job);
-            if (!runningJobs.isEmpty()) {
-                for (Long executionId : runningJobs) {
-                    operator.abandon(executionId);
-                }
-            }
-        } catch (NoSuchJobException | NoSuchJobExecutionException e) {
-            logger.error(String.format("Job '%s' does not exist.", job), e);
-            throw new MoneyException(e);
-        } catch (JobExecutionAlreadyRunningException e) {
-            logger.error(String.format("Job '%s' is already running.", job), e);
-            throw new MoneyException(e);
-        }
+//        Set<Long> runningJobs;
+//        try {
+//            runningJobs = operator.getRunningExecutions(job);
+//            if (!runningJobs.isEmpty()) {
+//                for (Long executionId : runningJobs) {
+//                    operator.abandon(executionId);
+//                }
+//            }
+//        } catch (NoSuchJobException | NoSuchJobExecutionException e) {
+//            logger.error(String.format("Job '%s' does not exist.", job), e);
+//            throw new MoneyException(e);
+//        } catch (JobExecutionAlreadyRunningException e) {
+//            logger.error(String.format("Job '%s' is already running.", job), e);
+//            throw new MoneyException(e);
+//        }
     }
 }

@@ -12,6 +12,11 @@
                 <td>{{user.userName}}</td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
+                <td>
+                    <a class="btn btn-danger" ng-click="userController.remove(user._links.self.href)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
             </tr>
         </table>
     </div>
