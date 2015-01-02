@@ -14,7 +14,6 @@ import java.util.Calendar;
 /**
  * User: rowan.massey
  * Date: 29/03/13
- * Time: 14:46
  */
 public class MoneyRevisionListener implements org.hibernate.envers.RevisionListener {
 

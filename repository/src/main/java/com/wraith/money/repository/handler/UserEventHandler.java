@@ -8,13 +8,13 @@ import com.wraith.money.repository.encoding.Encoding;
 import com.wraith.money.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,11 +28,11 @@ import java.util.Set;
 public class UserEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    @Autowired
+    @Inject
     CountryRepository countryRepository;
-    @Autowired
+    @Inject
     private Encoding encoding;
-    @Autowired
+    @Inject
     private GroupsRepository groupsRepository;
 
     @HandleBeforeCreate
@@ -52,6 +52,7 @@ public class UserEventHandler {
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #user.getUserName() == authentication.name))")
     @HandleBeforeDelete
     public void beforeUserDelete(Users user) {
+        //TODO: Need to have at least ONE admin user available. Check for it here, and bail on the delete.
         //Don't need to add anything to this method, the @PreAuthorize does the job.
     }
 
@@ -78,7 +79,7 @@ public class UserEventHandler {
      */
     private Set<Groups> getUserRoleGroup() {
         Set<Groups> userGroupsSet = new HashSet<>();
-        Groups userGroups = groupsRepository.findByName("Users");
+        Groups userGroups = groupsRepository.findByName("Users").get(0);
         if (userGroups.getName().isEmpty()) {
             throw new RepositoryException("No group called 'Users' is defined for the user to be assigned to.");
         }

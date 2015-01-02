@@ -1,9 +1,9 @@
 package com.wraith.money.web.configuration;
 
-import java.net.UnknownHostException;
-
-import javax.inject.Inject;
-
+import com.wraith.money.data.Transaction;
+import com.wraith.money.repository.TransactionRepository;
+import com.wraith.money.web.processor.MoneyTransaction;
+import com.wraith.money.web.processor.TransactionProcessor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -13,7 +13,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.data.MongoItemWriter;
+import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -23,20 +23,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
-import com.wraith.money.data.Transaction;
-import com.wraith.money.repository.TransactionRepository;
-import com.wraith.money.web.processor.MoneyTransaction;
-import com.wraith.money.web.processor.TransactionProcessor;
+import javax.inject.Inject;
 
 /**
- * User: rowan.massey Date: 11/09/2014 Time: 16:19
+ * User: rowan.massey
+ * Date: 11/09/2014
  */
 @Configuration
 @EnableBatchProcessing
@@ -44,7 +36,6 @@ public class BatchConfiguration {
 
 	@Inject
 	private TransactionRepository transactionRepository;
-
 	@Inject
 	private JobRepository jobRepository;
 
@@ -54,21 +45,22 @@ public class BatchConfiguration {
 		FlatFileItemReader<MoneyTransaction> reader = new FlatFileItemReader<>();
 		reader.setResource(new FileSystemResource(file));
 		reader.setLineMapper(new DefaultLineMapper<MoneyTransaction>() {
-			{
-				setLineTokenizer(new DelimitedLineTokenizer() {
-					{
-						setNames(new String[] { "Number", "Date", "Account", "Payee", "Cleared", "Amount", "Category",
-								"Subcategory", "Memo" });
-					}
-				});
-				setFieldSetMapper(new BeanWrapperFieldSetMapper<MoneyTransaction>() {
-					{
-						setTargetType(MoneyTransaction.class);
+								 {
+									 setLineTokenizer(new DelimitedLineTokenizer() {
+														  {
+															  setNames(new String[]{"Number", "Date", "Account", "Payee", "Cleared", "Amount", "Category", "Subcategory", "Memo"});
+														  }
+													  }
+									 );
+									 setFieldSetMapper(new BeanWrapperFieldSetMapper<MoneyTransaction>() {
+										 {
+											 setTargetType(MoneyTransaction.class);
 
-					}
-				});
-			}
-		});
+										 }
+									 });
+								 }
+							 }
+		);
 		reader.setLinesToSkip(1);
 		return reader;
 	}
@@ -79,18 +71,22 @@ public class BatchConfiguration {
 	}
 
 	@Bean
-	public MongoItemWriter writer() {
-		MongoItemWriter writer = new MongoItemWriter();
-		writer.setCollection("transaction");
-		writer.setTemplate(mongoOperations());
+	public RepositoryItemWriter writer() {
+		RepositoryItemWriter writer = new RepositoryItemWriter();
+		writer.setRepository(transactionRepository);
+		writer.setMethodName("save");
 		return writer;
 	}
 
 	@Bean
-	public Step step(StepBuilderFactory stepBuilderFactory, ItemReader<MoneyTransaction> reader, ItemWriter<Transaction> writer,
-			ItemProcessor<MoneyTransaction, Transaction> processor) {
-		return stepBuilderFactory.get("step").<MoneyTransaction, Transaction> chunk(100).reader(reader).processor(processor)
-				.writer(writer).build();
+	public Step step(StepBuilderFactory stepBuilderFactory, ItemReader<MoneyTransaction> reader,
+					 ItemWriter<Transaction> writer, ItemProcessor<MoneyTransaction, Transaction> processor) {
+		return stepBuilderFactory.get("step")
+				.<MoneyTransaction, Transaction>chunk(100)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
 	}
 
 	@Bean
@@ -107,40 +103,4 @@ public class BatchConfiguration {
 		jobLauncher.setTaskExecutor(taskExecutor());
 		return jobLauncher;
 	}
-
-	@Bean
-	//TODO: Might be able to get this from the autoconfiguration setup for mongo.
-	public MongoOperations mongoOperations() {
-		MongoOperations operations = null;
-		try {
-			Mongo mongo = new MongoClient("127.0.0.1", 27017);
-			MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, "test");
-			operations = new MongoTemplate(mongoDbFactory);
-		} catch (UnknownHostException e) {
-
-		}
-		return operations;
-	}
-
-
-//	@Bean
-//	public JobOperator operator() {
-//		SimpleJobOperator operator = new SimpleJobOperator();
-//		operator.setJobRepository(jobRepository);
-//		operator.setJobLauncher(jobLauncher());
-//		operator.setJobRegistry(jobRegistry());
-//		operator.setJobExplorer(jobExplorer());
-//		return operator;
-//	}
-//
-//	@Bean
-//	public MapJobRegistry jobRegistry() {
-//		return new MapJobRegistry();
-//	}
-//
-//	@Bean
-//	public JobExplorer jobExplorer() {
-//		JobExplorerFactoryBean factoryBean = new JobExplorerFactoryBean();
-//		factoryBean.set
-//	}
 }

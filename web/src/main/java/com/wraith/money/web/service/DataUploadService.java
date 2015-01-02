@@ -1,19 +1,10 @@
 package com.wraith.money.web.service;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Calendar;
-
-import javax.inject.Inject;
-
+import com.wraith.money.web.configuration.MoneyRunIdIncrementer;
+import com.wraith.money.web.exception.MoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
@@ -22,12 +13,15 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wraith.money.web.configuration.MoneyRunIdIncrementer;
-import com.wraith.money.web.exception.MoneyException;
+import javax.inject.Inject;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Calendar;
 
 /**
  * This service class deals with all data upload requirements. This is the entry point for all the relevant processing.
- * <p>
+ * <p/>
  * User: rowan.massey
  * Date: 26/08/2014
  * Time: 21:11
@@ -39,7 +33,7 @@ public class DataUploadService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-	private JobLauncher jobLauncher;
+    private JobLauncher jobLauncher;
 
 //    @Inject
 //    private JobOperator operator;
@@ -57,9 +51,8 @@ public class DataUploadService {
     /**
      * This method processes the file that was passed in during the file upload.
      *
-     * @param file The file that was uploaded.
+     * @param file     The file that was uploaded.
      * @param fileType This is the type of file that will be processed, currently either "MSMoney", or "AIB"
-     *
      * @return The job execution object.
      */
     public JobExecution performUploadData(MultipartFile file, String fileType) {
@@ -67,12 +60,12 @@ public class DataUploadService {
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-				String rootPath = System.getProperty(TEMP_DIRECTORY);
+                String rootPath = System.getProperty(TEMP_DIRECTORY);
                 File uploadDirectory = new File(rootPath.concat(File.separator).concat("uploads"));
                 if (!uploadDirectory.exists()) {
                     uploadDirectory.mkdirs();
                 }
-				File uploadFile = new File(rootPath.concat(File.separator).concat(file.getOriginalFilename()));
+                File uploadFile = new File(rootPath.concat(File.separator).concat(file.getOriginalFilename()));
                 BufferedOutputStream stream =
                         new BufferedOutputStream(new FileOutputStream(uploadFile));
                 stream.write(bytes);
@@ -90,9 +83,8 @@ public class DataUploadService {
     /**
      * This method starts the import of the given job, which will upload the given file.
      *
-     * @param file The file that will be processed.
+     * @param file    The file that will be processed.
      * @param jobName The name of the job.
-     *
      * @return The JobExecution object.
      */
     private JobExecution startImportJob(File file, String jobName) {

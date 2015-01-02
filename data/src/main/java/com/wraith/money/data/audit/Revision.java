@@ -1,11 +1,13 @@
 package com.wraith.money.data.audit;
 
+import com.wraith.money.data.listener.MoneyRevisionListener;
 import org.hibernate.envers.DefaultRevisionEntity;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.envers.RevisionEntity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -14,9 +16,8 @@ import java.util.Date;
  * Time: 14:44
  */
 
-//@Entity
-//@RevisionEntity(MoneyRevisionListener.class)
-@Document
+@Entity
+@RevisionEntity(MoneyRevisionListener.class)
 @AttributeOverrides({@AttributeOverride(name = "id", column = @Column(name = "revision_id")),
         @AttributeOverride(name = "timestamp", column = @Column(name = "revision_timestamp"))})
 public class Revision extends DefaultRevisionEntity {

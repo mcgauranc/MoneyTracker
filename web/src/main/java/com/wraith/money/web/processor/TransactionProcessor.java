@@ -57,7 +57,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private Currency getBaseCurrency() {
-		List<Currency> currencies = currencyRepository.findByIso("EUR", null).getContent();
+		List<Currency> currencies = currencyRepository.findByIso("EUR");
 		if (!currencies.isEmpty()) {
 			return currencies.get(0);
 		} else {
@@ -74,7 +74,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private Account getAccount(String accountName, String accountType) {
-		List<Account> accounts = accountRepository.findByName(accountName, null).getContent();
+		List<Account> accounts = accountRepository.findByName(accountName);
 		if (!accounts.isEmpty()) {
 			return accounts.get(0);
 		} else {
@@ -95,14 +95,14 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 		if (payeeName.isEmpty()) {
 			payeeName = "Unknown";
 		}
-		List<Payee> payees = payeeRepository.findByName(payeeName, null).getContent();
+		List<Payee> payees = payeeRepository.findByName(payeeName);
 		if (!payees.isEmpty()) {
 			return payees.get(0);
 		} else {
 			Payee payee = new Payee();
 			payee.setName(payeeName);
 			payeeRepository.save(payee);
-			return payeeRepository.findByName(payeeName, null).getContent().get(0);
+			return payeeRepository.findByName(payeeName).get(0);
 		}
 	}
 
@@ -111,14 +111,14 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 * @return
 	 */
 	private AccountType getAccountType(String accountTypeName) {
-		List<AccountType> accountTypes = accountTypeRepository.findByName(accountTypeName, null).getContent();
+		List<AccountType> accountTypes = accountTypeRepository.findByName(accountTypeName);
 		if (!accountTypes.isEmpty()) {
 			return accountTypes.get(0);
 		} else {
 			AccountType accountType = new AccountType();
 			accountType.setName(accountTypeName);
 			accountTypeRepository.save(accountType);
-			return accountTypeRepository.findByName(accountTypeName, null).getContent().get(0);
+			return accountTypeRepository.findByName(accountTypeName).get(0);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 	 */
 	private Category getCategory(String categoryName, String subCategoryName) {
 		if (!subCategoryName.isEmpty()) {
-			List<Category> categories = categoryRepository.findByName(subCategoryName, null).getContent();
+			List<Category> categories = categoryRepository.findByName(subCategoryName);
 			if (!categories.isEmpty()) {
 				return categories.get(0);
 			} else {
@@ -140,8 +140,8 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 				return categoryRepository.save(subCategory);
 			}
 		} else {
-			if (!categoryRepository.findByName(categoryName, null).getContent().isEmpty()) {
-				return categoryRepository.findByName(categoryName, null).getContent().get(0);
+			if (!categoryRepository.findByName(categoryName).isEmpty()) {
+				return categoryRepository.findByName(categoryName).get(0);
 			} else {
 				Category category = new Category();
 				category.setName(categoryName);

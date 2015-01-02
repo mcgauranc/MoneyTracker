@@ -49,8 +49,8 @@ moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
         /**
          *
          */
-        userController.delete = function (location) {
-            mnyUserService.delete(location).then(function (data) {
+        userController.remove = function (location) {
+            mnyUserService.remove(location).then(function (data) {
                 userController.refresh();
             }, function (error) {
 
