@@ -8,31 +8,40 @@
 
 /* Controllers */
 
-moneyApp.controller("DataUploadController", ["$scope",
-    function ($scope) {
+moneyApp.controller("DataUploadController", ["$scope", "mnyDataUploadService",
+    function ($scope, mnyDataUploadService) {
 
         var dataUploadController = $scope.dataUploadController = {};
 
         dataUploadController.dataUpload = {};
+        dataUploadController.listOfEntities = [];
+        dataUploadController.selectedEntity = "";
+        dataUploadController.listOfFieldsForEntity = [];
 
         dataUploadController.save = function () {
-            var dataUpload = getUserDto(dataUploadController.dataUpload);
-            mnyUserService.save(user).then(function (userData) {
-                userController.userLocation = userData.headers().location;
-                //mnyAuthService.login(user.userName, user.password);
-                var address = getAddressDto(userController.user);
-                mnyAddressService.save(address).then(function (addressData) {
-                    userController.addressLocation = addressData.headers().location;
-                    mnyRelationshipService.associate(userController.userLocation, "address", userController.addressLocation).then(function () {
-                        userController.user = {};
-                    })
-                });
-            }, function (error) {
-                console.log("There was an error processing the user: " + error);
-            })
-
         };
 
+        dataUploadController.getListOfEntities = function () {
+            mnyDataUploadService.getListOfEntities().then(function (entityData) {
+                dataUploadController.listOfEntities = entityData;
+            }, function (error) {
+                console.log("There was an error getting all the entities: " + error);
+            })
+        };
+
+        dataUploadController.getListOfFieldsForEntity = function () {
+            if (dataUploadController.selectedEntity != "") {
+                mnyDataUploadService.getEntitySchema(dataUploadController.selectedEntity).then(function (fieldData) {
+                    dataUploadController.listOfFieldsForEntity = fieldData
+                }, function (error) {
+                    console.log("There was an error getting all the entities: " + error);
+                })
+            }
+        };
+
+        dataUploadController.refresh = function () {
+            this.getListOfEntities();
+        };
         ////dataUploadController.all = Restangular.all('dataUploads');
         //dataUploadController.currentPage = 0;
         //dataUploadController.pages = 0;

@@ -7,7 +7,6 @@
 moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
 
     var dataUploadService = this;
-
     /**
      * This method saves a new instance of a data upload to the database.
      *
@@ -48,7 +47,7 @@ moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
      *
      * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
      */
-    userService.getAllDataUploads = function () {
+    dataUploadService.getAllDataUploads = function () {
         var deferred = $q.defer();
         $http.get("api/dataUpload").then(function (data) {
             deferred.resolve(data.data._embedded.dataUpload);
@@ -57,5 +56,84 @@ moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
             deferred.reject(error);
         });
         return deferred.promise;
+    };
+
+    /**
+     * This method leverages the functionality provided by HATEOAS to retrieve ALL of the entities exposed
+     * as REST resources.
+     *
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    dataUploadService.getListOfEntities = function () {
+        var deferred = $q.defer();
+        var entityList = [];
+        $http.get("api/").then(function (data) {
+            var entityData = $.map(data.data._links, function (el) {
+                return el;
+            });
+            $.each(entityData, function (key, value) {
+                var dataUploadEntity = {};
+                var url = value.href;
+                //TODO: See if there's an easier way to do this. Seems to be a bit of a hack.
+                dataUploadEntity.name = capitaliseFirstLetter(url.substring(url.indexOf("api/") + 4, url.length).replace("{?page,size,sort}", ""));
+                entityList.push(dataUploadEntity);
+            });
+            deferred.resolve(entityList);
+        }, function (error) {
+            console.log("There was an error getting a list of exposed entities." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     *
+     * @param stringValue
+     * @returns {string}
+     */
+    function capitaliseFirstLetter(stringValue) {
+        //TODO:Need to move this to a a util script file.
+        return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
     }
+
+    /**
+     * This method retrieves the schema information for the provided entity.
+     *
+     * @param entity The name of the entity whose schema information we need to retrieve.
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    dataUploadService.getEntitySchema = function (entity) {
+        var fieldList = [];
+        var deferred = $q.defer();
+        var request = {
+            method: "GET",
+            url: "api/" + entity.name.toLowerCase() + "/schema",
+            headers: {
+                "Accept": "application/schema+json"
+            }
+        };
+        $http(request).then(function (data) {
+            var field = {};
+            $.each(data.data.links, function (key, value) {
+                field = {};
+                field.name = value.rel;
+                fieldList.push(field);
+            });
+            var fieldData = $.map(data.data.properties, function (el) {
+                return el;
+            });
+            $.each(fieldData, function (key, value) {
+                field = {};
+                field.name = value.description;
+                fieldList.push(field);
+            });
+
+            deferred.resolve(fieldList);
+        }, function (error) {
+            console.log("There was an error retrieving the metadata for entity '" + entity + "'. Error was: " + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+
+    };
 }]);

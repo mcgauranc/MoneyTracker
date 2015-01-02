@@ -41,6 +41,7 @@ moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
                         userController.user = {};
                     })
                 });
+                $location.path("userList")
             }, function (error) {
                 console.log("There was an error processing the user: " + error);
             })
