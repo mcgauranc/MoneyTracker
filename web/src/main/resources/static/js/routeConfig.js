@@ -1,35 +1,56 @@
 "use strict";
 
-moneyApp.config(["$routeProvider",
-    function ($routeProvider) {
-        $routeProvider.
-            when("/", {
+moneyApp.config(["$stateProvider",
+    function ($stateProvider) {
+        $stateProvider.
+            state("home", {
+                url: "/",
                 templateUrl: "partials/home.html"
             }).
-            when("/login", {
+            state("login", {
+                url: "/login",
                 templateUrl: "partials/login/login.html",
                 controller: "AuthController"
             }).
-            when("/landingPage", {
+            state("landingPage", {
+                url: "/landingPage",
                 templateUrl: "partials/landingPage/landingPage.html"
             }).
-            when("/user", {
-                templateUrl: "partials/user/user.html",
-                controller: "UserController"
+            state("users", {
+                url: "/users",
+                templateUrl: "../partials/user/user-list.html",
+                controller: "UserListController",
+                resolve: {
+                    users: function (mnyUserService) {
+                        return mnyUserService.getAllUsers();
+                    }
+                }
             }).
-            when("/userList", {
-                templateUrl: "partials/user/userList.html",
-                controller: "UserController"
+            state("newUser", {
+                url: "/users/new",
+                templateUrl: "../partials/user/user-add.html",
+                controller: "UserCreateController"
             }).
-            when("/transactionList", {
+            state("editUser", {
+                url: "/users/edit/{location}",
+                templateUrl: "partials/user/user-edit.html",
+                controller: "UserEditController",
+                resolve: {
+                    user: function (mnyUserService, $stateParams) {
+                        return mnyUserService.getUser($stateParams.location);
+                    }
+                }
+            }).
+            state("transactionList", {
+                url: "/transactionList",
                 templateUrl: "partials/transaction/transactionList.html",
                 controller: "TransactionController"
             }).
-            when("/dataUploads", {
+            state("dataUploads", {
+                url: "/dataUploads",
                 templateUrl: "partials/dataUpload/dataUpload.html",
                 controller: "DataUploadController"
-            }).
-            otherwise({
-                redirectTo: "/"
             });
+        //.
+        //otherwise("/");
     }]);

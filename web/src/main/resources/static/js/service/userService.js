@@ -1,7 +1,10 @@
 "use strict";
 
 /**
- * This service facilitates all of the user functionality, and interaction with the server.
+ * This service facilitates all of the user functionality, and interaction with the server. Only ONE instance of a
+ * service is created for the application. So it can be reused.
+ *
+ * NOTE: Could possibly implement AngularJS $resource functionality to replace items below.
  */
 
 moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
@@ -61,7 +64,6 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
             deferred.reject(error);
         });
         return deferred.promise;
-
     };
 
     /**
@@ -73,7 +75,37 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
         $http.get("api/users").then(function (data) {
             deferred.resolve(data.data._embedded.users);
         }, function (error) {
-            console.log("There was an error saving the user." + error);
+            console.log("There was an error retrieving the user." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     *
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    userService.getUser = function (location) {
+        var deferred = $q.defer();
+        $http.get(location).then(function (data) {
+            deferred.resolve(data.data);
+        }, function (error) {
+            console.log("There was an error retrieving the user." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     *
+     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     */
+    userService.updateUser = function (data) {
+        var deferred = $q.defer();
+        $http.put(data).then(function (data) {
+            deferred.resolve(data.data);
+        }, function (error) {
+            console.log("There was an error retrieving the user." + error);
             deferred.reject(error);
         });
         return deferred.promise;

@@ -1,0 +1,8 @@
+<form id="user-edit-form" name="user-add-form" role="form" autocomplete="off" ng-submit="update()">
+    <div class="form-group">
+        <label id="lblUserName" class="control-label" for="txtUserName">User name:</label>
+        <input id="txtUserName" name="txtUserName" class="form-control" type="text" required ng-disabled="true"
+               ng-model="user.userName"/>
+    </div>
+    <div ng-include="'partials/user/_form.html'"></div>
+</form>

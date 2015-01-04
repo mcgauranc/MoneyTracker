@@ -1,93 +1,38 @@
 "use strict";
 
-/* Controllers */
+/**
+ *
+ * User: rowan.massey
+ * Date: 03/01/2015
+ */
 
-moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
+moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserService",
     "mnyAddressService", "mnyRelationshipService",
     function ($scope, $location, mnyUserService, mnyAddressService, mnyRelationshipService) {
 
-        var userController = $scope.userController = {};
+        var userController = $scope.userCreateController = {};
 
-        userController.user = {};
-
-        userController.userLocation = "";
-        userController.addressLocation = "";
-        userController.newUser = false;
-
-        userController.allUsers = [];
-
-
-        /**
-         * This method returns true if we're dealing with a new user.
-         *
-         * @returns {boolean|*|Function}
-         */
-        userController.isNewUser = function () {
-            return userController.newUser;
-        };
+        $scope.user = {};
 
         /**
          * This method saves a new user.
          */
-        userController.save = function () {
-            var user = getUserDto(userController.user);
+        userController.addUser = function () {
+            var user = getUserDto($scope.user);
             mnyUserService.save(user).then(function (userData) {
                 userController.userLocation = userData.headers().location;
                 //mnyAuthService.login(user.userName, user.password);
-                var address = getAddressDto(userController.user);
+                var address = getAddressDto($scope.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     userController.addressLocation = addressData.headers().location;
                     mnyRelationshipService.associate(userController.userLocation, "address", userController.addressLocation).then(function () {
                         userController.user = {};
                     })
                 });
-                $location.path("userList")
+                $location.path("users")
             }, function (error) {
                 console.log("There was an error processing the user: " + error);
             })
-        };
-
-        /**
-         *
-         */
-        userController.remove = function (location) {
-            mnyUserService.remove(location).then(function (data) {
-                userController.refresh();
-            }, function (error) {
-
-            });
-        };
-
-        /**
-         *
-         */
-        userController.refresh = function () {
-            mnyUserService.getAllUsers().then(function (userData) {
-                userController.allUsers = userData;
-            }, function (error) {
-                console.log("There was an error getting all the users: " + error);
-            })
-        };
-
-        /**
-         * This method creates a new user object, to be referenced in the view.
-         */
-        userController.newUser = function () {
-            userController.newUser = true;
-
-            userController.user.userName = "";
-            userController.user.password = "";
-            userController.user.confirmPassword = "";
-            userController.user.firstName = "";
-            userController.user.lastName = "";
-            userController.user.dateOfBirth = "";
-
-            userController.user.address1 = "";
-            userController.user.address2 = "";
-            userController.user.address3 = "";
-            userController.user.address4 = "";
-            userController.user.city = "";
-            userController.user.county = "";
         };
 
         /**
@@ -127,11 +72,6 @@ moneyApp.controller("UserController", ["$scope", "$location", "mnyUserService",
             result.county = user.county;
 
             return result;
-        }
-
-        userController.redirect = function (path) {
-            userController.isNewUser = true;
-            $location.path(path);
         }
     }
 ])
