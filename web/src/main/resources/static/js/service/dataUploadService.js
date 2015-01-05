@@ -68,7 +68,7 @@ moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         var entityList = [];
         $http.get("api/").then(function (data) {
-            $.each(data.data_links, function (key, value) {
+            $.each(data.data._links, function (key) {
                 var dataUploadEntity = {};
                 dataUploadEntity.name = capitaliseFirstLetter(key);
                 entityList.push(dataUploadEntity);
@@ -114,12 +114,9 @@ moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
                 field.name = value.rel;
                 fieldList.push(field);
             });
-            var fieldData = $.map(data.data.properties, function (el) {
-                return el;
-            });
-            $.each(fieldData, function (key, value) {
+            $.each(data.data.properties, function (key) {
                 field = {};
-                field.name = value.description;
+                field.name = key;
                 fieldList.push(field);
             });
 
