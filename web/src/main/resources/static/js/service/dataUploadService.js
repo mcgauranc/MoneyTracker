@@ -68,14 +68,9 @@ moneyApp.service("mnyDataUploadService", ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         var entityList = [];
         $http.get("api/").then(function (data) {
-            var entityData = $.map(data.data._links, function (el) {
-                return el;
-            });
-            $.each(entityData, function (key, value) {
+            $.each(data.data_links, function (key, value) {
                 var dataUploadEntity = {};
-                var url = value.href;
-                //TODO: See if there's an easier way to do this. Seems to be a bit of a hack.
-                dataUploadEntity.name = capitaliseFirstLetter(url.substring(url.indexOf("api/") + 4, url.length).replace("{?page,size,sort}", ""));
+                dataUploadEntity.name = capitaliseFirstLetter(key);
                 entityList.push(dataUploadEntity);
             });
             deferred.resolve(entityList);
