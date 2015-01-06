@@ -6,12 +6,28 @@
  */
 var mnyFileUpload = function () {
     return {
-        restrict: "E",
-        //require: "ngModel",
-        controller: ["$scope", function ($scope) {
-
-        }],
-        link: function (scope, element, attributes, ngModel) {
+        restrict: 'E',
+        //scope: {
+        //    datasource: '=', //This means an attribute called datasource will be passed in a reference.
+        //    add: '&' //This means that an attribute called 'add' will defined the function to be called.
+        //},
+        //link: function (scope, element) {
+        //    debugger;
+        //},
+        controller: function ($scope) {
+            $scope.processHeading = function (file) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file.files[0], false);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4) {
+                        if (rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            debugger;
+                        }
+                    }
+                };
+                rawFile.send(null);
+            }
         },
         templateUrl: "../../partials/template/fileUpload.html"
     };
