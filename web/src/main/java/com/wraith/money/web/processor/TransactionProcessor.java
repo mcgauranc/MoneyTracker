@@ -44,7 +44,6 @@ public class TransactionProcessor implements ItemProcessor<MoneyTransaction, Tra
 		Double amount = NumberFormat.getInstance(java.util.Locale.getDefault()).parse(item.getAmount()).doubleValue();
 		transaction.setAmount(amount);
 		transaction.setTransactionDate(new SimpleDateFormat("dd/MM/yyyy").parse(item.getDate()));
-		transaction.setUser(getUser());
 		transaction.setPayee(getPayee(item.getPayee()));
 		transaction.setCheckNumber(item.getNumber());
 		transaction.setNotes(item.getMemo());

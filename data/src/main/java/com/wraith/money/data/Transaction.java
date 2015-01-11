@@ -32,7 +32,6 @@ public class Transaction extends BaseEntity implements Serializable {
     private Double amount;
     private int quantity;
     private String notes;
-    private Users user;
     private Account account;
 
     @NotAudited
@@ -120,16 +119,6 @@ public class Transaction extends BaseEntity implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_user_id", nullable = false)
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
