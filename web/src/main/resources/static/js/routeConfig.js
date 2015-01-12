@@ -16,6 +16,11 @@ moneyApp.config(["$stateProvider",
                 url: "/landingPage",
                 templateUrl: "partials/landingPage/landingPage.html"
             }).
+            state("accountList", {
+                url: "/accountList",
+                controller: "AccountListController",
+                templateUrl: "partials/account/account-list.html"
+            }).
             state("users", {
                 url: "/users",
                 templateUrl: "../partials/user/user-list.html",
