@@ -48,7 +48,7 @@ moneyApp.config(["$stateProvider",
             }).
             state("transactionList", {
                 url: "/transactionList",
-                templateUrl: "partials/transaction/transactionList.html",
+                templateUrl: "partials/transaction/transaction-list.html",
                 controller: "TransactionController"
             }).
             state("dataUploads", {

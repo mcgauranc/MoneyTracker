@@ -6,8 +6,8 @@
 
     <title>Money Tracker</title>
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap-theme.css">
 
     <script src="http://code.angularjs.org/1.3.4/angular.js"></script>
     <script src="http://code.angularjs.org/1.3.4/angular-resource.js"></script>
@@ -24,30 +24,34 @@
 
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    <script type="text/javascript" src="lib/ngStorage.js"></script>
-    <script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="js/bootstrap/npm.js"></script>
+    <script type="text/javascript" src="vendors/ngStorage/ngStorage.js"></script>
+    <script type="text/javascript" src="vendors/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="vendors/bootstrap/npm.js"></script>
 
     <script src="js/main.js"></script>
     <script src="js/routeConfig.js"></script>
 
     <!--CONTROLLERS-->
     <script src="js/controller/authController.js"></script>
-    <script src="js/controller/account/accountListController.js"></script>
 
     <!--USERS-->
-    <script src="users/user-service.js"></script>
-    <script src="users/list/user-list-controller.js"></script>
-    <script src="users/create/user-create-controller.js"></script>
-    <script src="users/edit/user-edit-controller.js"></script>
+    <script src="functionality/users/user-service.js"></script>
+    <script src="functionality/users/list/user-list-controller.js"></script>
+    <script src="functionality/users/create/user-create-controller.js"></script>
+    <script src="functionality/users/edit/user-edit-controller.js"></script>
+
+    <!--ACCOUNTS-->
+    <script src="functionality/accounts/list/account-list-controller.js"></script>
+
+    <!--TRANSACTIONS-->
+    <script src="functionality/transactions/list/transaction-list-controller.js"></script>
 
     <script src="js/controller/dataUploadController.js"></script>
-    <script src="js/controller/transaction/transactionController.js"></script>
 
     <!--DIRECTIVES-->
     <script src="js/directive/mnyCompareToDirective.js"></script>
     <script src="js/directive/mnyUniqueUsernameDirective.js"></script>
-    <script src="components/file-upload/mnyFileUploadDirective.js"></script>
+    <script src="components/file-upload/file-upload-directive.js"></script>
 
     <!--SERVICES-->
     <script src="js/service/authService.js"></script>

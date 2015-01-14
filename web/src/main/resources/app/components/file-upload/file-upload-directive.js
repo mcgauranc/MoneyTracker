@@ -29,7 +29,7 @@ var mnyFileUpload = function () {
                 rawFile.send(null);
             }
         },
-        templateUrl: "../../partials/template/fileUpload.html"
+        templateUrl: "fileUpload.html"
     };
 };
 
