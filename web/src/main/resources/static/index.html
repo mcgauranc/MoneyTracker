@@ -32,7 +32,8 @@
     <script src="js/routeConfig.js"></script>
 
     <!--CONTROLLERS-->
-    <script src="js/controller/authController.js"></script>
+    <script src="components/authorisation/authController.js"></script>
+    <script src="components/authorisation/authService.js"></script>
 
     <!--USERS-->
     <script src="functionality/users/user-service.js"></script>
@@ -46,19 +47,17 @@
     <!--TRANSACTIONS-->
     <script src="functionality/transactions/list/transaction-list-controller.js"></script>
 
-    <script src="js/controller/dataUploadController.js"></script>
+    <script src="functionality/dataupload/data-upload-controller.js"></script>
 
     <!--DIRECTIVES-->
     <script src="js/directive/mnyCompareToDirective.js"></script>
     <script src="js/directive/mnyUniqueUsernameDirective.js"></script>
     <script src="components/file-upload/file-upload-directive.js"></script>
 
-    <!--SERVICES-->
-    <script src="js/service/authService.js"></script>
 
-    <script src="js/service/addressService.js"></script>
+    <script src="functionality/address/address-service.js"></script>
     <script src="js/service/relationshipService.js"></script>
-    <script src="js/service/dataUploadService.js"></script>
+    <script src="functionality/dataupload/data-upload-service.js"></script>
 </head>
 <body>
 <div ng-controller="AuthController">

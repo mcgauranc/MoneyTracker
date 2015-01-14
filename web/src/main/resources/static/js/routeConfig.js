@@ -5,25 +5,25 @@ moneyApp.config(["$stateProvider",
         $stateProvider.
             state("home", {
                 url: "/",
-                templateUrl: "partials/home.html"
+                templateUrl: "../functionality/home.html"
             }).
             state("login", {
                 url: "/login",
-                templateUrl: "partials/login/login.html",
+                templateUrl: "../functionality/login/login.html",
                 controller: "AuthController"
             }).
             state("landingPage", {
                 url: "/landingPage",
-                templateUrl: "partials/landingPage/landingPage.html"
+                templateUrl: "../functionality/landingpage/landing-page.html"
             }).
             state("accountList", {
                 url: "/accountList",
                 controller: "AccountListController",
-                templateUrl: "partials/account/account-list.html"
+                templateUrl: "../functionality/accounts/list/account-list.html"
             }).
             state("users", {
                 url: "/users",
-                templateUrl: "../partials/user/user-list.html",
+                templateUrl: "../functionality/users/list/user-list.html",
                 controller: "UserListController",
                 resolve: {
                     users: function (mnyUserService) {
@@ -33,12 +33,12 @@ moneyApp.config(["$stateProvider",
             }).
             state("newUser", {
                 url: "/users/new",
-                templateUrl: "../partials/user/user-add.html",
+                templateUrl: "../functionality/users/create/user-add.html",
                 controller: "UserCreateController"
             }).
             state("editUser", {
                 url: "/users/edit/{location}",
-                templateUrl: "partials/user/user-edit.html",
+                templateUrl: "../functionality/users/edit/user-edit.html",
                 controller: "UserEditController",
                 resolve: {
                     user: function (mnyUserService, $stateParams) {
@@ -48,12 +48,12 @@ moneyApp.config(["$stateProvider",
             }).
             state("transactionList", {
                 url: "/transactionList",
-                templateUrl: "partials/transaction/transaction-list.html",
+                templateUrl: "../functionality/transactions/list/transaction-list.html",
                 controller: "TransactionController"
             }).
             state("dataUploads", {
                 url: "/dataUploads",
-                templateUrl: "partials/dataUpload/dataUpload.html",
+                templateUrl: "../functionality/dataupload/data-upload.html",
                 controller: "DataUploadController"
             });
         //.
