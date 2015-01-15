@@ -1,6 +1,6 @@
 {
   "name": "MoneyTracker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "homepage": "http://www.ruaghain.com",
   "authors": [
     "Ruaghain <ruaghain_dev@hotmail.com>"
@@ -17,6 +17,10 @@
   "dependencies": {
     "grunt-cli": "~0.1.13",
     "angularjs": "~1.3.6",
-    "angular-ui-router": "~0.2.13"
+    "angular-ui-router": "~0.2.13",
+    "ngstorage": "~0.3.0",
+    "underscore": "~1.7.0",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.1"
   }
 }
