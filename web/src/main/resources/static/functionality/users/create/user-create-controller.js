@@ -18,11 +18,11 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
          * This method saves a new user.
          */
         vm.addUser = function () {
-            var user = getUserDto($scope.user);
+            var user = getUserDto(vm.user);
             mnyUserService.save(user).then(function (userData) {
                 vm.userLocation = userData.headers().location;
                 //mnyAuthService.login(user.userName, user.password);
-                var address = getAddressDto($scope.user);
+                var address = getAddressDto(vm.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     vm.addressLocation = addressData.headers().location;
                     mnyRelationshipService.associate(userController.userLocation, "address", userController.addressLocation).then(function () {

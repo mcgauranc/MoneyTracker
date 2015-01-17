@@ -9,7 +9,7 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tr ng-repeat="user in userListController.users">
+            <tr ng-repeat="user in userController.users">
                 <td>{{user.userName}}</td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
@@ -17,7 +17,7 @@
                     <a class="btn btn-info" ui-sref="editUser({location:user._links.self.href})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="userListController.remove(user._links.self.href)">
+                    <a class="btn btn-danger" ng-click="userController.remove(user._links.self.href)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>

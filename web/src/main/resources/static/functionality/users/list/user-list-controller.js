@@ -9,16 +9,16 @@
 moneyApp.controller("UserListController", ["$scope", "$location", "mnyUserService", "users",
     function ($scope, $location, mnyUserService, users) {
 
-        var userListController = $scope.userListController = {};
+        var vm = this;
 
-        userListController.users = users;
+        vm.users = users;
 
         /**
          * This method gets all of the users from the database.
          */
-        userListController.getUsers = function () {
+        vm.getUsers = function () {
             mnyUserService.getAllUsers().then(function (userData) {
-                userListController.users = userData;
+                vm.users = userData;
             }, function (error) {
                 console.log("There was an error getting all the users: " + error);
             })
@@ -27,9 +27,9 @@ moneyApp.controller("UserListController", ["$scope", "$location", "mnyUserServic
         /**
          * This method removes the given user location from the database.
          */
-        userListController.remove = function (location) {
+        vm.remove = function (location) {
             mnyUserService.remove(location).then(function () {
-                userListController.getUsers();
+                vm.getUsers();
             }, function (error) {
                 console.log("There was an error deleting the user from the database: " + error);
             });
