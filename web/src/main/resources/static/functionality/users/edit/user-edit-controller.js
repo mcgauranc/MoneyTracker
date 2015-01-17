@@ -9,14 +9,14 @@
 moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserService", "user",
     function ($scope, $location, mnyUserService, user) {
 
-        var userEditController = $scope.userEditController = {};
+        var vm = this;
 
-        $scope.user = user;
+        vm.user = user;
 
         /**
          * This method removes the given user location from the database.
          */
-        userEditController.update = function (user) {
+        vm.update = function (user) {
             mnyUserService.updateUser(user).then(function () {
                 $location.path("users")
             }, function (error) {
@@ -28,7 +28,7 @@ moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserServic
          *
          * @param location
          */
-        userEditController.get = function (location) {
+        vm.get = function (location) {
             mnyUserService.get(location).then(function (data) {
                 $scope.user = data;
             })

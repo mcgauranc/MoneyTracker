@@ -1,40 +1,40 @@
 <form id="user-add-form" name="user-add-form" role="form" autocomplete="off" ng-submit="addUser()">
     <div class="form-group"
-         ng-class="{ 'has-error has-feedback': userForm.txtUserName.$invalid && userForm.txtUserName.$dirty,
-          'has-success has-feedback' : userForm.txtUserName.$valid && userForm.txtUserName.$dirty }">
+         ng-class="{ 'has-error has-feedback': user-add-form.txtUserName.$invalid && user-add-form.txtUserName.$dirty,
+          'has-success has-feedback' : user-add-form.txtUserName.$valid && user-add-form.txtUserName.$dirty }">
         <label id="lblUserName" class="control-label" for="txtUserName">User name:</label>
         <input id="txtUserName" name="txtUserName" class="form-control" type="text" required
-               ng-model="user.userName" mny-username-unique/>
-        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': userForm.txtUserName.$invalid && userForm.txtUserName.$dirty,
-        'glyphicon glyphicon-ok form-control-feedback' : userForm.txtUserName.$valid && userForm.txtUserName.$dirty}"></span>
+               ng-model="userController.user.userName" mny-unique-username/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': user-add-form.txtUserName.$invalid && user-add-form.txtUserName.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : user-add-form.txtUserName.$valid && user-add-form.txtUserName.$dirty}"></span>
     </div>
     <div class="form-group"
-         ng-class="{ 'has-error has-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
-          'has-success has-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty }">
+         ng-class="{ 'has-error has-feedback': user-add-form.txtUserConfirmPassword.$invalid && user-add-form.txtUserConfirmPassword.$dirty,
+          'has-success has-feedback' : user-add-form.txtUserConfirmPassword.$valid && user-add-form.txtUserConfirmPassword.$dirty }">
         <label id="lblPassword" class="control-label" for="txtUserPassword">Password:</label>
         <input id="txtUserPassword" name="txtUserPassword" class="form-control" type="password" required
-               ng-model="user.password"/>
-        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
-        'glyphicon glyphicon-ok form-control-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty}"></span>
+               ng-model="userController.user.password"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': user-add-form.txtUserConfirmPassword.$invalid && user-add-form.txtUserConfirmPassword.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : user-add-form.txtUserConfirmPassword.$valid && user-add-form.txtUserConfirmPassword.$dirty}"></span>
     </div>
     <div class="form-group"
-         ng-class="{ 'has-error has-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
-          'has-success has-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty }">
+         ng-class="{ 'has-error has-feedback': user-add-form.txtUserConfirmPassword.$invalid && user-add-form.txtUserConfirmPassword.$dirty,
+          'has-success has-feedback' : user-add-form.txtUserConfirmPassword.$valid && user-add-form.txtUserConfirmPassword.$dirty }">
         <label id="lblConfirmPassword" class="control-label" for="txtUserConfirmPassword">Confirm Password:</label>
         <input id="txtUserConfirmPassword" name="txtUserConfirmPassword" class="form-control" type="password" required
-               ng-model="user.confirmPassword"
-               mny-compare-to="userController.user.password"/>
+               ng-model="userController.user.confirmPassword"
+               mny-compare-password="userController.user.password"/>
         <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': userForm.txtUserConfirmPassword.$invalid && userForm.txtUserConfirmPassword.$dirty,
-        'glyphicon glyphicon-ok form-control-feedback' : userForm.txtUserConfirmPassword.$valid && userForm.txtUserConfirmPassword.$dirty}"></span>
+        'glyphicon glyphicon-ok form-control-feedback' : user-add-form.txtUserConfirmPassword.$valid && user-add-form.txtUserConfirmPassword.$dirty}"></span>
     </div>
     <div ng-include="'functionality/users/_form.html'"></div>
     <div class="btn-group">
 			<span>
-				<button ng-disabled="userForm.$invalid" id="btnSave" name="btnSave"
-                        ng-click="userCreateController.addUser()"
+				<button ng-disabled="user-add-form.$invalid" id="btnSave" name="btnSave"
+                        ng-click="userController.addUser()"
                         class="btn btn-success" type="submit">Save
                 </button>
-				<button id="btnCancel" name="btnCancel" ng-click="userCreateController.cancel()" class="btn btn-danger">
+				<button id="btnCancel" name="btnCancel" ng-click="userController.cancel()" class="btn btn-danger">
                     Cancel
                 </button>
 			</span>

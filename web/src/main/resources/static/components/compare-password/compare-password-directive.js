@@ -4,29 +4,29 @@
  * User: rowan.massey
  * Date: 10/12/2014
  */
-var mnyCompareTo = function () {
+var mnyComparePassword = function () {
     return {
         require: "ngModel",
         scope: {
-            mnyCompareTo: "="
+            mnyComparePassword: "="
         },
         link: function (scope, element, attributes, ngModel) {
             scope.$watch(function () {
                 var combined;
 
-                if (scope.mnyCompareTo || ngModel.$viewValue) {
-                    combined = scope.mnyCompareTo + '_' + ngModel.$viewValue;
+                if (scope.mnyComparePassword || ngModel.$viewValue) {
+                    combined = scope.mnyComparePassword + '_' + ngModel.$viewValue;
                 }
                 return combined;
             }, function (value) {
                 if (value) {
                     ngModel.$parsers.unshift(function (viewValue) {
-                        var origin = scope.mnyCompareTo;
+                        var origin = scope.mnyComparePassword;
                         if (origin !== viewValue) {
-                            ngModel.$setValidity("mnyCompareTo", false);
+                            ngModel.$setValidity("mnyComparePassword", false);
                             return undefined;
                         } else {
-                            ngModel.$setValidity("mnyCompareTo", true);
+                            ngModel.$setValidity("mnyComparePassword", true);
                             return viewValue;
                         }
                     });
@@ -36,5 +36,5 @@ var mnyCompareTo = function () {
     };
 };
 
-moneyApp.directive("mnyCompareTo", mnyCompareTo);
+moneyApp.directive("mnyComparePassword", mnyComparePassword);
 

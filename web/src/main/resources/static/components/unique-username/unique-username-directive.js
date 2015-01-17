@@ -6,7 +6,7 @@
  * Date: 12/12/2014
  */
 
-var mnyUsernameUnique = function ($http, mnyUserService) {
+var mnyUniqueUsername = function ($http, mnyUserService) {
     return {
         restrict: "A",
         require: "ngModel",
@@ -15,14 +15,14 @@ var mnyUsernameUnique = function ($http, mnyUserService) {
                 ngModel.$loading = true;
                 mnyUserService.userExists(element.val()).then(function (exists) {
                     var userExists = exists.data == 1;
-                    ngModel.$setValidity("mnyUsernameUnique", !userExists);
+                    ngModel.$setValidity("mnyUniqueUsername", !userExists);
                 }, function(result){
                     console.log("There was an error processing if the user existed: " + result);
-                    ngModel.$setValidity("mnyUsernameUnique", false);
+                    ngModel.$setValidity("mnyUniqueUsername", false);
                 });
             });
         }
     };
 };
 
-moneyApp.directive("mnyUsernameUnique", mnyUsernameUnique);
+moneyApp.directive("mnyUniqueUsername", mnyUniqueUsername);

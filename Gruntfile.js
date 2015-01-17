@@ -3,6 +3,28 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        bower: {
+            install: {
+                options: {
+                    install: true,
+                    copy: false,
+                    targetDir: './libs',
+                    cleanTargetDir: true
+                }
+            }
+        },
+        karma: {
+            options: {
+                configFile: 'config/karma.conf.js'
+            },
+            unit: {
+                singleRun: true
+            },
+            continuous: {
+                singleRun: false,
+                autoWatch: true
+            }
+        },
         concat: {
             options: {
                 // define a string to put between each file in the concatenated output
@@ -10,7 +32,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 // the files to concatenate
-                src: ['src/**/*.js'],
+                src: ['web/src/main/resources/**/*.js'],
                 // the location of the resulting JS file
                 dest: 'dist/<%= pkg.name %>.js'
             }
@@ -18,7 +40,8 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 // the banner is inserted at the top of the output
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+                mangle: false
             },
             dist: {
                 files: {
@@ -26,11 +49,8 @@ module.exports = function (grunt) {
                 }
             }
         },
-        qunit: {
-            files: ['test/**/*.html']
-        },
         jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+            all: ['Gruntfile.js', 'web/scr/main/resources/**/*.js', 'test/**/*.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
@@ -43,17 +63,33 @@ module.exports = function (grunt) {
         },
         watch: {
             files: ['<%= jshint.files %>'],
-            tasks: ['jshint', 'qunit']
+            tasks: ['jshint'],
+            options: {
+                atBegin: true
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    hostname: 'localhost',
+                    port: 8080
+                }
+            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify'); //This minifies all of the java script.
+    grunt.loadNpmTasks('grunt-contrib-jshint'); //This validates code quality
+    grunt.loadNpmTasks('grunt-contrib-watch'); //This will execute certain tasks when a file is modified.
+    grunt.loadNpmTasks('grunt-contrib-concat'); //This will concatinate all of the JS files into one file.
+    grunt.loadNpmTasks('grunt-contrib-connect'); //This will automatically run a webserver to test the application.
+    grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karam from within Grunt.
 
-    grunt.registerTask('test', ['jshint', 'qunit']);
+    grunt.registerTask('test', ['jshint']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+    //grunt.registerTask('dev', ['bower', 'connect:server', 'watch:dev']);
+    //grunt.registerTask('test', ['bower', 'jshint', 'karma:continuous']);
+    //grunt.registerTask('minified', ['bower', 'connect:server', 'watch:min']);
+    //grunt.registerTask('package', ['bower', 'jshint', 'karma:unit', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist']);
 };
