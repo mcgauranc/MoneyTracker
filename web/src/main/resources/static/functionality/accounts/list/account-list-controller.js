@@ -11,14 +11,14 @@
 moneyApp.controller("AccountListController", ["$scope", "$location", "mnyAccountService", "accounts",
     function ($scope, $location, mnyAccountService, accounts) {
 
-        var accountListController = $scope.accountListController = {};
+        var vm = this;
 
-        accountListController.accounts = accounts;
+        vm.accounts = accounts;
 
         /**
          * This method gets all of the accounts from the database.
          */
-        accountListController.getAccounts = function () {
+        vm.getAccounts = function () {
             mnyAccountService.getAllAccounts().then(function (userData) {
                 accountListController.users = userData;
             }, function (error) {
@@ -29,9 +29,9 @@ moneyApp.controller("AccountListController", ["$scope", "$location", "mnyAccount
         /**
          * This method removes the given account location from the database.
          */
-        accountListController.remove = function (location) {
+        vm.remove = function (location) {
             mnyAccountService.remove(location).then(function () {
-                accountListController.getAccounts();
+                vm.getAccounts();
             }, function (error) {
                 console.log("There was an error deleting the user from the database: " + error);
             });

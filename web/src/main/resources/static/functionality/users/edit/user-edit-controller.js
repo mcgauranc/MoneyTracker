@@ -30,7 +30,7 @@ moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserServic
          */
         vm.get = function (location) {
             mnyUserService.get(location).then(function (data) {
-                $scope.user = data;
+                vm.user = data;
             })
         };
     }]);

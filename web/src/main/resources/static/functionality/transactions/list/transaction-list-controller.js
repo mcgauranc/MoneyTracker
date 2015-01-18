@@ -5,8 +5,8 @@
 moneyApp.controller("TransactionController", ["$scope", "$location",
     function ($scope, $location) {
 
-        var transactionController = $scope.transactionController = {};
+        var vm = this;
 
-        transactionController.transactionList = {};
+        vm.transactionList = {};
 
     }]);

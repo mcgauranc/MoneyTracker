@@ -13,6 +13,7 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
         var vm = this;
 
         vm.user = {};
+        vm.errorMessage = "";
 
         /**
          * This method saves a new user.
@@ -25,13 +26,13 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
                 var address = getAddressDto(vm.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     vm.addressLocation = addressData.headers().location;
-                    mnyRelationshipService.associate(userController.userLocation, "address", userController.addressLocation).then(function () {
+                    mnyRelationshipService.associate(vm.userLocation, "address", vm.addressLocation).then(function () {
                         vm.user = {};
                     })
                 });
                 $location.path("users")
             }, function (error) {
-                console.log("There was an error processing the user: " + error);
+                vm.errorMessage = "There was an error processing the user: " + error;
             })
         };
 

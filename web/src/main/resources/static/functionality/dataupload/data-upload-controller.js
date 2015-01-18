@@ -11,35 +11,35 @@
 moneyApp.controller("DataUploadController", ["$scope", "mnyDataUploadService",
     function ($scope, mnyDataUploadService) {
 
-        var dataUploadController = $scope.dataUploadController = {};
+        var vm = this;
 
-        dataUploadController.dataUpload = {};
-        dataUploadController.listOfEntities = [];
-        dataUploadController.selectedEntity = "";
-        dataUploadController.listOfFieldsForEntity = [];
+        vm.dataUpload = {};
+        vm.listOfEntities = [];
+        vm.selectedEntity = "";
+        vm.listOfFieldsForEntity = [];
 
-        dataUploadController.save = function () {
+        vm.save = function () {
         };
 
-        dataUploadController.getListOfEntities = function () {
+        vm.getListOfEntities = function () {
             mnyDataUploadService.getListOfEntities().then(function (entityData) {
-                dataUploadController.listOfEntities = entityData;
+                vm.listOfEntities = entityData;
             }, function (error) {
                 console.log("There was an error getting all the entities: " + error);
             })
         };
 
-        dataUploadController.getListOfFieldsForEntity = function () {
-            if (dataUploadController.selectedEntity != "") {
-                mnyDataUploadService.getEntitySchema(dataUploadController.selectedEntity).then(function (fieldData) {
-                    dataUploadController.listOfFieldsForEntity = fieldData
+        vm.getListOfFieldsForEntity = function () {
+            if (vm.selectedEntity != "") {
+                mnyDataUploadService.getEntitySchema(vm.selectedEntity).then(function (fieldData) {
+                    vm.listOfFieldsForEntity = fieldData
                 }, function (error) {
                     console.log("There was an error getting all the entities: " + error);
                 })
             }
         };
 
-        dataUploadController.refresh = function () {
+        vm.refresh = function () {
             this.getListOfEntities();
         };
         ////dataUploadController.all = Restangular.all('dataUploads');
