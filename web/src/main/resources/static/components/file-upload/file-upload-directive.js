@@ -4,16 +4,15 @@
  * User: rowan.massey
  * Date: 02/01/2015
  */
-var mnyFileUpload = function () {
+var mnyFileUpload = function ($parse) {
     return {
         restrict: 'E',
         //scope: {
         //    datasource: '=', //This means an attribute called datasource will be passed in a reference.
         //    add: '&' //This means that an attribute called 'add' will defined the function to be called.
         //},
-        //link: function (scope, element) {
-        //    debugger;
-        //},
+        link: function (scope, element, attributes) {
+        },
         controller: function ($scope) {
             $scope.processHeading = function (file) {
                 var rawFile = new XMLHttpRequest();
@@ -22,14 +21,13 @@ var mnyFileUpload = function () {
                     if (rawFile.readyState === 4) {
                         if (rawFile.status === 200 || rawFile.status == 0) {
                             var allText = rawFile.responseText;
-                            debugger;
                         }
                     }
                 };
                 rawFile.send(null);
             }
         },
-        templateUrl: "fileUpload.html"
+        templateUrl: "/components/file-upload/file-upload.html"
     };
 };
 
