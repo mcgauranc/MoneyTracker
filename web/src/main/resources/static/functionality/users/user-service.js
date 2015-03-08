@@ -82,13 +82,16 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
     };
 
     /**
+     * This method returns a single user from the given location.
      *
      * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
      */
     userService.getUser = function (location) {
         var deferred = $q.defer();
         $http.get(location).then(function (data) {
-            deferred.resolve(data.data);
+            var result = data.data;
+            result.dateOfBirth = new Date(result.dateOfBirth);
+            deferred.resolve(result);
         }, function (error) {
             console.log("There was an error retrieving the user." + error);
             deferred.reject(error);
