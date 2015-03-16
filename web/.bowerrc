@@ -1,5 +1,5 @@
 {
-  "directory": "app/vendors",
+  "directory": "src/main/resources/static/vendors",
   "analytics": false,
   "timeout": 120000
 }

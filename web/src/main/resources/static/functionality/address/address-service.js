@@ -23,5 +23,20 @@ moneyApp.service("mnyAddressService", ["$http", "$q", function ($http, $q) {
         });
         return deferred.promise;
     };
+
+    /**
+     * This method retrieves the address for the given URL.
+     * @param location The location of the address to retrieve.
+     */
+    addressService.getAddress = function(location) {
+        var deferred = $q.defer();
+        $http.get(location).then(function (data) {
+            deferred.resolve(data.data);
+        }, function (error) {
+            console.log("There was an error retrieving the address." + error);
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    }
 }]);
 

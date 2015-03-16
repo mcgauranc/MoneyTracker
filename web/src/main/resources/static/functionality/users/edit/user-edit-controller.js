@@ -11,16 +11,13 @@ moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserServic
     function ($scope, $location, mnyUserService, user) {
 
         var vm = this;
-
         vm.user = user;
 
         /**
-         * This method updates a given user on the database.
-         *
-         * @param user The user object which will contain the information which will be updated on the database.
+         * This method updates the user details, changed in the scope object.
          */
-        vm.update = function (user) {
-            mnyUserService.updateUser(user).then(function () {
+        vm.update = function () {
+            mnyUserService.updateUser($stateParams.location, vm.user).then(function () {
                 $location.path("users")
             }, function (error) {
                 console.log("There was an error updating the user on the database: " + error);
@@ -28,13 +25,9 @@ moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserServic
         };
 
         /**
-         * This method retrieves the user for the given location.
-         *
-         * @param location The URL where the user information can be found.
+         * This method cancels the current operation.
          */
-        vm.get = function (location) {
-            mnyUserService.get(location).then(function (data) {
-                vm.user = data;
-            })
-        };
+        vm.cancel = function() {
+            $location.path("users");
+        }
     }]);

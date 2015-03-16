@@ -1,8 +1,8 @@
-../logs/spring-2015-01-02.log
 !.gitkeep
 node_modules/
 bower_components/
 app/vendors/
+logs/
 tmp
 .DS_Store
 .idea

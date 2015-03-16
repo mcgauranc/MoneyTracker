@@ -1,6 +1,7 @@
 "use strict";
 
 /**
+ * This controller handles everything to do with the creation of a user screen.
  *
  * User: rowan.massey
  * Date: 03/01/2015
@@ -37,13 +38,20 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
         };
 
         /**
+         * This method cancels the current operation, and redirects to the users page.
+         */
+        vm.cancel = function () {
+            $location.path("users");
+        };
+
+        /**
          * This method converts the user object defined in the controller, into a user object that will be posted
          * to the server.
          *
          * @param user The user object defined in the controller.
          * @returns {} user object with only relevant user object information populated.
          */
-        function getUserDto(user) {
+        vm.getUserDto = function (user) {
             var result = {};
 
             result.userName = user.userName;
@@ -53,7 +61,7 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
             result.dateOfBirth = new Date(user.dateOfBirth).toISOString();
 
             return result;
-        }
+        };
 
         /**
          * This method converts the user object defined in the controller, into an address object that will be posted
@@ -62,7 +70,7 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
          * @param user The user object defined in the controller with address information.
          * @returns An address object, with only address relevant information populated.
          */
-        function getAddressDto(user) {
+        vm.getAddressDto = function (user) {
             var result = {};
 
             result.address1 = user.address1;

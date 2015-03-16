@@ -103,9 +103,9 @@ moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
      *
      * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
      */
-    userService.updateUser = function (data) {
+    userService.updateUser = function (location, data) {
         var deferred = $q.defer();
-        $http.put(data).then(function (data) {
+        $http.put(location, data).then(function (data) {
             deferred.resolve(data.data);
         }, function (error) {
             console.log("There was an error retrieving the user." + error);

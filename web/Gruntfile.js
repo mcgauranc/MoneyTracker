@@ -83,7 +83,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch'); //This will execute certain tasks when a file is modified.
     grunt.loadNpmTasks('grunt-contrib-concat'); //This will concatinate all of the JS files into one file.
     grunt.loadNpmTasks('grunt-contrib-connect'); //This will automatically run a webserver to test the application.
-    grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karam from within Grunt.
+    grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karma from within Grunt.
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
