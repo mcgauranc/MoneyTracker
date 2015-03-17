@@ -15,19 +15,21 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
 
         vm.user = {};
         vm.errorMessage = "";
+        vm.userLocation = "";
+        vm.addressLocation = "";
 
         /**
          * This method saves a new user.
          */
         vm.addUser = function () {
-            var user = getUserDto(vm.user);
+            var user = vm.getUserDto(vm.user);
             mnyUserService.save(user).then(function (userData) {
                 vm.userLocation = userData.headers().location;
                 //mnyAuthService.login(user.userName, user.password);
-                var address = getAddressDto(vm.user);
+                var address = vm.getAddressDto(vm.user);
                 mnyAddressService.save(address).then(function (addressData) {
                     vm.addressLocation = addressData.headers().location;
-                    mnyRelationshipService.associate(vm.userLocation, "address", vm.addressLocation).then(function () {
+                    mnyRelationshipService.associate(vm.userLocation, "address", vm.addressLocation).then(function (relationshipData) {
                         vm.user = {};
                     })
                 });
@@ -68,19 +70,19 @@ moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserServ
          * to the server.
          *
          * @param user The user object defined in the controller with address information.
-         * @returns An address object, with only address relevant information populated.
+         * @returns {} address object, with only address relevant information populated.
          */
         vm.getAddressDto = function (user) {
-            var result = {};
+            var addressResult = {};
 
-            result.address1 = user.address1;
-            result.address2 = user.address2;
-            result.address3 = user.address3;
-            result.address4 = user.address4;
-            result.city = user.city;
-            result.county = user.county;
+            addressResult.address1 = user.address1;
+            addressResult.address2 = user.address2;
+            addressResult.address3 = user.address3;
+            addressResult.address4 = user.address4;
+            addressResult.city = user.city;
+            addressResult.county = user.county;
 
-            return result;
+            return addressResult;
         }
     }
 ])

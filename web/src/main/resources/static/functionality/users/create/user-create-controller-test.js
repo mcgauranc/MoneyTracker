@@ -1,15 +1,42 @@
 describe('UserCreateController', function () {
     beforeEach(module('moneyApp'));
 
-    var $scope,
+    var $rootScope,
+        $scope,
         $location,
-        userCreateController;
+        $injector,
+        $q,
+        userCreateController,
+        mnyUserService,
+        mnyAddressService,
+        mnyRelationshipService,
+        vm,
+        deferred;
 
-    beforeEach(inject(function ($rootScope, $controller, $q, _$location_) {
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
 
+        $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
+        $location = _$location_;
+        $injector = _$injector_;
+        $q = _$q_;
 
-        $scope.user = {
+        deferred = $q.defer();
+
+        mnyUserService = $injector.get("mnyUserService");
+        mnyAddressService = $injector.get("mnyAddressService");
+        mnyRelationshipService = $injector.get("mnyRelationshipService");
+        userCreateController = $controller;
+
+        vm = userCreateController('UserCreateController', {
+            $scope: $scope,
+            $location: $location,
+            mnyUserService: mnyUserService,
+            mnyAddressService: mnyAddressService,
+            mnyRelationshipService: mnyRelationshipService
+        });
+
+        vm.user = {
             "userName": "Admin",
             "password": "Passw0rd",
             "firstName": "Admin",
@@ -22,28 +49,53 @@ describe('UserCreateController', function () {
             "city": "city",
             "county": "county"
         };
-
-        $location = _$location_;
-        userCreateController = $controller('UserCreateController', {
-            $scope: $scope,
-            $location: $location
-        });
     }));
 
     it('Should add a new user', function () {
-        //Creates a spy on the addUser method. Basically calls service methods, which will be tested separately.
-        userCreateController.addUser = jasmine.createSpy("addUser() Spy");
-        userCreateController.addUser();
-        expect(userCreateController.addUser).toHaveBeenCalled();
+        //A dummy response value that gets returned when the Save() method for a service gets called.
+        var result = {
+            headers: function () {
+                return {
+                    location: "http://localhost/test",
+                    expires: 0
+                }
+            }
+        };
+
+        //Create spies for the relevant service functions that are called in the addUser function.
+        spyOn(mnyUserService, 'save').and.returnValue(deferred.promise);
+        deferred.resolve(result);
+        spyOn(mnyAddressService, 'save').and.returnValue(deferred.promise);
+        deferred.resolve(result);
+        spyOn(mnyRelationshipService, 'associate').and.returnValue(deferred.promise);
+        deferred.resolve(result);
+
+        vm.addUser();
+
+        //Need this to actually set the relevant values.
+        $rootScope.$digest();
+
+        expect(vm.userLocation).toBe("http://localhost/test");
+        expect(vm.addressLocation).toBe("http://localhost/test");
+        expect($location.$$path).toBe("/users")
+    });
+
+    it('Should return an error on add user', function () {
+        spyOn(mnyUserService, 'save').and.throwError();
+
+        expect(function () {
+            mnyUserService.save()
+        }).toThrowError();
+        expect(vm.errorMessage).toBeDefined();
     });
 
     it('Should cancel the request', function () {
-        userCreateController.cancel();
+        vm.cancel();
         expect($location.$$path).toBe("/users")
     });
 
     it('Should create a userDto object', function () {
-        var result = userCreateController.getUserDto($scope.user);
+        var result = vm.getUserDto(vm.user);
         expect(result.userName).toBe("Admin");
         expect(result.password).toBe("Passw0rd");
         expect(result.firstName).toBe("Admin");
@@ -52,7 +104,7 @@ describe('UserCreateController', function () {
     });
 
     it('Should create an addressDto object', function () {
-        var result = userCreateController.getAddressDto($scope.user);
+        var result = vm.getAddressDto(vm.user);
         expect(result.address1).toBe("address 1");
         expect(result.address2).toBe("address 2");
         expect(result.address3).toBe("address 3");
