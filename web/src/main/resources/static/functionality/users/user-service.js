@@ -6,6 +6,7 @@
  *
  * NOTE: Could possibly implement AngularJS $resource functionality to replace items below.
  */
+"use strict";
 
 moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
 
