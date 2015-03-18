@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-    require('time-grunt')(grunt);
+    //require('time-grunt')(grunt);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         },
         karma: {
             options: {
-                configFile: 'config/karma.conf.js'
+                configFile: 'karma.conf.js'
             },
             unit: {
                 singleRun: true
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'web/scr/main/resources/**/*.js', 'test/**/*.js'],
+            all: ['web/src/**/*.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
