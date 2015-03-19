@@ -6,23 +6,27 @@
  * Date: 12/12/2014
  */
 
-var mnyUniqueUsername = function ($http, mnyUserService) {
-    return {
-        restrict: "A",
-        require: "ngModel",
-        link: function (scope, element, attrs, ngModel) {
-            element.bind("blur", function () {
-                ngModel.$loading = true;
-                mnyUserService.userExists(element.val()).then(function (exists) {
-                    var userExists = exists.data == 1;
-                    ngModel.$setValidity("mnyUniqueUsername", !userExists);
-                }, function(result){
-                    console.log("There was an error processing if the user existed: " + result);
-                    ngModel.$setValidity("mnyUniqueUsername", false);
-                });
-            });
-        }
-    };
-};
+(function () {
+    'use strict';
 
-moneyApp.directive("mnyUniqueUsername", mnyUniqueUsername);
+    var mnyUniqueUsername = function ($http, mnyUserService) {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, element, attrs, ngModel) {
+                element.bind("blur", function () {
+                    ngModel.$loading = true;
+                    mnyUserService.userExists(element.val()).then(function (exists) {
+                        var userExists = exists.data == 1;
+                        ngModel.$setValidity("mnyUniqueUsername", !userExists);
+                    }, function (result) {
+                        console.log("There was an error processing if the user existed: " + result);
+                        ngModel.$setValidity("mnyUniqueUsername", false);
+                    });
+                });
+            }
+        };
+    };
+
+    moneyApp.directive("mnyUniqueUsername", mnyUniqueUsername);
+})();

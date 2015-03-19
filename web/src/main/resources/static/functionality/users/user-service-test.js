@@ -5,8 +5,6 @@
  * Time: 16:14
  */
 
-"use strict";
-
 describe('UserService', function () {
     beforeEach(module('moneyApp'));
 
@@ -84,7 +82,7 @@ describe('UserService', function () {
                     return {
                         location: "http://localhost/user/1",
                         expires: 0
-                    }
+                    };
                 }
             }
         });

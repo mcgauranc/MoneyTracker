@@ -58,7 +58,7 @@ describe('UserCreateController', function () {
                 return {
                     location: "http://localhost/test",
                     expires: 0
-                }
+                };
             }
         };
 
@@ -77,21 +77,21 @@ describe('UserCreateController', function () {
 
         expect(vm.userLocation).toBe("http://localhost/test");
         expect(vm.addressLocation).toBe("http://localhost/test");
-        expect($location.$$path).toBe("/users")
+        expect($location.$$path).toBe("/users");
     });
 
     it('Should return an error on add user', function () {
         spyOn(mnyUserService, 'save').and.throwError();
 
         expect(function () {
-            mnyUserService.save()
+            mnyUserService.save();
         }).toThrowError();
         expect(vm.errorMessage).toBeDefined();
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
-        expect($location.$$path).toBe("/users")
+        expect($location.$$path).toBe("/users");
     });
 
     it('Should create a userDto object', function () {

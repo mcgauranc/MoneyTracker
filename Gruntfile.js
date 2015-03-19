@@ -1,6 +1,4 @@
 module.exports = function (grunt) {
-    //require('time-grunt')(grunt);
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         bower: {
@@ -8,7 +6,6 @@ module.exports = function (grunt) {
                 options: {
                     install: true,
                     copy: false,
-                    targetDir: './libs',
                     cleanTargetDir: true
                 }
             }
@@ -32,7 +29,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 // the files to concatenate
-                src: ['web/src/main/resources/**/*.js'],
+                src: ['web/src/main/resources/**/*.js', '!web/src/main/vendors/**/*.js'],
                 // the location of the resulting JS file
                 dest: 'dist/<%= pkg.name %>.js'
             }
@@ -50,15 +47,13 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            all: ['web/src/**/*.js'],
+            all: ['web/src/main/resources/static/*.js',
+                'web/src/main/resources/static/components/**/*.js',
+                'web/src/main/resources/static/functionality/**/*.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true,
-                    document: true
-                }
+                    "angular": true                }
             }
         },
         watch: {
@@ -87,9 +82,4 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-
-    //grunt.registerTask('dev', ['bower', 'connect:server', 'watch:dev']);
-    //grunt.registerTask('test', ['bower', 'jshint', 'karma:continuous']);
-    //grunt.registerTask('minified', ['bower', 'connect:server', 'watch:min']);
-    //grunt.registerTask('package', ['bower', 'jshint', 'karma:unit', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist']);
 };

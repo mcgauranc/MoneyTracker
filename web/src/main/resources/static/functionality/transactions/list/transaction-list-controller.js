@@ -1,12 +1,14 @@
-"use strict";
+(function () {
+    'use strict';
 
-/* Controllers */
+    /* Controllers */
 
-moneyApp.controller("TransactionController", ["$scope", "$location",
-    function ($scope, $location) {
+    moneyApp.controller("TransactionController", ["$scope", "$location",
+        function ($scope, $location) {
 
-        var vm = this;
+            var vm = this;
 
-        vm.transactionList = {};
+            vm.transactionList = {};
 
-    }]);
+        }]);
+})();
