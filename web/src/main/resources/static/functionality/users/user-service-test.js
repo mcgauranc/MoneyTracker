@@ -1,4 +1,5 @@
 /**
+ * This file tests all of the user service functionality.
  *
  * User: rowan.massey
  * Date: 17/03/2015

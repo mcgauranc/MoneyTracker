@@ -52,6 +52,7 @@
         };
 
         /**
+         * This method removes a user for the given location.
          *
          * @param location
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
@@ -68,6 +69,7 @@
         };
 
         /**
+         * This function returns all the users from the database.
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
@@ -101,6 +103,7 @@
         };
 
         /**
+         * This method updates a user for the given location, and with the data provided.
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
