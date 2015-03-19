@@ -74,7 +74,6 @@ describe('UserService', function () {
         expect(result.data._embedded.users[0].dateOfBirth).toBe("2015-03-17T17:32:13Z");
     });
 
-
     it('Should Save a New User', function () {
         $httpBackend.whenPOST("api/users").respond({
             data: {
@@ -197,6 +196,41 @@ describe('UserService', function () {
         expect(result[1]._links.accounts.href).toBe("http://localhost:8080/api/users/2/accounts");
         expect(result[1]._links.address.href).toBe("http://localhost:8080/api/users/2/address");
         expect(result[1]._links.groups.href).toBe("http://localhost:8080/api/users/2/groups");
+    });
+
+    it('Should Get a User', function () {
+        $httpBackend.whenGET("api/users/2").respond({
+            "userName": "Admin",
+            "password": "Passw0rd",
+            "firstName": "Admin",
+            "lastName": "User",
+            "dateOfBirth": "2015-03-19T15:47:55Z",
+            "_links": {
+                "self": {
+                    "href": "http://localhost:8080/api/users/1"
+                },
+                "address": {
+                    "href": "http://localhost:8080/api/users/1/address"
+                },
+                "groups": {
+                    "href": "http://localhost:8080/api/users/1/groups"
+                },
+                "accounts": {
+                    "href": "http://localhost:8080/api/users/1/accounts"
+                }
+            }
+        });
+        mnyUserService.getUser("api/users/2").then(function (data) {
+            result = data;
+        });
+        $httpBackend.flush();
+
+        expect(result).toBeDefined();
+        expect(result.userName).toBe("Admin");
+        expect(result.password).toBe("Passw0rd");
+        expect(result.firstName).toBe("Admin");
+        expect(result.lastName).toBe("User");
+        expect(result.dateOfBirth.toString()).toBe("Thu Mar 19 2015 15:47:55 GMT+0000 (GMT Standard Time)");
     });
 
 });
