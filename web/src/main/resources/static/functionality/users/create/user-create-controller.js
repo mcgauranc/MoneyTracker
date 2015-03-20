@@ -15,7 +15,6 @@
             var vm = this;
 
             vm.user = {};
-            vm.errorMessage = "";
             vm.userLocation = "";
             vm.addressLocation = "";
 
@@ -35,8 +34,6 @@
                         });
                     });
                     $location.path("users");
-                }, function (error) {
-                    vm.errorMessage = "There was an error processing the user: " + error;
                 });
             };
 

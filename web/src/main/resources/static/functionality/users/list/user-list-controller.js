@@ -1,11 +1,11 @@
+/**
+ *
+ * User: rowan.massey
+ * Date: 03/01/2015
+ */
+
 (function () {
     'use strict';
-
-    /**
-     *
-     * User: rowan.massey
-     * Date: 03/01/2015
-     */
 
     moneyApp.controller("UserListController", ["$scope", "$location", "mnyUserService", "users",
         function ($scope, $location, mnyUserService, users) {

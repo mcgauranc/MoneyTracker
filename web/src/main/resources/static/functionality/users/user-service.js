@@ -28,8 +28,8 @@
                 deferred.resolve(data);
             }, function (error) {
                 //Reject the promise if there is a failure.
-                console.log("There was an error determining if the username was unique.");
                 deferred.reject(error);
+                throw {message: "There was an error determining if the username was unique: " + error};
             });
             return deferred.promise;
         };
@@ -45,8 +45,8 @@
             $http.post("api/users", user).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                console.log("There was an error saving the user." + error);
                 deferred.reject(error);
+                throw {message: "There was an error saving the user: " + error};
             });
             return deferred.promise;
         };
@@ -62,8 +62,9 @@
             $http.delete(location).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                console.log("There was an error deleting the user." + error);
                 deferred.reject(error);
+                throw {message: "There was an error deleting the user: " + error};
+
             });
             return deferred.promise;
         };
@@ -78,8 +79,8 @@
             $http.get("api/users").then(function (data) {
                 deferred.resolve(data.data._embedded.users);
             }, function (error) {
-                console.log("There was an error retrieving the user." + error);
                 deferred.reject(error);
+                throw {message: "There was an error retrieving all the users: " + error};
             });
             return deferred.promise;
         };
@@ -96,8 +97,8 @@
                 result.dateOfBirth = new Date(result.dateOfBirth);
                 deferred.resolve(result);
             }, function (error) {
-                console.log("There was an error retrieving the user." + error);
                 deferred.reject(error);
+                throw {message: "There was an error retrieving the user: " + error};
             });
             return deferred.promise;
         };
@@ -112,8 +113,8 @@
             $http.put(location, data).then(function (data) {
                 deferred.resolve(data.data);
             }, function (error) {
-                console.log("There was an error retrieving the user." + error);
                 deferred.reject(error);
+                throw {message: "There was an error updating the user: " + error};
             });
             return deferred.promise;
         };

@@ -75,6 +75,14 @@ describe('UserService', function () {
         expect(result.data._embedded.users[0].dateOfBirth).toBe("2015-03-17T17:32:13Z");
     });
 
+    it('Should respond with an error when checking if a user exists', function () {
+        $httpBackend.whenGET("api/users/search/existsByUserName?userName=Admin").respond(500, '');
+        expect(function () {
+            mnyUserService.userExists("Admin");
+            $httpBackend.flush();
+        }).toThrow();
+    });
+
     it('Should Save a New User', function () {
         $httpBackend.whenPOST("api/users").respond({
             data: {
@@ -95,6 +103,14 @@ describe('UserService', function () {
         expect(result.data.data.headers().location).toBe("http://localhost/user/1");
     });
 
+    it('Should respond with an error when saving user.', function () {
+        $httpBackend.whenPOST("api/users").respond(500, '');
+        expect(function () {
+            mnyUserService.save(user);
+            $httpBackend.flush();
+        }).toThrow();
+    });
+
     it('Should remove an Existing User', function () {
         $httpBackend.whenDELETE("api/users/1").respond({
             data: {
@@ -110,6 +126,14 @@ describe('UserService', function () {
         expect(result).toBeDefined();
         expect(result.config.method).toBe("DELETE");
         expect(result.status).toBe(200);
+    });
+
+    it('Should respond with an error when deleting a user.', function () {
+        $httpBackend.whenDELETE("api/users/1").respond(500, '');
+        expect(function () {
+            mnyUserService.remove("api/users/1");
+            $httpBackend.flush();
+        }).toThrow();
     });
 
     it('Should Get All Users', function () {
@@ -199,6 +223,14 @@ describe('UserService', function () {
         expect(result[1]._links.groups.href).toBe("http://localhost:8080/api/users/2/groups");
     });
 
+    it('Should respond with an error when getting all users.', function () {
+        $httpBackend.whenGET("api/users").respond(500, '');
+        expect(function () {
+            mnyUserService.getAllUsers("api/users");
+            $httpBackend.flush();
+        }).toThrow();
+    });
+
     it('Should Get a User', function () {
         $httpBackend.whenGET("api/users/2").respond({
             "userName": "Admin",
@@ -234,6 +266,14 @@ describe('UserService', function () {
         expect(result.dateOfBirth.toString()).toBe("Thu Mar 19 2015 15:47:55 GMT+0000 (GMT Standard Time)");
     });
 
+    it('Should respond with an error when getting user.', function () {
+        $httpBackend.whenGET("api/users/2").respond(500, '');
+        expect(function () {
+            mnyUserService.getUser("api/users/2");
+            $httpBackend.flush();
+        }).toThrow();
+    });
+
     it('Should Update an Existing User', function () {
         $httpBackend.whenPUT("api/users/1").respond({
             data: {
@@ -252,6 +292,14 @@ describe('UserService', function () {
 
         expect(result).toBeDefined();
         expect(result.data.headers().location).toBe("http://localhost/api/users/1");
+    });
+
+    it('Should respond with an error when updating a user.', function () {
+        $httpBackend.whenPUT("api/users/1").respond(500, '');
+        expect(function () {
+            mnyUserService.updateUser("api/users/1");
+            $httpBackend.flush();
+        }).toThrow();
     });
 
 });

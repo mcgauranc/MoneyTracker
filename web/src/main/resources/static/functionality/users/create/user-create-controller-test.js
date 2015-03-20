@@ -80,15 +80,6 @@ describe('UserCreateController', function () {
         expect($location.$$path).toBe("/users");
     });
 
-    it('Should return an error on add user', function () {
-        spyOn(mnyUserService, 'save').and.throwError();
-
-        expect(function () {
-            mnyUserService.save();
-        }).toThrowError();
-        expect(vm.errorMessage).toBeDefined();
-    });
-
     it('Should cancel the request', function () {
         vm.cancel();
         expect($location.$$path).toBe("/users");
