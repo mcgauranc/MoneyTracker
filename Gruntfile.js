@@ -22,6 +22,18 @@ module.exports = function (grunt) {
                 autoWatch: true
             }
         },
+        wiredep: {
+            task: {
+                src: [
+                    'web/src/main/resources/static/*.js',
+                    'web/src/main/resources/static/components/**/*.js',
+                    'web/src/main/resources/static/functionality/**/*.js',
+                    'web/src/main/resources/static/vendors/**/*.min.js',
+                    'web/src/main/resources/static/*.html'
+                ],
+                options: {}
+            }
+        },
         concat: {
             options: {
                 // define a string to put between each file in the concatenated output
@@ -79,6 +91,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat'); //This will concatinate all of the JS files into one file.
     grunt.loadNpmTasks('grunt-contrib-connect'); //This will automatically run a webserver to test the application.
     grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karma from within Grunt.
+    grunt.loadNpmTasks('grunt-wiredep'); //This will wire in all the javascript dependencies to the index.html.
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
