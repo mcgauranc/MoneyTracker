@@ -234,5 +234,25 @@ describe('UserService', function () {
         expect(result.dateOfBirth.toString()).toBe("Thu Mar 19 2015 15:47:55 GMT+0000 (GMT Standard Time)");
     });
 
+    it('Should Update an Existing User', function () {
+        $httpBackend.whenPUT("api/users/1").respond({
+            data: {
+                headers: function () {
+                    return {
+                        location: "http://localhost/api/users/1",
+                        expires: 0
+                    };
+                }
+            }
+        });
+        mnyUserService.updateUser("api/users/1", user).then(function (data) {
+            result = data;
+        });
+        $httpBackend.flush();
+
+        expect(result).toBeDefined();
+        expect(result.data.headers().location).toBe("http://localhost/api/users/1");
+    });
+
 });
 
