@@ -23,14 +23,8 @@ module.exports = function (grunt) {
             }
         },
         wiredep: {
-            task: {
-                src: [
-                    'web/src/main/resources/static/*.js',
-                    'web/src/main/resources/static/components/**/*.js',
-                    'web/src/main/resources/static/functionality/**/*.js',
-                    'web/src/main/resources/static/vendors/**/*.min.js',
-                    'web/src/main/resources/static/*.html'
-                ],
+            target: {
+                src: "web/src/main/resources/static/index.html",
                 options: {}
             }
         },
@@ -65,7 +59,8 @@ module.exports = function (grunt) {
             options: {
                 // options here to override JSHint defaults
                 globals: {
-                    "angular": true                }
+                    "angular": true
+                }
             }
         },
         watch: {

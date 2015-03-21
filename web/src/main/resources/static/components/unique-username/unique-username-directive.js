@@ -7,7 +7,7 @@
  */
 
 (function () {
-    'use strict';
+    "use strict";
 
     var mnyUniqueUsername = function ($http, mnyUserService) {
         return {
