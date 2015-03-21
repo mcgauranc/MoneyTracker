@@ -1,15 +1,15 @@
+/**
+ * This controller handles everything to do with the edit functionality for a given user.
+ *
+ * User: rowan.massey
+ * Date: 03/01/2015
+ */
+
 (function () {
     'use strict';
 
-    /**
-     * This controller handles everything to do with the edit functionality for a given user.
-     *
-     * User: rowan.massey
-     * Date: 03/01/2015
-     */
-
-    moneyApp.controller("UserEditController", ["$scope", "$location", "mnyUserService", "user",
-        function ($scope, $location, mnyUserService, user) {
+    moneyApp.controller("UserEditController", ["$scope", "$location", "$stateParams", "mnyUserService", "user",
+        function ($scope, $location, $stateParams, mnyUserService, user) {
 
             var vm = this;
             vm.user = user;
@@ -20,8 +20,6 @@
             vm.update = function () {
                 mnyUserService.updateUser($stateParams.location, vm.user).then(function () {
                     $location.path("users");
-                }, function (error) {
-                    console.log("There was an error updating the user on the database: " + error);
                 });
             };
 

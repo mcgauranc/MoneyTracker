@@ -6,7 +6,7 @@
  * Time: 16:14
  */
 
-describe('UserService', function () {
+describe('User service', function () {
     beforeEach(module('moneyApp'));
 
     var $injector,

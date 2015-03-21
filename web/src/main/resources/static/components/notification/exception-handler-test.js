@@ -6,7 +6,7 @@
  * Time: 16:14
  */
 
-describe('Exception Handler', function () {
+describe('Exception handler', function () {
     beforeEach(module('moneyApp'));
 
     var mnyNotificationService,
@@ -29,7 +29,7 @@ describe('Exception Handler', function () {
         function errorTimer() {
             $timeout(function () {
                 $log.error("This is an error");
-                throw "An exception which will get notified to the user.";
+                throw new Error("An exception which will get notified to the user.");
             });
             $timeout.flush();
         }

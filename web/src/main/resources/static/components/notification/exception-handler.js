@@ -14,7 +14,7 @@
         $provide.decorator("$exceptionHandler", ["$delegate", "$injector", function ($delegate, $injector) {
             return function (exception, cause) {
                 var mnyNotificationService = $injector.get("mnyNotificationService");
-                mnyNotificationService.send(exception, "error");
+                mnyNotificationService.send(exception.message, "error");
                 $delegate(exception, cause);
             };
         }]);

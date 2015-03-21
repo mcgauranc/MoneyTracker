@@ -1,11 +1,12 @@
 /**
+ * This controller deals with all of the front end functionality that deletes a user.
  *
  * User: rowan.massey
  * Date: 03/01/2015
  */
 
 (function () {
-    'use strict';
+    "use strict";
 
     moneyApp.controller("UserListController", ["$scope", "$location", "mnyUserService", "users",
         function ($scope, $location, mnyUserService, users) {
@@ -20,8 +21,6 @@
             vm.getUsers = function () {
                 mnyUserService.getAllUsers().then(function (userData) {
                     vm.users = userData;
-                }, function (error) {
-                    console.log("There was an error getting all the users: " + error);
                 });
             };
 
@@ -31,8 +30,6 @@
             vm.remove = function (location) {
                 mnyUserService.remove(location).then(function () {
                     vm.getUsers();
-                }, function (error) {
-                    console.log("There was an error deleting the user from the database: " + error);
                 });
             };
         }]);

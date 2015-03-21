@@ -29,7 +29,7 @@
             }, function (error) {
                 //Reject the promise if there is a failure.
                 deferred.reject(error);
-                throw {message: "There was an error determining if the username was unique: " + error};
+                throw new Error("There was an error determining if the username was unique: " + error.message);
             });
             return deferred.promise;
         };
@@ -46,7 +46,7 @@
                 deferred.resolve(data);
             }, function (error) {
                 deferred.reject(error);
-                throw {message: "There was an error saving the user: " + error};
+                throw new Error("There was an error saving the user: " + error.message);
             });
             return deferred.promise;
         };
@@ -63,7 +63,7 @@
                 deferred.resolve(data);
             }, function (error) {
                 deferred.reject(error);
-                throw {message: "There was an error deleting the user: " + error};
+                throw new Error("There was an error deleting the user: " + error.message);
 
             });
             return deferred.promise;
@@ -80,7 +80,7 @@
                 deferred.resolve(data.data._embedded.users);
             }, function (error) {
                 deferred.reject(error);
-                throw {message: "There was an error retrieving all the users: " + error};
+                throw new Error("There was an error retrieving all the users: " + error.message);
             });
             return deferred.promise;
         };
@@ -98,7 +98,7 @@
                 deferred.resolve(result);
             }, function (error) {
                 deferred.reject(error);
-                throw {message: "There was an error retrieving the user: " + error};
+                throw new Error("There was an error retrieving the user: " + error.message);
             });
             return deferred.promise;
         };
@@ -114,7 +114,7 @@
                 deferred.resolve(data.data);
             }, function (error) {
                 deferred.reject(error);
-                throw {message: "There was an error updating the user: " + error};
+                throw new Error("There was an error updating the user: " + error.message);
             });
             return deferred.promise;
         };
