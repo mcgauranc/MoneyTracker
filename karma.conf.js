@@ -21,8 +21,7 @@ module.exports = function (config) {
             'vendors/angular-ui-router/release/angular-ui-router.js',
             '*.js',
             'components/**/*.js',
-            'functionality/**/*.js',
-            '**/*-test.js'
+            'functionality/**/*.js'
         ],
 
 
@@ -33,7 +32,8 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'functionality/**/*.js': ['coverage']
+            'functionality/**/*.js': ['coverage'],
+            'components/**/*.js': ['coverage']
         },
 
 
