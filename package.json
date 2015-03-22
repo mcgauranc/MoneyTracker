@@ -20,10 +20,12 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-cli": "0.0.4",
     "karma-coverage": "^0.2.7",
+    "karma-firefox-launcher": "^0.1.4",
     "karma-html-reporter": "^0.2.6",
     "karma-jasmine": "^0.3.5",
     "karma-junit-reporter": "^0.2.2",
     "protractor": "^1.1.1",
+    "sha256": "^0.2.0",
     "shelljs": "^0.2.6"
   },
   "repository": {
