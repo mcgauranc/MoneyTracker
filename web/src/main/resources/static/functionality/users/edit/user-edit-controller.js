@@ -8,8 +8,8 @@
 (function () {
     'use strict';
 
-    moneyApp.controller("UserEditController", ["$scope", "$location", "$stateParams", "mnyUserService", "user",
-        function ($scope, $location, $stateParams, mnyUserService, user) {
+    moneyApp.controller("UserEditController", ["$scope", "$location", "$stateParams", "mnyUserService", "user", "mnyNotificationService",
+        function ($scope, $location, $stateParams, mnyUserService, user, mnyNotificationService) {
 
             var vm = this;
             vm.user = user;
@@ -29,5 +29,9 @@
             vm.cancel = function () {
                 $location.path("users");
             };
+
+            vm.notify = function (message, type) {
+                throw new Error("This is a bloody error");
+            }
         }]);
 })();

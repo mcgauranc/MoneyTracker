@@ -21,10 +21,5 @@
                 notificationType: type
             });
         };
-
-        //The directive needs to search for the following:
-        //$scope.$on('mnyNotificationEvent', function(e, errorMessage) {
-        //});
-
     }]);
 })();

@@ -16,7 +16,6 @@
 <div ng-controller="AuthController">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
-            <!--Add in a notification component here. Will show errors, information messages etc-->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moneyNavigationBar">
                     <span class="icon-bar"></span>
@@ -56,13 +55,14 @@
         </div>
     </nav>
     <div ui-view class="container">
+        <mny-notification/>
     </div>
 </div>
 
 <!--THE SCRIPT TAGS GET AUTO-GENERATED FROM KARMA-->
 <!-- bower:js -->
 <script src="vendors/jquery/dist/jquery.js"></script>
-<script src="vendors/angular/angular.js"></script>
+<script src="vendors/angularjs/angular.js"></script>
 <script src="vendors/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="vendors/ngstorage/ngStorage.js"></script>
 <script src="vendors/underscore/underscore.js"></script>
@@ -79,6 +79,7 @@
 <!--NOTIFICATIONS-->
 <script src="components/notification/exception-handler.js"></script>
 <script src="components/notification/notification-service.js"></script>
+<script src="components/notification/notification-directive.js"></script>
 
 <!--COMPONENTS-->
 <script src="components/unique-username/unique-username-directive.js"></script>
