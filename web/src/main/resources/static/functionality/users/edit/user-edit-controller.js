@@ -31,7 +31,7 @@
             };
 
             vm.notify = function (message, type) {
-                throw new Error("This is a bloody error");
+                mnyNotificationService.send(message, type)
             }
         }]);
 })();

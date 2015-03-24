@@ -18,16 +18,20 @@
                 var type;
                 var message;
                 $scope.$on("mnyNotificationEvent", function (notificationObject, notificationContent) {
+
                     if (notificationContent) {
                         type = notificationContent.notificationType;
                         message = notificationContent.notificationMessage;
                     }
                     element.addClass(type);
                     element.css("display", "block");
+
+                    $timeout(function () {
+                        element.css("display", "none");
+                    }, 3000)
                 });
             }
         };
     };
-
     moneyApp.directive("mnyNotification", mnyNotification);
 })();
