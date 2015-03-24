@@ -21,9 +21,9 @@
                     if (notificationContent) {
                         type = notificationContent.notificationType;
                         message = notificationContent.notificationMessage;
-                        element.addClass(type);
                     }
-                    element.show();
+                    element.addClass(type);
+                    element.css("display", "block");
                 });
             }
         };
