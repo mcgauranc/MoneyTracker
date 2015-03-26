@@ -81,8 +81,21 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     hostname: 'localhost',
-                    port: 8080
-                }
+                    port: 9000,
+                    base: 'web/src/main/resources/static/'
+                },
+                proxies: [
+                    {
+                        context: '/api',
+                        host: 'localhost',
+                        port: 8080,
+                        https: false,
+                        xforward: false
+                        //headers: {
+                        //    "x-custom-added-header": value
+                        //}
+                    }
+                ]
             }
         },
         express: {
@@ -104,8 +117,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karma from within Grunt.
     grunt.loadNpmTasks('grunt-wiredep'); //This will wire in all the javascript dependencies to the index.html.
     grunt.loadNpmTasks('grunt-express');
+    grunt.loadNpmTasks('grunt-connect-proxy');
+
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-    grunt.registerTask('dev', ['express', 'watch']);
+    grunt.registerTask('dev', ['connect', 'watch']);
 };

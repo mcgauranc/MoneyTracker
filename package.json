@@ -28,7 +28,8 @@
     "sha256": "^0.2.0",
     "shelljs": "^0.2.6",
     "grunt-express": "^1.4.1",
-    "matchdep": "^0.3.0"
+    "matchdep": "^0.3.0",
+    "grunt-connect-proxy": "^0.1.11"
   },
   "repository": {
     "type": "git",
