@@ -26,7 +26,9 @@
     "karma-junit-reporter": "^0.2.2",
     "protractor": "^1.1.1",
     "sha256": "^0.2.0",
-    "shelljs": "^0.2.6"
+    "shelljs": "^0.2.6",
+    "grunt-express": "^1.4.1",
+    "matchdep": "^0.3.0"
   },
   "repository": {
     "type": "git",

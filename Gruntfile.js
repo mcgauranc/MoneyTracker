@@ -1,4 +1,7 @@
 module.exports = function (grunt) {
+
+    var path = require('path');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         bower: {
@@ -64,10 +67,14 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: ['<%= jshint.files %>'],
+            files: ['web/src/main/resources/static/*.js',
+                'web/src/main/resources/static/components/**/*.js',
+                'web/src/main/resources/static/functionality/**/*.js'],
             tasks: ['jshint'],
             options: {
                 atBegin: true
+                //,
+                //livereload : true
             }
         },
         connect: {
@@ -75,6 +82,15 @@ module.exports = function (grunt) {
                 options: {
                     hostname: 'localhost',
                     port: 8080
+                }
+            }
+        },
+        express: {
+            all: {
+                options: {
+                    hostname: 'localhost',
+                    port: 9000,
+                    bases: [path.resolve('web/src/main/resources/static/')]
                 }
             }
         }
@@ -87,7 +103,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect'); //This will automatically run a webserver to test the application.
     grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karma from within Grunt.
     grunt.loadNpmTasks('grunt-wiredep'); //This will wire in all the javascript dependencies to the index.html.
+    grunt.loadNpmTasks('grunt-express');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('dev', ['express', 'watch']);
 };
