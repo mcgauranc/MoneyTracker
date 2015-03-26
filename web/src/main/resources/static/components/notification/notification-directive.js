@@ -28,7 +28,7 @@
 
                     $timeout(function () {
                         element.css("display", "none");
-                    }, 3000)
+                    }, 3000);
                 });
             }
         };

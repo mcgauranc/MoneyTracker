@@ -1,15 +1,15 @@
 module.exports = function (grunt) {
 
-    var path = require('path');
+    require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
         bower: {
             install: {
                 options: {
                     install: true,
-                    copy: false,
-                    cleanTargetDir: true
+                    copy: true
                 }
             }
         },
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
             },
             continuous: {
                 singleRun: false,
-                autoWatch: true
+                autoWatch: false
             }
         },
         wiredep: {
@@ -32,15 +32,23 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            options: {
-                // define a string to put between each file in the concatenated output
-                separator: ';'
+            js: {
+                options: {
+                    stripBanners: true
+                },
+                src: ["web/src/main/resources/static/*.js",
+                    "web/src/main/resources/static/components/**/*.js",
+                    "web/src/main/resources/static/functionality/**/*.js",
+                    "!web/src/main/resources/static/MoneyTracker.js",
+                    "!**/*-test.js"],
+                dest: "web/src/main/resources/static/<%= pkg.name %>.js"
             },
-            dist: {
-                // the files to concatenate
-                src: ['web/src/main/resources/**/*.js', '!web/src/main/vendors/**/*.js'],
-                // the location of the resulting JS file
-                dest: 'dist/<%= pkg.name %>.js'
+            css: {
+                src: ["web/src/main/resources/static/*.css",
+                    "web/src/main/resources/static/components/**/*.css",
+                    "web/src/main/resources/static/functionality/**/*.css",
+                    "!web/src/main/resources/static/MoneyTracker.css"],
+                dest: 'web/src/main/resources/static/<%= pkg.name %>.css'
             }
         },
         uglify: {
@@ -51,7 +59,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'web/src/main/resources/static/dist/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
                 }
             }
         },
@@ -67,60 +75,41 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: ['web/src/main/resources/static/*.js',
-                'web/src/main/resources/static/components/**/*.js',
-                'web/src/main/resources/static/functionality/**/*.js'],
-            tasks: ['jshint'],
             options: {
                 atBegin: true
-                //,
-                //livereload : true
-            }
+            },
+            files: ["web/src/main/resources/static/*.js",
+                "web/src/main/resources/static/index.html",
+                "web/src/main/resources/static/components/**/*.js",
+                "web/src/main/resources/static/functionality/**/*.js",
+                "web/src/main/resources/static/components/**/*.css",
+                "web/src/main/resources/static/functionality/**/*.css"],
+            tasks: ["jshint", "karma", "concat"]
         },
         connect: {
             server: {
                 options: {
                     hostname: 'localhost',
                     port: 9000,
-                    base: 'web/src/main/resources/static/'
+                    base: 'web/src/main/resources/static/',
+                    keepalive: true
                 },
                 proxies: [
                     {
-                        context: '/api',
+                        context: '/api/',
                         host: 'localhost',
-                        port: 8080,
-                        https: false,
-                        xforward: false
+                        port: 8080
+                        //https: false,
+                        //xforward: false
                         //headers: {
                         //    "x-custom-added-header": value
                         //}
                     }
                 ]
             }
-        },
-        express: {
-            all: {
-                options: {
-                    hostname: 'localhost',
-                    port: 9000,
-                    bases: [path.resolve('web/src/main/resources/static/')]
-                }
-            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify'); //This minifies all of the java script.
-    grunt.loadNpmTasks('grunt-contrib-jshint'); //This validates code quality
-    grunt.loadNpmTasks('grunt-contrib-watch'); //This will execute certain tasks when a file is modified.
-    grunt.loadNpmTasks('grunt-contrib-concat'); //This will concatinate all of the JS files into one file.
-    grunt.loadNpmTasks('grunt-contrib-connect'); //This will automatically run a webserver to test the application.
-    grunt.loadNpmTasks('grunt-karma'); //allows us to exectute Karma from within Grunt.
-    grunt.loadNpmTasks('grunt-wiredep'); //This will wire in all the javascript dependencies to the index.html.
-    grunt.loadNpmTasks('grunt-express');
-    grunt.loadNpmTasks('grunt-connect-proxy');
-
-
-    grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-    grunt.registerTask('dev', ['connect', 'watch']);
+    grunt.registerTask("dev", ["concat", "connect", "watch"]);
+    grunt.registerTask("prod", ["wiredep", "jshint", "concat", "uglify"])
 };

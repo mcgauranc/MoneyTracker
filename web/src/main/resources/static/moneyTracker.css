@@ -1,7 +1,3 @@
-.nav, .pagination, .carousel, .panel-title a {
-    cursor: pointer;
-}
-
 .information, .success, .warning, .error, .validation {
     border: 1px solid;
     margin: 10px 0;

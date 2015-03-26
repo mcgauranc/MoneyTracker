@@ -31,7 +31,7 @@
             };
 
             vm.notify = function (message, type) {
-                mnyNotificationService.send(message, type)
-            }
+                mnyNotificationService.send(message, type);
+            };
         }]);
 })();
