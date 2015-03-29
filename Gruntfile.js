@@ -73,7 +73,8 @@ module.exports = function (grunt) {
         },
         watch: {
             options: {
-                atBegin: true
+                atBegin: true,
+                livereload: true
             },
             files: ["web/src/main/resources/static/*.js",
                 "web/src/main/resources/static/index.html",

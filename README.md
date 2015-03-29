@@ -1,14 +1,15 @@
 # MoneyTracker
 
-MoneyTracker is intended to be a simple, easy to use REST based money tracking application. It will facilitate both the tracking of transactions through a web page, and it will eventually facilitate the tracking of wallet expenditure, by means of a smart phone application. 
-This application will also leverage OCR technology to read receipts and upload this to the server.
+MoneyTracker is intended to be a simple, easy to use REST based money tracking application. It will facilitate both the tracking of transactions through a web page, and it will eventually 
+facilitate the tracking of wallet expenditure, by means of a smart phone application. This application will also leverage OCR technology to read receipts and upload this to the server. 
+Following is a description of what is used within the application. For details on how to develop this project. See [Development](#development)   
 
 ## Server
 
-As mentioned above, the server side of MoneyTracker is implemented using REST. Following the REST principles, it is also stateless. Along with using the HTTP verbs GET, PUT, POST and DELETE to update information. 
-It uses spring-boot to setup the server webapp, along with hibernate, which deals with the database access. The REST server is exposed using spring-data-rest.
+As mentioned above, the server side of MoneyTracker is implemented using REST. Following the REST principles, it is also stateless. Along with using the HTTP verbs GET, PUT, POST and DELETE 
+to update information. It uses spring-boot to setup the server webapp, along with hibernate, which deals with the database access. The REST server is exposed using spring-data-rest.
 
-### Setup
+### <a name="setup"></a> Setup
 
 The best way to run this application would be to use maven. Please ensure that you have downloaded it, and have set the path accordingly. The server uses [Spring Boot] (http://projects.spring.io/spring-boot/) 
 to launch the spring-data-rest application, which means that it doesn't require an external Tomcat to get it running. All of the application configuration is done in the
@@ -101,9 +102,35 @@ Note: Currently, only information exported from MS Money is supported. However, 
 
 ## Client
 
-The client side will currently use AngularJS in conjunction with Kendo UI. A single page approach, to displaying information will be taken. AngularJS facilitates an MVC approach to developing
- client side code - which fits in nicely with what I want to achieve with this project. It also leverages the great capabilities of Kendo UI. The following URLs will be useful should you wish to
-  read up further.
+The client side will currently use AngularJS in conjunction Bootstrap. A single page approach to displaying information will be taken. AngularJS uses MVC to facilitate client side code,
+which fits in nicely with what I want to achieve with this project. The following URLs will be useful should you wish to read up further.
 
   * [AngularJS](http://angularjs.org/)
-  * [RestAngular] (https://github.com/mgonto/restangular)
+  * [Bootstrap] (http://getbootstrap.com/)
+
+
+## <a name="development"></a> Development
+
+MoneyTracker leverages several frameworks to allow for easy development of the application. First and foremost, you need to clone a copy of MoneyTracker from GitHub. Once this is done, 
+you need to download [NodeJS](https://nodejs.org/) if you haven't already done so. This is core to product development. Once this is installed (and you've added this to the path), navigate to 
+the root directory of the MoneyTracking source, and run the following command:
+
+* npm install
+
+This will install everything defined in the package.json file. Once everything has been installed, you need to install everything defined in the bower.json file. Bower facilitates all the front-end
+dependencies (client-side javascript files) including versioning. To do this, run the following command:
+ 
+* bower install
+ 
+This too, will install everything defined in the bower.json file, into a directory called vendors in /web/src/main/java/resource/static/. Now, you're at the stage where you could just run the 
+application. Following the steps defined in [Setup](#setup). However if you wish to debug the server code, debug the "public static void main(String[] args)" method in ApplicationConfig.java.
+
+To debug the client code, the server obviously needs to be running, so that REST requests can be made. I've managed to allow for hot-swapping when developing the client-side. To do this, run the 
+following command in the MoneyTracker root:
+ 
+ * grunt dev
+ 
+[Grunt](http://gruntjs.com/) is a task manager tool, which will run serveral tasks while you're developing the code. See the Gruntfile.js for details. Once you've run the grunt task, navigate to 
+http://localhost:9000 You are now ready to develop client-side. Any changes you make to any js or css file, will activate the watch task, which in turn will analyse the code, concat the relevant 
+files into MoneyTracker.css and MoneyTracker.js, and run the unit tests defined for all of the relevant JavaScript files - all of this done automatically when you save the file.
+       

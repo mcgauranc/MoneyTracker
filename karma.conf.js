@@ -3,7 +3,6 @@
 
 module.exports = function (config) {
     config.set({
-
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: 'web/src/main/resources/static',
 
@@ -21,9 +20,16 @@ module.exports = function (config) {
             'vendors/angular-ui-router/release/angular-ui-router.js',
             '*.js',
             'components/**/*.js',
-            'functionality/**/*.js'
+            'functionality/**/*.js',
+            'components/**/*.html',
+            'functionality/**/*.html'
         ],
 
+        //Need to convert all HTML files into js files.
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'src/main/resources/static/',
+            moduleName: 'templates'
+        },
 
         // list of files to exclude
         exclude: [],
@@ -32,6 +38,8 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            'components/**/*.html': ['ng-html2js'],
+            'functionality/**/*.html': ['ng-html2js'],
             'functionality/**/*.js': ['coverage'],
             'components/**/*.js': ['coverage']
         },
