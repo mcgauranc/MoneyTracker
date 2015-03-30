@@ -34,7 +34,7 @@ describe('Service: mnyAddressService', function () {
             address4: "Address 4",
             county: "Dublin",
             city: "Dublin"
-        }
+        };
 
     }));
 
