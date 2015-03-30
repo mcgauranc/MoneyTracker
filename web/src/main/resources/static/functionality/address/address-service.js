@@ -21,8 +21,8 @@
             $http.post("api/addresses", address).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                console.log("There was an error saving the address." + error);
                 deferred.reject(error);
+                throw new Error("There was an error saving the address: " + error.message);
             });
             return deferred.promise;
         };
@@ -36,8 +36,8 @@
             $http.get(location).then(function (data) {
                 deferred.resolve(data.data);
             }, function (error) {
-                console.log("There was an error retrieving the address." + error);
                 deferred.reject(error);
+                throw new Error("There was an error getting the address: " + error.message);
             });
             return deferred.promise;
         };
