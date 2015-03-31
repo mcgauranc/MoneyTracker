@@ -6,7 +6,7 @@
  * Time: 16:14
  */
 
-describe('Exception handler', function () {
+describe('Decorator: $exceptionHandler', function () {
     beforeEach(module('moneyApp'));
 
     var mnyNotificationService,

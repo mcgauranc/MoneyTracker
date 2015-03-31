@@ -1,4 +1,4 @@
-describe("Directive: mny-notification", function () {
+describe("Directive: mnyNotification", function () {
     var $compile,
         $rootScope,
         $timeout,

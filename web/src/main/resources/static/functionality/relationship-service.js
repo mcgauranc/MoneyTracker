@@ -1,5 +1,6 @@
 /**
- * Created by rowan.massey on 23/12/2014.
+ * This service deals with the setting up of relationships between two entities.
+ *
  */
 
 moneyApp.service("mnyRelationshipService", ["$http", "$q", function ($http, $q) {
@@ -12,7 +13,7 @@ moneyApp.service("mnyRelationshipService", ["$http", "$q", function ($http, $q) 
      * @param parentLocation The location of the saved parent record.
      * @param childEntity The actual name of the child entity, this is used to build up the PUT request.
      * @param childLocation The location of the saved child record.
-     * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+     * @returns {*|promise}
      */
     relationshipService.associate = function (parentLocation, childEntity, childLocation) {
         //TODO: Determine if there is a way to infer the child entity name from the child location.
@@ -28,8 +29,8 @@ moneyApp.service("mnyRelationshipService", ["$http", "$q", function ($http, $q) 
         $http(request).then(function (data) {
             deferred.resolve(data);
         }, function (error) {
-            console.log("There was an error associating child record " + childLocation + " with parent record " + parentLocation + ": " + error);
             deferred.reject(error);
+            throw new Error("There was an error associating child record " + childLocation + " with parent record " + parentLocation + ": " + error.message);
         });
         return deferred.promise;
     };

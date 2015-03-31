@@ -1,4 +1,4 @@
-describe('User create controller', function () {
+describe('Controller: UserCreateController', function () {
     beforeEach(module('moneyApp'));
 
     var $rootScope,

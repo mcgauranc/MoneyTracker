@@ -6,7 +6,7 @@
  * Time: 16:14
  */
 
-describe('Notification service', function () {
+describe('Service: mnyNotificationService', function () {
     beforeEach(module("moneyApp"));
 
     var mnyNotificationService,
