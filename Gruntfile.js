@@ -22,6 +22,20 @@ module.exports = function (grunt) {
                 singleRun: false
             }
         },
+        copy: {
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'web/src/main/resources/static/',
+                        src: '**/*.png',
+                        dest: 'web/src/main/resources/static/images/',
+                        flatten: true,
+                        filter: 'isFile'
+                    }
+                ]
+            }
+        },
         wiredep: {
             target: {
                 src: "web/src/main/resources/static/index.html",
@@ -126,6 +140,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("server", ["configureProxies:server", "connect"]);
-    grunt.registerTask("dev", ["concat", "karma", "server", "watch"]);
-    grunt.registerTask("prod", ["wiredep", "jshint", "concat", "uglify"])
+    grunt.registerTask("dev", ["copy", "concat", "karma", "server", "watch"]);
+    grunt.registerTask("prod", ["copy", "wiredep", "jshint", "concat", "uglify"]);
 };
