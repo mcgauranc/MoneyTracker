@@ -16,7 +16,7 @@
          * This method saves a new instance of a account to the database.
          *
          * @param account The account object that the user wants saved to the database.
-         * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+         * @returns {*|promise}
          */
         accountService.save = function (account) {
             var deferred = $q.defer();
@@ -48,7 +48,7 @@
 
         /**
          *
-         * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+         * @returns {*|promise}
          */
         accountService.getAllAccounts = function () {
             var deferred = $q.defer();
@@ -63,7 +63,7 @@
 
         /**
          *
-         * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+         * @returns {*|promise}
          */
         accountService.getAccount = function (location) {
             var deferred = $q.defer();

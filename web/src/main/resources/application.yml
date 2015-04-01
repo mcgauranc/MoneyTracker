@@ -1,20 +1,23 @@
-spring:
-  application.name: MoneyTracker
-  profiles.active: development
-
 server:
   address: 127.0.0.1
   port: 8080
   context-path: ""
 
+security:
+  basic.enabled: false
+  basic.realm: "MoneyTrack Basic Authroisation Realm"
+
 spring:
-    http:
-      encoding.charset: UTF=8
-      encoding.enabled: true
+  application.name: MoneyTracker
+  http:
+    encoding.charset: UTF=8
+    encoding.enabled: true
+
+spring:
+    profiles: production
     datasource:
         driverClassName: net.sourceforge.jtds.jdbc.Driver
-        url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak;instance=sqlexpress
-#        url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak
+        url: jdbc:jtds:sqlserver://localhost:1433/MoneyTrak
         username: sa
         password: Passw0rd
     jpa:
@@ -29,9 +32,25 @@ spring:
         hibernate.cache.use_query_cache: true
         hibernate.generate_statistics: true
 
-security:
-  basic.enabled: false
-  basic.realm: "MoneyTrack Basic Authroisation Realm"
+#spring:
+#    profiles: development
+#    datasource:
+#        driverClassName: org.hsqldb.jdbcDriver
+#        url: jdbc:hsqldb:mem:moneyTrak
+#        username: sa
+#        password:
+#    jpa:
+#      database-platform: org.hibernate.dialect.HSQLDialect
+#      show-sql: true
+#      generate-ddl: false
+#      hibernate:
+#        ddl-auto: create-drop
+#      properties:
+#        hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+#        hibernate.cache.use_second_level_cache: true
+#        hibernate.cache.use_query_cache: true
+#        hibernate.generate_statistics: true
+#
 
 #spring:
 #  batch:
