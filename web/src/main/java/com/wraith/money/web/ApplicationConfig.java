@@ -1,19 +1,31 @@
 package com.wraith.money.web;
 
-import com.wraith.money.repository.handler.*;
+import javax.servlet.MultipartConfigElement;
+
+import org.apache.catalina.servlets.WebdavServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.servlet.MultipartConfigElement;
+import com.wraith.money.repository.handler.AccountEventHandler;
+import com.wraith.money.repository.handler.AccountTypeEventHandler;
+import com.wraith.money.repository.handler.AddressEventHandler;
+import com.wraith.money.repository.handler.AuthoritiesEventHandler;
+import com.wraith.money.repository.handler.CategoryEventHandler;
+import com.wraith.money.repository.handler.CountryEventHandler;
+import com.wraith.money.repository.handler.CurrencyEventHandler;
+import com.wraith.money.repository.handler.GroupsEventHandler;
+import com.wraith.money.repository.handler.UserEventHandler;
 
 /**
  * This is the entry class to the money track application. It sets up all of the security, controllers, services etc.
@@ -38,6 +50,20 @@ public class ApplicationConfig {
         SpringApplication app = new SpringApplication(ApplicationConfig.class);
         app.run(args);
     }
+
+	/**
+	 * This bean only loads when the development profile is active, it allows for access to the database through a web page. Which
+	 * can be accessed by http://localhost:8080/console/
+	 *
+	 * @return The relevant h2 database servlet registration bean.
+	 */
+	@Bean
+	@Profile("development")
+	public ServletRegistrationBean h2Console() {
+		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebdavServlet(), "/console/*");
+		registrationBean.setLoadOnStartup(1);
+		return registrationBean;
+	}
 
     @Bean
     public RepositoryRestConfiguration restConfiguration() {
