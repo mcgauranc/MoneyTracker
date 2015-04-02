@@ -1,34 +1,21 @@
 package com.wraith.money.web.helper;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wraith.money.data.*;
+import com.wraith.money.web.dto.TransactionDto;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-
 import org.junit.Assert;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wraith.money.data.Account;
-import com.wraith.money.data.AccountType;
-import com.wraith.money.data.Address;
-import com.wraith.money.data.Authorities;
-import com.wraith.money.data.BaseEntity;
-import com.wraith.money.data.Category;
-import com.wraith.money.data.Country;
-import com.wraith.money.data.Currency;
-import com.wraith.money.data.Groups;
-import com.wraith.money.data.Payee;
-import com.wraith.money.data.Transaction;
-import com.wraith.money.data.Users;
-import com.wraith.money.web.dto.TransactionDto;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * User: rowan.massey Date: 17/10/2014 Time: 23:45
@@ -136,6 +123,8 @@ public class EntityRepositoryHelper {
 		Account account = new Account();
 		account.setName(name);
 		account.setOpeningBalance(balance);
+		account.setOpeningDate(Calendar.getInstance().getTime());
+		account.setIsFavourite(false);
 		return account;
 	}
 

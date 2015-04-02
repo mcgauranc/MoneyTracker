@@ -33,7 +33,7 @@ public class Account extends BaseEntity implements Serializable {
     private double balance;
     private Date openingDate;
     private Currency currency;
-    private Boolean isFavourite;
+    private boolean isFavourite;
     private int financialInstitution; //This is another entity;
     private double creditLimit;
     private double interestRate;
@@ -91,15 +91,15 @@ public class Account extends BaseEntity implements Serializable {
     }
 
     @Column(name = "account_favourite", nullable = false)
-    public Boolean getIsFavourite() {
+    public boolean getIsFavourite() {
         return isFavourite;
     }
 
-    public void setIsFavourite(Boolean isFavourite) {
+    public void setIsFavourite(boolean isFavourite) {
         this.isFavourite = isFavourite;
     }
 
-    @Column(name = "account_number", nullable = false)
+    @Column(name = "account_number", nullable = true)
     public String getNumber() {
         return number;
     }

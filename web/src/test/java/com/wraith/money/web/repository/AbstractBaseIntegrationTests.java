@@ -1,9 +1,8 @@
 package com.wraith.money.web.repository;
 
-import java.util.Collection;
-
-import javax.inject.Inject;
-
+import com.wraith.money.repository.*;
+import com.wraith.money.web.ApplicationConfig;
+import com.wraith.money.web.helper.EntityRepositoryHelper;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,23 +12,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.wraith.money.repository.AccountRepository;
-import com.wraith.money.repository.CategoryRepository;
-import com.wraith.money.repository.CurrencyRepository;
-import com.wraith.money.repository.PayeeRepository;
-import com.wraith.money.repository.UsersRepository;
-import com.wraith.money.web.ApplicationConfig;
-import com.wraith.money.web.helper.EntityRepositoryHelper;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
- * User: rowan.massey Date: 30/03/13 Time: 00:06
+ * This is the base class for integration testing. It uses the testing configuration.
+ *
+ * @author rowan.massey
  */
+@ActiveProfiles("testing")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationConfig.class)
 @WebAppConfiguration

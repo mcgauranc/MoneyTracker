@@ -1,6 +1,8 @@
 package com.wraith.money.repository.handler;
 
 import com.wraith.money.data.Account;
+import com.wraith.money.data.Users;
+import com.wraith.money.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
@@ -8,21 +10,33 @@ import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import javax.inject.Inject;
 
 /**
- * User: rowan.massey
- * Date: 20/04/13
- * Time: 16:00
+ * This class handles all of the events around the the account entity, and facilitates any business rules around each of
+ * the create, update and delete actions.
+ *
+ * @author rowan.massey
  */
 @RepositoryEventHandler(Account.class)
 public class AccountEventHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Inject
+    UsersRepository usersRepository;
+
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_USER'))")
     @HandleBeforeCreate
     public void beforeAccountCreate(Account account) {
         logger.debug(String.format("In before create for account '%s'", account.getName()));
+
+        Authentication authorization = SecurityContextHolder.getContext().getAuthentication();
+        Users currentUser = usersRepository.findByUserName(authorization.getName()).get(0);
+        account.setUser(currentUser);
     }
 
     @PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")

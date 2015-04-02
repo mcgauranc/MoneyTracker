@@ -4,7 +4,6 @@ server:
   context-path: ""
 
 security:
-  basic.enabled: false
   basic.realm: "MoneyTrack Basic Authroisation Realm"
 
 spring:
