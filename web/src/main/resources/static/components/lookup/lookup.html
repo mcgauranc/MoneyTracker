@@ -1,3 +1,8 @@
 <div>
-    <select title="" ng-model-options="localSearchText"></select>
+    {{searchLabel}}: <input type="text" ng-keypress="searchFunction({userName: this.text})">
+    <ul>
+        <li ng-repeat="item in searchFunction">
+            {{item.firstName + ' ' + item.lastName}}
+        </li>
+    </ul>
 </div>

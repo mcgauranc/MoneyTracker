@@ -32,5 +32,16 @@
                     vm.getUsers();
                 });
             };
+
+            /**
+             * This method facilitates the searching of users for a given user name.
+             *
+             * @param userName
+             */
+            vm.searchUser = function (userName) {
+                mnyUserService.searchUser(userName).then(function (searchResults) {
+                    vm.users = searchResults;
+                });
+            };
         }]);
 })();

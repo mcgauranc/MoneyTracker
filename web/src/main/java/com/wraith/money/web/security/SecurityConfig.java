@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import javax.inject.Inject;
 
 /**
- * COMMENTING OUT THE SECURITY FOR NOW, WILL LOOK TO IMPLEMENT JWT with OAuth2.
- *
  * User: rowan.massey Date: 14/08/2014 Time: 23:39
  */
 @Configuration

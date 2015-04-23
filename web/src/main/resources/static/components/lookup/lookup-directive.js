@@ -13,17 +13,15 @@
             restrict: "E",
             replace: true,
             scope: {
-                searchText: "=",
-                isSearching: "="
+                searchLabel: "@",
+                searchFunction: "&"
             },
             templateUrl: "components/lookup/lookup.html",
-            controller: function () {
-                $scope.localSearchText = "";
-                $scope.searchText = $scope.localSearchText;
+            controller: function ($scope) {
             },
             link: function () {
             }
-        }
+        };
     };
     moneyApp.directive("mnyLookup", mnyLookup);
 })();

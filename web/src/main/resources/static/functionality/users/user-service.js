@@ -118,5 +118,23 @@
             });
             return deferred.promise;
         };
+
+        /**
+         * This method searches for a list of users that matches the name passed in.
+         *
+         * @param userName The name of the user of whom you are searching.
+         * @returns {*}
+         */
+        userService.searchUser = function (userName) {
+            var deferred = $q.defer();
+            $http.get("api/users/search/findByUserName?userName=" + userName).then(function (data) {
+                deferred.resolve(data.data);
+            }, function (error) {
+                deferred.reject(error);
+                throw new Error("There was an error searching for user: " + error.message);
+            });
+            return deferred.promise;
+
+        };
     }]);
 })();
