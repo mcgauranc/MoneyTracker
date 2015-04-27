@@ -17,15 +17,19 @@
                 searchFunction: "&"
             },
             templateUrl: "components/lookup/lookup.html",
-            controller: function ($scope) {
-                $scope.foundUsers = {};
+            controller: function ($scope, $q) {
+                $scope.foundUsers = [];
                 $scope.searchTerm = "";
 
                 $scope.search = function () {
-                    $scope.foundUsers = $scope.searchFunction({userName: $scope.searchTerm});
+                    var defer = $q.defer();
+                    defer.resolve($scope.searchFunction({userName: $scope.searchTerm}));
+                    defer.promise.then(function (searchResults) {
+                        $scope.foundUsers = searchResults;
+                    });
                 };
             },
-            link: function () {
+            link: function ($scope) {
             }
         };
     };
