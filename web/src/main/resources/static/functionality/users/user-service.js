@@ -122,12 +122,15 @@
         /**
          * This method searches for a list of users that matches the name passed in.
          *
-         * @param userName The name of the user of whom you are searching.
+         * @param searchValue The name of the user of whom you are searching.
          * @returns {*}
          */
-        userService.searchUser = function (userName) {
+        userService.searchUser = function (searchValue) {
+            if (searchValue) {
+                searchValue = searchValue + encodeURIComponent('%');
+            }
             var deferred = $q.defer();
-            $http.get("api/users/search/findByFirstName?firstName=" + userName).then(function (data) {
+            $http.get("api/users/search/findByFirstName?firstName=" + searchValue).then(function (data) {
                 if (data.data._embedded) {
                     deferred.resolve(data.data._embedded.users);
                 }

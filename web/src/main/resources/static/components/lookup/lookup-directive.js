@@ -18,14 +18,14 @@
             },
             templateUrl: "components/lookup/lookup.html",
             controller: function ($scope, $q) {
-                $scope.foundUsers = [];
+                $scope.foundRecords = [];
                 $scope.searchTerm = "";
 
                 $scope.search = function () {
                     var defer = $q.defer();
-                    defer.resolve($scope.searchFunction({userName: $scope.searchTerm}));
+                    defer.resolve($scope.searchFunction({searchValue: $scope.searchTerm}));
                     defer.promise.then(function (searchResults) {
-                        $scope.foundUsers = searchResults;
+                        $scope.foundRecords = searchResults;
                     });
                 };
             },

@@ -17,7 +17,7 @@ public interface UsersRepository extends PagingAndSortingRepository<Users, Long>
 	List<Users> findByUserName(@Param("userName") String userName);
 
 	@RestResource
-	@Query("SELECT u FROM Users u WHERE u.firstName LIKE CONCAT('%', :firstName, '%')")
+	@Query("SELECT u FROM Users u WHERE u.firstName LIKE :firstName")
 	List<Users> findByFirstName(@Param("firstName") String firstName);
 
 	@RestResource

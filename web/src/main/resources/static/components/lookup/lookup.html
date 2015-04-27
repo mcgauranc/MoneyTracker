@@ -1,7 +1,7 @@
 <div>
     {{searchLabel}}: <input type="text" ng-model="searchTerm" ng-keyup="search()">
     <ul>
-        <li ng-repeat="item in foundUsers">
+        <li ng-repeat="item in foundRecords">
             {{item.firstName + ' ' + item.lastName}}
         </li>
     </ul>
