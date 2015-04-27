@@ -18,6 +18,12 @@
             },
             templateUrl: "components/lookup/lookup.html",
             controller: function ($scope) {
+                $scope.foundUsers = {};
+                $scope.searchTerm = "";
+
+                $scope.search = function () {
+                    $scope.foundUsers = $scope.searchFunction({userName: $scope.searchTerm});
+                };
             },
             link: function () {
             }

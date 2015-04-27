@@ -39,8 +39,8 @@
              * @param userName
              */
             vm.searchUser = function (userName) {
-                mnyUserService.searchUser(userName).then(function (searchResults) {
-                    vm.users = searchResults;
+                return mnyUserService.searchUser(userName).then(function (searchResults) {
+                    return searchResults;
                 });
             };
         }]);

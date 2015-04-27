@@ -1,7 +1,7 @@
 <div>
-    {{searchLabel}}: <input type="text" ng-keypress="searchFunction({userName: this.text})">
+    {{searchLabel}}: <input type="text" ng-model="searchTerm" ng-keyup="search()">
     <ul>
-        <li ng-repeat="item in searchFunction">
+        <li ng-repeat="item in foundUsers">
             {{item.firstName + ' ' + item.lastName}}
         </li>
     </ul>
