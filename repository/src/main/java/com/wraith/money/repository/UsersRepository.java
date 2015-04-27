@@ -1,13 +1,12 @@
 package com.wraith.money.repository;
 
-import java.util.List;
-
+import com.wraith.money.data.Users;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-import com.wraith.money.data.Users;
+import java.util.List;
 
 /**
  * User: rowan.massey Date: 24/01/13 Time: 22:01
@@ -18,7 +17,7 @@ public interface UsersRepository extends PagingAndSortingRepository<Users, Long>
 	List<Users> findByUserName(@Param("userName") String userName);
 
 	@RestResource
-	@Query("SELECT u FROM Users u WHERE u.firstName like :firstName")
+	@Query("SELECT u FROM Users u WHERE u.firstName LIKE CONCAT('%', :firstName, '%')")
 	List<Users> findByFirstName(@Param("firstName") String firstName);
 
 	@RestResource

@@ -128,7 +128,9 @@
         userService.searchUser = function (userName) {
             var deferred = $q.defer();
             $http.get("api/users/search/findByFirstName?firstName=" + userName).then(function (data) {
-                deferred.resolve(data.data._embedded.users);
+                if (data.data._embedded) {
+                    deferred.resolve(data.data._embedded.users);
+                }
             }, function (error) {
                 deferred.reject(error);
                 throw new Error("There was an error searching for user: " + error.message);
