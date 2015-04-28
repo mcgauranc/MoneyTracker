@@ -133,6 +133,8 @@
             $http.get("api/users/search/findByFirstName?firstName=" + searchValue).then(function (data) {
                 if (data.data._embedded) {
                     deferred.resolve(data.data._embedded.users);
+                } else {
+                    deferred.resolve(null);
                 }
             }, function (error) {
                 deferred.reject(error);
