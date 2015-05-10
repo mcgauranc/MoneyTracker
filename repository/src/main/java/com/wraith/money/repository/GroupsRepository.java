@@ -1,6 +1,6 @@
 package com.wraith.money.repository;
 
-import com.wraith.money.data.Groups;
+import com.wraith.money.data.entity.Groups;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;

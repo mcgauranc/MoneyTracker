@@ -1,6 +1,6 @@
 package com.wraith.money.web.repository;
 
-import com.wraith.money.data.Users;
+import com.wraith.money.data.entity.Users;
 import com.wraith.money.web.helper.EntityRepositoryHelper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;

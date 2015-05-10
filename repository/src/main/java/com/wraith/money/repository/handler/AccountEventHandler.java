@@ -1,7 +1,7 @@
 package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Account;
-import com.wraith.money.data.Users;
+import com.wraith.money.data.entity.Account;
+import com.wraith.money.data.entity.Users;
 import com.wraith.money.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

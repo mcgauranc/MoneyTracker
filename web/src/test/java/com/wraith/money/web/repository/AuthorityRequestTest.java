@@ -1,16 +1,14 @@
 package com.wraith.money.web.repository;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.wraith.money.data.entity.Authorities;
 import net.minidev.json.JSONObject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.wraith.money.data.Authorities;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: rowan.massey

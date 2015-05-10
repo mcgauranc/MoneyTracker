@@ -1,7 +1,7 @@
 package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Groups;
-import com.wraith.money.data.Users;
+import com.wraith.money.data.entity.Groups;
+import com.wraith.money.data.entity.Users;
 import com.wraith.money.repository.CountryRepository;
 import com.wraith.money.repository.GroupsRepository;
 import com.wraith.money.repository.encoding.Encoding;

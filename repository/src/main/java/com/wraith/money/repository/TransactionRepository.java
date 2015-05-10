@@ -1,6 +1,6 @@
 package com.wraith.money.repository;
 
-import com.wraith.money.data.Transaction;
+import com.wraith.money.data.entity.Transaction;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

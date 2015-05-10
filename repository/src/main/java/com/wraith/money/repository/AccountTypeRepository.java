@@ -1,6 +1,6 @@
 package com.wraith.money.repository;
 
-import com.wraith.money.data.AccountType;
+import com.wraith.money.data.entity.AccountType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

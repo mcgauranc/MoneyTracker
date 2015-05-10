@@ -1,6 +1,6 @@
 package com.wraith.money.web.processor;
 
-import com.wraith.money.data.*;
+import com.wraith.money.data.entity.*;
 import com.wraith.money.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

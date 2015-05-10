@@ -20,6 +20,9 @@
             controller: function ($scope, $q) {
                 $scope.foundRecords = [];
                 $scope.searchTerm = "";
+                $scope.displayField = [{searchField: 'firstName'}, {searchField: 'lastName'}];
+
+                $scope.displays = processDisplayFields($scope.displayField);
 
                 $scope.search = function () {
                     var defer = $q.defer();
@@ -28,6 +31,14 @@
                         $scope.foundRecords = searchResults;
                     });
                 };
+
+                function processDisplayFields(displayFields) {
+                    var show = "";
+                    for (var i in displayFields) {
+                        show += "item." + displayFields[i].searchField + " ";
+                    }
+                    return show;
+                }
             },
             link: function ($scope) {
             }

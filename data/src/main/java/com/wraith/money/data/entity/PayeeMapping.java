@@ -1,4 +1,6 @@
-package com.wraith.money.data;
+package com.wraith.money.data.entity;
+
+import com.wraith.money.data.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;

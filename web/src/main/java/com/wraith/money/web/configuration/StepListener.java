@@ -1,7 +1,7 @@
 package com.wraith.money.web.configuration;
 
 
-import com.wraith.money.data.Transaction;
+import com.wraith.money.data.entity.Transaction;
 import com.wraith.money.web.processor.MoneyTransaction;
 import org.springframework.batch.core.ItemProcessListener;
 

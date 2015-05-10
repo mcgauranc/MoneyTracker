@@ -1,8 +1,8 @@
 package com.wraith.money.web.security;
 
-import com.wraith.money.data.Authorities;
-import com.wraith.money.data.Groups;
-import com.wraith.money.data.Users;
+import com.wraith.money.data.entity.Authorities;
+import com.wraith.money.data.entity.Groups;
+import com.wraith.money.data.entity.Users;
 import com.wraith.money.repository.UsersRepository;
 import org.apache.commons.lang.BooleanUtils;
 import org.slf4j.Logger;

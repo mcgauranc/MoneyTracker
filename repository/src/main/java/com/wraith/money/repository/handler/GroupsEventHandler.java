@@ -1,6 +1,6 @@
 package com.wraith.money.repository.handler;
 
-import com.wraith.money.data.Groups;
+import com.wraith.money.data.entity.Groups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;

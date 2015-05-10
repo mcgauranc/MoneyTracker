@@ -1,9 +1,11 @@
 package com.wraith.money.web.dto;
 
+import com.wraith.money.data.entity.Transaction;
+
 import java.util.Date;
 
 /**
- * This class transforms a standard {@link com.wraith.money.data.Transaction}, that references related entities using
+ * This class transforms a standard {@link Transaction}, that references related entities using
  * http reference.
  * <p/>
  * User: rowan.massey

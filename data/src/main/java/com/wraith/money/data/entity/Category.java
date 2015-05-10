@@ -1,6 +1,7 @@
-package com.wraith.money.data;
+package com.wraith.money.data.entity;
 
 
+import com.wraith.money.data.BaseEntity;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
