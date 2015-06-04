@@ -1,8 +1,10 @@
 <div>
-    {{searchLabel}}: <input type="text" ng-model="searchTerm" ng-keyup="search()">
+    {{lookupLabel}}: <input type="text" ng-model="searchTerm" ng-keyup="search()">
     <ul>
-        <li ng-repeat="item in foundRecords">
-            {{displays}}
+        <li ng-repeat="record in foundRecords">
+            <span ng-repeat="display in lookupDisplay track by $index">
+                {{record[display]}}
+            </span>
         </li>
     </ul>
 </div>
