@@ -17,7 +17,17 @@ describe("Directive: mnyLookup", function () {
         $httpBackend = _$httpBackend_;
         $q = _$q_;
 
-        element = angular.element('<mny-lookup lookup-label="User" lookup-function="findUsers()" lookup-display="[\'firstName\']"></mny-lookup>');
+        $rootScope.findUsers = function () {
+            return [{
+                "firstName": "First",
+                "lastName": "User"
+            }, {
+                "firstName": "Second",
+                "lastName": "User"
+            }]
+        };
+
+        element = angular.element('<mny-lookup lookup-label="User" lookup-function="findUsers()" lookup-display="[\'firstName\', \'lastName\']"></mny-lookup>');
         $compile(element)($rootScope.$new());
     }));
 
@@ -44,6 +54,7 @@ describe("Directive: mnyLookup", function () {
     it("Performs search on key up", function () {
         $rootScope.$digest();
         element.find("input").triggerHandler("keyup");
+        expect(element.find("input").attr("ng-keyup")).toEqual('search()');
     });
 
 });
