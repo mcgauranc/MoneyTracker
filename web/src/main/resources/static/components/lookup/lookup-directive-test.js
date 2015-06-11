@@ -54,7 +54,7 @@ describe("Directive: mnyLookup", function () {
     it("Performs search on key up", function () {
         $rootScope.$digest();
         element.find("input").triggerHandler("keyup");
-        expect(element.find("input").attr("ng-keyup")).toEqual('search()');
+        expect(element.find("li").length).toEqual(2);
     });
 
 });
