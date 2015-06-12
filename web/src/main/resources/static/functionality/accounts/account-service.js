@@ -23,8 +23,8 @@
             $http.post("api/accounts", account).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                console.log("There was an error saving the account." + error);
                 deferred.reject(error);
+                throw new Error("There was an error saving the account: " + error.data.message);
             });
             return deferred.promise;
         };
@@ -40,23 +40,29 @@
             $http.delete(location).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                console.log("There was an error deleting the user." + error);
                 deferred.reject(error);
+                throw new Error("There was an error deleting the account: " + error.data.message);
             });
             return deferred.promise;
         };
 
         /**
+         * This method returns a list of all of the accounts defined in the database.
          *
          * @returns {*|promise}
          */
         accountService.getAllAccounts = function () {
             var deferred = $q.defer();
             $http.get("api/accounts").then(function (data) {
-                deferred.resolve(data.data._embedded.accounts);
+                if (data.data._embedded) {
+                    deferred.resolve(data.data._embedded.accounts);
+                } else {
+                    //TODO: Not too sure if this is right. Should I resolve if nothing is found?
+                    deferred.resolve();
+                }
             }, function (error) {
-                console.log("There was an error retrieving the accounts." + error);
                 deferred.reject(error);
+                throw new Error("There was an error retrieving all of the accounts: " + error.data.message);
             });
             return deferred.promise;
         };
@@ -70,8 +76,8 @@
             $http.get(location).then(function (data) {
                 deferred.resolve(data.data);
             }, function (error) {
-                console.log("There was an error retrieving the account." + error);
                 deferred.reject(error);
+                throw new Error("There was an error getting the account: " + error.data.message);
             });
             return deferred.promise;
         };
@@ -86,8 +92,8 @@
             $http.put(data).then(function (data) {
                 deferred.resolve(data.data);
             }, function (error) {
-                console.log("There was an error retrieving the user." + error);
                 deferred.reject(error);
+                throw new Error("There was an error updating the account: " + error.data.message);
             });
             return deferred.promise;
         };

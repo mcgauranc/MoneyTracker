@@ -24,7 +24,7 @@ describe("Directive: mnyLookup", function () {
             }, {
                 "firstName": "Second",
                 "lastName": "User"
-            }]
+            }];
         };
 
         element = angular.element('<mny-lookup lookup-label="User" lookup-function="findUsers()" lookup-display="[\'firstName\', \'lastName\']"></mny-lookup>');

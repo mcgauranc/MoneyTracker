@@ -20,10 +20,10 @@
              * This method gets all of the accounts from the database.
              */
             vm.getAccounts = function () {
-                mnyAccountService.getAllAccounts().then(function (userData) {
-                    accountListController.users = userData;
+                mnyAccountService.getAllAccounts().then(function (accountData) {
+                    vm.accounts = accountData;
                 }, function (error) {
-                    console.log("There was an error getting all the users: " + error);
+                    console.log("There was an error getting all the accounts: " + error);
                 });
             };
 
@@ -34,7 +34,7 @@
                 mnyAccountService.remove(location).then(function () {
                     vm.getAccounts();
                 }, function (error) {
-                    console.log("There was an error deleting the user from the database: " + error);
+                    console.log("There was an error deleting the account from the database: " + error);
                 });
             };
         }]);

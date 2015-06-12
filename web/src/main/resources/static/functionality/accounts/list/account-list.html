@@ -9,16 +9,16 @@
                 <th>Balance</th>
             </tr>
             </thead>
-            <tr ng-repeat="user in accountListController.users">
-                <td>{{user.name}}</td>
-                <td>{{user.number}}</td>
-                <td>{{user.type}}</td>
-                <td>{{user.Balance}}</td>
+            <tr ng-repeat="account in accountController.accounts">
+                <td>{{account.name}}</td>
+                <td>{{account.number}}</td>
+                <td>{{account.type}}</td>
+                <td>{{account.balance}}</td>
                 <td>
-                    <a class="btn btn-info" ui-sref="editUser({location:user._links.self.href})">
+                    <a class="btn btn-info" ui-sref="editAccount({location:user._links.self.href})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="userListController.remove(user._links.self.href)">
+                    <a class="btn btn-danger" ng-click="accountController.remove(account._links.self.href)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
@@ -28,9 +28,9 @@
 
     <div class="btn-group">
 		<span>
-			<button id="btnNewUser" name="btnNewUser" ui-sref="newUser"
+			<button id="btnNewAccount" name="btnAccountUser" ui-sref="newAccount"
                     class="btn btn-success">
-                <span class="glyphicon glyphicon-plus"></span> New User
+                <span class="glyphicon glyphicon-plus"></span> New Account
             </button>
 		</span>
     </div>

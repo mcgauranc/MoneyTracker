@@ -17,11 +17,22 @@
                     url: "/landingPage",
                     templateUrl: "functionality/landingpage/landing-page.html"
                 }).
-                state("accountList", {
-                    url: "/accountList",
+                state("accounts", {
+                    url: "/accounts",
                     controller: "AccountListController",
-                    controllerAs: "accountListController",
-                    templateUrl: "functionality/accounts/list/account-list.html"
+                    controllerAs: "accountController",
+                    templateUrl: "functionality/accounts/list/account-list.html",
+                    resolve: {
+                        accounts: function (mnyAccountService) {
+                            return mnyAccountService.getAllAccounts();
+                        }
+                    }
+                }).
+                state("newAccount", {
+                    url: "/accounts/new",
+                    templateUrl: "functionality/accounts/create/account-add.html",
+                    controller: "AccountCreateController",
+                    controllerAs: "accountController"
                 }).
                 state("users", {
                     url: "/users",
