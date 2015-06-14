@@ -125,7 +125,6 @@ public class EntityRepositoryHelper {
 		account.setName(name);
 		account.setOpeningBalance(balance);
 		account.setOpeningDate(Calendar.getInstance().getTime());
-		account.setIsFavourite(false);
 		return account;
 	}
 

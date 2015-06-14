@@ -34,10 +34,6 @@ public class Account extends BaseEntity implements Serializable {
     private double balance;
     private Date openingDate;
     private Currency currency;
-    private boolean isFavourite;
-    private int financialInstitution; //This is another entity;
-    private double creditLimit;
-    private double interestRate;
     private Users user;
 
 
@@ -91,16 +87,7 @@ public class Account extends BaseEntity implements Serializable {
         this.openingDate = openingDate;
     }
 
-    @Column(name = "account_favourite", nullable = false)
-    public boolean getIsFavourite() {
-        return isFavourite;
-    }
-
-    public void setIsFavourite(boolean isFavourite) {
-        this.isFavourite = isFavourite;
-    }
-
-    @Column(name = "account_number", nullable = true)
+    @Column(name = "account_number", nullable = false)
     public String getNumber() {
         return number;
     }
@@ -118,15 +105,6 @@ public class Account extends BaseEntity implements Serializable {
         this.balance = balance;
     }
 
-    @Column(name = "account_institution_id", nullable = false)
-    public int getFinancialInstitution() {
-        return financialInstitution;
-    }
-
-    public void setFinancialInstitution(int financialInstitution) {
-        this.financialInstitution = financialInstitution;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_user_id", nullable = false)
     public Users getUser() {
@@ -135,24 +113,6 @@ public class Account extends BaseEntity implements Serializable {
 
     public void setUser(Users user) {
         this.user = user;
-    }
-
-    @Column(name = "account_credit_limit", nullable = false)
-    public double getCreditLimit() {
-        return creditLimit;
-    }
-
-    public void setCreditLimit(double creditLimit) {
-        this.creditLimit = creditLimit;
-    }
-
-    @Column(name = "account_interest_rate", nullable = false)
-    public double getInterestRate() {
-        return interestRate;
-    }
-
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
     }
 }
 

@@ -45,6 +45,11 @@
                 var result = {};
 
                 result.name = account.name;
+                result.number = account.number;
+                result.type = account.type;
+                result.openingBalance = account.openingBalance;
+                result.balance = account.balance;
+                result.openingDate = account.openingDate;
 
                 return result;
             };

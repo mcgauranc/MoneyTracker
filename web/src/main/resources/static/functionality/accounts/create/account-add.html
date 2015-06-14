@@ -1,12 +1,57 @@
 <form id="accountAddForm" name="accountAddForm" role="form" autocomplete="off" ng-submit="addAccount()">
     <div class="form-group"
-         ng-class="{ 'has-error has-feedback': accountAddForm.txtName.$invalid && accountAddForm.txtName.$dirty,
-          'has-success has-feedback' : accountAddForm.txtName.$valid && accountAddForm.txtName.$dirty }">
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtAccountName.$invalid && accountAddForm.txtAccountName.$dirty,
+          'has-success has-feedback' : accountAddForm.txtAccountName.$valid && accountAddForm.txtAccountName.$dirty }">
         <label id="lblAccountName" class="control-label" for="txtAccountName">Account name:</label>
         <input id="txtAccountName" name="txtAccountName" class="form-control" type="text" required
                ng-model="accountController.account.accountName"/>
-        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtName.$invalid && accountAddForm.txtName.$dirty,
-        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtName.$valid && accountAddForm.txtName.$dirty}"></span>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtAccountName.$invalid && accountAddForm.txtAccountName.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtAccountName.$valid && accountAddForm.txtAccountName.$dirty}"></span>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtAccountNumber.$invalid && accountAddForm.txtAccountNumber.$dirty,
+        'has-success has-feedback' : accountAddForm.txtAccountNumber.$valid && accountAddForm.txtAccountNumber.$dirty }">
+        <label id="lblAccountNumber" class="control-label" for="txtAccountNumber">Account Number:</label>
+        <input id="txtAccountNumber" name="txtAccountNumber" class="form-control" type="text" required
+               ng-model="accountController.account.accountNumber"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtAccountNumber.$invalid && accountAddForm.txtAccountNumber.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtAccountNumber.$valid && accountAddForm.txtAccountNumber.$dirty}"></span>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtOpeningBalance.$invalid && accountAddForm.txtOpeningBalance.$dirty,
+        'has-success has-feedback' : accountAddForm.txtOpeningBalance.$valid && accountAddForm.txtOpeningBalance.$dirty }">
+        <label id="lblOpeningBalance" class="control-label" for="txtOpeningBalance">Opening Balance:</label>
+        <input id="txtOpeningBalance" name="txtOpeningBalance" class="form-control" type="text" required
+               ng-model="accountController.account.openingBalance"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtOpeningBalance.$invalid && accountAddForm.txtOpeningBalance.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtOpeningBalance.$valid && accountAddForm.txtOpeningBalance.$dirty}"></span>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtBalance.$invalid && accountAddForm.txtBalance.$dirty,
+        'has-success has-feedback' : accountAddForm.txtBalance.$valid && accountAddForm.txtBalance.$dirty }">
+        <label id="lblBalance" class="control-label" for="txtBalance">Balance:</label>
+        <input id="txtBalance" name="txtBalance" class="form-control" type="text" required
+               ng-model="accountController.account.balance"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtBalance.$invalid && accountAddForm.txtBalance.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtBalance.$valid && accountAddForm.txtBalance.$dirty}"></span>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtOpeningDate.$invalid && accountAddForm.txtOpeningDate.$dirty,
+        'has-success has-feedback' : accountAddForm.txtOpeningDate.$valid && accountAddForm.txtOpeningDate.$dirty }">
+        <label id="lblOpeningDate" class="control-label" for="txtOpeningDate">Opening Date:</label>
+        <input id="txtOpeningDate" name="txtOpeningDate" class="form-control" type="date" required
+               ng-model="accountController.account.openingDate"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtOpeningDate.$invalid && accountAddForm.txtOpeningDate.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtOpeningDate.$valid && accountAddForm.txtOpeningDate.$dirty}"></span>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error has-feedback': accountAddForm.txtCurrency.$invalid && accountAddForm.txtCurrency.$dirty,
+        'has-success has-feedback' : accountAddForm.txtCurrency.$valid && accountAddForm.txtCurrency.$dirty }">
+        <label id="lblCurrency" class="control-label" for="txtCurrency">Currency:</label>
+        <input id="txtCurrency" name="txtCurrency" class="form-control" type="text" required
+               ng-model="accountController.account.currency"/>
+        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtCurrency.$invalid && accountAddForm.txtCurrency.$dirty,
+        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtCurrency.$valid && accountAddForm.txtCurrency.$dirty}"></span>
     </div>
 
     <div class="btn-group">
