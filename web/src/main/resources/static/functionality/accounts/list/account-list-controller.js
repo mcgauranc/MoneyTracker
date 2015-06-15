@@ -22,8 +22,6 @@
             vm.getAccounts = function () {
                 mnyAccountService.getAllAccounts().then(function (accountData) {
                     vm.accounts = accountData;
-                }, function (error) {
-                    console.log("There was an error getting all the accounts: " + error);
                 });
             };
 
@@ -33,8 +31,6 @@
             vm.remove = function (location) {
                 mnyAccountService.remove(location).then(function () {
                     vm.getAccounts();
-                }, function (error) {
-                    console.log("There was an error deleting the account from the database: " + error);
                 });
             };
         }]);

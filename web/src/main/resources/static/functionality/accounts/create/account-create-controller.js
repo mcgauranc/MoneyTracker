@@ -5,7 +5,7 @@
      * This controller handles everything to do with the creation of an account screen.
      *
      * User: rowan.massey
-     * Date: 03/01/2015
+     * Date: 10/06/2015
      */
 
     moneyApp.controller("AccountCreateController", ["$scope", "$location", "mnyAccountService",
