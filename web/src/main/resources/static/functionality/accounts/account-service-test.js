@@ -177,9 +177,7 @@ describe('Service: mnyAccountService', function () {
             result = data;
         });
         $httpBackend.flush();
-        expect(result).toBeDefined();
-        expect(result._links).toBeDefined();
-        expect(result._embedded).toBeUndefined();
+        expect(result).toBeUndefined();
     });
 
     it('Should respond with an error when getting all accounts.', function () {
