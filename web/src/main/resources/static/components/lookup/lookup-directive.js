@@ -13,9 +13,9 @@
             restrict: "E",
             replace: true,
             scope: {
-                lookupLabel: "@",
                 lookupFunction: "&",
-                lookupDisplay: "="
+                lookupDisplay: "=",
+                lookupSetIdFunction: "&"
             },
             templateUrl: "components/lookup/lookup.html",
             controller: function ($scope, $q) {
@@ -27,6 +27,11 @@
                     defer.promise.then(function (searchResults) {
                         $scope.foundRecords = searchResults;
                     });
+                };
+
+                var itemClick = function (idValue) {
+                    $scope.searchTerm =
+                        $scope.lookupSetIdFunction(idValue);
                 };
             }
         };
