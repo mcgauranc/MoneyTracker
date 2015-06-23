@@ -1,10 +1,10 @@
 # MoneyTracker
 
+Build Status: [![Build Status](https://magnum.travis-ci.com/Ruaghain/MoneyTracker.svg?branch=master)](https://magnum.travis-ci.com/Ruaghain/MoneyTracker)
+
 MoneyTracker is intended to be a simple, easy to use REST based money tracking application. It will facilitate both the tracking of transactions through a web page, and it will eventually 
 facilitate the tracking of wallet expenditure, by means of a smart phone application. This application will also leverage OCR technology to read receipts and upload this to the server. 
-Following is a description of what is used within the application. For details on how to develop this project. See [Development](#development)   
-
-[![Build Status](https://magnum.travis-ci.com/Ruaghain/MoneyTracker.svg?token=41yFxNckzq4nq3Gxx8wA&branch=master)](https://magnum.travis-ci.com/Ruaghain/MoneyTracker)
+Following is a description of what is used within the application. For details on how to develop this project. See [Development](#development)
 
 ## Server
 
