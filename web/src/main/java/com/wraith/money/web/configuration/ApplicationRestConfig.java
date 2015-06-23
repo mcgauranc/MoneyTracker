@@ -3,6 +3,7 @@ package com.wraith.money.web.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import com.wraith.money.data.entity.Users;
 import com.wraith.money.web.exception.MoneyException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -29,6 +30,7 @@ public class ApplicationRestConfig extends RepositoryRestMvcConfiguration {
         super.configureRepositoryRestConfiguration(config);
         try {
             config.setBaseUri(new URI("/api"));
+            config.exposeIdsFor(Users.class);
         } catch (URISyntaxException e) {
             throw new MoneyException(e);
         }

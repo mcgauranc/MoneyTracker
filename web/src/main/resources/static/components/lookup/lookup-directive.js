@@ -12,12 +12,15 @@
         return {
             restrict: "E",
             replace: true,
+            transclude: true,
             scope: {
                 lookupDatasource: "&",
-                lookupValue: "=",
-                lookupId: "@"
+                lookupTextField: "=",
+                lookupValueField: "@"
             },
             templateUrl: "components/lookup/lookup.html",
+            link: function ($scope, element, attrs) {
+            },
             controller: function ($scope, $q) {
                 $scope.foundRecords = [];
                 $scope.searchTerm = "";
