@@ -32,6 +32,9 @@
     "sha256": "^0.2.0",
     "shelljs": "^0.2.6"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/karma start --single-run --browsers Chrome"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Ruaghain/MoneyTracker"
