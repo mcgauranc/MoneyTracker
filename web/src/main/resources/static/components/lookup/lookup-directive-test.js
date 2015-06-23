@@ -31,6 +31,15 @@ describe("Directive: mnyLookup", function () {
         $compile(element)($rootScope.$new());
     }));
 
+    it("Contains the relevant isolated scope variables, which have been correctly set", function () {
+        $rootScope.$digest();
+        expect(element.isolateScope().lookupDatasource).toBeDefined();
+        expect(element.isolateScope().lookupValue.length).toBe(2);
+        expect(element.isolateScope().lookupValue[0]).toBe("firstName");
+        expect(element.isolateScope().lookupValue[1]).toBe("lastName");
+        expect(element.isolateScope().lookupId).toBe("id");
+    });
+
     it("Replaces the element with the appropriate text for lookups", function () {
         $rootScope.$digest();
         expect(element.find("input").attr("type")).toEqual('text');

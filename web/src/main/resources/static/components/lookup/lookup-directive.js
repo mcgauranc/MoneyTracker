@@ -15,7 +15,7 @@
             scope: {
                 lookupDatasource: "&",
                 lookupValue: "=",
-                lookupId: "="
+                lookupId: "@"
             },
             templateUrl: "components/lookup/lookup.html",
             controller: function ($scope, $q) {
