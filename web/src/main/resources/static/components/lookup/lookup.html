@@ -3,7 +3,7 @@
     <ul>
         <li ng-repeat="record in foundRecords">
             <a href="#" data-id="{{record._links.self.href}}" ng-click="itemClick()">
-                <span ng-repeat="display in lookupDisplay track by $index">
+                <span ng-repeat="display in lookupValue track by $index">
                     {{record[display]}}
                 </span>
             </a>
