@@ -38,8 +38,8 @@
              *
              * @param userName
              */
-            vm.searchUser = function (userName) {
-                return mnyUserService.searchUser(userName).then(function (searchResults) {
+            vm.searchUser = function (searchValue) {
+                return mnyUserService.searchUser(searchValue).then(function (searchResults) {
                     return searchResults;
                 });
             };

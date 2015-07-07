@@ -41,7 +41,7 @@ describe("Directive: mnyLookup", function () {
             }];
         };
 
-        element = angular.element('<mny-lookup lookup-datasource="findUsers()" lookup-text-field="[\'firstName\', \'lastName\']" lookup-value-field="id"></mny-lookup>');
+        element = angular.element('<mny-lookup lookup-datasource="findUsers()" lookup-text-field="fullName" lookup-value-field="id"></mny-lookup>');
         $compile(element)($rootScope.$new());
     }));
 
@@ -49,8 +49,7 @@ describe("Directive: mnyLookup", function () {
         $rootScope.$digest();
         expect(element.isolateScope().lookupDatasource).toBeDefined();
         expect(element.isolateScope().lookupTextField.length).toBe(2);
-        expect(element.isolateScope().lookupTextField[0]).toBe("firstName");
-        expect(element.isolateScope().lookupTextField[1]).toBe("lastName");
+        expect(element.isolateScope().lookupTextField).toBe("fullName");
         expect(element.isolateScope().lookupValueField).toBe("id");
     });
 
