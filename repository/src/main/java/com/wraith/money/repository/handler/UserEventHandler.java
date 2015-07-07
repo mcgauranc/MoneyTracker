@@ -37,7 +37,7 @@ public class UserEventHandler {
 
     @HandleBeforeCreate
     public void beforeUserCreate(Users user) {
-        logger.debug(String.format("In before create for user '%s'", user.getUserFullName()));
+        logger.debug(String.format("In before create for user '%s'", user.getFullName()));
         user.setEnabled(1);
         user.setGroups(getUserRoleGroup());
         user.setPassword(getCreatedUserPassword(user.getUserName(), user.getPassword()));

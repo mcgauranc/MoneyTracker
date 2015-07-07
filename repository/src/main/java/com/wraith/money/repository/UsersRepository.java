@@ -4,6 +4,7 @@ import com.wraith.money.data.entity.Users;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * User: rowan.massey Date: 24/01/13 Time: 22:01
  */
-@RestResource(rel = "users", path = "/users")
+@RepositoryRestResource(path = "/users", collectionResourceRel = "users"/*, excerptProjection = UserProjection.class*/)
 public interface UsersRepository extends PagingAndSortingRepository<Users, Long> {
 
 	List<Users> findByUserName(@Param("userName") String userName);

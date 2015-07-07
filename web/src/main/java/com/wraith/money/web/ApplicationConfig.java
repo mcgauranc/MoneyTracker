@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -54,11 +53,6 @@ public class ApplicationConfig {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet(), "/console/*");
         registrationBean.setLoadOnStartup(1);
         return registrationBean;
-    }
-
-    @Bean
-    public RepositoryRestConfiguration restConfiguration() {
-        return new RepositoryRestConfiguration();
     }
 
     @Bean

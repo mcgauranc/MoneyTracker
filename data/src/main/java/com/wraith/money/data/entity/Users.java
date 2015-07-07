@@ -136,9 +136,8 @@ public class Users extends BaseEntity implements Serializable {
         this.accounts = accounts;
     }
 
-    @JsonIgnore
     @Transient
-    public String getUserFullName() {
+    public String getFullName() {
         return this.getFirstName().concat(" ").concat(getLastName());
     }
 }
