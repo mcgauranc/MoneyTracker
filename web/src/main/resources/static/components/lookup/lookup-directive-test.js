@@ -48,7 +48,6 @@ describe("Directive: mnyLookup", function () {
     it("Contains the relevant isolated scope variables, which have been correctly set", function () {
         $rootScope.$digest();
         expect(element.isolateScope().lookupDatasource).toBeDefined();
-        expect(element.isolateScope().lookupTextField.length).toBe(2);
         expect(element.isolateScope().lookupTextField).toBe("fullName");
         expect(element.isolateScope().lookupValueField).toBe("id");
     });
