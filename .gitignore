@@ -1,8 +1,12 @@
 !.gitkeep
+*.iml
+.idea/
+*.ipr
+*.iws
+/out/
+.idea_modules/
+atlassian-ide-plugin.xml
 node_modules/
-bower_components/
-app/vendors/
+web/src/main/resource/static/vendors
 logs/
 tmp
-.DS_Store
-.idea
