@@ -1,6 +1,7 @@
 # MoneyTracker
 
 [![Build Status](https://travis-ci.org/Ruaghain/MoneyTracker.svg?branch=master)](https://travis-ci.org/Ruaghain/MoneyTracker)
+[![Coverage Status](https://coveralls.io/repos/Ruaghain/MoneyTracker/badge.svg?branch=master&service=github)](https://coveralls.io/github/Ruaghain/MoneyTracker?branch=master)
 
 MoneyTracker is intended to be a simple, easy to use REST based money tracking application. It will facilitate both the tracking of transactions through a web page, and it will eventually 
 facilitate the tracking of wallet expenditure, by means of a smart phone application. This application will also leverage OCR technology to read receipts and upload this to the server. 
