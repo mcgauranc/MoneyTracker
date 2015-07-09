@@ -7,6 +7,7 @@
 .idea_modules/
 atlassian-ide-plugin.xml
 node_modules/
-web/src/main/resource/static/vendors
+karma_html
+web/src/main/resources/static/vendors
 logs/
 tmp
