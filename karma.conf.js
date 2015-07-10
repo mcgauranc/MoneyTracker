@@ -18,6 +18,7 @@ module.exports = function (config) {
             'vendors/angular-mocks/angular-mocks.js',
             'vendors/ngstorage/ngStorage.js',
             'vendors/angular-ui-router/release/angular-ui-router.js',
+            'vendors/angular-lookup-directive/lookup-directive.js',
             '*.js',
             'components/**/*.js',
             'functionality/**/*.js',
@@ -35,7 +36,7 @@ module.exports = function (config) {
         exclude: [],
 
 
-        // preprocess matching files before serving them to the browser
+        // pre-process matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'components/**/*.html': ['ng-html2js'],
