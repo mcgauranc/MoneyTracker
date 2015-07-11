@@ -8,13 +8,14 @@
      * Date: 10/06/2015
      */
 
-    moneyApp.controller("AccountCreateController", ["$scope", "$location", "mnyAccountService",
-        function ($scope, $location, mnyAccountService) {
+    moneyApp.controller("AccountCreateController", ["$scope", "$location", "mnyAccountService", "mnyCurrencyService",
+        function ($scope, $location, mnyAccountService, mnyCurrencyService) {
 
             var vm = this;
 
             vm.account = {};
             vm.accountLocation = "";
+            vm.currencies = {};
 
             /**
              * This method saves a new account.
@@ -23,6 +24,7 @@
                 var account = vm.getAccountDto(vm.account);
                 mnyAccountService.save(account).then(function (accountData) {
                     vm.accountLocation = accountData.headers().location;
+                    //TODO: Need to save the currency and type here if they're populated.
                     $location.path("accounts");
                 });
             };
@@ -50,9 +52,18 @@
                 result.openingBalance = account.openingBalance;
                 result.balance = account.balance;
                 result.openingDate = account.openingDate;
+                //result.currency = getCurrencyLocationFromId(account.currency);
 
                 return result;
             };
+
+            vm.getCurrencies = function () {
+                mnyCurrencyService.getAllCurrencies().then(function (currencyData) {
+                    vm.currencies = currencyData;
+                });
+            };
+
+
         }
     ]);
 })();

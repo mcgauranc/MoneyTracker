@@ -4,7 +4,7 @@
           'has-success has-feedback' : accountAddForm.txtAccountName.$valid && accountAddForm.txtAccountName.$dirty }">
         <label id="lblAccountName" class="control-label" for="txtAccountName">Account name:</label>
         <input id="txtAccountName" name="txtAccountName" class="form-control" type="text" required
-               ng-model="accountController.account.accountName"/>
+               ng-model="accountController.account.name"/>
         <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtAccountName.$invalid && accountAddForm.txtAccountName.$dirty,
         'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtAccountName.$valid && accountAddForm.txtAccountName.$dirty}"></span>
     </div>
@@ -13,7 +13,7 @@
         'has-success has-feedback' : accountAddForm.txtAccountNumber.$valid && accountAddForm.txtAccountNumber.$dirty }">
         <label id="lblAccountNumber" class="control-label" for="txtAccountNumber">Account Number:</label>
         <input id="txtAccountNumber" name="txtAccountNumber" class="form-control" type="text" required
-               ng-model="accountController.account.accountNumber"/>
+               ng-model="accountController.account.number"/>
         <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtAccountNumber.$invalid && accountAddForm.txtAccountNumber.$dirty,
         'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtAccountNumber.$valid && accountAddForm.txtAccountNumber.$dirty}"></span>
     </div>
@@ -44,14 +44,9 @@
         <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtOpeningDate.$invalid && accountAddForm.txtOpeningDate.$dirty,
         'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtOpeningDate.$valid && accountAddForm.txtOpeningDate.$dirty}"></span>
     </div>
-    <div class="form-group"
-         ng-class="{ 'has-error has-feedback': accountAddForm.txtCurrency.$invalid && accountAddForm.txtCurrency.$dirty,
-        'has-success has-feedback' : accountAddForm.txtCurrency.$valid && accountAddForm.txtCurrency.$dirty }">
-        <label id="lblCurrency" class="control-label" for="txtCurrency">Currency:</label>
-        <input id="txtCurrency" name="txtCurrency" class="form-control" type="text" required
-               ng-model="accountController.account.currency"/>
-        <span ng-class="{'glyphicon glyphicon-remove form-control-feedback': accountAddForm.txtCurrency.$invalid && accountAddForm.txtCurrency.$dirty,
-        'glyphicon glyphicon-ok form-control-feedback' : accountAddForm.txtCurrency.$valid && accountAddForm.txtCurrency.$dirty}"></span>
+    <div class="form-group">
+        <label id="lblCurrency" class="control-label">Currency:</label>
+        <custom-lookup ng-model="accountController.account.currency" lookup-value-field="id" lookup-text-field="name" lookup-datasource="accountController.getCurrencies"></custom-lookup>
     </div>
 
     <div class="btn-group">

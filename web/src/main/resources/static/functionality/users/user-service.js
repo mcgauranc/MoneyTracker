@@ -118,30 +118,5 @@
             });
             return deferred.promise;
         };
-
-        /**
-         * This method searches for a list of users that matches the name passed in.
-         *
-         * @param searchValue The name of the user of whom you are searching.
-         * @returns {*}
-         */
-        userService.searchUser = function (searchValue) {
-            if (searchValue) {
-                searchValue = encodeURIComponent('%' + searchValue + '%');
-            }
-            var deferred = $q.defer();
-            $http.get("api/users/search/findByFullName?fullName=" + searchValue).then(function (data) {
-                if (data.data._embedded) {
-                    deferred.resolve(data.data._embedded.users);
-                } else {
-                    deferred.resolve(null);
-                }
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error searching for user: " + error.message);
-            });
-            return deferred.promise;
-
-        };
     }]);
 })();

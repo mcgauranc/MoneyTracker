@@ -62,6 +62,23 @@
                         }
                     }
                 }).
+                state("currency", {
+                    url: "/currency",
+                    templateUrl: "functionality/currency/list/currency-list.html",
+                    controller: "CurrencyListController",
+                    controllerAs: "currencyController",
+                    resolve: {
+                        currencies: function (mnyCurrencyService) {
+                            return mnyCurrencyService.getAllCurrencies();
+                        }
+                    }
+                }).
+                state("newCurrency", {
+                    url: "/currency/new",
+                    templateUrl: "functionality/currency/create/currency-add.html",
+                    controller: "CurrencyCreateController",
+                    controllerAs: "currencyController"
+                }).
                 state("transactionList", {
                     url: "/transactionList",
                     templateUrl: "functionality/transactions/list/transaction-list.html",

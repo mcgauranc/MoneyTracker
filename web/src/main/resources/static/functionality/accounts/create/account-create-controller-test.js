@@ -8,8 +8,10 @@ describe('Controller: AccountCreateController', function () {
         $q,
         accountCreateController,
         mnyAccountService,
+        mnyCurrencyService,
         vm,
-        deferred;
+        deferred,
+        allCurrencies;
 
     beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
 
@@ -22,6 +24,8 @@ describe('Controller: AccountCreateController', function () {
         deferred = $q.defer();
 
         mnyAccountService = $injector.get("mnyAccountService");
+        mnyCurrencyService = $injector.get("mnyCurrencyService");
+
         accountCreateController = $controller;
 
         vm = accountCreateController('AccountCreateController', {
@@ -36,6 +40,29 @@ describe('Controller: AccountCreateController', function () {
             "balance": "2000.00",
             "openingDate": "2015-03-17T18:49:41Z"
         };
+
+        allCurrencies = {
+            "currencies": [{
+                "id": 1,
+                "name": "Euro",
+                "iso": "EUR",
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:8080/api/currencies/1"
+                    }
+                }
+            }, {
+                "id": 2,
+                "name": "British Pound",
+                "iso": "GBP",
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:8080/api/currencies/2"
+                    }
+                }
+            }]
+        };
+
     }));
 
     it('Should add a new account', function () {
@@ -73,5 +100,18 @@ describe('Controller: AccountCreateController', function () {
         expect(result.number).toBe("12345");
         expect(result.balance).toBe("2000.00");
         expect(result.openingDate).toBe("2015-03-17T18:49:41Z");
+    });
+
+    it('Should get all currencies', function () {
+        spyOn(mnyCurrencyService, "getAllCurrencies").and.returnValue(deferred.promise);
+        deferred.resolve(allCurrencies);
+
+        vm.getCurrencies();
+
+        //Need this to actually set the relevant values.
+        $rootScope.$digest();
+
+        expect(vm.currencies.currencies[0].name).toBe("Euro");
+        expect(vm.currencies.currencies[1].name).toBe("British Pound");
     });
 });
