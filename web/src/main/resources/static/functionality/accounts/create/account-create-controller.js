@@ -15,7 +15,6 @@
 
             vm.account = {};
             vm.accountLocation = "";
-            vm.currencies = {};
 
             /**
              * This method saves a new account.

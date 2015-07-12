@@ -103,15 +103,17 @@ describe('Controller: AccountCreateController', function () {
     });
 
     it('Should get all currencies', function () {
-        spyOn(mnyCurrencyService, "getAllCurrencies").and.returnValue(deferred.promise);
+        spyOn(mnyCurrencyService, "searchCurrency").and.returnValue(deferred.promise);
         deferred.resolve(allCurrencies);
-
-        vm.getCurrencies();
+        var currencies = [];
+        vm.searchCurrency().then(function (data) {
+            currencies = data;
+        });
 
         //Need this to actually set the relevant values.
         $rootScope.$digest();
 
-        expect(vm.currencies.currencies[0].name).toBe("Euro");
-        expect(vm.currencies.currencies[1].name).toBe("British Pound");
+        expect(currencies.currencies[0].name).toBe("Euro");
+        expect(currencies.currencies[1].name).toBe("British Pound");
     });
 });
