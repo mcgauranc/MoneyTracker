@@ -57,13 +57,14 @@
                 return result;
             };
 
-            vm.getCurrencies = function () {
-                mnyCurrencyService.getAllCurrencies().then(function (currencyData) {
-                    vm.currencies = currencyData;
-                });
+            /**
+             * This method searches for the typed in currency.
+             *
+             * @param currency The name of the currency which needs to be searched for.
+             */
+            vm.searchCurrency = function (currency) {
+                return mnyCurrencyService.searchCurrency(currency);
             };
-
-
         }
     ]);
 })();
