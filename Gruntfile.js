@@ -42,6 +42,26 @@ module.exports = function (grunt) {
                 options: {}
             }
         },
+        less: {
+            development: {
+                options: {
+                    compress: true,
+                    yuicompress: false,
+                    optimization: 2,
+                    cleancss: false,
+                    paths: ["web/src/main/resources/static/components/**/*.less",
+                        "web/src/main/resources/static/functionality/**/*.less"],
+                    syncImport: false,
+                    strictUnits: false,
+                    strictMath: true,
+                    strictImports: true,
+                    ieCompat: false
+                },
+                files: {
+                    "web/src/main/resources/static/<%= pkg.name %>.css": "web/src/main/resources/static/<%= pkg.name %>.less"
+                }
+            }
+        },
         concat: {
             js: {
                 options: {
@@ -54,12 +74,12 @@ module.exports = function (grunt) {
                     "!**/*-test.js"],
                 dest: "web/src/main/resources/static/<%= pkg.name %>.js"
             },
-            css: {
-                src: ["web/src/main/resources/static/*.css",
-                    "web/src/main/resources/static/components/**/*.css",
-                    "web/src/main/resources/static/functionality/**/*.css",
-                    "!web/src/main/resources/static/MoneyTracker.css"],
-                dest: 'web/src/main/resources/static/<%= pkg.name %>.css'
+            less: {
+                src: ["web/src/main/resources/static/*.less",
+                    "web/src/main/resources/static/components/**/*.less",
+                    "web/src/main/resources/static/functionality/**/*.less",
+                    "web/src/main/resources/static/vendors/angular-lookup-directive/*.less"],
+                dest: 'web/src/main/resources/static/<%= pkg.name %>.less'
             }
         },
         uglify: {
@@ -86,19 +106,33 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            options: {
-                atBegin: true,
-                livereload: true
+            livereload: {
+                options: {
+                    atBegin: true,
+                    livereload: true
+                },
+                files: ["web/src/main/resources/static/*.js",
+                    "web/src/main/resources/static/MoneyTracker.css",
+                    "web/src/main/resources/static/index.html"],
+                tasks: []
             },
-            files: ["web/src/main/resources/static/*.js",
-                "web/src/main/resources/static/index.html",
-                "web/src/main/resources/static/components/**/*.js",
-                "web/src/main/resources/static/functionality/**/*.js",
-                "web/src/main/resources/static/components/**/*.css",
-                "web/src/main/resources/static/functionality/**/*.css",
-                "!web/src/main/resources/static/MoneyTracker.js",
-                "!web/src/main/resources/static/MoneyTracker.css"],
-            tasks: ["jshint", "concat"]
+            scripts: {
+                files: ["web/src/main/resources/static/*.js",
+                    "web/src/main/resources/static/components/**/*.js",
+                    "web/src/main/resources/static/functionality/**/*.js",
+                    "!web/src/main/resources/static/MoneyTracker.js"
+                ],
+                tasks: ["jshint", "concat:js"]
+            },
+            less: {
+                files: ["web/src/main/resources/static/components/**/*.less",
+                    "web/src/main/resources/static/functionality/**/*.less",
+                    "web/src/main/resources/static/vendors/angular-lookup-directive/*.less"],
+                tasks: ["concat:less", "less"],
+                options: {
+                    nospawn: true
+                }
+            }
         },
         connect: {
             server: {
@@ -140,6 +174,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("server", ["configureProxies:server", "connect"]);
-    grunt.registerTask("dev", ["copy", "concat", "karma", "server", "watch"]);
+    grunt.registerTask("dev", ["copy", "concat", "less", "karma", "server", "watch"]);
     grunt.registerTask("prod", ["copy", "wiredep", "jshint", "concat", "uglify"]);
 };
