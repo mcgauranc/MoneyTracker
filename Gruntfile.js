@@ -73,12 +73,11 @@ module.exports = function (grunt) {
                 src: ["web/src/main/resources/static/*.js",
                     "web/src/main/resources/static/components/**/*.js",
                     "web/src/main/resources/static/functionality/**/*.js",
-                    "!web/src/main/resources/static/MoneyTracker.js",
                     "!**/*-test.js"],
                 dest: "web/src/main/resources/static/js/<%= pkg.name %>.js"
             },
             less: {
-                src: ["web/src/main/resources/static/*.less",
+                src: ["web/src/main/resources/static/css/*.less",
                     "web/src/main/resources/static/components/**/*.less",
                     "web/src/main/resources/static/functionality/**/*.less"],
                 dest: 'web/src/main/resources/static/css/<%= pkg.name %>.less'
@@ -113,7 +112,7 @@ module.exports = function (grunt) {
                     atBegin: true,
                     livereload: true
                 },
-                files: ["web/src/main/resources/static/*.js",
+                files: ["web/src/main/resources/static/js/*.js",
                     "web/src/main/resources/static/MoneyTracker.css",
                     "web/src/main/resources/static/index.html"],
                 tasks: []
@@ -121,8 +120,7 @@ module.exports = function (grunt) {
             scripts: {
                 files: ["web/src/main/resources/static/*.js",
                     "web/src/main/resources/static/components/**/*.js",
-                    "web/src/main/resources/static/functionality/**/*.js",
-                    "!web/src/main/resources/static/MoneyTracker.js"
+                    "web/src/main/resources/static/functionality/**/*.js"
                 ],
                 tasks: ["jshint", "concat:js"]
             },

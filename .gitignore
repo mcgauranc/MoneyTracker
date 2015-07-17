@@ -3,6 +3,8 @@
 .idea/
 *.ipr
 *.iws
+*.ids
+*.log
 /out/
 .idea_modules/
 atlassian-ide-plugin.xml
