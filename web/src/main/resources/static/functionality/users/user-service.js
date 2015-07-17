@@ -8,9 +8,10 @@
 (function () {
     'use strict';
 
-    moneyApp.service("mnyUserService", ['$http', '$q', function ($http, $q) {
+    moneyApp.service("mnyUserService", ["$http", "$q", "mnyBaseService", function ($http, $q, mnyBaseService) {
 
         var userService = this;
+        var PATH = "api/users";
 
         /**
          * This method checks to see if a user, with the given username exists in the database.
@@ -41,14 +42,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         userService.save = function (user) {
-            var deferred = $q.defer();
-            $http.post("api/users", user).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error saving the user: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.saveRecord(PATH, user);
         };
 
         /**
@@ -58,15 +52,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         userService.remove = function (location) {
-            var deferred = $q.defer();
-            $http.delete(location).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error deleting the user: " + error.message);
-
-            });
-            return deferred.promise;
+            return mnyBaseService.remove(location);
         };
 
         /**
@@ -75,14 +61,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         userService.getAllUsers = function () {
-            var deferred = $q.defer();
-            $http.get("api/users").then(function (data) {
-                deferred.resolve(data.data._embedded.users);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error retrieving all the users: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getAllRecords(PATH, "users");
         };
 
         /**
@@ -91,16 +70,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         userService.getUser = function (location) {
-            var deferred = $q.defer();
-            $http.get(location).then(function (data) {
-                var result = data.data;
-                result.dateOfBirth = new Date(result.dateOfBirth);
-                deferred.resolve(result);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error retrieving the user: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getRecord(location);
         };
 
         /**
@@ -109,14 +79,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         userService.updateUser = function (location, data) {
-            var deferred = $q.defer();
-            $http.put(location, data).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error updating the user: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.updateRecord(location, data);
         };
     }]);
 })();

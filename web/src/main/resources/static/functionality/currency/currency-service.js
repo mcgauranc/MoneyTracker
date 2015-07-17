@@ -8,9 +8,10 @@
 (function () {
     'use strict';
 
-    moneyApp.service("mnyCurrencyService", ['$http', '$q', function ($http, $q) {
+    moneyApp.service("mnyCurrencyService", ["$http", "$q", "mnyBaseService", function ($http, $q, mnyBaseService) {
 
         var currencyService = this;
+        var PATH = "api/currencies";
 
         /**
          * This method saves a new instance of a currency to the database.
@@ -19,14 +20,7 @@
          * @returns {*|promise}
          */
         currencyService.save = function (currency) {
-            var deferred = $q.defer();
-            $http.post("api/currencies", currency).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error saving the currency: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.saveRecord(PATH, currency);
         };
 
         /**
@@ -35,16 +29,8 @@
          * @param location The location of the currency which needs to be deleted.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-            //TODO: Could make this a general function
         currencyService.remove = function (location) {
-            var deferred = $q.defer();
-            $http.delete(location).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error deleting the currency: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.remove(location);
         };
 
         /**
@@ -53,19 +39,7 @@
          * @returns {*|promise}
          */
         currencyService.getAllCurrencies = function () {
-            var deferred = $q.defer();
-            $http.get("api/currencies").then(function (data) {
-                if (data.data._embedded) {
-                    deferred.resolve(data.data._embedded.currencies);
-                } else {
-                    //TODO: Not too sure if this is right. Should I resolve if nothing is found?
-                    deferred.resolve();
-                }
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error retrieving all of the currencies: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getAllRecords(PATH, "currencies");
         };
 
         /**
@@ -75,32 +49,18 @@
          * @returns {*|promise}
          */
         currencyService.getCurrency = function (location) {
-            var deferred = $q.defer();
-            $http.get(location).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error getting the currency: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getRecord(location);
         };
 
         /**
          * This method updates the currency, with the given payload
          *
+         * @param location The location of the record to update.
          * @param data The payload of the currency which will be updated.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-            //TODO: Could make this a general function
-        currencyService.updateCurrency = function (data) {
-            var deferred = $q.defer();
-            $http.put(data).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error updating the currency: " + error.data.message);
-            });
-            return deferred.promise;
+        currencyService.updateCurrency = function (location, data) {
+            return mnyBaseService.updateRecord(location, data);
         };
 
         /**
@@ -125,8 +85,6 @@
                 throw new Error("There was an error searching for currency: " + error.message);
             });
             return deferred.promise;
-
         };
-
     }]);
 })();

@@ -6,9 +6,10 @@
 (function () {
     'use strict';
 
-    moneyApp.service("mnyAddressService", ["$http", "$q", function ($http, $q) {
+    moneyApp.service("mnyAddressService", ["$http", "$q", "mnyBaseService", function ($http, $q, mnyBaseService) {
 
         var addressService = this;
+        var PATH = "api/addresses";
 
         /**
          * This method saves an address record, and returns the location of the saved resource.
@@ -17,14 +18,7 @@
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
         addressService.save = function (address) {
-            var deferred = $q.defer();
-            $http.post("api/addresses", address).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error saving the address: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.saveRecord(PATH, address);
         };
 
         /**
@@ -32,14 +26,7 @@
          * @param location The location of the address to retrieve.
          */
         addressService.getAddress = function (location) {
-            var deferred = $q.defer();
-            $http.get(location).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error getting the address: " + error.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getRecord(location);
         };
     }]);
 })();
