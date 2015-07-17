@@ -9,8 +9,8 @@
      */
 
     moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserService",
-        "mnyAddressService", "mnyRelationshipService",
-        function ($scope, $location, mnyUserService, mnyAddressService, mnyRelationshipService) {
+        "mnyAddressService", "mnyBaseService",
+        function ($scope, $location, mnyUserService, mnyAddressService, mnyBaseService) {
 
             var vm = this;
 
@@ -29,7 +29,7 @@
                     var address = vm.getAddressDto(vm.user);
                     mnyAddressService.save(address).then(function (addressData) {
                         vm.addressLocation = addressData.headers().location;
-                        mnyRelationshipService.associate(vm.userLocation, "address", vm.addressLocation).then(function (relationshipData) {
+                        mnyBaseService.relate(vm.userLocation, "address", vm.addressLocation).then(function (relationshipData) {
                             vm.user = {};
                         });
                     });

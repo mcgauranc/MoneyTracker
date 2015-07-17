@@ -1,0 +1,19 @@
+<form id="accountAddForm" name="accountAddForm" role="form" autocomplete="off" ng-submit="addAccountType()">
+    <div class="form-group">
+        <label id="lblAccountTypeName" class="control-label" for="txtAccountTypeName">Account Type Name:</label>
+        <input id="txtAccountTypeName" name="txtAccountTypeName" class="form-control" type="text" required
+               ng-model="accountTypeController.accountType.name"/>
+    </div>
+
+    <div class="btn-group">
+		<span>
+			<button ng-disabled="accountTypeAddForm.$invalid" id="btnSave" name="btnSave"
+                    ng-click="accountTypeController.addAccountType()"
+                    class="btn btn-success" type="submit">Save
+            </button>
+    		<button id="btnCancel" name="btnCancel" ng-click="accountTypeController.cancel()" class="btn btn-danger">
+                Cancel
+            </button>
+		</span>
+    </div>
+</form>

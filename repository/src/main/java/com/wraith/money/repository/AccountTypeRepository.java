@@ -1,7 +1,10 @@
 package com.wraith.money.repository;
 
 import com.wraith.money.data.entity.AccountType;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
 
@@ -12,5 +15,7 @@ import java.util.List;
  */
 public interface AccountTypeRepository extends PagingAndSortingRepository<AccountType, Long> {
 
-    public List<AccountType> findByName(String accountTypeName);
+    @RestResource
+    @Query("SELECT u FROM AccountType u WHERE name LIKE :name")
+    List<AccountType> findByName(@Param("name") String name);
 }

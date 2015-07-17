@@ -17,6 +17,23 @@
                     url: "/landingPage",
                     templateUrl: "functionality/landingpage/landing-page.html"
                 }).
+                state("accountTypes", {
+                    url: "/accountTypes",
+                    controller: "AccountTypeListController",
+                    controllerAs: "accountTypeController",
+                    templateUrl: "functionality/accountType/list/accountType-list.html",
+                    resolve: {
+                        accountTypes: function (mnyAccountTypeService) {
+                            return mnyAccountTypeService.getAllAccountTypes();
+                        }
+                    }
+                }).
+                state("newAccountType", {
+                    url: "/accountTypes/new",
+                    templateUrl: "functionality/accountType/create/accountType-add.html",
+                    controller: "AccountTypeCreateController",
+                    controllerAs: "accountTypeController"
+                }).
                 state("accounts", {
                     url: "/accounts",
                     controller: "AccountListController",

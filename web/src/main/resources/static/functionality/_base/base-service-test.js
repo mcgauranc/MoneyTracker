@@ -6,14 +6,14 @@
  * Time: 13:30
  */
 
-describe('Service: mnyRelationshipService', function () {
+describe('Service: mnyBaseService', function () {
     beforeEach(module('moneyApp'));
 
     var $injector,
         $httpBackend,
         $q,
         deferred,
-        mnyRelationshipService,
+        mnyBaseService,
         address,
         result,
         parentLocation,
@@ -29,7 +29,7 @@ describe('Service: mnyRelationshipService', function () {
 
         deferred = $q.defer();
 
-        mnyRelationshipService = $injector.get("mnyRelationshipService");
+        mnyBaseService = $injector.get("mnyBaseService");
 
         parentLocation = "api/users/1";
         childLocation = "api/address/1";
@@ -50,7 +50,7 @@ describe('Service: mnyRelationshipService', function () {
                 }
             }
         });
-        mnyRelationshipService.associate(parentLocation, childEntity, childLocation).then(function (data) {
+        mnyBaseService.relate(parentLocation, childEntity, childLocation).then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -62,7 +62,7 @@ describe('Service: mnyRelationshipService', function () {
     it('Should respond with an error when associating a entities between each other.', function () {
         $httpBackend.whenPUT(relationshipLocation).respond(500, '');
         expect(function () {
-            mnyRelationshipService.associate(parentLocation, childEntity, childLocation);
+            mnyBaseService.relate(parentLocation, childEntity, childLocation);
             $httpBackend.flush();
         }).toThrow();
     });

@@ -8,9 +8,10 @@
 (function () {
     'use strict';
 
-    moneyApp.service("mnyAccountService", ['$http', '$q', function ($http, $q) {
+    moneyApp.service("mnyAccountService", ["$http", "$q", "mnyBaseService", function ($http, $q, mnyBaseService) {
 
         var accountService = this;
+        var PATH = "api/accounts";
 
         /**
          * This method saves a new instance of a account to the database.
@@ -19,31 +20,17 @@
          * @returns {*|promise}
          */
         accountService.save = function (account) {
-            var deferred = $q.defer();
-            $http.post("api/accounts", account).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error saving the account: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.saveRecord(PATH, account);
         };
 
         /**
+         * This method removes the record at the given location
          *
-         * @param location
+         * @param location The location of the record.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-            //TODO: Could make this a general function
         accountService.remove = function (location) {
-            var deferred = $q.defer();
-            $http.delete(location).then(function (data) {
-                deferred.resolve(data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error deleting the account: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.remove(location);
         };
 
         /**
@@ -52,50 +39,26 @@
          * @returns {*|promise}
          */
         accountService.getAllAccounts = function () {
-            var deferred = $q.defer();
-            $http.get("api/accounts").then(function (data) {
-                if (data.data._embedded) {
-                    deferred.resolve(data.data._embedded.accounts);
-                } else {
-                    //TODO: Not too sure if this is right. Should I resolve if nothing is found?
-                    deferred.resolve();
-                }
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error retrieving all of the accounts: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getAllRecords(PATH, "accounts");
         };
 
         /**
+         * This method retrieves the account record for the given location.
          *
+         * @param location The location of the required record.
          * @returns {*|promise}
          */
         accountService.getAccount = function (location) {
-            var deferred = $q.defer();
-            $http.get(location).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error getting the account: " + error.data.message);
-            });
-            return deferred.promise;
+            return mnyBaseService.getRecord(location);
         };
 
         /**
+         * This method updates the account, for the given location.
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-            //TODO: Could make this a general function
-        accountService.updateAccount = function (data) {
-            var deferred = $q.defer();
-            $http.put(data).then(function (data) {
-                deferred.resolve(data.data);
-            }, function (error) {
-                deferred.reject(error);
-                throw new Error("There was an error updating the account: " + error.data.message);
-            });
-            return deferred.promise;
+        accountService.updateAccount = function (location, data) {
+            return mnyBaseService.updateRecord(location, data);
         };
     }]);
 })();

@@ -9,7 +9,7 @@ describe('Controller: UserCreateController', function () {
         userCreateController,
         mnyUserService,
         mnyAddressService,
-        mnyRelationshipService,
+        mnyBaseService,
         vm,
         deferred;
 
@@ -25,7 +25,7 @@ describe('Controller: UserCreateController', function () {
 
         mnyUserService = $injector.get("mnyUserService");
         mnyAddressService = $injector.get("mnyAddressService");
-        mnyRelationshipService = $injector.get("mnyRelationshipService");
+        mnyBaseService = $injector.get("mnyBaseService");
         userCreateController = $controller;
 
         vm = userCreateController('UserCreateController', {
@@ -33,7 +33,7 @@ describe('Controller: UserCreateController', function () {
             $location: $location,
             mnyUserService: mnyUserService,
             mnyAddressService: mnyAddressService,
-            mnyRelationshipService: mnyRelationshipService
+            mnyBaseService: mnyBaseService
         });
 
         vm.user = {
@@ -67,7 +67,7 @@ describe('Controller: UserCreateController', function () {
         deferred.resolve(result);
         spyOn(mnyAddressService, 'save').and.returnValue(deferred.promise);
         deferred.resolve(result);
-        spyOn(mnyRelationshipService, 'associate').and.returnValue(deferred.promise);
+        spyOn(mnyBaseService, 'relate').and.returnValue(deferred.promise);
         deferred.resolve(result);
 
         vm.addUser();
