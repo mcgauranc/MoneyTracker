@@ -78,7 +78,7 @@ module.exports = function (grunt) {
                 src: ["web/src/main/resources/static/*.less",
                     "web/src/main/resources/static/components/**/*.less",
                     "web/src/main/resources/static/functionality/**/*.less",
-                    "web/src/main/resources/static/vendors/angular-lookup-directive/*.less"],
+                    "web/src/main/resources/static/vendors/angular-lookup-directive/**/*.less"],
                 dest: 'web/src/main/resources/static/<%= pkg.name %>.less'
             }
         },
