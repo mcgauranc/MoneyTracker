@@ -39,7 +39,10 @@ module.exports = function (grunt) {
         wiredep: {
             target: {
                 src: "web/src/main/resources/static/index.html",
-                options: {}
+                options: {
+                    exclude: ["web/src/main/resources/static/vendors/angular/angular.js",
+                        "web/src/main/resources/static/vendors/angular-base64/angular-base64.js"]
+                }
             }
         },
         less: {
@@ -86,7 +89,7 @@ module.exports = function (grunt) {
             options: {
                 // the banner is inserted at the top of the output
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
-                mangle: false
+                mangle: true
             },
             dist: {
                 files: {
