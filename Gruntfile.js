@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                     ieCompat: false
                 },
                 files: {
-                    "web/src/main/resources/static/<%= pkg.name %>.css": "web/src/main/resources/static/<%= pkg.name %>.less"
+                    "web/src/main/resources/static/css/<%= pkg.name %>.css": "web/src/main/resources/static/css/<%= pkg.name %>.less"
                 }
             }
         },
@@ -75,14 +75,13 @@ module.exports = function (grunt) {
                     "web/src/main/resources/static/functionality/**/*.js",
                     "!web/src/main/resources/static/MoneyTracker.js",
                     "!**/*-test.js"],
-                dest: "web/src/main/resources/static/<%= pkg.name %>.js"
+                dest: "web/src/main/resources/static/js/<%= pkg.name %>.js"
             },
             less: {
                 src: ["web/src/main/resources/static/*.less",
                     "web/src/main/resources/static/components/**/*.less",
-                    "web/src/main/resources/static/functionality/**/*.less",
-                    "web/src/main/resources/static/vendors/angular-lookup-directive/**/*.less"],
-                dest: 'web/src/main/resources/static/<%= pkg.name %>.less'
+                    "web/src/main/resources/static/functionality/**/*.less"],
+                dest: 'web/src/main/resources/static/css/<%= pkg.name %>.less'
             }
         },
         uglify: {
