@@ -8,8 +8,8 @@
      * Date: 17/07/2015
      */
 
-    moneyApp.controller("AccountTypeCreateController", ["$scope", "$location", "mnyAccountTypeService",
-        function ($scope, $location, mnyAccountTypeService) {
+    moneyApp.controller("AccountTypeCreateController", ["$scope", "$state", "mnyAccountTypeService",
+        function ($scope, $state, mnyAccountTypeService) {
 
             var vm = this;
 
@@ -23,7 +23,7 @@
                 var accountType = vm.getAccountTypeDto(vm.accountType);
                 mnyAccountTypeService.save(accountType).then(function (accountTypeData) {
                     vm.accountTypeLocation = accountTypeData.headers().location;
-                    $location.path("accountTypes");
+                    $state.transitionTo("accountType.list");
                 });
             };
 
@@ -31,7 +31,7 @@
              * This method cancels the current operation, and redirects to the account type list page.
              */
             vm.cancel = function () {
-                $location.path("accountTypes");
+                $state.transitionTo("accountType.list");
             };
 
             /**

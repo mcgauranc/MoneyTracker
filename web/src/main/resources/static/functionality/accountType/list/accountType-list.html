@@ -9,10 +9,10 @@
             <tr ng-repeat="accountType in accountTypeController.accountTypes">
                 <td>{{accountType.name}}</td>
                 <td>
-                    <a class="btn btn-info" ui-sref="editAccountType({location:accountTypes._links.self.href})">
+                    <a class="btn btn-info" ui-sref="accountType.edit({id:accountType.id})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="accountTypeController.remove(accountTypes._links.self.href)">
+                    <a class="btn btn-danger" ng-click="accountTypeController.remove(accountType._links.self.href)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
@@ -22,7 +22,7 @@
 
     <div class="btn-group">
 		<span>
-			<button id="btnNewAccountType" name="btnNewAccountType" ui-sref="newAccountType"
+			<button id="btnNewAccountType" name="btnNewAccountType" ui-sref="accountType.new"
                     class="btn btn-success">
                 <span class="glyphicon glyphicon-plus"></span> New Account Type
             </button>

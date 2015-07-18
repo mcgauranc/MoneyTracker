@@ -17,8 +17,13 @@
                     url: "/landingPage",
                     templateUrl: "functionality/landingpage/landing-page.html"
                 }).
-                state("accountTypes", {
-                    url: "/accountTypes",
+                state("accountType", {
+                    abstract: true,
+                    url: "/accountType",
+                    templateUrl: "functionality/accountType/accountType.html"
+                }).
+                state("accountType.list", {
+                    url: "/list",
                     controller: "AccountTypeListController",
                     controllerAs: "accountTypeController",
                     templateUrl: "functionality/accountType/list/accountType-list.html",
@@ -28,11 +33,22 @@
                         }
                     }
                 }).
-                state("newAccountType", {
-                    url: "/accountTypes/new",
+                state("accountType.new", {
+                    url: "/new",
                     templateUrl: "functionality/accountType/create/accountType-add.html",
                     controller: "AccountTypeCreateController",
                     controllerAs: "accountTypeController"
+                }).
+                state("accountType.edit", {
+                    url: "/edit/:id",
+                    templateUrl: "functionality/accountType/edit/accountType-edit.html",
+                    controller: "AccountTypeEditController",
+                    controllerAs: "accountTypeController",
+                    resolve: {
+                        accountType: function (mnyAccountTypeService, $stateParams) {
+                            return mnyAccountTypeService.getAccountType($stateParams.id);
+                        }
+                    }
                 }).
                 state("accounts", {
                     url: "/accounts",

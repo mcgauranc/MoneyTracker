@@ -42,21 +42,23 @@
         /**
          * This method returns a specific account type for the given location.
          *
-         * @param location The location of the account type which will be retrieved.
+         * @param id The id of the account type which will be retrieved.
          * @returns {*|promise}
          */
-        accountTypeService.getAccountType = function (location) {
+        accountTypeService.getAccountType = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.getRecord(location);
         };
 
         /**
          * This method updates the account type, with the given payload
          *
-         * @param location The location of the record to update.
+         * @param id The id of the record to update.
          * @param data The payload of the account type which will be updated.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        accountTypeService.updateAccountType = function (location, data) {
+        accountTypeService.updateAccountType = function (id, data) {
+            var location = PATH + "/" + id;
             return mnyBaseService.updateRecord(location, data);
         };
 

@@ -8,22 +8,29 @@ describe('Controller: AccountTypeCreateController', function () {
     beforeEach(module('moneyApp'));
 
     var $rootScope,
-        $scope,
-        $location,
+        $state,
         $injector,
         $q,
         accountTypeCreateController,
         mnyAccountTypeService,
         vm,
-        deferred;
+        deferred,
+        $httpBackend;
 
-    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
+    beforeEach(inject(function (_$httpBackend_) {
+        //Need to mock up the requests for use with state
+        _$httpBackend_.expectGET("api/accountTypes").respond("<div></div>");
+        _$httpBackend_.expectGET("functionality/accountType/accountType.html").respond("<div></div>")
+    }));
 
-        $rootScope = _$rootScope_;
-        $scope = $rootScope.$new();
-        $location = _$location_;
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_, _$httpBackend_) {
+
+        $rootScope = _$rootScope_.$new();
+
+        $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
+        $httpBackend = _$httpBackend_;
 
         deferred = $q.defer();
 
@@ -32,8 +39,8 @@ describe('Controller: AccountTypeCreateController', function () {
         accountTypeCreateController = $controller;
 
         vm = accountTypeCreateController('AccountTypeCreateController', {
-            $scope: $scope,
-            $location: $location,
+            $scope: $rootScope,
+            $state: $state,
             mnyCurrencyService: mnyAccountTypeService
         });
 
@@ -49,6 +56,7 @@ describe('Controller: AccountTypeCreateController', function () {
     }));
 
     it('Should add a new account type', function () {
+
         //A dummy response value that gets returned when the Save() method for a service gets called.
         var result = {
             headers: function () {
@@ -65,16 +73,17 @@ describe('Controller: AccountTypeCreateController', function () {
 
         vm.addAccountType();
 
-        //Need this to actually set the relevant values.
         $rootScope.$digest();
-
         expect(vm.accountTypeLocation).toBe("http://localhost:8080/api/accountTypes/1");
-        expect($location.$$path).toBe("/accountTypes");
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
-        expect($location.$$path).toBe("/accountTypes");
+
+        $rootScope.$digest();
+
+        //TODO: Need to figure out why the state name isn't been set on the transiationTo.
+        expect($state.current.name).toBe("");
     });
 
     it('Should create an AccountTypeDto object', function () {

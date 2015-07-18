@@ -187,7 +187,7 @@ describe('Service: mnyAccountTypeService', function () {
 
     it('Should get an account type.', function () {
         $httpBackend.whenGET("api/accountTypes/2").respond(accountType);
-        mnyAccountTypeService.getAccountType("api/accountTypes/2").then(function (data) {
+        mnyAccountTypeService.getAccountType("2").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -215,7 +215,7 @@ describe('Service: mnyAccountTypeService', function () {
                 }
             }
         });
-        mnyAccountTypeService.updateAccountType("api/accountTypes/1", accountType).then(function (data) {
+        mnyAccountTypeService.updateAccountType("1", accountType).then(function (data) {
             result = data;
         });
         $httpBackend.flush();
