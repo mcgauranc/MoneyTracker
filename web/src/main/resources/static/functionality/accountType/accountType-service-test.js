@@ -119,7 +119,7 @@ describe('Service: mnyAccountTypeService', function () {
             }
         });
 
-        mnyAccountTypeService.remove("api/accountTypes/1").then(function (data) {
+        mnyAccountTypeService.remove("1").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -132,7 +132,7 @@ describe('Service: mnyAccountTypeService', function () {
     it('Should respond with an error when deleting an account type.', function () {
         $httpBackend.whenDELETE("api/accountTypes/1").respond(500, '');
         expect(function () {
-            mnyAccountTypeService.remove("api/accountTypes/1");
+            mnyAccountTypeService.remove("1");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -227,7 +227,7 @@ describe('Service: mnyAccountTypeService', function () {
     it('Should respond with an error when updating a account type.', function () {
         $httpBackend.whenPUT("api/accountTypes/1").respond(500, '');
         expect(function () {
-            mnyAccountTypeService.updateAccountType("api/accountTypes/1");
+            mnyAccountTypeService.updateAccountType("1", accountType);
             $httpBackend.flush();
         }).toThrow();
     });

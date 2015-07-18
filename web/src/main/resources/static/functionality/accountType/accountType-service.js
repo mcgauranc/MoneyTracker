@@ -23,10 +23,11 @@
         /**
          * This method deletes the currency for the given location.
          *
-         * @param location The location of the currency which needs to be deleted.
+         * @param id The id of the currency which needs to be deleted.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        accountTypeService.remove = function (location) {
+        accountTypeService.remove = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.remove(location);
         };
 

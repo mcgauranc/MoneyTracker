@@ -50,8 +50,13 @@
                         }
                     }
                 }).
-                state("accounts", {
-                    url: "/accounts",
+                state("account", {
+                    abstract: true,
+                    url: "/account",
+                    templateUrl: "functionality/accounts/account.html"
+                }).
+                state("account.list", {
+                    url: "/list",
                     controller: "AccountListController",
                     controllerAs: "accountController",
                     templateUrl: "functionality/accounts/list/account-list.html",
@@ -61,11 +66,22 @@
                         }
                     }
                 }).
-                state("newAccount", {
-                    url: "/accounts/new",
+                state("account.new", {
+                    url: "/new",
                     templateUrl: "functionality/accounts/create/account-add.html",
                     controller: "AccountCreateController",
                     controllerAs: "accountController"
+                }).
+                state("account.edit", {
+                    url: "/edit/:id",
+                    templateUrl: "functionality/accounts/edit/account-edit.html",
+                    controller: "AccountEditController",
+                    controllerAs: "accountController",
+                    resolve: {
+                        account: function (mnyAccountService, $stateParams) {
+                            return mnyAccountService.getAccount($stateParams.id);
+                        }
+                    }
                 }).
                 state("users", {
                     url: "/users",

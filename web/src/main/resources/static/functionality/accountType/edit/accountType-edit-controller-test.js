@@ -15,7 +15,7 @@ describe('Controller: AccountTypeEditController', function () {
     beforeEach(inject(function (_$httpBackend_) {
         //Need to mock up the requests for use with state
         _$httpBackend_.expectGET("api/accountTypes").respond("<div></div>");
-        _$httpBackend_.expectGET("functionality/accountType/accountType.html").respond("<div></div>")
+        _$httpBackend_.expectGET("functionality/accountType/accountType.html").respond("<div></div>");
     }));
 
     beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_) {

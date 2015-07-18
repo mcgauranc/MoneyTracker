@@ -1,4 +1,4 @@
-describe('Controller: AccountCreateController', function () {
+describe('Controller: AccountEditController', function () {
     beforeEach(module('moneyApp'));
 
     var $rootScope,
@@ -6,7 +6,8 @@ describe('Controller: AccountCreateController', function () {
         $state,
         $injector,
         $q,
-        accountCreateController,
+        $stateParams,
+        accountEditController,
         mnyAccountService,
         mnyCurrencyService,
         mnyAccountTypeService,
@@ -15,8 +16,8 @@ describe('Controller: AccountCreateController', function () {
         allCurrencies,
         allAccountTypes;
 
-    //Need to mock up the requests for use with state.
     beforeEach(inject(function (_$httpBackend_) {
+        //Need to mock up the requests for use with state
         _$httpBackend_.expectGET("api/accounts").respond("<div></div>");
         _$httpBackend_.expectGET("functionality/accounts/account.html").respond("<div></div>");
     }));
@@ -28,6 +29,7 @@ describe('Controller: AccountCreateController', function () {
         $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
+        $stateParams = {id: "1"};
 
         deferred = $q.defer();
 
@@ -35,21 +37,28 @@ describe('Controller: AccountCreateController', function () {
         mnyCurrencyService = $injector.get("mnyCurrencyService");
         mnyAccountTypeService = $injector.get("mnyAccountTypeService");
 
-        accountCreateController = $controller;
+        accountEditController = $controller;
 
-        vm = accountCreateController('AccountCreateController', {
-            $scope: $scope,
-            $state: $state,
-            mnyAccountService: mnyAccountService,
-            mnyCurrencyService: mnyCurrencyService,
-            mnyAccountTypeService: mnyAccountTypeService
-        });
-
-        vm.account = {
+        var account = {
             "name": "Current",
             "number": "12345",
-            "balance": "2000.00",
-            "openingDate": "2015-03-17T18:49:41Z"
+            "openingBalance": 12345.0,
+            "balance": 12234.0,
+            "openingDate": "2003-02-01T00:00:00Z",
+            "_links": {
+                "self": {
+                    "href": "http://localhost:8080/api/accounts/1"
+                },
+                "user": {
+                    "href": "http://localhost:8080/api/accounts/1/user"
+                },
+                "type": {
+                    "href": "http://localhost:8080/api/accounts/1/type"
+                },
+                "currency": {
+                    "href": "http://localhost:8080/api/accounts/1/currency"
+                }
+            }
         };
 
         allCurrencies = {
@@ -93,43 +102,39 @@ describe('Controller: AccountCreateController', function () {
                 }
             }]
         };
+
+        vm = accountEditController("AccountEditController", {
+            $scope: $scope,
+            $state: $state,
+            $stateParams: $stateParams,
+            mnyAccountService: mnyAccountService,
+            account: account
+        });
     }));
 
-    it('Should add a new account', function () {
+    it('Should update an existing account', function () {
         //A dummy response value that gets returned when the Save() method for a service gets called.
         var result = {
-            headers: function () {
-                return {
-                    location: "http://localhost:8080/api/accounts/1",
-                    expires: 0
-                };
-            }
+            location: "http://localhost:8080/accounts/1",
+            expires: 0
         };
 
         //Create spies for the relevant service functions that are called in the addUser function.
-        spyOn(mnyAccountService, 'save').and.returnValue(deferred.promise);
+        spyOn(mnyAccountService, "updateAccount").and.returnValue(deferred.promise);
         deferred.resolve(result);
 
-        vm.addAccount();
+        vm.updateAccount();
 
         //Need this to actually set the relevant values.
         $rootScope.$digest();
-
-        expect(vm.accountLocation).toBe("http://localhost:8080/api/accounts/1");
+        //TODO: Need to figure out why the state name isn't been set on the transitionTo.
         expect($state.current.name).toBe("");
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
+        //TODO: Need to figure out why the state name isn't been set on the transitionTo.
         expect($state.current.name).toBe("");
-    });
-
-    it('Should create an accountDto object', function () {
-        var result = vm.getAccountDto(vm.account);
-        expect(result.name).toBe("Current");
-        expect(result.number).toBe("12345");
-        expect(result.balance).toBe("2000.00");
-        expect(result.openingDate).toBe("2015-03-17T18:49:41Z");
     });
 
     it('Should get all currencies', function () {
@@ -161,4 +166,5 @@ describe('Controller: AccountCreateController', function () {
         expect(accountTypes.accountTypes[0].name).toBe("Credit");
         expect(accountTypes.accountTypes[1].name).toBe("Savings");
     });
+
 });

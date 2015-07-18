@@ -26,10 +26,11 @@
         /**
          * This method removes the record at the given location
          *
-         * @param location The location of the record.
+         * @param id The location of the record.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        accountService.remove = function (location) {
+        accountService.remove = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.remove(location);
         };
 
@@ -45,10 +46,11 @@
         /**
          * This method retrieves the account record for the given location.
          *
-         * @param location The location of the required record.
+         * @param id The id of the required record.
          * @returns {*|promise}
          */
-        accountService.getAccount = function (location) {
+        accountService.getAccount = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.getRecord(location);
         };
 
@@ -57,7 +59,8 @@
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        accountService.updateAccount = function (location, data) {
+        accountService.updateAccount = function (id, data) {
+            var location = PATH + "/" + id;
             return mnyBaseService.updateRecord(location, data);
         };
     }]);

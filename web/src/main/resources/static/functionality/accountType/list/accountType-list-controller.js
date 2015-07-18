@@ -26,10 +26,10 @@
             };
 
             /**
-             * This method removes the given currency from the database, for the given .
+             * This method removes the given currency from the database, for the given id .
              */
-            vm.remove = function (location) {
-                mnyAccountTypeService.remove(location).then(function () {
+            vm.remove = function (id) {
+                mnyAccountTypeService.remove(id).then(function () {
                     vm.getAccountTypes();
                 });
             };

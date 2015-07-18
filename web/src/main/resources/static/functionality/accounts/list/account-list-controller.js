@@ -28,8 +28,8 @@
             /**
              * This method removes the given account location from the database.
              */
-            vm.remove = function (location) {
-                mnyAccountService.remove(location).then(function () {
+            vm.remove = function (id) {
+                mnyAccountService.remove(id).then(function () {
                     vm.getAccounts();
                 });
             };

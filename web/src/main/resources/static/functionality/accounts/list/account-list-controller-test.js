@@ -76,7 +76,7 @@ describe("Controller: AccountListController", function () {
         spyOn(mnyAccountService, "remove").and.returnValue(deferred.promise);
         deferred.resolve(result);
 
-        vm.remove("api/account/1");
+        vm.remove("1");
 
         $rootScope.$digest();
 

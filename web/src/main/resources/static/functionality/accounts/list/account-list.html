@@ -15,10 +15,10 @@
                 <td>{{account.type}}</td>
                 <td>{{account.balance}}</td>
                 <td>
-                    <a class="btn btn-info" ui-sref="editAccount({location:user._links.self.href})">
+                    <a class="btn btn-info" ui-sref="account.edit({id:account.id})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="accountController.remove(account._links.self.href)">
+                    <a class="btn btn-danger" ng-click="accountController.remove(account.id)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
@@ -28,7 +28,7 @@
 
     <div class="btn-group">
 		<span>
-			<button id="btnNewAccount" name="btnAccountUser" ui-sref="newAccount"
+			<button id="btnNewAccount" name="btnAccountUser" ui-sref="account.new"
                     class="btn btn-success">
                 <span class="glyphicon glyphicon-plus"></span> New Account
             </button>

@@ -70,7 +70,7 @@ describe('Service: mnyAccountService', function () {
             }
         });
 
-        mnyAccountService.remove("api/accounts/1").then(function (data) {
+        mnyAccountService.remove("1").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -83,7 +83,7 @@ describe('Service: mnyAccountService', function () {
     it('Should respond with an error when deleting an account.', function () {
         $httpBackend.whenDELETE("api/accounts/1").respond(500, '');
         expect(function () {
-            mnyAccountService.remove("api/accounts/1");
+            mnyAccountService.remove("1");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -203,7 +203,7 @@ describe('Service: mnyAccountService', function () {
                 }
             }
         });
-        mnyAccountService.getAccount("api/accounts/2").then(function (data) {
+        mnyAccountService.getAccount("2").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -218,7 +218,7 @@ describe('Service: mnyAccountService', function () {
     it('Should respond with an error when getting account.', function () {
         $httpBackend.whenGET("api/accounts/2").respond(500, '');
         expect(function () {
-            mnyAccountService.getAccount("api/accounts/2");
+            mnyAccountService.getAccount("2");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -228,25 +228,25 @@ describe('Service: mnyAccountService', function () {
             data: {
                 headers: function () {
                     return {
-                        location: "http://localhost/api/accounts/1",
+                        location: "http://localhost:8080/api/accounts/1",
                         expires: 0
                     };
                 }
             }
         });
-        mnyAccountService.updateAccount("api/accounts/1", account).then(function (data) {
+        mnyAccountService.updateAccount("1", account).then(function (data) {
             result = data;
         });
         $httpBackend.flush();
 
         expect(result).toBeDefined();
-        expect(result.data.headers().location).toBe("http://localhost/api/accounts/1");
+        expect(result.data.headers().location).toBe("http://localhost:8080/api/accounts/1");
     });
 
     it('Should respond with an error when updating an account.', function () {
         $httpBackend.whenPUT("api/account/1").respond(500, '');
         expect(function () {
-            mnyAccountService.updateAccount("api/account/1");
+            mnyAccountService.updateAccount("1", account);
             $httpBackend.flush();
         }).toThrow();
     });
