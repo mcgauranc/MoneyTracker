@@ -51,14 +51,15 @@
          * @param location
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        userService.remove = function (location) {
+        userService.remove = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.remove(location);
         };
 
         /**
          * This function returns all the users from the database.
          *
-         * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
+         * @returns {*|promise}
          */
         userService.getAllUsers = function () {
             return mnyBaseService.getAllRecords(PATH, "users");
@@ -69,7 +70,8 @@
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        userService.getUser = function (location) {
+        userService.getUser = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.getRecord(location);
         };
 
@@ -78,7 +80,8 @@
          *
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        userService.updateUser = function (location, data) {
+        userService.updateUser = function (id, data) {
+            var location = PATH + "/" + id;
             return mnyBaseService.updateRecord(location, data);
         };
     }]);

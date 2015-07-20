@@ -3,7 +3,7 @@ describe('Controller: UserCreateController', function () {
 
     var $rootScope,
         $scope,
-        $location,
+        $state,
         $injector,
         $q,
         userCreateController,
@@ -13,11 +13,17 @@ describe('Controller: UserCreateController', function () {
         vm,
         deferred;
 
-    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
+    beforeEach(inject(function (_$httpBackend_) {
+        //Need to mock up the requests for use with state
+        _$httpBackend_.expectGET("api/users").respond("<div></div>");
+        _$httpBackend_.expectGET("functionality/users/user.html").respond("<div></div>");
+    }));
+
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_) {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
-        $location = _$location_;
+        $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
 
@@ -30,7 +36,7 @@ describe('Controller: UserCreateController', function () {
 
         vm = userCreateController('UserCreateController', {
             $scope: $scope,
-            $location: $location,
+            $state: $state,
             mnyUserService: mnyUserService,
             mnyAddressService: mnyAddressService,
             mnyBaseService: mnyBaseService
@@ -56,7 +62,7 @@ describe('Controller: UserCreateController', function () {
         var result = {
             headers: function () {
                 return {
-                    location: "http://localhost/test",
+                    location: "http://localhost:8080/api/users",
                     expires: 0
                 };
             }
@@ -75,14 +81,14 @@ describe('Controller: UserCreateController', function () {
         //Need this to actually set the relevant values.
         $rootScope.$digest();
 
-        expect(vm.userLocation).toBe("http://localhost/test");
-        expect(vm.addressLocation).toBe("http://localhost/test");
-        expect($location.$$path).toBe("/users");
+        expect(vm.userLocation).toBe("http://localhost:8080/api/users");
+        expect(vm.addressLocation).toBe("http://localhost:8080/api/users");
+        expect($state.current.name).toBe("");
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
-        expect($location.$$path).toBe("/users");
+        expect($state.current.name).toBe("");
     });
 
     it('Should create a userDto object', function () {

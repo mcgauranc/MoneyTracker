@@ -8,8 +8,8 @@
 (function () {
     'use strict';
 
-    moneyApp.controller("UserEditController", ["$scope", "$location", "$stateParams", "mnyUserService", "user",
-        function ($scope, $location, $stateParams, mnyUserService, user) {
+    moneyApp.controller("UserEditController", ["$scope", "$state", "$stateParams", "mnyUserService", "user",
+        function ($scope, $state, $stateParams, mnyUserService, user) {
 
             var vm = this;
             vm.user = user;
@@ -18,8 +18,8 @@
              * This method updates the user details, changed in the scope object.
              */
             vm.update = function () {
-                mnyUserService.updateUser($stateParams.location, vm.user).then(function () {
-                    $location.path("users");
+                mnyUserService.updateUser($stateParams.id, vm.user).then(function () {
+                    $state.transitionTo("user.list");
                 });
             };
 
@@ -27,7 +27,7 @@
              * This method cancels the current operation.
              */
             vm.cancel = function () {
-                $location.path("users");
+                $state.transitionTo("user.list");
             };
         }]);
 })();

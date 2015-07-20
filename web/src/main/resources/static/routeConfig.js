@@ -83,8 +83,13 @@
                         }
                     }
                 }).
-                state("users", {
-                    url: "/users",
+                state("user", {
+                    abstract: true,
+                    url: "/user",
+                    templateUrl: "functionality/users/user.html"
+                }).
+                state("user.list", {
+                    url: "/list",
                     templateUrl: "functionality/users/list/user-list.html",
                     controller: "UserListController",
                     controllerAs: "userController",
@@ -94,20 +99,20 @@
                         }
                     }
                 }).
-                state("newUser", {
-                    url: "/users/new",
+                state("user.new", {
+                    url: "/new",
                     templateUrl: "functionality/users/create/user-add.html",
                     controller: "UserCreateController",
                     controllerAs: "userController"
                 }).
-                state("editUser", {
-                    url: "/users/edit/{location}",
+                state("user.edit", {
+                    url: "/edit/:id",
                     templateUrl: "functionality/users/edit/user-edit.html",
                     controller: "UserEditController",
                     controllerAs: "userController",
                     resolve: {
                         user: function (mnyUserService, $stateParams) {
-                            return mnyUserService.getUser($stateParams.location);
+                            return mnyUserService.getUser($stateParams.id);
                         }
                     }
                 }).

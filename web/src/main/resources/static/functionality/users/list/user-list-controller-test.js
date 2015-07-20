@@ -3,7 +3,7 @@ describe("Controller: UserListController", function () {
 
     var $rootScope,
         $scope,
-        $location,
+        $state,
         $injector,
         $q,
         allUsers,
@@ -12,11 +12,11 @@ describe("Controller: UserListController", function () {
         vm,
         deferred;
 
-    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_) {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
-        $location = _$location_;
+        $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
 
@@ -72,7 +72,7 @@ describe("Controller: UserListController", function () {
 
         vm = userListController("UserListController", {
             $scope: $scope,
-            $location: $location,
+            $state: $state,
             mnyUserService: mnyUserService,
             users: allUsers
         });
@@ -105,7 +105,7 @@ describe("Controller: UserListController", function () {
         spyOn(mnyUserService, "remove").and.returnValue(deferred.promise);
         deferred.resolve(result);
 
-        vm.remove("api/user/1");
+        vm.remove("1");
 
         $rootScope.$digest();
 

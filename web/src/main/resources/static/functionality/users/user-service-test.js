@@ -118,7 +118,7 @@ describe('Service: mnyUserService', function () {
             }
         });
 
-        mnyUserService.remove("api/users/1").then(function (data) {
+        mnyUserService.remove("1").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -131,7 +131,7 @@ describe('Service: mnyUserService', function () {
     it('Should respond with an error when deleting a user.', function () {
         $httpBackend.whenDELETE("api/users/1").respond(500, '');
         expect(function () {
-            mnyUserService.remove("api/users/1");
+            mnyUserService.remove("1");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -199,7 +199,7 @@ describe('Service: mnyUserService', function () {
             }
         });
 
-        mnyUserService.getAllUsers("api/users").then(function (data) {
+        mnyUserService.getAllUsers().then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -226,7 +226,7 @@ describe('Service: mnyUserService', function () {
     it('Should respond with an error when getting all users.', function () {
         $httpBackend.whenGET("api/users").respond(500, '');
         expect(function () {
-            mnyUserService.getAllUsers("api/users");
+            mnyUserService.getAllUsers();
             $httpBackend.flush();
         }).toThrow();
     });
@@ -253,7 +253,7 @@ describe('Service: mnyUserService', function () {
                 }
             }
         });
-        mnyUserService.getUser("api/users/2").then(function (data) {
+        mnyUserService.getUser("2").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -269,7 +269,7 @@ describe('Service: mnyUserService', function () {
     it('Should respond with an error when getting user.', function () {
         $httpBackend.whenGET("api/users/2").respond(500, '');
         expect(function () {
-            mnyUserService.getUser("api/users/2");
+            mnyUserService.getUser("2");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -285,7 +285,7 @@ describe('Service: mnyUserService', function () {
                 }
             }
         });
-        mnyUserService.updateUser("api/users/1", user).then(function (data) {
+        mnyUserService.updateUser("1", user).then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -297,7 +297,7 @@ describe('Service: mnyUserService', function () {
     it('Should respond with an error when updating a user.', function () {
         $httpBackend.whenPUT("api/users/1").respond(500, '');
         expect(function () {
-            mnyUserService.updateUser("api/users/1");
+            mnyUserService.updateUser("1", user);
             $httpBackend.flush();
         }).toThrow();
     });

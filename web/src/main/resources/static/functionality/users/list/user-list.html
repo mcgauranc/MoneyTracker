@@ -14,10 +14,10 @@
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
                 <td>
-                    <a class="btn btn-info" ui-sref="editUser({location:user._links.self.href})">
+                    <a class="btn btn-info" ui-sref="user.edit({id:user.id})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="userController.remove(user._links.self.href)">
+                    <a class="btn btn-danger" ng-click="userController.remove(user.id)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
@@ -27,7 +27,7 @@
 
     <div class="btn-group">
 		<span>
-			<button id="btnNewUser" name="btnNewUser" ui-sref="newUser"
+			<button id="btnNewUser" name="btnNewUser" ui-sref="user.new"
                     class="btn btn-success">
                 <span class="glyphicon glyphicon-plus"></span> New User
             </button>

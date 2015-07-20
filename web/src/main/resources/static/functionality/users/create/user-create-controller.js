@@ -8,9 +8,9 @@
      * Date: 03/01/2015
      */
 
-    moneyApp.controller("UserCreateController", ["$scope", "$location", "mnyUserService",
+    moneyApp.controller("UserCreateController", ["$scope", "$state", "mnyUserService",
         "mnyAddressService", "mnyBaseService",
-        function ($scope, $location, mnyUserService, mnyAddressService, mnyBaseService) {
+        function ($scope, $state, mnyUserService, mnyAddressService, mnyBaseService) {
 
             var vm = this;
 
@@ -33,7 +33,7 @@
                             vm.user = {};
                         });
                     });
-                    $location.path("users");
+                    $state.transitionTo("user.list");
                 });
             };
 
@@ -41,7 +41,7 @@
              * This method cancels the current operation, and redirects to the users page.
              */
             vm.cancel = function () {
-                $location.path("users");
+                $state.transitionTo("user.list");
             };
 
             /**

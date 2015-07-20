@@ -27,8 +27,8 @@
             /**
              * This method removes the given user location from the database.
              */
-            vm.remove = function (location) {
-                mnyUserService.remove(location).then(function () {
+            vm.remove = function (id) {
+                mnyUserService.remove(id).then(function () {
                     vm.getUsers();
                 });
             };

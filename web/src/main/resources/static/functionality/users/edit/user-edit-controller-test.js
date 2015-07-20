@@ -3,7 +3,7 @@ describe('Controller: UserEditController', function () {
 
     var $rootScope,
         $scope,
-        $location,
+        $state,
         $injector,
         $q,
         $stateParams,
@@ -12,14 +12,20 @@ describe('Controller: UserEditController', function () {
         vm,
         deferred;
 
-    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
+    beforeEach(inject(function (_$httpBackend_) {
+        //Need to mock up the requests for use with state
+        _$httpBackend_.expectGET("api/users").respond("<div></div>");
+        _$httpBackend_.expectGET("functionality/users/user.html").respond("<div></div>");
+    }));
+
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_) {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
-        $location = _$location_;
+        $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
-        $stateParams = {location: "http://localhost/test"};
+        $stateParams = {id: "1"};
 
         deferred = $q.defer();
 
@@ -36,7 +42,7 @@ describe('Controller: UserEditController', function () {
 
         vm = userCreateController("UserEditController", {
             $scope: $scope,
-            $location: $location,
+            $state: $state,
             $stateParams: $stateParams,
             mnyUserService: mnyUserService,
             user: testUser
@@ -46,7 +52,7 @@ describe('Controller: UserEditController', function () {
     it('Should update an existing user', function () {
         //A dummy response value that gets returned when the Save() method for a service gets called.
         var result = {
-            location: "http://localhost/test",
+            location: "http://localhost:8080/api/users",
             expires: 0
         };
 
@@ -59,11 +65,11 @@ describe('Controller: UserEditController', function () {
         //Need this to actually set the relevant values.
         $rootScope.$digest();
 
-        expect($location.$$path).toBe("/users");
+        expect($state.current.name).toBe("");
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
-        expect($location.$$path).toBe("/users");
+        expect($state.current.name).toBe("");
     });
 });
