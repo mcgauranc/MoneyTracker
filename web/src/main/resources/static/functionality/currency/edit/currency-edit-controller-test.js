@@ -1,10 +1,4 @@
-/**
- *
- * User: rowan.massey
- * Date: 11/07/2015
- *
- */
-describe('Controller: CurrencyCreateController', function () {
+describe('Controller: CurrencyEditController', function () {
     beforeEach(module('moneyApp'));
 
     var $rootScope,
@@ -12,7 +6,8 @@ describe('Controller: CurrencyCreateController', function () {
         $state,
         $injector,
         $q,
-        currencyCreateController,
+        $stateParams,
+        currencyEditController,
         mnyCurrencyService,
         vm,
         deferred;
@@ -30,63 +25,49 @@ describe('Controller: CurrencyCreateController', function () {
         $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
+        $stateParams = {id: "1"};
 
         deferred = $q.defer();
 
         mnyCurrencyService = $injector.get("mnyCurrencyService");
+        currencyEditController = $controller;
 
-        currencyCreateController = $controller;
+        var currency = {
+            "ISO": "EUR",
+            "name": "Euro"
+        };
 
-        vm = currencyCreateController('CurrencyCreateController', {
+        vm = currencyEditController("CurrencyEditController", {
             $scope: $scope,
             $state: $state,
-            mnyCurrencyService: mnyCurrencyService
+            $stateParams: $stateParams,
+            mnyCurrencyService: mnyCurrencyService,
+            currency: currency
         });
-
-        vm.currency = {
-            "id": 1,
-            "name": "Euro",
-            "iso": "EUR",
-            "_links": {
-                "self": {
-                    "href": "http://localhost:8080/api/currencies/1"
-                }
-            }
-        };
     }));
 
-    it('Should add a new currency', function () {
+    it('Should update an existing user', function () {
         //A dummy response value that gets returned when the Save() method for a service gets called.
         var result = {
-            headers: function () {
-                return {
-                    location: "http://localhost:8080/api/currencies/1",
-                    expires: 0
-                };
-            }
+            location: "http://localhost:8080/api/currencies/1",
+            expires: 0
         };
 
         //Create spies for the relevant service functions that are called in the addUser function.
-        spyOn(mnyCurrencyService, 'save').and.returnValue(deferred.promise);
+        spyOn(mnyCurrencyService, "updateCurrency").and.returnValue(deferred.promise);
         deferred.resolve(result);
 
-        vm.addCurrency();
+        vm.update();
 
         //Need this to actually set the relevant values.
         $rootScope.$digest();
-
-        expect(vm.currencyLocation).toBe("http://localhost:8080/api/currencies/1");
+        //TODO: Need to figure out why the state name isn't been set on the transitionTo.
         expect($state.current.name).toBe("");
     });
 
     it('Should cancel the request', function () {
         vm.cancel();
+        //TODO: Need to figure out why the state name isn't been set on the transitionTo.
         expect($state.current.name).toBe("");
-    });
-
-    it('Should create a CurrencyDto object', function () {
-        var result = vm.getCurrencyDto(vm.currency);
-        expect(result.iso).toBe("EUR");
-        expect(result.name).toBe("Euro");
     });
 });

@@ -24,6 +24,7 @@ public class Currency extends BaseEntity implements Serializable {
     private String name;
     private String iso;
 
+    @NaturalId
     @Column(name = "currency_iso", nullable = false)
     public String getIso() {
         return iso;
@@ -33,7 +34,6 @@ public class Currency extends BaseEntity implements Serializable {
         this.iso = iso;
     }
 
-    @NaturalId
     @Column(name = "currency_name", nullable = false)
     public String getName() {
         return name;

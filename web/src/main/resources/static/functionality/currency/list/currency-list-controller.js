@@ -9,8 +9,8 @@
 (function () {
     'use strict';
 
-    moneyApp.controller("CurrencyListController", ["$scope", "$location", "mnyCurrencyService", "currencies",
-        function ($scope, $location, mnyCurrencyService, currencies) {
+    moneyApp.controller("CurrencyListController", ["$scope", "$state", "mnyCurrencyService", "currencies",
+        function ($scope, $state, mnyCurrencyService, currencies) {
 
             var vm = this;
 
@@ -28,8 +28,8 @@
             /**
              * This method removes the given currency from the database, for the given .
              */
-            vm.remove = function (location) {
-                mnyCurrencyService.remove(location).then(function () {
+            vm.remove = function (id) {
+                mnyCurrencyService.remove(id).then(function () {
                     vm.getCurrencies();
                 });
             };

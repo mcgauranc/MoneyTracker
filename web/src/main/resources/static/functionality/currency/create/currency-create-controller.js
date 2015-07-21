@@ -8,8 +8,8 @@
      * Date: 11/07/2015
      */
 
-    moneyApp.controller("CurrencyCreateController", ["$scope", "$location", "mnyCurrencyService",
-        function ($scope, $location, mnyCurrencyService) {
+    moneyApp.controller("CurrencyCreateController", ["$scope", "$state", "mnyCurrencyService",
+        function ($scope, $state, mnyCurrencyService) {
 
             var vm = this;
 
@@ -23,7 +23,7 @@
                 var currency = vm.getCurrencyDto(vm.currency);
                 mnyCurrencyService.save(currency).then(function (currencyData) {
                     vm.currencyLocation = currencyData.headers().location;
-                    $location.path("currency");
+                    $state.transitionTo("currency.list");
                 });
             };
 
@@ -31,7 +31,7 @@
              * This method cancels the current operation, and redirects to the currency list page.
              */
             vm.cancel = function () {
-                $location.path("currency");
+                $state.transitionTo("currency.list");
             };
 
             /**

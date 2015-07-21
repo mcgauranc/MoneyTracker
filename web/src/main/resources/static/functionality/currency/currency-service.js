@@ -29,7 +29,8 @@
          * @param location The location of the currency which needs to be deleted.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        currencyService.remove = function (location) {
+        currencyService.remove = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.remove(location);
         };
 
@@ -48,7 +49,8 @@
          * @param location The location of the currency which will be retrieved.
          * @returns {*|promise}
          */
-        currencyService.getCurrency = function (location) {
+        currencyService.getCurrency = function (id) {
+            var location = PATH + "/" + id;
             return mnyBaseService.getRecord(location);
         };
 
@@ -59,7 +61,8 @@
          * @param data The payload of the currency which will be updated.
          * @returns {promise.promise|jQuery.promise|jQuery.ready.promise}
          */
-        currencyService.updateCurrency = function (location, data) {
+        currencyService.updateCurrency = function (id, data) {
+            var location = PATH + "/" + id;
             return mnyBaseService.updateRecord(location, data);
         };
 

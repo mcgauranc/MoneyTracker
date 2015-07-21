@@ -117,7 +117,12 @@
                     }
                 }).
                 state("currency", {
+                    abstract: true,
                     url: "/currency",
+                    templateUrl: "functionality/currency/currency.html"
+                }).
+                state("currency.list", {
+                    url: "/list",
                     templateUrl: "functionality/currency/list/currency-list.html",
                     controller: "CurrencyListController",
                     controllerAs: "currencyController",
@@ -127,11 +132,22 @@
                         }
                     }
                 }).
-                state("newCurrency", {
-                    url: "/currency/new",
+                state("currency.new", {
+                    url: "/new",
                     templateUrl: "functionality/currency/create/currency-add.html",
                     controller: "CurrencyCreateController",
                     controllerAs: "currencyController"
+                }).
+                state("currency.edit", {
+                    url: "/edit/:id",
+                    templateUrl: "functionality/currency/edit/currency-edit.html",
+                    controller: "CurrencyEditController",
+                    controllerAs: "currencyController",
+                    resolve: {
+                        currency: function (mnyCurrencyService, $stateParams) {
+                            return mnyCurrencyService.getCurrency($stateParams.id);
+                        }
+                    }
                 }).
                 state("transactionList", {
                     url: "/transactionList",

@@ -11,10 +11,10 @@
                 <td>{{currency.iso}}</td>
                 <td>{{currency.name}}</td>
                 <td>
-                    <a class="btn btn-info" ui-sref="editCurrency({location:currencies._links.self.href})">
+                    <a class="btn btn-info" ui-sref="currency.edit({id:currency.id})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="currencyController.remove(currencies._links.self.href)">
+                    <a class="btn btn-danger" ng-click="currencyController.remove(currency.id)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
@@ -24,7 +24,7 @@
 
     <div class="btn-group">
 		<span>
-			<button id="btnNewCurrency" name="btnNewCurrency" ui-sref="newCurrency"
+			<button id="btnNewCurrency" name="btnNewCurrency" ui-sref="currency.new"
                     class="btn btn-success">
                 <span class="glyphicon glyphicon-plus"></span> New Currency
             </button>

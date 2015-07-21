@@ -9,7 +9,7 @@ describe("Controller: CurrencyListController", function () {
 
     var $rootScope,
         $scope,
-        $location,
+        $state,
         $injector,
         $q,
         allCurrencies,
@@ -18,11 +18,11 @@ describe("Controller: CurrencyListController", function () {
         vm,
         deferred;
 
-    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$location_, _$injector_) {
+    beforeEach(inject(function (_$rootScope_, $controller, _$q_, _$state_, _$injector_) {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
-        $location = _$location_;
+        $state = _$state_;
         $injector = _$injector_;
         $q = _$q_;
 
@@ -55,7 +55,7 @@ describe("Controller: CurrencyListController", function () {
 
         vm = currencyListController("CurrencyListController", {
             $scope: $scope,
-            $location: $location,
+            $state: $state,
             mnyCurrencyService: mnyCurrencyService,
             currencies: allCurrencies
         });

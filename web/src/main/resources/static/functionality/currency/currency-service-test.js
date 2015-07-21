@@ -115,7 +115,7 @@ describe('Service: mnyCurrencyService', function () {
             }
         });
 
-        mnyCurrencyService.remove("api/currencies/1").then(function (data) {
+        mnyCurrencyService.remove("1").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -128,7 +128,7 @@ describe('Service: mnyCurrencyService', function () {
     it('Should respond with an error when deleting a currency.', function () {
         $httpBackend.whenDELETE("api/currencies/1").respond(500, '');
         expect(function () {
-            mnyCurrencyService.remove("api/currencies/1");
+            mnyCurrencyService.remove("1");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -185,7 +185,7 @@ describe('Service: mnyCurrencyService', function () {
 
     it('Should get a currency.', function () {
         $httpBackend.whenGET("api/currencies/2").respond(currency);
-        mnyCurrencyService.getCurrency("api/currencies/2").then(function (data) {
+        mnyCurrencyService.getCurrency("2").then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -198,7 +198,7 @@ describe('Service: mnyCurrencyService', function () {
     it('Should respond with an error when getting currency.', function () {
         $httpBackend.whenGET("api/currencies/2").respond(500, '');
         expect(function () {
-            mnyCurrencyService.getCurrency("api/currencies/2");
+            mnyCurrencyService.getCurrency("2");
             $httpBackend.flush();
         }).toThrow();
     });
@@ -214,7 +214,7 @@ describe('Service: mnyCurrencyService', function () {
                 }
             }
         });
-        mnyCurrencyService.updateCurrency("api/currencies/1", currency).then(function (data) {
+        mnyCurrencyService.updateCurrency("1", currency).then(function (data) {
             result = data;
         });
         $httpBackend.flush();
@@ -226,7 +226,7 @@ describe('Service: mnyCurrencyService', function () {
     it('Should respond with an error when updating a currency.', function () {
         $httpBackend.whenPUT("api/currency/1").respond(500, '');
         expect(function () {
-            mnyCurrencyService.updateCurrency("api/currency/1");
+            mnyCurrencyService.updateCurrency("1");
             $httpBackend.flush();
         }).toThrow();
     });
