@@ -125,6 +125,7 @@ public class EntityRepositoryHelper {
 		account.setName(name);
 		account.setOpeningBalance(balance);
 		account.setOpeningDate(Calendar.getInstance().getTime());
+		account.setNumber("12345678");
 		return account;
 	}
 
