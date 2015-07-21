@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                 dest: "web/src/main/resources/static/js/<%= pkg.name %>.js"
             },
             less: {
-                src: ["web/src/main/resources/static/css/*.less",
+                src: ["web/src/main/resources/static/css/moneyTracker-theme.less",
                     "web/src/main/resources/static/components/**/*.less",
                     "web/src/main/resources/static/functionality/**/*.less"],
                 dest: 'web/src/main/resources/static/css/<%= pkg.name %>.less'
